@@ -1,7 +1,7 @@
 module.exports = {
     name: 'nggyu',
     description: 'Secret command: Never Gonna Give You Up lyrics',
-    execute: () => '```' + ["**Never Gonna Give You Up**",
+    execute: () => ["**Never Gonna Give You Up**",
         "We're no strangers to love",
         "You know the rules and so do I",
         "A full commitment's what I'm thinking of",
@@ -63,5 +63,5 @@ module.exports = {
         "Never gonna run around and desert you",
         "Never gonna make you cry",
         "Never gonna say goodbye",
-        "Never gonna tell a lie and hurt you"].join('\n') + '\n```'
+        "Never gonna tell a lie and hurt you"].join('\n')
 }
