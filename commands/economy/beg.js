@@ -6,14 +6,13 @@ module.exports = {
     aliases: ['gimmemoney'],
     usage: '!beg',
     description: 'Beg for Minco Dollars',
-    /** @param {Message} message */
-    async execute(message, args, cmd, client, profileData) {
+    async execute(message, _, cmd) {
         let money = cmd === 'gimmemoney' ? 2 : 4;
         let numberEcon = Math.floor(Math.random() * money) + 1;
         await profileModel.findOneAndUpdate({ userID: message.author.id }, {
             $inc:
                 { mincoDollars: numberEcon }
         });
-        message.channel.send(`You received ${numberEcon} Minco Dollars!`);
+        return `You received ${numberEcon} Minco Dollars!`;
     }
 }
