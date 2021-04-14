@@ -94,8 +94,9 @@ module.exports = async (client, message) => {
         }
     }
     timeStamps.set(message.author.id, currentTime);
+    let newData = await profileModel.findOne({ userID: message.author.id });
     try {
-        let t = command.execute(message, args, cmd, client, profileData);
+        let t = command.execute(message, args, cmd, client, newData);
         if (typeof t === 'string') message.channel.send(t);
     } catch (error) {
         message.react('❌')
