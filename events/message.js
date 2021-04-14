@@ -13,7 +13,7 @@ module.exports = async (client, message) => {
     try {
         if (message.guild) {
             profileData = await profileModel.findOne({ userID: message.author.id })
-            if (!profileData) {
+            if (typeof profileData == 'undefined') {
                 let profile = await profileModel.create({
                     userID: message.author.id,
                     serverID: message.guild.id,
@@ -24,7 +24,7 @@ module.exports = async (client, message) => {
                 profile.save();
             }
             guildData = await serverModel.findOne({ serverID: message.guild.id });
-            if (!guildData) {
+            if (typeof guildData == 'undefined') {
                 let serverProfile = await serverModel.create({
                     serverID: message.guild.id,
                     bannedPeople: [],
