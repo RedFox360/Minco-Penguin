@@ -1,5 +1,5 @@
 const cooldowns = new Map();
-const profileModel = require('../models/serverSchema');
+const profileModel = require('../models/profileSchema');
 const serverModel = require("../models/serverSchema");
 const Discord = require('discord.js')
 const prettyMs = require('pretty-ms')
@@ -94,9 +94,8 @@ module.exports = async (client, message) => {
         }
     }
     timeStamps.set(message.author.id, currentTime);
-    let newData = await profileModel.findOne({ userID: message.author.id });
     try {
-        let t = command.execute(message, args, cmd, client, newData);
+        let t = command.execute(message, args, cmd, client, profileData);
         if (typeof t === 'string') message.channel.send(t);
     } catch (error) {
         message.react('❌')
