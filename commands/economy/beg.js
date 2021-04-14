@@ -1,4 +1,3 @@
-const { Message } = require('discord.js');
 const profileModel = require('../../models/profileSchema');
 module.exports = {
     name: 'beg',
@@ -13,6 +12,6 @@ module.exports = {
             $inc:
                 { mincoDollars: numberEcon }
         });
-        return `You received ${numberEcon} Minco Dollars!`;
+        message.channel.send(`You received ${numberEcon} Minco Dollars!`);
     }
 }
