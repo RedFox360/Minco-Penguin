@@ -64,7 +64,7 @@ module.exports = async (client, message) => {
 
 
     if (!command) return;
-    if (guildData.bannedPeople) {
+    if (typeof guildData.bannedPeople != 'undefined') {
         for (let i = 0; i < guildData.bannedPeople.length; i++) {
             let person = guildData.bannedPeople[i];
             if (message.author.id == person) {
