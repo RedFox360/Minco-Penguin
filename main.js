@@ -1,6 +1,5 @@
 const Discord = require('discord.js')
-import { config } from "dotenv";
-config();
+require("dotenv").config();
 const client = new Discord.Client({ partials: ["MESSAGE", "CHANNEL", "REACTION"] });
 const mongoose = require('mongoose')
 client.commands = new Discord.Collection();
