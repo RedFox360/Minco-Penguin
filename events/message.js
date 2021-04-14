@@ -1,5 +1,5 @@
 const cooldowns = new Map();
-const profileModel = require('../../models/serverSchema');
+const profileModel = require('../models/serverSchema');
 const serverModel = require("../models/serverSchema");
 const Discord = require('discord.js')
 const prettyMs = require('pretty-ms')
