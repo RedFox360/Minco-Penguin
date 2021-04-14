@@ -1,4 +1,4 @@
-import { Message } from 'discord.js';
+const { Message } = require('discord.js');
 module.exports = {
     name: 'ban',
     description: '[ADMIN ONLY] Ban members',

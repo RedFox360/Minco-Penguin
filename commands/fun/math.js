@@ -1,4 +1,4 @@
-import { Message } from 'discord.js';
+const { Message } = require('discord.js');
 const profileModel = require('../../models/profileSchema')
 
 const { MessageCollector } = require('discord.js-collector');

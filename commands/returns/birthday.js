@@ -1,4 +1,4 @@
-import { Message } from 'discord.js';
+const { Message } = require('discord.js');
 const profileModel = require('../../models/profileSchema')
 
 module.exports = {

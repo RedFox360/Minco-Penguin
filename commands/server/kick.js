@@ -1,4 +1,4 @@
-import { Message } from 'discord.js';
+const { Message } = require('discord.js');
 module.exports = {
     name: 'kick',
     description: '[ADMIN ONLY] Kick members',
