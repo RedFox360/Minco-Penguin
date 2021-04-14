@@ -1,4 +1,5 @@
 const fs = require('fs');
+const message = require('../events/message');
 module.exports = (client) => {
     const categories = fs.readdirSync('./commands/').filter(file => !file.endsWith('.DS_Store'));
     for (const category of categories) {

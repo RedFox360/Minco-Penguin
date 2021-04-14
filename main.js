@@ -5,10 +5,8 @@ const mongoose = require('mongoose')
 client.commands = new Discord.Collection();
 client.events = new Discord.Collection();
 
-const command_handler = require(`./handlers/command_handler`)
-const event_handler = require(`./handlers/event_handler`)
-command_handler(client);
-event_handler(client);
+require(`./handlers/command_handler`)(client);
+require(`./handlers/event_handler`)(client);
 
 mongoose.connect(process.env.SRV, {
     useNewUrlParser: true,

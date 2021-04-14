@@ -100,7 +100,7 @@ module.exports = async (client, message) => {
     } catch (error) {
         message.react('❌')
         message.channel.send("An error occured while trying to execute this command");
-        console.log(error);
+        console.error(error);
     }
 }
 /** @param {Discord.Message} message */

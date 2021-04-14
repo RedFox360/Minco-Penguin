@@ -53,7 +53,7 @@ module.exports = {
             await helpMsg.react('⏪');
             await helpMsg.react('⏩');
         } catch (err) {
-            console.log(err);
+            console.error(err);
         }
 
         const filter = (reaction, user) => user.id === message.author.id;
