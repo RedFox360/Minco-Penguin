@@ -10,15 +10,17 @@ module.exports = {
      * @param {Discord.Client} client
      */
     async execute(message, args, _, client) {
+        var color = 'C782FE'; // light purple
         if (args.length) {
             const command = client.commands.get(args[0]);
             if (!command) return message.channel.send("Enter a valid command name");
-            message.channel.send(command.usage || command.name);
-            message.channel.send('`' + command.description + '`');
-            return;
+            let commandEmbed = new Discord.MessageEmbed()
+                .setTitle(command.usage || '!' + command.name)
+                .setDescription(command.description)
+                .setColor(color);
+            return message.channel.send(commandEmbed);
         }
         var description = 'Use the :rewind: and :fast_forward: reactions to switch between pages.\nDon\'t put **< >** in the actual commands.\n**( )** show optional arguments\n\n**Categories**:\n`INFO/USEFUL commands`\n`FUN Commands`\n`SERVER Commands`\n`RANDOM RETURN Commands`\n`ECONOMY Commands`';
-        var color = 'C782FE'; // light purple
 
         var titles = ['Minco Penguin Commands', 'INFO/USEFUL Commands', 'FUN Commands', 'SERVER Commands', 'RANDOM RETURN Commands', 'ECONOMY Commands']
         var currentPage = 0;
