@@ -88,7 +88,7 @@ module.exports = async (client, message) => {
             message.channel.send(timeEmbed).then(msg => {
                 setTimeout(() => {
                     msg.delete();
-                }, timeLeft * 1000);
+                }, timeLeft);
             });
             return;
         }
