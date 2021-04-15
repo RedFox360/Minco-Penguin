@@ -63,14 +63,12 @@ module.exports = {
                 var amount;
                 if (args[0] == 'easy') {
                     amount = 10;
-                    message.channel.send("You won 10 Minco Dollars!");
                 } else if (args[0] == 'medium') {
                     amount = 20;
-                    message.channel.send("You won 25 Minco Dollars!");
                 } else {
                     amount = 40;
-                    message.channel.send("You won 50 Minco Dollars!");
                 }
+                message.channel.send(`You won ${amount} Minco Dollars!`);
                 await profileModel.findOneAndUpdate({ userID: message.author.id }, {
                     $inc: {
                         mincoDollars: amount
