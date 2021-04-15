@@ -17,7 +17,7 @@ module.exports = {
             let confirmEmbed = new MessageEmbed()
                 .setColor('#7E78D2')
                 .setTitle("Slowmode")
-                .setDescription(`Slowmode set to ${slowmode} seconds`)
+                .setDescription(`Slowmode set to ${args.join(' ')} seconds`)
             message.channel.send(confirmEmbed)
         } else {
             return "You don't have permissions to change slowmode.";
