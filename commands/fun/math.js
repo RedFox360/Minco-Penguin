@@ -1,10 +1,11 @@
 const { Message } = require('discord.js');
 const profileModel = require('../../models/profileSchema')
+const ms = require('ms');
 module.exports = {
     name: 'math',
     description: "Sends a math question for you to solve",
     usage: '!math <easy/medium/hard> <operation>',
-    cooldown: 30,
+    cooldown: ms('5m') / 1000,
     /** @param {Message} message */
     async execute(message, args) {
         var num1, num2, result, timeLimit;
@@ -53,7 +54,9 @@ module.exports = {
         const filter = m => m.author.id == message.author.id;
         time *= 1000;
         const collector = message.channel.createMessageCollector(filter, { time });
+        var sendTimeOut = true;
         collector.on('collect', async (m) => {
+            sendTimeOut = false;
             let guess = m.content;
             if (guess == result) {
                 message.channel.send("Correct!")
@@ -79,7 +82,8 @@ module.exports = {
             collector.stop();
         });
         collector.on('end', collected => {
-            return message.reply("Timed out!");
+            if (sendTimeOut)
+                return message.reply("Timed out!");
         })
     }
 }
