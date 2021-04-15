@@ -1,7 +1,5 @@
 const { Message } = require('discord.js');
 const profileModel = require('../../models/profileSchema')
-
-const { MessageCollector } = require('discord.js-collector');
 module.exports = {
     name: 'math',
     description: "Sends a math question for you to solve",
@@ -53,7 +51,7 @@ module.exports = {
         if (args[0] == 'easy') time = 8;
         else if (args[0] == 'medium') time = 14;
         const filter = m => m.author.id == message.author.id;
-        const collector = message.channel.createMessageCollector(filter, { time });
+        const collector = message.channel.createMessageCollector(filter, { time*1000 });
         collector.on('collect', async (m) => {
             let guess = m.content;
             if (guess == result) {
