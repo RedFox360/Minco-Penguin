@@ -54,7 +54,7 @@ module.exports = {
         else if (args[0] == 'medium') time = 14;
         const filter = m => m.author.id == message.author.id;
         const collector = message.channel.createMessageCollector(filter, { time });
-        collector.on('collect', m => {
+        collector.on('collect', async (m) => {
             let guess = m.content;
             if (guess == result) {
                 message.channel.send("Correct!")
