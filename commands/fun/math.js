@@ -59,13 +59,13 @@ module.exports = {
             var amount;
             if (args[0] == 'easy') {
                 amount = 10;
-                message.channel.send("You won 10 coins!");
+                message.channel.send("You won 10 Minco Dollars!");
             } else if (args[0] == 'medium') {
                 amount = 25;
-                message.channel.send("You won 25 coins!");
+                message.channel.send("You won 25 Minco Dollars!");
             } else {
                 amount = 50;
-                message.channel.send("You won 50 coins!");
+                message.channel.send("You won 50 Minco Dollars!");
             }
             await profileModel.findOneAndUpdate({ userID: message.author.id }, {
                 $inc: {
