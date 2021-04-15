@@ -47,17 +47,17 @@ module.exports = {
         if (oper == '+') result = `${num1 + num2}`;
         else if (oper == '-') result = `${num1 - num2}`
         else if (oper == '*') result = `${num1 * num2}`
-        let botMsg = await message.channel.send(`What is ${num1} ${oper} ${num2}?`)
-        let userMessage = await MessageCollector.asyncQuestion({
-            botMessage: botMsg,
-            user: message.author.id
-        }).catch(console.error);
+        let botMsg = await message.channel.send(`What is ${num1} ${oper} ${num2}?`);
         var timeout = 12;
         if (args[0] == 'easy') timeout = 5;
         else if (args[0] == 'medium') timeout = 8;
         setTimeout(() => {
             return 'Timed out! You didn\'t solve the problem in time'
         }, timeout);
+        let userMessage = await MessageCollector.asyncQuestion({
+            botMessage: botMsg,
+            user: message.author.id
+        }).catch(console.error);
         let guess = userMessage.content;
         if (guess == result) {
             message.channel.send("Correct!")
