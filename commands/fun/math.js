@@ -77,6 +77,7 @@ module.exports = {
                     mincoDollars: amount
                 }
             });
+            return;
         }
         else return `Incorrect! The correct answer is ${result}`;
     }
