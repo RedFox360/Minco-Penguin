@@ -4,6 +4,7 @@ module.exports = {
     description: "[MANAGE CHANNELS] Changes slowmode",
     usage: '!slowmode <number>',
     execute(message, args) {
+        if (message.author.id == '769313131108237322') return "You don't have the correct permissions to execute this command";
         if (message.member.hasPermission("MANAGE_CHANNELS")) {
             if (!args.length) return "You didn't provide any arguments.";
             var slowmode;
