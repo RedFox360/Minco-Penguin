@@ -65,10 +65,10 @@ module.exports = {
                     amount = 10;
                     message.channel.send("You won 10 Minco Dollars!");
                 } else if (args[0] == 'medium') {
-                    amount = 25;
+                    amount = 20;
                     message.channel.send("You won 25 Minco Dollars!");
                 } else {
-                    amount = 50;
+                    amount = 40;
                     message.channel.send("You won 50 Minco Dollars!");
                 }
                 await profileModel.findOneAndUpdate({ userID: message.author.id }, {
