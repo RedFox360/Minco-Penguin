@@ -48,40 +48,40 @@ module.exports = {
         else if (oper == '-') result = `${num1 - num2}`
         else if (oper == '*') result = `${num1 * num2}`
         let botMsg = await message.channel.send(`What is ${num1} ${oper} ${num2}?`);
-        var keepGoing = true;
-        var timeout = 20;
-        if (args[0] == 'easy') timeout = 8;
-        else if (args[0] == 'medium') timeout = 14;
-        setTimeout(() => {
-            message.reply('Timed out! You didn\'t solve the problem in time');
-        }, timeout * 1000);
-        if (keepGoing) return;
-        let userMessage = await MessageCollector.asyncQuestion({
-            botMessage: botMsg,
-            user: message.author.id
-        }).catch(console.error);
-        let guess = userMessage.content;
-        if (guess == result) {
-            message.channel.send("Correct!")
-            var amount;
-            if (args[0] == 'easy') {
-                amount = 10;
-                message.channel.send("You won 10 Minco Dollars!");
-            } else if (args[0] == 'medium') {
-                amount = 25;
-                message.channel.send("You won 25 Minco Dollars!");
-            } else {
-                amount = 50;
-                message.channel.send("You won 50 Minco Dollars!");
-            }
-            await profileModel.findOneAndUpdate({ userID: message.author.id }, {
-                $inc: {
-                    mincoDollars: amount
+
+        var time = 20;
+        if (args[0] == 'easy') time = 8;
+        else if (args[0] == 'medium') time = 14;
+        const filter = m => m.author.id == message.author.id;
+        const collector = message.channel.createMessageCollector(filter, { time });
+        collector.on('collect', m => {
+            let guess = m.content;
+            if (guess == result) {
+                message.channel.send("Correct!")
+                var amount;
+                if (args[0] == 'easy') {
+                    amount = 10;
+                    message.channel.send("You won 10 Minco Dollars!");
+                } else if (args[0] == 'medium') {
+                    amount = 25;
+                    message.channel.send("You won 25 Minco Dollars!");
+                } else {
+                    amount = 50;
+                    message.channel.send("You won 50 Minco Dollars!");
                 }
-            });
-            return;
-        }
-        else return `Incorrect! The correct answer is ${result}`;
+                await profileModel.findOneAndUpdate({ userID: message.author.id }, {
+                    $inc: {
+                        mincoDollars: amount
+                    }
+                });
+                return;
+            }
+            else return `Incorrect! The correct answer is ${result}`;
+            collector.stop();
+        });
+        collector.on('end', collected => {
+            return message.reply("Timed out!");
+        })
     }
 }
 
