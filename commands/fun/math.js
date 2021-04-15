@@ -19,29 +19,29 @@ module.exports = {
         if (args[0] == 'easy') {
             timeLimit = 7;
             if (oper == '*') {
-                num1 = random(1, 10)
-                num2 = random(1, 10)
+                num1 = random(5, 12)
+                num2 = random(5, 12)
             } else {
-                num1 = random(10, 100)
-                num2 = random(10, 100)
+                num1 = random(50, 250)
+                num2 = random(100, 300)
             }
         } else if (args[0] == 'medium') {
             timeLimit = 15
             if (oper == '*') {
-                num1 = random(4, 16)
-                num2 = random(4, 16)
+                num1 = random(12, 20)
+                num2 = random(12, 20)
             } else {
-                num1 = random(100, 250)
-                num2 = random(75, 300)
+                num1 = random(400, 800)
+                num2 = random(400, 800)
             }
         } else {
             timeLimit = 25
             if (oper == '*') {
-                num1 = random(10, 30)
-                num2 = random(10, 30)
+                num1 = random(20, 45)
+                num2 = random(20, 45)
             } else {
-                num1 = random(200, 500)
-                num2 = random(200, 500)
+                num1 = random(600, 1200)
+                num2 = random(600, 120)
             }
         }
         if (oper == '+') result = `${num1 + num2}`;
