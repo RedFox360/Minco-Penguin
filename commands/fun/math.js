@@ -41,7 +41,7 @@ module.exports = {
                 num2 = random(20, 45)
             } else {
                 num1 = random(600, 1200)
-                num2 = random(600, 120)
+                num2 = random(600, 1200)
             }
         }
         if (oper == '+') result = `${num1 + num2}`;
