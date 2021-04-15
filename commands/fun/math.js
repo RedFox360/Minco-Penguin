@@ -53,7 +53,7 @@ module.exports = {
         if (args[0] == 'easy') timeout = 8;
         else if (args[0] == 'medium') timeout = 14;
         setTimeout(() => {
-            message.channel.send('Timed out! You didn\'t solve the problem in time');
+            message.reply('Timed out! You didn\'t solve the problem in time');
         }, timeout * 1000);
         if (keepGoing) return;
         let userMessage = await MessageCollector.asyncQuestion({
