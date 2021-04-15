@@ -52,7 +52,12 @@ module.exports = {
             botMessage: botMsg,
             user: message.author.id
         }).catch(console.error);
-
+        var timeout = 15;
+        if (args[0] == 'easy') timeout = 7;
+        else if (args[0] == 'medium') timeout = 10;
+        setTmeout(() => {
+            return 'Timed out! You didn\'t solve the problem in time'
+        }, timeout);
         let guess = userMessage.content;
         if (guess == result) {
             message.channel.send("Correct!")
