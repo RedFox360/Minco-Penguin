@@ -49,9 +49,9 @@ module.exports = {
         else if (oper == '*') result = `${num1 * num2}`
         let botMsg = await message.channel.send(`What is ${num1} ${oper} ${num2}?`);
         var keepGoing = true;
-        var timeout = 12;
-        if (args[0] == 'easy') timeout = 5;
-        else if (args[0] == 'medium') timeout = 8;
+        var timeout = 20;
+        if (args[0] == 'easy') timeout = 8;
+        else if (args[0] == 'medium') timeout = 14;
         setTimeout(() => {
             message.channel.send('Timed out! You didn\'t solve the problem in time');
         }, timeout * 1000);
