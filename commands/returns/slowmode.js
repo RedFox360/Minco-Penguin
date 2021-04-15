@@ -8,7 +8,8 @@ module.exports = {
             if (!args.length) return "You didn't provide any arguments.";
             var slowmode;
             if (args[0] == 'off') slowmode = 0;
-            else slowmode = args[0];
+            else slowmode = parseInt(args[0]);
+            if (isNaN(slowmode)) return "Enter a valid number";
             message.channel.setRateLimitPerUser(slowmode, null);
             let confirmEmbed = new MessageEmbed()
                 .setColor('#7E78D2')
