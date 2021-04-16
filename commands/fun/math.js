@@ -37,8 +37,8 @@ module.exports = {
 		} else {
 			timeLimit = 25;
 			if (oper == "*") {
-				num1 = random(20, 45);
-				num2 = random(20, 45);
+				num1 = random(40, 60);
+				num2 = random(30, 50);
 			} else {
 				num1 = random(600, 1200);
 				num2 = random(600, 1200);
