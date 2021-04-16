@@ -54,9 +54,9 @@ module.exports = {
 		else if (oper == "*") result = `${num1 * num2}`;
 		message.channel.send(`What is ${num1} ${oper} ${num2}?`);
 
-		var time = 20;
-		if (args[0] == "easy") time = 8;
-		else if (args[0] == "medium") time = 14;
+		var time = 15;
+		if (args[0] == "easy") time = 7;
+		else if (args[0] == "medium") time = 12;
 		const filter = (m) => m.author.id == message.author.id;
 		time *= 1000;
 		const collector = message.channel.createMessageCollector(filter, { time });
