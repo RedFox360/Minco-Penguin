@@ -1,5 +1,4 @@
 const profileModel = require("../../models/profileSchema");
-
 module.exports = {
 	name: "reset",
 	description: "[ADMIN ONLY] Reset someone's bank",

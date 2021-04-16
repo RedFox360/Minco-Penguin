@@ -9,13 +9,11 @@ module.exports = {
 	/** @param {Message} message */
 	async execute(message, args, _0, _1, profileData) {
 		const mention = message.mentions.users.first();
-		if (!mention) return message.channel.send("Mention a valid user");
+		if (!mention) return "Mention a valid user";
 		const amount = parseInt(args[1]);
-		if (isNaN(amount)) return message.channel.send("Enter a valid number");
-		if (amount <= 0)
-			return message.channel.send("You must gift a positive integer");
-		if (amount > profileData.mincoDollars)
-			return message.channel.send(`You don't have ${amount} dollars`);
+		if (isNaN(amount)) return "Enter a valid number";
+		if (amount <= 0) return "You must gift a positive integer";
+		if (amount > profileData.mincoDollars) return `You don't have ${amount} dollars`;
 		const userData = await profileModel.findOne({ userID: mention.id });
 		if (!userData) {
 			let profile = await profileModel.create({
@@ -42,8 +40,6 @@ module.exports = {
 				},
 			}
 		);
-		message.channel.send(
-			`You gifted ${amount} Minco Dollars to <@${mention.id}>`
-		);
+		message.channel.send(`You gifted ${amount} Minco Dollars to <@${mention.id}>`);
 	},
 };
