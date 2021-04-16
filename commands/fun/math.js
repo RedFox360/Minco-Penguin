@@ -52,7 +52,7 @@ module.exports = {
 		if (oper == "+") result = `${num1 + num2}`;
 		else if (oper == "-") result = `${num1 - num2}`;
 		else if (oper == "*") result = `${num1 * num2}`;
-		let botMsg = await message.channel.send(`What is ${num1} ${oper} ${num2}?`);
+		message.channel.send(`What is ${num1} ${oper} ${num2}?`);
 
 		var time = 20;
 		if (args[0] == "easy") time = 8;
