@@ -10,17 +10,12 @@ module.exports = {
 	async execute(message, args) {
 		var num1, num2, result, timeLimit;
 		if (!args.length)
-			return message.channel.send(
-				"Invalid usage. Correct usage: !math <easy/medium/hard> <operation>\n(Divions is not a permitted operation)"
-			);
+			return "Invalid usage. Correct usage: !math <easy/medium/hard> <operation>\n(Divions is not a permitted operation)";
 		var oper;
 		if (args[1] == "add" || args[1] == "addition" || args[1] == "+") oper = "+";
 		else if (args[1] == "subtract" || args[1] == "minus" || args[1] == "-") oper = "-";
 		else if (args[1] == "multiply" || args[1] == "mult" || args[1] == "x" || args[1] == "*") oper = "*";
-		else
-			return message.channel.send(
-				"Invalid usage: Correct usage: !math <easy/medium/hard> <operation>\n(Division is not a permitted operation)"
-			);
+		else return "Invalid usage: Correct usage: !math <easy/medium/hard> <operation>\n(Division is not a permitted operation)";
 		if (args[0] == "easy") {
 			timeLimit = 7;
 			if (oper == "*") {

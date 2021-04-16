@@ -9,7 +9,6 @@ client.events = new Discord.Collection();
 
 require(`./handlers/command_handler`)(client);
 require(`./handlers/event_handler`)(client);
-
 mongoose
 	.connect(process.env.SRV, {
 		useNewUrlParser: true,
