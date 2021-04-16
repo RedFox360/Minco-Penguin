@@ -5,13 +5,11 @@ module.exports = {
 	usage: "!prime <number",
 	/** @param {Array<String>} args */
 	execute(_, args, cmd) {
-		if (!args[0])
-			return "Please enter an argument (valid usage: !prime <Number>)";
+		if (!args[0]) return "Please enter an argument (valid usage: !prime <Number>)";
 		let numberString = args[0].replace(/,/, "");
 		var primeNumber = parseInt(numberString);
 		if (isNaN(primeNumber)) return "Enter a valid number";
 		if (primeNumber <= 0) return "Please enter a positive number";
-		if (primeNumber > 9007199254740992) return "Please enter a smaller number";
 		var composite = cmd === "composite";
 		return isPrime(primeNumber, composite);
 	},
@@ -29,8 +27,7 @@ function isPrime(number, useComposite) {
 	if (number == 1) return "1 is neither prime nor composite";
 	if (number == 2) return `${number.toLocaleString()} ${isPrimeText}`;
 	for (let i = 2; i <= Math.ceil(Math.sqrt(number)); i++) {
-		if (number % i == 0)
-			return `${number.toLocaleString()} ${isntPrimeText} because it is divisible by ${i}`;
+		if (number % i == 0) return `${number.toLocaleString()} ${isntPrimeText} because it is divisible by ${i}`;
 	}
 	return `${number.toLocaleString()} ${isPrimeText}`;
 }
