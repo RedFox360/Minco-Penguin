@@ -15,15 +15,8 @@ module.exports = {
 			);
 		var oper;
 		if (args[1] == "add" || args[1] == "addition" || args[1] == "+") oper = "+";
-		else if (args[1] == "subtract" || args[1] == "minus" || args[1] == "-")
-			oper = "-";
-		else if (
-			args[1] == "multiply" ||
-			args[1] == "mult" ||
-			args[1] == "x" ||
-			args[1] == "*"
-		)
-			oper = "*";
+		else if (args[1] == "subtract" || args[1] == "minus" || args[1] == "-") oper = "-";
+		else if (args[1] == "multiply" || args[1] == "mult" || args[1] == "x" || args[1] == "*") oper = "*";
 		else
 			return message.channel.send(
 				"Invalid usage: Correct usage: !math <easy/medium/hard> <operation>\n(Division is not a permitted operation)"
@@ -91,7 +84,9 @@ module.exports = {
 					}
 				);
 				return;
-			} else return `Incorrect! The correct answer is ${result}`;
+			} else {
+				message.channel.send("Incorrect!");
+			}
 			collector.stop();
 		});
 		collector.on("end", (collected) => {
