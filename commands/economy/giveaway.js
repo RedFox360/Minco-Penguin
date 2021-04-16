@@ -1,8 +1,10 @@
+const { Message } = require("discord.js");
 const profileModel = require("../../models/profileSchema");
 module.exports = {
 	name: "giveaway",
 	description: "[can only be used by Angela and Sameer] Creates a giveaway!",
 	usage: "!giveaway <@user 1> <@user 2> ...",
+	/** @param {Message} message */
 	async execute(message) {
 		if (message.author.id == "804755578702266399" || message.author.id == "724786310711214118") {
 			var options = [1, 25, 50, 75, 100];
