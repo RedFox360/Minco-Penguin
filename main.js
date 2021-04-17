@@ -1,5 +1,4 @@
 "use strict";
-console.log(require);
 exports.__esModule = true;
 exports.commands = void 0;
 var Discord = require("discord.js");
@@ -8,6 +7,7 @@ var client = new Discord.Client({ partials: ["MESSAGE", "CHANNEL", "REACTION"] }
 var mongoose = require("mongoose");
 exports.commands = new Discord.Collection();
 
+console.log(require);
 require("./handlers/command_handler")(client);
 require("./handlers/event_handler")(client);
 mongoose
