@@ -1,5 +1,4 @@
 import * as Discord from "discord.js";
-import { commands } from "../../main";
 import * as fs from "fs";
 
 export const name = "help";
@@ -12,7 +11,7 @@ export const aliases = ["c"];
 export async function execute(message, args, _, client) {
 	var color = "C782FE"; // light purple
 	if (args.length) {
-		const command = commands.get(args[0]) || client.commands.find((a) => a.aliases && a.aliases.includes(args[0]));
+		const command = client.commands.get(args[0]) || client.commands.find((a) => a.aliases && a.aliases.includes(args[0]));
 		if (!command) return message.channel.send("Enter a valid command name");
 		let commandEmbed = new Discord.MessageEmbed()
 			.setTitle(command.usage || "!" + command.name)

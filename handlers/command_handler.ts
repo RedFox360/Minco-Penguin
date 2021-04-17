@@ -7,7 +7,7 @@ export default (client: Client) => {
 		const commandFiles = fs.readdirSync(`./commands/${category}`).filter((file) => file.endsWith(".js"));
 		for (const file of commandFiles) {
 			import(`../commands/${category}/${file}.ts`).then((command) => {
-				commands.set(file.split(".")[0], command);
+				client.commands.set(file.split(".")[0], command);
 			});
 		}
 	}
