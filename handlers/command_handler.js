@@ -1,20 +1,11 @@
-"use strict";
-exports.__esModule = true;
-var main_ts_1 = require("../main.ts");
-var fs = require("fs");
-exports["default"] = (function (client) {
-    var categories = fs.readdirSync("./commands/").filter(function (file) { return !file.endsWith(".DS_Store"); });
-    for (var _i = 0, categories_1 = categories; _i < categories_1.length; _i++) {
-        var category = categories_1[_i];
-        var commandFiles = fs.readdirSync("./commands/" + category).filter(function (file) { return file.endsWith(".js"); });
-        var _loop_1 = function (file) {
-            Promise.resolve().then(function () { return require("../commands/" + category + "/" + file + ".ts"); }).then(function (command) {
-                main_ts_1.commands.set(file.split(".")[0], command);
-            });
-        };
-        for (var _a = 0, commandFiles_1 = commandFiles; _a < commandFiles_1.length; _a++) {
-            var file = commandFiles_1[_a];
-            _loop_1(file);
-        }
-    }
-});
+const fs = require("fs");
+module.exports = (client) => {
+	const categories = fs.readdirSync("./commands/").filter((file) => !file.endsWith(".DS_Store"));
+	for (const category of categories) {
+		const commandFiles = fs.readdirSync(`./commands/${category}`).filter((file) => file.endsWith(".js"));
+		for (const file of commandFiles) {
+			const command = require(`../commands/${category}/${file}`);
+			client.commands.set(file.split(".")[0], command);
+		}
+	}
+};

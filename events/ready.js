@@ -1,5 +1,5 @@
-"use strict";
-exports.__esModule = true;
-module.exports = function (client) {
-    console.log(client.user.tag + " is online!");
+const { Client } = require("discord.js");
+/** @param {Client} client */
+module.exports = (client) => {
+	console.log(`${client.user.tag} is online!`);
 };

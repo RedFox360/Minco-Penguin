@@ -1,16 +1,11 @@
-"use strict";
-exports.__esModule = true;
-var fs = require("fs");
-exports["default"] = (function (client) {
-    var eventFiles = fs.readdirSync("./events").filter(function (file) { return file.endsWith(".js"); });
-    var _loop_1 = function (file) {
-        Promise.resolve().then(function () { return require("../events/" + file + ".ts"); }).then(function (event) {
-            var eventName = file.split(".")[0];
-            client.on(eventName, event.bind(null, client));
-        });
-    };
-    for (var _i = 0, eventFiles_1 = eventFiles; _i < eventFiles_1.length; _i++) {
-        var file = eventFiles_1[_i];
-        _loop_1(file);
-    }
-});
+const fs = require("fs");
+const { Client } = require("discord.js");
+/** @param {Client} client */
+module.exports = (client) => {
+	const eventFiles = fs.readdirSync(`./events`).filter((file) => file.endsWith(".js"));
+	for (const file of eventFiles) {
+		const event = require(`../events/${file}`);
+		const eventName = file.split(".")[0];
+		client.on(eventName, event.bind(null, client));
+	}
+};
