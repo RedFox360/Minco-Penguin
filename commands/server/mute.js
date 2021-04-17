@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,13 +35,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import * as Discord from "discord.js";
-import * as ms from "ms";
-export var name = "mute";
-export var aliases = ["unmute"];
-export var description = "[ADMIN ONLY] Mutes a member";
-export var usage = "!mute <@user> <time> <reason>";
-export function execute(message, args, cmd) {
+exports.__esModule = true;
+exports.execute = exports.usage = exports.description = exports.aliases = exports.name = void 0;
+var Discord = require("discord.js");
+var ms = require("ms");
+exports.name = "mute";
+exports.aliases = ["unmute"];
+exports.description = "[ADMIN ONLY] Mutes a member";
+exports.usage = "!mute <@user> <time> <reason>";
+function execute(message, args, cmd) {
     return __awaiter(this, void 0, void 0, function () {
         var roles, target, mainRole_1, muteRole_1, memberTarget_1, description, muteEmbed;
         return __generator(this, function (_a) {
@@ -110,3 +113,4 @@ export function execute(message, args, cmd) {
         });
     });
 }
+exports.execute = execute;

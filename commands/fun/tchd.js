@@ -1,7 +1,10 @@
+"use strict";
 // the chat has died
-export var name = "tchd";
-export var description = "Sends a random the chat has died message";
-export function execute() {
+exports.__esModule = true;
+exports.execute = exports.description = exports.name = void 0;
+exports.name = "tchd";
+exports.description = "Sends a random the chat has died message";
+function execute() {
     var randomMessage = [
         "The chat has died :(",
         "What happened to the chat?",
@@ -20,3 +23,4 @@ export function execute() {
     var random = Math.floor(Math.random() * randomMessage.length);
     return randomMessage[random];
 }
+exports.execute = execute;

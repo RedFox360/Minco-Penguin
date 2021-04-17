@@ -1,7 +1,10 @@
-export var name = "fortune";
-export var description = "Gives you a fortune";
-export var cooldown = 4;
-export function execute() {
+"use strict";
+exports.__esModule = true;
+exports.execute = exports.cooldown = exports.description = exports.name = void 0;
+exports.name = "fortune";
+exports.description = "Gives you a fortune";
+exports.cooldown = 4;
+function execute() {
     var fortunes = [
         "For the next coming bot war, you should be on the side of Minco Penguin",
         "Thanos will come alive again and *snap*",
@@ -13,3 +16,4 @@ export function execute() {
     var random = Math.floor(Math.random() * fortunes.length);
     return fortunes[random];
 }
+exports.execute = execute;

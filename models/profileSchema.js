@@ -1,4 +1,6 @@
-import * as mongoose from "mongoose";
+"use strict";
+exports.__esModule = true;
+var mongoose = require("mongoose");
 var profileSchema = new mongoose.Schema({
     userID: { type: String, require: true, unique: true },
     serverID: { type: String, require: true },
@@ -11,4 +13,4 @@ var profileSchema = new mongoose.Schema({
         animal: { type: String }
     }
 });
-export default mongoose.model("ProfileModels", profileSchema);
+exports["default"] = mongoose.model("ProfileModels", profileSchema);

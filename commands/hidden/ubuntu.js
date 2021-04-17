@@ -1,6 +1,9 @@
-export var name = "ubuntu";
-export var description = "Get the ubuntu name of someone";
-export function execute(_, args) {
+"use strict";
+exports.__esModule = true;
+exports.execute = exports.description = exports.name = void 0;
+exports.name = "ubuntu";
+exports.description = "Get the ubuntu name of someone";
+function execute(_, args) {
     switch (args[1].toLowerCase()) {
         case "sammy":
             return "Kirabo the Wizard";
@@ -14,3 +17,4 @@ export function execute(_, args) {
             return "General Jamilla";
     }
 }
+exports.execute = execute;

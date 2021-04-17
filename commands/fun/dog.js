@@ -1,8 +1,11 @@
-import { MessageEmbed } from "discord.js";
+"use strict";
+exports.__esModule = true;
+exports.execute = exports.usage = exports.description = void 0;
+var discord_js_1 = require("discord.js");
 name: "dog";
-export var description = "Sends a random dog picture (oreo, archie, or rocco) or a nice looking embed";
-export var usage = "!dog (info) oreo/archie/rocco";
-export function execute(message, args) {
+exports.description = "Sends a random dog picture (oreo, archie, or rocco) or a nice looking embed";
+exports.usage = "!dog (info) oreo/archie/rocco";
+function execute(message, args) {
     var pics;
     var oreoPics = [
         "https://cdn.discordapp.com/attachments/808089047318134794/826527871542493184/63669166328__718717DF-7C6F-4F66-872E-A54799AC53D3.jpg",
@@ -35,7 +38,7 @@ export function execute(message, args) {
         "https://cdn.discordapp.com/attachments/774431427222569031/826542790237880330/20201221_113400.jpg",
     ];
     if (args[0] == "info") {
-        var embed = new MessageEmbed().setTitle("Dog Info");
+        var embed = new discord_js_1.MessageEmbed().setTitle("Dog Info");
         if (args[1] == "oreo" || args[1] == "Oreo") {
             embed
                 .setDescription("Oreo is a black and white Shih Tzu who lives with Emma. He loves to go on walks and play. He loves everyone that he meets and knows lots of tricks such as, sit, stay, shake, high five, dance, and lie down. :heart:")
@@ -119,3 +122,4 @@ export function execute(message, args) {
         message.channel.send(pics[random]);
     }
 }
+exports.execute = execute;

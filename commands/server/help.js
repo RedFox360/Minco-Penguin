@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,17 +35,19 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import * as Discord from "discord.js";
-import { commands } from "../../main";
-import * as fs from "fs";
-export var name = "help";
-export var description = "Help for all Minco Penguin commands!";
-export var aliases = ["c"];
+exports.__esModule = true;
+exports.execute = exports.aliases = exports.description = exports.name = void 0;
+var Discord = require("discord.js");
+var main_1 = require("../../main");
+var fs = require("fs");
+exports.name = "help";
+exports.description = "Help for all Minco Penguin commands!";
+exports.aliases = ["c"];
 /**
  * @param {Discord.Message} message
  * @param {Discord.Client} client
  */
-export function execute(message, args, _, client) {
+function execute(message, args, _, client) {
     return __awaiter(this, void 0, void 0, function () {
         var color, command, commandEmbed, description, titles, currentPage, helpEmbed, helpMsg, fields, categories, _i, categories_1, category, commandFiles, _a, commandFiles_1, file, command, pos, err_1, filter, collector;
         var _this = this;
@@ -53,7 +56,7 @@ export function execute(message, args, _, client) {
                 case 0:
                     color = "C782FE";
                     if (args.length) {
-                        command = commands.get(args[0]) || client.commands.find(function (a) { return a.aliases && a.aliases.includes(args[0]); });
+                        command = main_1.commands.get(args[0]) || client.commands.find(function (a) { return a.aliases && a.aliases.includes(args[0]); });
                         if (!command)
                             return [2 /*return*/, message.channel.send("Enter a valid command name")];
                         commandEmbed = new Discord.MessageEmbed()
@@ -189,3 +192,4 @@ export function execute(message, args, _, client) {
         });
     });
 }
+exports.execute = execute;

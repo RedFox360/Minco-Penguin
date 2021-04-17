@@ -1,8 +1,11 @@
-export var name = "prime";
-export var description = "checks if a number is prime or not";
-export var aliases = ["composite", "isprime"];
-export var usage = "!prime <number";
-export function execute(_, args, cmd) {
+"use strict";
+exports.__esModule = true;
+exports.execute = exports.usage = exports.aliases = exports.description = exports.name = void 0;
+exports.name = "prime";
+exports.description = "checks if a number is prime or not";
+exports.aliases = ["composite", "isprime"];
+exports.usage = "!prime <number";
+function execute(_, args, cmd) {
     if (!args[0])
         return "Please enter an argument (valid  export const usage =  !prime <Number>)";
     var numberString = args[0].replace(/,/, "");
@@ -14,6 +17,7 @@ export function execute(_, args, cmd) {
     var composite = cmd === "composite";
     return isPrime(primeNumber, composite);
 }
+exports.execute = execute;
 /** @param {number} number */
 function isPrime(number, useComposite) {
     var isPrimeText, isntPrimeText;

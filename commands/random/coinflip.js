@@ -1,7 +1,10 @@
-export var name = "coinflip";
-export var aliases = ["flip"];
-export var description = 'Returns "heads" or "tails" based on a random outcome.';
-export function execute(_, args) {
+"use strict";
+exports.__esModule = true;
+exports.execute = exports.description = exports.aliases = exports.name = void 0;
+exports.name = "coinflip";
+exports.aliases = ["flip"];
+exports.description = 'Returns "heads" or "tails" based on a random outcome.';
+function execute(_, args) {
     var random = Math.floor(Math.random() * 2);
     var options = [];
     if (args[0] == "yn")
@@ -10,3 +13,4 @@ export function execute(_, args) {
         options = [":coin: Heads", ":coin: Tails"];
     return options[random];
 }
+exports.execute = execute;

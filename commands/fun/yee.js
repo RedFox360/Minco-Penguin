@@ -1,8 +1,11 @@
-export var name = "yee";
-export var description = "Sends a random yee gif";
-export var cooldown = 1;
-export var aliases = ["yeee", "yeeeee", "yeeeeee", "yeeeeeee", "yeeeeeeee", "yeeeeeeeee", "yeeeeeeeeee", "eeeeeeeeeee"];
-export function execute(message, args) {
+"use strict";
+exports.__esModule = true;
+exports.execute = exports.aliases = exports.cooldown = exports.description = exports.name = void 0;
+exports.name = "yee";
+exports.description = "Sends a random yee gif";
+exports.cooldown = 1;
+exports.aliases = ["yeee", "yeeeee", "yeeeeee", "yeeeeeee", "yeeeeeeee", "yeeeeeeeee", "yeeeeeeeeee", "eeeeeeeeeee"];
+function execute(message, args) {
     var yees = [
         "https://tenor.com/view/yee-yeedinasour-dinasour-gif-4930781",
         "https://tenor.com/view/yee-dinosaur-meme-smile-gif-15696659",
@@ -16,3 +19,4 @@ export function execute(message, args) {
         message.channel.send(yees[random]);
     }
 }
+exports.execute = execute;

@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,19 +35,21 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import serverModel from "../../models/serverSchema";
-export var name = "banuser";
-export var description = "[ADMIN ONLY] Ban a user from using Minco Penguin\nUnban: unban a user";
-export var aliases = ["unban"];
-export var usage = "!banuser <@user>";
-export function execute(message, _, cmd) {
+exports.__esModule = true;
+exports.execute = exports.usage = exports.aliases = exports.description = exports.name = void 0;
+var serverSchema_1 = require("../../models/serverSchema");
+exports.name = "banuser";
+exports.description = "[ADMIN ONLY] Ban a user from using Minco Penguin\nUnban: unban a user";
+exports.aliases = ["unban"];
+exports.usage = "!banuser <@user>";
+function execute(message, _, cmd) {
     return __awaiter(this, void 0, void 0, function () {
         var guildData, bannedPeople, mention, i;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     if (!(message.author.id == "724786310711214118")) return [3 /*break*/, 2];
-                    guildData = serverModel.findOne({ serverID: message.guild.id });
+                    guildData = serverSchema_1["default"].findOne({ serverID: message.guild.id });
                     bannedPeople = new Array(guildData.bannedPeople);
                     mention = message.mentions.users.first();
                     if (!mention)
@@ -63,7 +66,7 @@ export function execute(message, _, cmd) {
                         }
                         message.channel.send("<@" + mention.id + "> has been unbanned from Minco Penguin.");
                     }
-                    return [4 /*yield*/, serverModel.findOneAndUpdate({ serverID: message.guild.id }, {
+                    return [4 /*yield*/, serverSchema_1["default"].findOneAndUpdate({ serverID: message.guild.id }, {
                             bannedPeople: bannedPeople
                         })];
                 case 1:
@@ -74,3 +77,4 @@ export function execute(message, _, cmd) {
         });
     });
 }
+exports.execute = execute;

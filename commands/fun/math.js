@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,14 +35,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import profileModel from "../../models/profileSchema";
-import * as ms from "ms";
-export var name = "math";
-export var description = "Sends a math question for you to solve";
-export var usage = "!math <easy/medium/hard> <operation>";
-export var cooldown = ms("5m") / 1000;
+exports.__esModule = true;
+exports.execute = exports.cooldown = exports.usage = exports.description = exports.name = void 0;
+var profileSchema_1 = require("../../models/profileSchema");
+var ms = require("ms");
+exports.name = "math";
+exports.description = "Sends a math question for you to solve";
+exports.usage = "!math <easy/medium/hard> <operation>";
+exports.cooldown = ms("5m") / 1000;
 /** @param {Message} message */
-export function execute(message, args) {
+function execute(message, args) {
     return __awaiter(this, void 0, void 0, function () {
         var num1, num2, result, timeLimit, oper, time, filter, collector, sendTimeOut;
         var _this = this;
@@ -121,7 +124,7 @@ export function execute(message, args) {
                             else
                                 amount = 40;
                             message.channel.send("You won " + amount + " Minco Dollars!");
-                            return [4 /*yield*/, profileModel.findOneAndUpdate({ userID: message.author.id }, {
+                            return [4 /*yield*/, profileSchema_1["default"].findOneAndUpdate({ userID: message.author.id }, {
                                     $inc: {
                                         mincoDollars: amount
                                     }
@@ -146,6 +149,7 @@ export function execute(message, args) {
         });
     });
 }
+exports.execute = execute;
 function random(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }

@@ -1,6 +1,9 @@
-export var name = "yeeyeet";
-export var description = "Yees + Yeets = The Future of Memes!";
-export function execute(message) {
+"use strict";
+exports.__esModule = true;
+exports.execute = exports.description = exports.name = void 0;
+exports.name = "yeeyeet";
+exports.description = "Yees + Yeets = The Future of Memes!";
+function execute(message) {
     var yeets = [
         "https://tenor.com/view/yeet-lion-king-simba-rafiki-throw-gif-16194362",
         "https://tenor.com/view/see-ya-ya-yeet-ash-chucks-pikachu-im-sick-of-you-now-throw-gif-16987702",
@@ -17,3 +20,4 @@ export function execute(message) {
     var random2 = Math.floor(Math.random() * yeets.length);
     message.channel.send(yeets[random2]);
 }
+exports.execute = execute;

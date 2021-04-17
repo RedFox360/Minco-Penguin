@@ -1,8 +1,11 @@
-export var name = "kick";
-export var description = "[ADMIN ONLY] Kick members";
-export var usage = "!kick <@user>";
+"use strict";
+exports.__esModule = true;
+exports.execute = exports.usage = exports.description = exports.name = void 0;
+exports.name = "kick";
+exports.description = "[ADMIN ONLY] Kick members";
+exports.usage = "!kick <@user>";
 /** @param {Message} message */
-export function execute(message) {
+function execute(message) {
     if (message.member.hasPermission("KICK_MEMBERS")) {
         var mention = message.mentions.users.first();
         if (!mention)
@@ -14,3 +17,4 @@ export function execute(message) {
         return memberTarget.tag + " was kicked from the server.";
     }
 }
+exports.execute = execute;

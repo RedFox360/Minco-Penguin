@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,14 +35,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import { MessageEmbed } from "discord.js";
-import profileModel from "../../models/profileSchema";
-export var name = "balance";
-export var aliases = ["bal", "bl"];
-export var description = "Checks the user's balance";
-export var usage = "!balance (@user)";
-export var cooldown = 3;
-export function execute(message, _0, _1, _2, profileData) {
+exports.__esModule = true;
+exports.execute = exports.cooldown = exports.usage = exports.description = exports.aliases = exports.name = void 0;
+var discord_js_1 = require("discord.js");
+var profileSchema_1 = require("../../models/profileSchema");
+exports.name = "balance";
+exports.aliases = ["bal", "bl"];
+exports.description = "Checks the user's balance";
+exports.usage = "!balance (@user)";
+exports.cooldown = 3;
+function execute(message, _0, _1, _2, profileData) {
     return __awaiter(this, void 0, void 0, function () {
         var mention, balanceEmbed, profile, balanceEmbed;
         return __generator(this, function (_a) {
@@ -49,16 +52,16 @@ export function execute(message, _0, _1, _2, profileData) {
                 case 0:
                     mention = message.mentions.users.first();
                     if (!!mention) return [3 /*break*/, 1];
-                    balanceEmbed = new MessageEmbed()
+                    balanceEmbed = new discord_js_1.MessageEmbed()
                         .setTitle("Balance")
                         .setColor("7BFF70")
                         .setDescription("Wallet: " + profileData.mincoDollars + " Minco Dollars\nBank: " + profileData.bank + " Minco Dollars");
                     message.channel.send(balanceEmbed);
                     return [3 /*break*/, 3];
-                case 1: return [4 /*yield*/, profileModel.findOne({ userID: mention.id })];
+                case 1: return [4 /*yield*/, profileSchema_1["default"].findOne({ userID: mention.id })];
                 case 2:
                     profile = _a.sent();
-                    balanceEmbed = new MessageEmbed()
+                    balanceEmbed = new discord_js_1.MessageEmbed()
                         .setTitle("Balance")
                         .setColor("7BFF70")
                         .setDescription("Wallet: " + profile.mincoDollars + " Minco Dollars\nBank: " + profile.bank + " Minco Dollars");
@@ -69,3 +72,4 @@ export function execute(message, _0, _1, _2, profileData) {
         });
     });
 }
+exports.execute = execute;

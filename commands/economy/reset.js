@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,11 +35,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import profileModel from "../../models/profileSchema";
-export var name = "reset";
-export var description = "[ADMIN ONLY] Reset someone's bank";
-export var usage = "!reset <@user>";
-export function execute(message) {
+exports.__esModule = true;
+exports.execute = exports.usage = exports.description = exports.name = void 0;
+var profileSchema_1 = require("../../models/profileSchema");
+exports.name = "reset";
+exports.description = "[ADMIN ONLY] Reset someone's bank";
+exports.usage = "!reset <@user>";
+function execute(message) {
     return __awaiter(this, void 0, void 0, function () {
         var mention, profile;
         return __generator(this, function (_a) {
@@ -46,10 +49,10 @@ export function execute(message) {
                 case 0:
                     if (!(message.author.id == "724786310711214118")) return [3 /*break*/, 3];
                     mention = message.mentions.users.first();
-                    return [4 /*yield*/, profileModel.findOne({ userID: mention.id })];
+                    return [4 /*yield*/, profileSchema_1["default"].findOne({ userID: mention.id })];
                 case 1:
                     profile = _a.sent();
-                    return [4 /*yield*/, profileModel.findOneAndUpdate({ userID: mention.id }, {
+                    return [4 /*yield*/, profileSchema_1["default"].findOneAndUpdate({ userID: mention.id }, {
                             userID: mention.id,
                             serverID: message.guild.id,
                             mincoDollars: 100,
@@ -70,3 +73,4 @@ export function execute(message) {
         });
     });
 }
+exports.execute = execute;

@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,11 +35,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import profileModel from "../../models/profileSchema";
-export var name = "favorites";
-export var description = "Check the favorites of a user";
-export var usage = "!favorites <@user>";
-export function execute(message) {
+exports.__esModule = true;
+exports.execute = exports.usage = exports.description = exports.name = void 0;
+var profileSchema_1 = require("../../models/profileSchema");
+exports.name = "favorites";
+exports.description = "Check the favorites of a user";
+exports.usage = "!favorites <@user>";
+function execute(message) {
     return __awaiter(this, void 0, void 0, function () {
         var mention, profile;
         return __generator(this, function (_a) {
@@ -47,7 +50,7 @@ export function execute(message) {
                     mention = message.mentions.users.first();
                     if (!mention)
                         return [2 /*return*/, message.channel.send("Mention a valid user")];
-                    return [4 /*yield*/, profileModel.findOne({ userID: mention.id })];
+                    return [4 /*yield*/, profileSchema_1["default"].findOne({ userID: mention.id })];
                 case 1:
                     profile = _a.sent();
                     try {
@@ -63,3 +66,4 @@ export function execute(message) {
         });
     });
 }
+exports.execute = execute;

@@ -1,10 +1,13 @@
-import { MessageEmbed } from "discord.js";
-export var name = "rules";
-export var description = "sends the rules for the server in an Embed";
-export function execute(message, args) {
+"use strict";
+exports.__esModule = true;
+exports.execute = exports.description = exports.name = void 0;
+var discord_js_1 = require("discord.js");
+exports.name = "rules";
+exports.description = "sends the rules for the server in an Embed";
+function execute(message, args) {
     if (message.guild.id == "785642761814671381" || message.guild.id == "804079271986462811") {
         if (!args.length) {
-            var rules = new MessageEmbed()
+            var rules = new discord_js_1.MessageEmbed()
                 .setColor("#80CED7")
                 .setTitle("Amendments to the Carrel Crew Discord Server")
                 .setDescription("Follow these rules when talking in the server. If you break these rules multiple times, you will be muted.")
@@ -31,7 +34,7 @@ export function execute(message, args) {
             message.channel.send(rules);
         }
         else if (args[0] == "im" || args[0] == "important") {
-            var rulesEmbed = new MessageEmbed()
+            var rulesEmbed = new discord_js_1.MessageEmbed()
                 .setColor("#FF0000")
                 .setTitle(":exclamation: Important Announcement:")
                 .setDescription("People have been too focused on the Discord server recently, and it's stopping us from focusing on class since people are getting a lot of Discord notifications.")
@@ -43,7 +46,7 @@ export function execute(message, args) {
         }
     }
     else if (message.guild.id == "818509629842522112") {
-        var rules = new MessageEmbed()
+        var rules = new discord_js_1.MessageEmbed()
             .setTitle("Blobfish Rules")
             .setColor("F564CF")
             .setDescription("Follow these rules when talking in the server. If you break these rules multiple times, you will be muted.")
@@ -71,3 +74,4 @@ export function execute(message, args) {
         message.channel.send(rules);
     }
 }
+exports.execute = execute;

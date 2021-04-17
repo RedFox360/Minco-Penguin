@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,11 +35,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import * as ms from "ms";
-import * as Discord from "discord.js";
-import profileModel from "../models/profileSchema";
-import { MessageCollector } from "discord.js-collector";
-export default (function (message, args, client, profileData) { return __awaiter(void 0, void 0, void 0, function () {
+exports.__esModule = true;
+var ms = require("ms");
+var Discord = require("discord.js");
+var profileSchema_1 = require("../models/profileSchema");
+var discord_js_collector_1 = require("discord.js-collector");
+exports["default"] = (function (message, args, client, profileData) { return __awaiter(void 0, void 0, void 0, function () {
     var mason, meme, i, requestEmbed, returnEmbed, reactMsgMa, reactMsgAu, err_1, reacted, accepted, filter, collector, authorCollector;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -135,7 +137,7 @@ export default (function (message, args, client, profileData) { return __awaiter
                             case 3: return [4 /*yield*/, mason.send("Choose a price :dollar:: ")];
                             case 4:
                                 botMsg = _b.sent();
-                                return [4 /*yield*/, MessageCollector.asyncQuestion({
+                                return [4 /*yield*/, discord_js_collector_1.MessageCollector.asyncQuestion({
                                         botMessage: botMsg,
                                         user: "769313131108237322"
                                     })["catch"](console.error)];
@@ -164,14 +166,14 @@ export default (function (message, args, client, profileData) { return __awaiter
                                         switch (_a.label) {
                                             case 0:
                                                 if (!(reaction.emoji.name == "✅")) return [3 /*break*/, 3];
-                                                return [4 /*yield*/, profileModel.findOneAndUpdate({ userID: message.author.id }, {
+                                                return [4 /*yield*/, profileSchema_1["default"].findOneAndUpdate({ userID: message.author.id }, {
                                                         $inc: {
                                                             mincoDollars: -price_1
                                                         }
                                                     })];
                                             case 1:
                                                 _a.sent();
-                                                return [4 /*yield*/, profileModel.findOneAndUpdate({ userID: "769313131108237322" }, {
+                                                return [4 /*yield*/, profileSchema_1["default"].findOneAndUpdate({ userID: "769313131108237322" }, {
                                                         $inc: {
                                                             mincoDollars: price_1
                                                         }
@@ -204,7 +206,7 @@ export default (function (message, args, client, profileData) { return __awaiter
                                 return [4 /*yield*/, mason.send("Send a message to " + message.author.toString() + "...")];
                             case 10:
                                 botMsg = _b.sent();
-                                return [4 /*yield*/, MessageCollector.asyncQuestion({
+                                return [4 /*yield*/, discord_js_collector_1.MessageCollector.asyncQuestion({
                                         botMessage: botMsg,
                                         user: "769313131108237322"
                                     })["catch"](console.error)];
@@ -260,7 +262,7 @@ export default (function (message, args, client, profileData) { return __awaiter
                                 return [4 /*yield*/, message.author.send("Send a message to Mason L...")];
                             case 1:
                                 botMsg = _b.sent();
-                                return [4 /*yield*/, MessageCollector.asyncQuestion({
+                                return [4 /*yield*/, discord_js_collector_1.MessageCollector.asyncQuestion({
                                         botMessage: botMsg,
                                         user: message.author.id
                                     })];

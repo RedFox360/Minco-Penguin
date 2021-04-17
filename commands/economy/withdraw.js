@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,13 +35,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import profileModel from "../../models/profileSchema";
-export var name = "withdraw";
-export var aliases = ["wd"];
-export var description = "Withdraw coins from your bank";
-export var cooldown = 5;
-export var usage = "!withdraw <number>";
-export function execute(message, args, cmd, client, profileData) {
+exports.__esModule = true;
+exports.execute = exports.usage = exports.cooldown = exports.description = exports.aliases = exports.name = void 0;
+var profileSchema_1 = require("../../models/profileSchema");
+exports.name = "withdraw";
+exports.aliases = ["wd"];
+exports.description = "Withdraw coins from your bank";
+exports.cooldown = 5;
+exports.usage = "!withdraw <number>";
+function execute(message, args, cmd, client, profileData) {
     return __awaiter(this, void 0, void 0, function () {
         var amount, err_1;
         return __generator(this, function (_a) {
@@ -56,7 +59,7 @@ export function execute(message, args, cmd, client, profileData) {
                     _a.trys.push([1, 3, , 4]);
                     if (amount > profileData.bank)
                         return [2 /*return*/, message.channel.send("You don't have that amount of Minco Dollars in your bank.")];
-                    return [4 /*yield*/, profileModel.findOneAndUpdate({ userID: message.author.id }, {
+                    return [4 /*yield*/, profileSchema_1["default"].findOneAndUpdate({ userID: message.author.id }, {
                             $inc: {
                                 mincoDollars: amount,
                                 bank: -amount
@@ -76,3 +79,4 @@ export function execute(message, args, cmd, client, profileData) {
         });
     });
 }
+exports.execute = execute;

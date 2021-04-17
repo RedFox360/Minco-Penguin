@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,12 +35,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import profileModel from "../../models/profileSchema";
-export var name = "giveaway";
-export var description = "[can only be used by Angela and Sameer] Creates a giveaway!";
-export var usage = "!giveaway <@user 1> <@user 2> ...";
+exports.__esModule = true;
+exports.execute = exports.usage = exports.description = exports.name = void 0;
+var profileSchema_1 = require("../../models/profileSchema");
+exports.name = "giveaway";
+exports.description = "[can only be used by Angela and Sameer] Creates a giveaway!";
+exports.usage = "!giveaway <@user 1> <@user 2> ...";
 /** @param {Message} message */
-export function execute(message) {
+function execute(message) {
     return __awaiter(this, void 0, void 0, function () {
         var options, users, randomUser, randomAmount;
         return __generator(this, function (_a) {
@@ -52,7 +55,7 @@ export function execute(message) {
                         return [2 /*return*/, message.channel.send("Mention at least 1 user")];
                     randomUser = users[Math.floor(Math.random() * users.length)];
                     randomAmount = options[Math.floor(Math.random() * options.length)];
-                    return [4 /*yield*/, profileModel.findOneAndUpdate({ userID: randomUser.id }, {
+                    return [4 /*yield*/, profileSchema_1["default"].findOneAndUpdate({ userID: randomUser.id }, {
                             $inc: {
                                 mincoDollars: randomAmount
                             }
@@ -69,3 +72,4 @@ export function execute(message) {
         });
     });
 }
+exports.execute = execute;

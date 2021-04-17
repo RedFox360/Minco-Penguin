@@ -1,10 +1,13 @@
-import * as ms from "ms";
-import { MessageEmbed } from "discord.js";
-export var name = "slowmode";
-export var description = "[MANAGE CHANNELS] Changes slowmode";
-export var usage = "!slowmode <number>";
+"use strict";
+exports.__esModule = true;
+exports.execute = exports.usage = exports.description = exports.name = void 0;
+var ms = require("ms");
+var discord_js_1 = require("discord.js");
+exports.name = "slowmode";
+exports.description = "[MANAGE CHANNELS] Changes slowmode";
+exports.usage = "!slowmode <number>";
 /** @param {Message} message */
-export function execute(message, args) {
+function execute(message, args) {
     if (message.member.hasPermission("MANAGE_CHANNELS")) {
         if (!args.length)
             return "You didn't provide any arguments.";
@@ -18,7 +21,7 @@ export function execute(message, args) {
         if (slowmode > 21600)
             return "Please enter an amount less than or equal to 6 hours";
         message.channel.setRateLimitPerUser(slowmode, null);
-        var confirmEmbed = new MessageEmbed()
+        var confirmEmbed = new discord_js_1.MessageEmbed()
             .setColor("#7E78D2")
             .setTitle("Slowmode")
             .setDescription("Slowmode set to " + slowmode + " seconds");
@@ -28,3 +31,4 @@ export function execute(message, args) {
         return "You don't have permissions to change slowmode.";
     }
 }
+exports.execute = execute;

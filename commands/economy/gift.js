@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,12 +35,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import profileModel from "../../models/profileSchema";
-export var name = "gift";
-export var description = "Gift an amount of coins to a user";
-export var usage = "!gift <@user> <number>";
-export var cooldown = 3;
-export function execute(message, args, _0, _1, profileData) {
+exports.__esModule = true;
+exports.execute = exports.cooldown = exports.usage = exports.description = exports.name = void 0;
+var profileSchema_1 = require("../../models/profileSchema");
+exports.name = "gift";
+exports.description = "Gift an amount of coins to a user";
+exports.usage = "!gift <@user> <number>";
+exports.cooldown = 3;
+function execute(message, args, _0, _1, profileData) {
     return __awaiter(this, void 0, void 0, function () {
         var mention, amount, userData, profile;
         return __generator(this, function (_a) {
@@ -55,11 +58,11 @@ export function execute(message, args, _0, _1, profileData) {
                         return [2 /*return*/, "You must gift a positive integer"];
                     if (amount > profileData.mincoDollars)
                         return [2 /*return*/, "You don't have " + amount + " dollars"];
-                    return [4 /*yield*/, profileModel.findOne({ userID: mention.id })];
+                    return [4 /*yield*/, profileSchema_1["default"].findOne({ userID: mention.id })];
                 case 1:
                     userData = _a.sent();
                     if (!!userData) return [3 /*break*/, 3];
-                    return [4 /*yield*/, profileModel.create({
+                    return [4 /*yield*/, profileSchema_1["default"].create({
                             userID: mention.id,
                             serverID: message.guild.id,
                             mincoDollars: 100,
@@ -69,12 +72,12 @@ export function execute(message, args, _0, _1, profileData) {
                     profile = _a.sent();
                     profile.save();
                     _a.label = 3;
-                case 3: return [4 /*yield*/, profileModel.findOneAndUpdate({ userID: message.author.id }, {
+                case 3: return [4 /*yield*/, profileSchema_1["default"].findOneAndUpdate({ userID: message.author.id }, {
                         $inc: {}
                     })];
                 case 4:
                     _a.sent();
-                    return [4 /*yield*/, profileModel.findOneAndUpdate({ userID: mention.id }, {
+                    return [4 /*yield*/, profileSchema_1["default"].findOneAndUpdate({ userID: mention.id }, {
                             $inc: {
                                 mincoDollars: amount
                             }
@@ -87,3 +90,4 @@ export function execute(message, args, _0, _1, profileData) {
         });
     });
 }
+exports.execute = execute;

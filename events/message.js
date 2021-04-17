@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -39,12 +40,13 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from) {
         to[j] = from[i];
     return to;
 };
+exports.__esModule = true;
 var cooldowns = new Map();
-import profileModel from "../models/profileSchema";
-import serverModel from "../models/serverSchema";
-import * as Discord from "discord.js";
-import * as prettyMs from "pretty-ms";
-export default (function (client, message) { return __awaiter(void 0, void 0, void 0, function () {
+var profileSchema_1 = require("../models/profileSchema");
+var serverSchema_1 = require("../models/serverSchema");
+var Discord = require("discord.js");
+var prettyMs = require("pretty-ms");
+exports["default"] = (function (client, message) { return __awaiter(void 0, void 0, void 0, function () {
     var profileData, guildData, profile, serverProfile, err_1, infoEmbed, prefixes, count, currentPrefix, i, prefix, args, cmd, command, i, person, currentTime, timeStamps, cooldownAmount, expTime, timeLeft_1, timeEmbed, t;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -55,11 +57,11 @@ export default (function (client, message) { return __awaiter(void 0, void 0, vo
             case 1:
                 _a.trys.push([1, 8, , 9]);
                 if (!message.guild) return [3 /*break*/, 7];
-                return [4 /*yield*/, profileModel.findOne({ userID: message.author.id })];
+                return [4 /*yield*/, profileSchema_1["default"].findOne({ userID: message.author.id })];
             case 2:
                 profileData = _a.sent();
                 if (!!profileData) return [3 /*break*/, 4];
-                return [4 /*yield*/, profileModel.create({
+                return [4 /*yield*/, profileSchema_1["default"].create({
                         userID: message.author.id,
                         serverID: message.guild.id,
                         mincoDollars: 100,
@@ -70,11 +72,11 @@ export default (function (client, message) { return __awaiter(void 0, void 0, vo
                 profile = _a.sent();
                 profile.save();
                 _a.label = 4;
-            case 4: return [4 /*yield*/, serverModel.findOne({ serverID: message.guild.id })];
+            case 4: return [4 /*yield*/, serverSchema_1["default"].findOne({ serverID: message.guild.id })];
             case 5:
                 guildData = _a.sent();
                 if (!!guildData) return [3 /*break*/, 7];
-                return [4 /*yield*/, serverModel.create({
+                return [4 /*yield*/, serverSchema_1["default"].create({
                         serverID: message.guild.id,
                         bannedPeople: [],
                         blacklist: []

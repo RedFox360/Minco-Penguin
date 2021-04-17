@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,11 +35,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import profileModel from "../../models/profileSchema";
-export var name = "giveuser";
-export var description = "[ADMIN ONLY] give a user an amount of Minco Dollars";
-export var usage = "!giveuser <@user> <number>";
-export function execute(message, args, cmd, client, profileData) {
+exports.__esModule = true;
+exports.execute = exports.usage = exports.description = exports.name = void 0;
+var profileSchema_1 = require("../../models/profileSchema");
+exports.name = "giveuser";
+exports.description = "[ADMIN ONLY] give a user an amount of Minco Dollars";
+exports.usage = "!giveuser <@user> <number>";
+function execute(message, args, cmd, client, profileData) {
     return __awaiter(this, void 0, void 0, function () {
         var mention, amount;
         return __generator(this, function (_a) {
@@ -51,7 +54,7 @@ export function execute(message, args, cmd, client, profileData) {
                     amount = parseInt(args[1]);
                     if (isNaN(amount))
                         return [2 /*return*/, message.channel.send("Enter a valid number")];
-                    return [4 /*yield*/, profileModel.findOneAndUpdate({ userID: mention.id }, {
+                    return [4 /*yield*/, profileSchema_1["default"].findOneAndUpdate({ userID: mention.id }, {
                             $inc: {
                                 mincoDollars: amount
                             }
@@ -65,3 +68,4 @@ export function execute(message, args, cmd, client, profileData) {
         });
     });
 }
+exports.execute = execute;

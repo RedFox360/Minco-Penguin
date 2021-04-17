@@ -1,10 +1,13 @@
-import { MessageEmbed } from "discord.js";
-export var name = "magic8ball";
-export var description = "A magic 8 ball in Discord";
-export var cooldown = 4;
-export var usage = "!magic8ball <Question>";
-export var aliases = ["8b", "magic8b", "8ball"];
-export function execute(message, args) {
+"use strict";
+exports.__esModule = true;
+exports.execute = exports.aliases = exports.usage = exports.cooldown = exports.description = exports.name = void 0;
+var discord_js_1 = require("discord.js");
+exports.name = "magic8ball";
+exports.description = "A magic 8 ball in Discord";
+exports.cooldown = 4;
+exports.usage = "!magic8ball <Question>";
+exports.aliases = ["8b", "magic8b", "8ball"];
+function execute(message, args) {
     if (args.join(" ").replace(" ", "").toLowerCase().includes("crush"))
         return message.channel.send("Stop asking questions about crushes!");
     var answers = [
@@ -52,9 +55,10 @@ export function execute(message, args) {
             color = "32E6C5";
     }
     var name = message.member.displayName || message.author.username;
-    message.channel.send(new MessageEmbed()
+    message.channel.send(new discord_js_1.MessageEmbed()
         .setTitle("Magic 8 Ball")
         .setDescription(answers[random])
         .setColor(color)
         .setFooter(args.join(" ") + " | " + name));
 }
+exports.execute = execute;

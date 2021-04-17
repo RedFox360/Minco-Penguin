@@ -1,6 +1,9 @@
-export var name = "nggyu";
-export var description = "Secret command: Never Gonna Give You Up lyrics";
-export var execute = function () {
+"use strict";
+exports.__esModule = true;
+exports.execute = exports.description = exports.name = void 0;
+exports.name = "nggyu";
+exports.description = "Secret command: Never Gonna Give You Up lyrics";
+var execute = function () {
     return [
         "**Never Gonna Give You Up**",
         "We're no strangers to love",
@@ -67,3 +70,4 @@ export var execute = function () {
         "Never gonna tell a lie and hurt you",
     ].join("\n");
 };
+exports.execute = execute;

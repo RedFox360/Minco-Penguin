@@ -1,6 +1,9 @@
-export var name = "yeet";
-export var description = "Sends a random yeet gif";
-export function execute(message, args) {
+"use strict";
+exports.__esModule = true;
+exports.execute = exports.description = exports.name = void 0;
+exports.name = "yeet";
+exports.description = "Sends a random yeet gif";
+function execute(message, args) {
     var yeets = [
         "https://tenor.com/view/yeet-lion-king-simba-rafiki-throw-gif-16194362",
         "https://tenor.com/view/see-ya-ya-yeet-ash-chucks-pikachu-im-sick-of-you-now-throw-gif-16987702",
@@ -15,3 +18,4 @@ export function execute(message, args) {
         message.channel.send(yeets[random]);
     }
 }
+exports.execute = execute;

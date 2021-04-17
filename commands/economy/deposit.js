@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,13 +35,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import profileModel from "../../models/profileSchema";
-export var name = "deposit";
-export var aliases = ["dep"];
-export var description = "Despoit coins into your bank";
-export var usage = "!deposit <number>";
-export var cooldown = 5;
-export function execute(message, args, _0, _1, profileData) {
+exports.__esModule = true;
+exports.execute = exports.cooldown = exports.usage = exports.description = exports.aliases = exports.name = void 0;
+var profileSchema_1 = require("../../models/profileSchema");
+exports.name = "deposit";
+exports.aliases = ["dep"];
+exports.description = "Despoit coins into your bank";
+exports.usage = "!deposit <number>";
+exports.cooldown = 5;
+function execute(message, args, _0, _1, profileData) {
     return __awaiter(this, void 0, void 0, function () {
         var amount, err_1;
         return __generator(this, function (_a) {
@@ -56,7 +59,7 @@ export function execute(message, args, _0, _1, profileData) {
                     _a.trys.push([1, 3, , 4]);
                     if (amount > profileData.mincoDollars)
                         return [2 /*return*/, "You don't have that amount of Minco Dollars to deposit."];
-                    return [4 /*yield*/, profileModel.findOneAndUpdate({
+                    return [4 /*yield*/, profileSchema_1["default"].findOneAndUpdate({
                             userID: message.author.id
                         }, {
                             $inc: {
@@ -78,3 +81,4 @@ export function execute(message, args, _0, _1, profileData) {
         });
     });
 }
+exports.execute = execute;

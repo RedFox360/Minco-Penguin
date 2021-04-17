@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,11 +35,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import profileModel from "../../models/profileSchema";
-export var name = "set";
-export var description = "Set a birthday for your account";
-export var usage = "!set birthday <birthday: format: January 23, 2010>";
-export function execute(message, args) {
+exports.__esModule = true;
+exports.execute = exports.usage = exports.description = exports.name = void 0;
+var profileSchema_1 = require("../../models/profileSchema");
+exports.name = "set";
+exports.description = "Set a birthday for your account";
+exports.usage = "!set birthday <birthday: format: January 23, 2010>";
+function execute(message, args) {
     return __awaiter(this, void 0, void 0, function () {
         var bday, i;
         return __generator(this, function (_a) {
@@ -49,7 +52,7 @@ export function execute(message, args) {
                     for (i = 1; i < args.length; i++) {
                         bday += args[i] + " ";
                     }
-                    return [4 /*yield*/, profileModel.findOneAndUpdate({ userID: message.author.id }, {
+                    return [4 /*yield*/, profileSchema_1["default"].findOneAndUpdate({ userID: message.author.id }, {
                             birthday: bday
                         })];
                 case 1:
@@ -61,3 +64,4 @@ export function execute(message, args) {
         });
     });
 }
+exports.execute = execute;

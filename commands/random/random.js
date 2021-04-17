@@ -1,8 +1,11 @@
-export var name = "random";
-export var description = "Returns a random number between 2 numbers";
-export var aliases = ["rand"];
-export var usage = "!random <min number> <max number>";
-export function execute(_, args) {
+"use strict";
+exports.__esModule = true;
+exports.execute = exports.usage = exports.aliases = exports.description = exports.name = void 0;
+exports.name = "random";
+exports.description = "Returns a random number between 2 numbers";
+exports.aliases = ["rand"];
+exports.usage = "!random <min number> <max number>";
+function execute(_, args) {
     var min = parseInt(args[0]);
     var max = parseInt(args[1]);
     if (isNaN(min) || isNaN(max))
@@ -12,3 +15,4 @@ export function execute(_, args) {
     var random = Math.floor(Math.random() * (max - min + 1)) + min;
     return random.toLocaleString();
 }
+exports.execute = execute;

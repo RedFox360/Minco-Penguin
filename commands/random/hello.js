@@ -1,8 +1,11 @@
-export var name = "hello";
-export var description = "Returns a random hello message.";
-export var cooldown = 1;
-export var aliases = ["howdy", "hi"];
-export function execute(message) {
+"use strict";
+exports.__esModule = true;
+exports.execute = exports.aliases = exports.cooldown = exports.description = exports.name = void 0;
+exports.name = "hello";
+exports.description = "Returns a random hello message.";
+exports.cooldown = 1;
+exports.aliases = ["howdy", "hi"];
+function execute(message) {
     var hellos = [
         "Hi :)",
         "Hai!",
@@ -15,3 +18,4 @@ export function execute(message) {
     var random = Math.floor(Math.random() * hellos.length);
     return hellos[random];
 }
+exports.execute = execute;

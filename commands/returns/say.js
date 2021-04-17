@@ -1,8 +1,11 @@
-export var name = "say";
-export var description = "This is a say command for Minco Penguin";
-export var cooldown = 3;
-export var usage = "!say <words>";
-export function execute(message, args, _, client) {
+"use strict";
+exports.__esModule = true;
+exports.execute = exports.usage = exports.cooldown = exports.description = exports.name = void 0;
+exports.name = "say";
+exports.description = "This is a say command for Minco Penguin";
+exports.cooldown = 3;
+exports.usage = "!say <words>";
+function execute(message, args, _, client) {
     if (!args.length)
         return "You didn't provide any arguments.";
     if (args[0].startsWith("<#")) {
@@ -20,3 +23,4 @@ export function execute(message, args, _, client) {
         message.channel.send(args.join(" "));
     }
 }
+exports.execute = execute;

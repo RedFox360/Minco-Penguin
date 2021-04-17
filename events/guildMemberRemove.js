@@ -1,5 +1,7 @@
-import * as Discord from "discord.js";
-export default (function (_, member) {
+"use strict";
+exports.__esModule = true;
+var Discord = require("discord.js");
+exports["default"] = (function (_, member) {
     var memberCount = member.guild.memberCount;
     var leaveEmbed = new Discord.MessageEmbed()
         .setColor("EC7063") // red

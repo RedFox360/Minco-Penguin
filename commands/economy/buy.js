@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,10 +35,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-export var name = "buy";
-export var description = "Buy items\nBuy a drawing: !buy drawing <drawing> (sends a request to Claire, Minco Penguin will DM you with more info)";
-export var usage = "!buy drawing <drawing>";
-export function execute(message, args, _, client, profileData) {
+exports.__esModule = true;
+exports.execute = exports.usage = exports.description = exports.name = void 0;
+exports.name = "buy";
+exports.description = "Buy items\nBuy a drawing: !buy drawing <drawing> (sends a request to Claire, Minco Penguin will DM you with more info)";
+exports.usage = "!buy drawing <drawing>";
+function execute(message, args, _, client, profileData) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             if (!args.length)
@@ -52,3 +55,4 @@ export function execute(message, args, _, client, profileData) {
         });
     });
 }
+exports.execute = execute;

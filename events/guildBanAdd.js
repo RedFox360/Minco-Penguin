@@ -1,5 +1,7 @@
-import * as Discord from "discord.js";
-export default (function (_, guild, user) {
+"use strict";
+exports.__esModule = true;
+var Discord = require("discord.js");
+exports["default"] = (function (_, guild, user) {
     var unbanEmbed = new Discord.MessageEmbed()
         .setColor("F75853") // red
         .setTitle("Banned")

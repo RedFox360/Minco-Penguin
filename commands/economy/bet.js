@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,12 +35,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import profileModel from "../../models/profileSchema";
-export var name = "bet";
-export var description = "Bet a number of your coins on a random outcome";
-export var cooldown = 10;
-export var usage = "!bet <number>";
-export function execute(message, args, _0, _1, profileData) {
+exports.__esModule = true;
+exports.execute = exports.usage = exports.cooldown = exports.description = exports.name = void 0;
+var profileSchema_1 = require("../../models/profileSchema");
+exports.name = "bet";
+exports.description = "Bet a number of your coins on a random outcome";
+exports.cooldown = 10;
+exports.usage = "!bet <number>";
+function execute(message, args, _0, _1, profileData) {
     return __awaiter(this, void 0, void 0, function () {
         var random, amount;
         return __generator(this, function (_a) {
@@ -56,7 +59,7 @@ export function execute(message, args, _0, _1, profileData) {
                     if (amount > 20)
                         return [2 /*return*/, message.channel.send("You can't bet more than 20 Minco Dollars")];
                     if (!(random == 1)) return [3 /*break*/, 2];
-                    return [4 /*yield*/, profileModel.findOneAndUpdate({ userID: message.author.id }, {
+                    return [4 /*yield*/, profileSchema_1["default"].findOneAndUpdate({ userID: message.author.id }, {
                             $inc: {
                                 mincoDollars: -amount
                             }
@@ -65,7 +68,7 @@ export function execute(message, args, _0, _1, profileData) {
                     _a.sent();
                     message.channel.send("You lost! You lost " + amount + " Minco Dollars.");
                     return [3 /*break*/, 4];
-                case 2: return [4 /*yield*/, profileModel.findOneAndUpdate({ userID: message.author.id }, {
+                case 2: return [4 /*yield*/, profileSchema_1["default"].findOneAndUpdate({ userID: message.author.id }, {
                         $inc: {
                             mincoDollars: amount
                         }
@@ -79,3 +82,4 @@ export function execute(message, args, _0, _1, profileData) {
         });
     });
 }
+exports.execute = execute;

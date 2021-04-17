@@ -1,8 +1,11 @@
-export var name = "ban";
-export var description = "[ADMIN ONLY] Ban members";
-export var usage = "!ban <@user>";
+"use strict";
+exports.__esModule = true;
+exports.execute = exports.usage = exports.description = exports.name = void 0;
+exports.name = "ban";
+exports.description = "[ADMIN ONLY] Ban members";
+exports.usage = "!ban <@user>";
 /** @param {Message} message */
-export function execute(message) {
+function execute(message) {
     if (message.member.hasPermission("BAN_MEMBERS")) {
         var mention = message.mentions.users.first();
         if (!mention)
@@ -14,3 +17,4 @@ export function execute(message) {
         return memberTarget.tag + " was banned from the server.";
     }
 }
+exports.execute = execute;

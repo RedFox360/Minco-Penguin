@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,21 +35,22 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import * as Discord from "discord.js";
-import profileModel from "../models/serverSchema";
-import ordinal from "ordinal";
-export default (function (_, member) { return __awaiter(void 0, void 0, void 0, function () {
+exports.__esModule = true;
+var Discord = require("discord.js");
+var serverSchema_1 = require("../models/serverSchema");
+var ordinal_1 = require("ordinal");
+exports["default"] = (function (_, member) { return __awaiter(void 0, void 0, void 0, function () {
     var profileData, profile, memberCount, memberCountOrdinal, joinEmbed;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 if (member.user.bot)
                     return [2 /*return*/];
-                return [4 /*yield*/, profileModel.findOne({ userID: member.id })];
+                return [4 /*yield*/, serverSchema_1["default"].findOne({ userID: member.id })];
             case 1:
                 profileData = _a.sent();
                 if (!!profileData) return [3 /*break*/, 3];
-                return [4 /*yield*/, profileModel.create({
+                return [4 /*yield*/, serverSchema_1["default"].create({
                         userID: member.id,
                         serverID: member.guild.id,
                         mincoDollars: 100,
@@ -61,7 +63,7 @@ export default (function (_, member) { return __awaiter(void 0, void 0, void 0, 
                 _a.label = 3;
             case 3:
                 memberCount = member.guild.memberCount;
-                memberCountOrdinal = ordinal(memberCount);
+                memberCountOrdinal = ordinal_1["default"](memberCount);
                 joinEmbed = new Discord.MessageEmbed()
                     .setColor("58D68D") // green
                     .setTitle("Welcome")

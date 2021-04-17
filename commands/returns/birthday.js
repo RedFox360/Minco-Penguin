@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,14 +35,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import profileModel from "../../models/profileSchema";
-export var name = "birthday";
-export var aliases = ["bday", "b"];
-export var cooldown = 3;
-export var description = "View everyone's birthday.  export const usage =  birthday <name>";
-export var usage = "!birthday <@user>";
+exports.__esModule = true;
+exports.execute = exports.usage = exports.description = exports.cooldown = exports.aliases = exports.name = void 0;
+var profileSchema_1 = require("../../models/profileSchema");
+exports.name = "birthday";
+exports.aliases = ["bday", "b"];
+exports.cooldown = 3;
+exports.description = "View everyone's birthday.  export const usage =  birthday <name>";
+exports.usage = "!birthday <@user>";
 /** @param {Message} message */
-export function execute(message, args) {
+function execute(message, args) {
     return __awaiter(this, void 0, void 0, function () {
         var mention, profile, err_1;
         return __generator(this, function (_a) {
@@ -55,7 +58,7 @@ export function execute(message, args) {
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 3, , 4]);
-                    return [4 /*yield*/, profileModel.findOne({ userID: mention.id })];
+                    return [4 /*yield*/, profileSchema_1["default"].findOne({ userID: mention.id })];
                 case 2:
                     profile = _a.sent();
                     message.channel.send(profile.birthday);
@@ -69,3 +72,4 @@ export function execute(message, args) {
         });
     });
 }
+exports.execute = execute;

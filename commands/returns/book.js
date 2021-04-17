@@ -1,7 +1,10 @@
-export var name = "book";
-export var description = "View a randomly selected book by my friend Ishan";
-export var usage = "!book <title/(random)>";
-export function execute(message, args, cmd, client, profileData) {
+"use strict";
+exports.__esModule = true;
+exports.execute = exports.usage = exports.description = exports.name = void 0;
+exports.name = "book";
+exports.description = "View a randomly selected book by my friend Ishan";
+exports.usage = "!book <title/(random)>";
+function execute(message, args, cmd, client, profileData) {
     if (message.guild.id == "725560003569778689" || message.guild.id == "818509629842522112") {
         var random = Math.floor(Math.random() * 5);
         if (args[0] == "Leo") {
@@ -30,3 +33,4 @@ export function execute(message, args, cmd, client, profileData) {
         }
     }
 }
+exports.execute = execute;

@@ -1,10 +1,13 @@
-import { MessageEmbed } from "discord.js";
-export var name = "lie-detector";
-export var aliases = ["lied", "ld"];
-export var description = "Credit to Aiden for the idea : sends a is lying/not lying message";
-export var usage = "!ld <Question>";
+"use strict";
+exports.__esModule = true;
+exports.execute = exports.usage = exports.description = exports.aliases = exports.name = void 0;
+var discord_js_1 = require("discord.js");
+exports.name = "lie-detector";
+exports.aliases = ["lied", "ld"];
+exports.description = "Credit to Aiden for the idea : sends a is lying/not lying message";
+exports.usage = "!ld <Question>";
 /** @param {Message} message */
-export function execute(message, args) {
+function execute(message, args) {
     var randomL = [
         message.author.toString() + " is lying!",
         message.author.toString() + " is telling the truth!",
@@ -17,9 +20,10 @@ export function execute(message, args) {
     if (randomL[randomInt].includes("info"))
         color = "F9E79F";
     var name = message.member.displayName || message.author.username;
-    message.channel.send(new MessageEmbed()
+    message.channel.send(new discord_js_1.MessageEmbed()
         .setTitle("Lie Detector")
         .setDescription(randomL[randomInt])
         .setColor(color)
         .setFooter(args.join(" ") + " | " + name));
 }
+exports.execute = execute;
