@@ -16,9 +16,7 @@ module.exports = {
 			const profile = await profileModel.findOne({ userID: mention.id });
 			message.channel.send(profile.birthday);
 		} catch (err) {
-			message.channel.send(
-				"This user's birthday has not been added to the database"
-			);
+			message.channel.send("This user's birthday has not been added to the database");
 		}
 	},
 };

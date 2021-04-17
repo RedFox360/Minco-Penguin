@@ -1,7 +1,7 @@
 const ms = require("ms");
 const Discord = require("discord.js");
 
-const profileModel = require("../../models/serverSchema");
+const profileModel = require("../models/serverSchema");
 
 const { MessageCollector } = require("discord.js-collector");
 module.exports =
@@ -15,17 +15,12 @@ module.exports =
 		for (let i = 1; i < args.length; i++) {
 			drawing += args[i] + " ";
 		}
-		if (!args[1])
-			return message.channel.send("Valid usage: !buy drawing <drawing>");
+		if (!args[1]) return message.channel.send("Valid usage: !buy drawing <drawing>");
 		let requestEmbed = new Discord.MessageEmbed()
 			.setColor("#70FFC2")
 			.setAuthor(message.author.username)
 			.setTitle("Drawing Request")
-			.setDescription(
-				`${message.author.toString()} from ${
-					message.guild.name
-				} has requested a drawing:\n__${drawing}__`
-			);
+			.setDescription(`${message.author.toString()} from ${message.guild.name} has requested a drawing:\n__${drawing}__`);
 		let returnEmbed = new Discord.MessageEmbed()
 			.setColor("#54ACFE")
 			.setAuthor("Claire")
@@ -59,9 +54,7 @@ module.exports =
 			reacted = true;
 			if (reaction.emoji.name == "🚫") {
 				message.author.send("Claire has declined your request");
-				claire.send(
-					`You have declined the drawing request from ${message.author.toString()}.`
-				);
+				claire.send(`You have declined the drawing request from ${message.author.toString()}.`);
 				collector.stop();
 				authorCollector.stop();
 				reactMsgCl.delete();
@@ -71,13 +64,11 @@ module.exports =
 				accepted = true;
 			} else if (reaction.emoji.name == "💵") {
 				if (!accepted)
-					claire
-						.send("Accept the request first before choosing a price.")
-						.then((msg) => {
-							setTimeout(() => {
-								msg.delete();
-							}, 5000);
-						});
+					claire.send("Accept the request first before choosing a price.").then((msg) => {
+						setTimeout(() => {
+							msg.delete();
+						}, 5000);
+					});
 				else {
 					let botMsg = await claire.send("Choose a price :dollar:: ");
 					let userMessage = await MessageCollector.asyncQuestion({
@@ -103,12 +94,8 @@ module.exports =
 							.react("✅")
 							.then(() => confirmPriceMsg.react("🚫"))
 							.catch(console.error);
-						const filter2 = (reaction, user) =>
-							user.id !== "725917919292162051";
-						const confirmCollector = confirmPriceMsg.createReactionCollector(
-							filter2,
-							{ time: 10000 }
-						);
+						const filter2 = (reaction, user) => user.id !== "725917919292162051";
+						const confirmCollector = confirmPriceMsg.createReactionCollector(filter2, { time: 10000 });
 						confirmCollector.on("collect", async (reaction, user) => {
 							if (reaction.emoji.name == "✅") {
 								await profileModel.findOneAndUpdate(
@@ -127,9 +114,7 @@ module.exports =
 										},
 									}
 								);
-								claire.send(
-									`${message.author.toString()} has confirmed the price. You have received ${price} Minco Dollars`
-								);
+								claire.send(`${message.author.toString()} has confirmed the price. You have received ${price} Minco Dollars`);
 								message.author.send(
 									`You have accepted the price. ${price} Minco Dollars from your profile have been given to Claire.`
 								);
@@ -150,16 +135,12 @@ module.exports =
 					}
 				}
 			} else if (reaction.emoji.name == "📞") {
-				let botMsg = await claire.send(
-					`Send a message to ${message.author.toString()}...`
-				);
+				let botMsg = await claire.send(`Send a message to ${message.author.toString()}...`);
 				let userMessage = await MessageCollector.asyncQuestion({
 					botMessage: botMsg,
 					user: "802668636795830292",
 				}).catch(console.error);
-				await message.author.send(
-					`Message from <@${userMessage.author.id}>: ${userMessage.content}`
-				);
+				await message.author.send(`Message from <@${userMessage.author.id}>: ${userMessage.content}`);
 				botMsg.delete();
 				claire.send("Message sent").then((msg) => {
 					setTimeout(() => {
@@ -168,9 +149,7 @@ module.exports =
 				});
 			}
 
-			const userReactions = reactMsgCl.reactions.cache.filter((react) =>
-				react.users.cache.has("802668636795830292")
-			);
+			const userReactions = reactMsgCl.reactions.cache.filter((react) => react.users.cache.has("802668636795830292"));
 			try {
 				for (const reaction of userReactions.values()) {
 					await reaction.users.remove("802668636795830292");
@@ -193,9 +172,7 @@ module.exports =
 					botMessage: botMsg,
 					user: message.author.id,
 				});
-				await claire.send(
-					`Message from ${message.author.toString()}: ${userMessage.content}`
-				);
+				await claire.send(`Message from ${message.author.toString()}: ${userMessage.content}`);
 				botMsg.delete();
 				message.author.send("Message Sent").then((msg) => {
 					setTimeout(() => {
@@ -211,9 +188,7 @@ module.exports =
 				reactMsgCl.delete();
 			}
 
-			const userReactions = reactMsgAu.reactions.cache.filter((react) =>
-				react.users.cache.has(message.author.id)
-			);
+			const userReactions = reactMsgAu.reactions.cache.filter((react) => react.users.cache.has(message.author.id));
 			try {
 				for (const reaction of userReactions.values()) {
 					await reaction.users.remove(message.author.id);

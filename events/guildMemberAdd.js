@@ -25,12 +25,8 @@ module.exports = async (_, member) => {
 	let joinEmbed = new Discord.MessageEmbed()
 		.setColor("58D68D") // green
 		.setTitle("Welcome")
-		.setDescription(
-			`Welcome to the ${member.guild.name} server, <@${member.id}>!\nYou are the ${memberCountOrdinal} member!`
-		);
+		.setDescription(`Welcome to the ${member.guild.name} server, <@${member.id}>!\nYou are the ${memberCountOrdinal} member!`);
 
 	member.guild.systemChannel.send(joinEmbed);
-	member.send(
-		`Welcome to the ${member.guild.name} server, <@${member.id}>! You are the ${memberCountOrdinal} member!`
-	);
+	member.send(`Welcome to the ${member.guild.name} server, <@${member.id}>! You are the ${memberCountOrdinal} member!`);
 };

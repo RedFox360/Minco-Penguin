@@ -41,9 +41,7 @@ module.exports = async (client, message) => {
 		let infoEmbed = new Discord.MessageEmbed()
 			.setColor("32E6C5")
 			.setTitle("Minco Penguin")
-			.setDescription(
-				"Hello, I'm Minco Penguin! My prefixes are '!' and 'minco '"
-			);
+			.setDescription("Hello, I'm Minco Penguin! My prefixes are '!' and 'minco '");
 		message.channel.send(infoEmbed);
 		return;
 	}
@@ -60,23 +58,18 @@ module.exports = async (client, message) => {
 	}
 	const args = message.content.slice(currentPrefix.length).split(/ +/);
 	const cmd = args.shift().toLowerCase();
-	const command =
-		client.commands.get(cmd) ||
-		client.commands.find((a) => a.aliases && a.aliases.includes(cmd));
+	const command = client.commands.get(cmd) || client.commands.find((a) => a.aliases && a.aliases.includes(cmd));
 
 	if (!command) return;
 	if (guildData.bannedPeople) {
 		for (let i = 0; i < guildData.bannedPeople.length; i++) {
 			let person = guildData.bannedPeople[i];
 			if (message.author.id == person) {
-				return message.channel.send(
-					"You were banned from using Minco Penguin."
-				);
+				return message.channel.send("You were banned from using Minco Penguin.");
 			}
 		}
 	}
-	if (!cooldowns.has(command.name))
-		cooldowns.set(command.name, new Discord.Collection());
+	if (!cooldowns.has(command.name)) cooldowns.set(command.name, new Discord.Collection());
 	const currentTime = Date.now();
 	const timeStamps = cooldowns.get(command.name);
 	const cooldownAmount = command.cooldown * 1000;
@@ -88,9 +81,7 @@ module.exports = async (client, message) => {
 			let timeEmbed = new Discord.MessageEmbed()
 				.setColor("RED")
 				.setTitle("Cooldown")
-				.setDescription(
-					`Please wait ${prettyMs(timeLeft)} before using command ${cmd}`
-				);
+				.setDescription(`Please wait ${prettyMs(timeLeft)} before using command ${cmd}`);
 			message.channel.send(timeEmbed).then((msg) => {
 				setTimeout(() => {
 					msg.delete();
@@ -105,9 +96,7 @@ module.exports = async (client, message) => {
 		if (typeof t === "string") message.channel.send(t);
 	} catch (error) {
 		message.react("❌");
-		message.channel.send(
-			"An error occured while trying to execute this command"
-		);
+		message.channel.send("An error occured while trying to execute this command");
 		console.error(error);
 	}
 };

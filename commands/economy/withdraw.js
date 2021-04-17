@@ -8,13 +8,9 @@ module.exports = {
 	async execute(message, args, cmd, client, profileData) {
 		const amount = parseInt(args[0]);
 		if (isNaN(amount)) return message.channel.send("Enter a valid number");
-		if (amount % 1 != 0 || amount <= 0)
-			return message.channel.send("Withdraw amount must be a whole number");
+		if (amount % 1 != 0 || amount <= 0) return message.channel.send("Withdraw amount must be a whole number");
 		try {
-			if (amount > profileData.bank)
-				return message.channel.send(
-					"You don't have that amount of Minco Dollars in your bank."
-				);
+			if (amount > profileData.bank) return message.channel.send("You don't have that amount of Minco Dollars in your bank.");
 			await profileModel.findOneAndUpdate(
 				{ userID: message.author.id },
 				{

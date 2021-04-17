@@ -2,16 +2,7 @@ module.exports = {
 	name: "yee",
 	description: "Sends a random yee gif",
 	cooldown: 1,
-	aliases: [
-		"yeee",
-		"yeeeee",
-		"yeeeeee",
-		"yeeeeeee",
-		"yeeeeeeee",
-		"yeeeeeeeee",
-		"yeeeeeeeeee",
-		"eeeeeeeeeee",
-	],
+	aliases: ["yeee", "yeeeee", "yeeeeee", "yeeeeeee", "yeeeeeeee", "yeeeeeeeee", "yeeeeeeeeee", "eeeeeeeeeee"],
 	execute(message, args) {
 		let yees = [
 			"https://tenor.com/view/yee-yeedinasour-dinasour-gif-4930781",

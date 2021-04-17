@@ -2,8 +2,7 @@ const { MessageEmbed } = require("discord.js");
 
 module.exports = {
 	name: "dog",
-	description:
-		"Sends a random dog picture (oreo, archie, or rocco) or a nice looking embed",
+	description: "Sends a random dog picture (oreo, archie, or rocco) or a nice looking embed",
 	usage: "!dog (info) oreo/archie/rocco",
 	execute(message, args) {
 		var pics;
@@ -85,9 +84,7 @@ module.exports = {
 						}
 					)
 					.setColor("3498DB") // blue
-					.setThumbnail(
-						archiePics[Math.floor(Math.random() * archiePics.length)]
-					);
+					.setThumbnail(archiePics[Math.floor(Math.random() * archiePics.length)]);
 			} else if (args[1] == "rocco" || args[1] == "Rocco") {
 				embed
 					.setDescription(
@@ -111,9 +108,7 @@ module.exports = {
 						}
 					)
 					.setColor("F7DC6F")
-					.setThumbnail(
-						roccoPics[Math.floor(Math.random() * roccoPics.length)]
-					);
+					.setThumbnail(roccoPics[Math.floor(Math.random() * roccoPics.length)]);
 			} else {
 				message.channel.send("Enter a valid dog name (oreo, archie, or rocco)");
 				return;

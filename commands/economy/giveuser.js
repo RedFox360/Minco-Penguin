@@ -18,9 +18,7 @@ module.exports = {
 					},
 				}
 			);
-			message.channel.send(
-				`You have given <@${mention.id}> ${amount} Minco Dollars`
-			);
+			message.channel.send(`You have given <@${mention.id}> ${amount} Minco Dollars`);
 		}
 	},
 };

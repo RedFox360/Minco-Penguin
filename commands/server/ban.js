@@ -9,10 +9,7 @@ module.exports = {
 			const mention = message.mentions.users.first();
 			if (!mention) return "Mention a valid user";
 			let memberTarget = message.guild.members.cache.get(mention.id);
-			if (
-				memberTarget.hasPermission("MANAGE_SERVER") &&
-				memberTarget.hasPermission("BAN_MEMBERS")
-			)
+			if (memberTarget.hasPermission("MANAGE_SERVER") && memberTarget.hasPermission("BAN_MEMBERS"))
 				return message.channel.send("This person cannot be banned.");
 			memberTarget.ban();
 			return `${memberTarget.tag} was banned from the server.`;

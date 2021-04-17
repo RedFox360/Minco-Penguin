@@ -20,11 +20,7 @@ module.exports =
 			.setColor("#70FFC2")
 			.setAuthor(message.author.username)
 			.setTitle("Meme Request")
-			.setDescription(
-				`${message.author.toString()} from ${
-					message.guild.name
-				} has requested a meme:\n__${meme}__`
-			);
+			.setDescription(`${message.author.toString()} from ${message.guild.name} has requested a meme:\n__${meme}__`);
 		let returnEmbed = new Discord.MessageEmbed()
 			.setColor("#54ACFE")
 			.setAuthor("Mason L")
@@ -58,9 +54,7 @@ module.exports =
 			reacted = true;
 			if (reaction.emoji.name == "🚫") {
 				message.author.send("Mason L has declined your request");
-				mason.send(
-					`You have declined the meme request from ${message.author.toString()}.`
-				);
+				mason.send(`You have declined the meme request from ${message.author.toString()}.`);
 				collector.stop();
 				authorCollector.stop();
 				reactMsgMa.delete();
@@ -70,13 +64,11 @@ module.exports =
 				accepted = true;
 			} else if (reaction.emoji.name == "💵") {
 				if (!accepted)
-					mason
-						.send("Accept the request first before choosing a price.")
-						.then((msg) => {
-							setTimeout(() => {
-								msg.delete();
-							}, 5000);
-						});
+					mason.send("Accept the request first before choosing a price.").then((msg) => {
+						setTimeout(() => {
+							msg.delete();
+						}, 5000);
+					});
 				else {
 					let botMsg = await mason.send("Choose a price :dollar:: ");
 					let userMessage = await MessageCollector.asyncQuestion({
@@ -102,12 +94,8 @@ module.exports =
 							.react("✅")
 							.then(() => confirmPriceMsg.react("🚫"))
 							.catch(console.error);
-						const filter2 = (reaction, user) =>
-							user.id !== "725917919292162051";
-						const confirmCollector = confirmPriceMsg.createReactionCollector(
-							filter2,
-							{ time: 10000 }
-						);
+						const filter2 = (reaction, user) => user.id !== "725917919292162051";
+						const confirmCollector = confirmPriceMsg.createReactionCollector(filter2, { time: 10000 });
 						confirmCollector.on("collect", async (reaction, user) => {
 							if (reaction.emoji.name == "✅") {
 								await profileModel.findOneAndUpdate(
@@ -126,9 +114,7 @@ module.exports =
 										},
 									}
 								);
-								mason.send(
-									`${message.author.toString()} has confirmed the price. You have received ${price} Minco Dollars`
-								);
+								mason.send(`${message.author.toString()} has confirmed the price. You have received ${price} Minco Dollars`);
 								message.author.send(
 									`You have accepted the price. ${price} Minco Dollars from your profile have been given to Mason L.`
 								);
@@ -149,16 +135,12 @@ module.exports =
 					}
 				}
 			} else if (reaction.emoji.name == "📞") {
-				let botMsg = await mason.send(
-					`Send a message to ${message.author.toString()}...`
-				);
+				let botMsg = await mason.send(`Send a message to ${message.author.toString()}...`);
 				let userMessage = await MessageCollector.asyncQuestion({
 					botMessage: botMsg,
 					user: "769313131108237322",
 				}).catch(console.error);
-				await message.author.send(
-					`Message from <@${userMessage.author.id}>: ${userMessage.content}`
-				);
+				await message.author.send(`Message from <@${userMessage.author.id}>: ${userMessage.content}`);
 				botMsg.delete();
 				mason.send("Message sent").then((msg) => {
 					setTimeout(() => {
@@ -167,9 +149,7 @@ module.exports =
 				});
 			}
 
-			const userReactions = reactMsgMa.reactions.cache.filter((react) =>
-				react.users.cache.has("769313131108237322")
-			);
+			const userReactions = reactMsgMa.reactions.cache.filter((react) => react.users.cache.has("769313131108237322"));
 			try {
 				for (const reaction of userReactions.values()) {
 					await reaction.users.remove("769313131108237322");
@@ -192,9 +172,7 @@ module.exports =
 					botMessage: botMsg,
 					user: message.author.id,
 				});
-				await mason.send(
-					`Message from ${message.author.toString()}: ${userMessage.content}`
-				);
+				await mason.send(`Message from ${message.author.toString()}: ${userMessage.content}`);
 				botMsg.delete();
 				message.author.send("Message Sent").then((msg) => {
 					setTimeout(() => {
@@ -210,9 +188,7 @@ module.exports =
 				reactMsgMa.delete();
 			}
 
-			const userReactions = reactMsgAu.reactions.cache.filter((react) =>
-				react.users.cache.has(message.author.id)
-			);
+			const userReactions = reactMsgAu.reactions.cache.filter((react) => react.users.cache.has(message.author.id));
 			try {
 				for (const reaction of userReactions.values()) {
 					await reaction.users.remove(message.author.id);

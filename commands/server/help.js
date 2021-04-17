@@ -12,9 +12,7 @@ module.exports = {
 	async execute(message, args, _, client) {
 		var color = "C782FE"; // light purple
 		if (args.length) {
-			const command =
-				client.commands.get(args[0]) ||
-				client.commands.find((a) => a.aliases && a.aliases.includes(args[0]));
+			const command = client.commands.get(args[0]) || client.commands.find((a) => a.aliases && a.aliases.includes(args[0]));
 			if (!command) return message.channel.send("Enter a valid command name");
 			let commandEmbed = new Discord.MessageEmbed()
 				.setTitle(command.usage || "!" + command.name)
@@ -43,14 +41,10 @@ module.exports = {
 		const helpMsg = await message.channel.send(helpEmbed);
 		const fields = [0, [], [], [], [], []];
 
-		const categories = fs
-			.readdirSync("./commands/")
-			.filter((file) => !file.endsWith(".DS_Store"));
+		const categories = fs.readdirSync("./commands/").filter((file) => !file.endsWith(".DS_Store"));
 		for (const category of categories) {
 			if (category != "hidden") {
-				const commandFiles = fs
-					.readdirSync(`./commands/${category}`)
-					.filter((File) => File.endsWith(".js"));
+				const commandFiles = fs.readdirSync(`./commands/${category}`).filter((File) => File.endsWith(".js"));
 				for (const file of commandFiles) {
 					const command = require(`../../commands/${category}/${file}`);
 					let pos = 0;
@@ -59,8 +53,7 @@ module.exports = {
 					else if (category == "server") pos = 3;
 					else if (category == "random") pos = 4;
 					else if (category == "economy") pos = 5;
-					if (command.usage)
-						fields[pos].push([command.usage, command.description]);
+					if (command.usage) fields[pos].push([command.usage, command.description]);
 					else fields[pos].push([`!${command.name}`, command.description]);
 				}
 			}
@@ -85,10 +78,7 @@ module.exports = {
 						.setFooter(message.guild.name);
 					helpMsg.edit(helpEmbed);
 				} else {
-					helpEmbed = new Discord.MessageEmbed()
-						.setTitle(titles[currentPage])
-						.setColor(color)
-						.setFooter(message.guild.name);
+					helpEmbed = new Discord.MessageEmbed().setTitle(titles[currentPage]).setColor(color).setFooter(message.guild.name);
 
 					fields[currentPage].forEach((field) => {
 						helpEmbed.addField(field[0], field[1]);
@@ -97,19 +87,14 @@ module.exports = {
 				}
 			} else if (reaction.emoji.name == "⏩") {
 				if (currentPage != 5) currentPage++;
-				helpEmbed = new Discord.MessageEmbed()
-					.setTitle(titles[currentPage])
-					.setColor(color)
-					.setFooter(message.guild.name);
+				helpEmbed = new Discord.MessageEmbed().setTitle(titles[currentPage]).setColor(color).setFooter(message.guild.name);
 				fields[currentPage].forEach((field) => {
 					helpEmbed.addField(field[0], field[1]);
 				});
 				helpMsg.edit(helpEmbed);
 			}
 
-			const userReactions = helpMsg.reactions.cache.filter((react) =>
-				react.users.cache.has(message.author.id)
-			);
+			const userReactions = helpMsg.reactions.cache.filter((react) => react.users.cache.has(message.author.id));
 			try {
 				for (const reaction of userReactions.values()) {
 					await reaction.users.remove(message.author.id);

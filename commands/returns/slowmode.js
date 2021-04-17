@@ -12,8 +12,7 @@ module.exports = {
 			if (args[0] == "off") slowmode = 0;
 			else slowmode = ms(args.join(" ")) / 1000;
 			if (isNaN(slowmode)) return "Enter a valid number";
-			if (slowmode > 21600)
-				return "Please enter an amount less than or equal to 6 hours";
+			if (slowmode > 21600) return "Please enter an amount less than or equal to 6 hours";
 			message.channel.setRateLimitPerUser(slowmode, null);
 			let confirmEmbed = new MessageEmbed()
 				.setColor("#7E78D2")

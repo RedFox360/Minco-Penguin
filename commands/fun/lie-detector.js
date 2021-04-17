@@ -2,8 +2,7 @@ const { MessageEmbed, Message } = require("discord.js");
 module.exports = {
 	name: "lie-detector",
 	aliases: ["lied", "ld"],
-	description:
-		"Credit to Aiden for the idea : sends a is lying/not lying message",
+	description: "Credit to Aiden for the idea : sends a is lying/not lying message",
 	usage: "!ld <Question>",
 	/** @param {Message} message */
 	execute(message, args) {

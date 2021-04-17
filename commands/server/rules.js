@@ -3,10 +3,7 @@ module.exports = {
 	name: "rules",
 	description: "sends the rules for the server in an Embed",
 	execute(message, args) {
-		if (
-			message.guild.id == "785642761814671381" ||
-			message.guild.id == "804079271986462811"
-		) {
+		if (message.guild.id == "785642761814671381" || message.guild.id == "804079271986462811") {
 			if (!args.length) {
 				let rules = new MessageEmbed()
 					.setColor("#80CED7")
@@ -41,9 +38,7 @@ module.exports = {
 							value: "DO NOT SPAM PING anyone (mute after 3 pings in a row)",
 						}
 					)
-					.setFooter(
-						"You have the right to stand trial in a voice channel if you break any of these rules"
-					);
+					.setFooter("You have the right to stand trial in a voice channel if you break any of these rules");
 				message.channel.send(rules);
 			} else if (args[0] == "im" || args[0] == "important") {
 				let rulesEmbed = new MessageEmbed()

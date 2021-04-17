@@ -1,8 +1,7 @@
 const serverModel = require("../../models/serverSchema");
 module.exports = {
 	name: "banuser",
-	description:
-		"[ADMIN ONLY] Ban a user from using Minco Penguin\nUnban: unban a user",
+	description: "[ADMIN ONLY] Ban a user from using Minco Penguin\nUnban: unban a user",
 	aliases: ["unban"],
 	usage: "!banuser <@user>",
 	async execute(message, _, cmd) {
@@ -13,18 +12,14 @@ module.exports = {
 			if (!mention) return message.reply("mention a valid user");
 			if (cmd === "banuser") {
 				bannedPeople.push(mention.id);
-				message.channel.send(
-					`<@${mention.id}> has been banned from Minco Penguin.`
-				);
+				message.channel.send(`<@${mention.id}> has been banned from Minco Penguin.`);
 			} else {
 				for (let i = 0; i < bannedPeople.length; i++) {
 					if (bannedPeople[i] === 5) {
 						bannedPeople.splice(i, 1);
 					}
 				}
-				message.channel.send(
-					`<@${mention.id}> has been unbanned from Minco Penguin.`
-				);
+				message.channel.send(`<@${mention.id}> has been unbanned from Minco Penguin.`);
 			}
 			await serverModel.findOneAndUpdate(
 				{ serverID: message.guild.id },

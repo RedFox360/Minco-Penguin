@@ -13,26 +13,18 @@ module.exports = {
 	async execute(message, args, cmd) {
 		var roles;
 		if (message.guild.id == "785642761814671381") roles = ["Student", "Muted"];
-		else if (message.guild.id == "804079271986462811")
-			roles = ["Member", "Muted"];
-		else if (message.guild.id == "818509629842522112")
-			roles = ["Blob", "Muted"];
-		else
-			return message.channel.send("The mute command is invalid in this server");
+		else if (message.guild.id == "804079271986462811") roles = ["Member", "Muted"];
+		else if (message.guild.id == "818509629842522112") roles = ["Blob", "Muted"];
+		else return message.channel.send("The mute command is invalid in this server");
 		if (
-			(message.member.hasPermission("MANAGE_MESSAGES") &&
-				message.member.roles.cache.find((r) => r.name === "Moderator")) ||
+			(message.member.hasPermission("MANAGE_MESSAGES") && message.member.roles.cache.find((r) => r.name === "Moderator")) ||
 			message.member.hasPermission("MANAGE_ROLES") ||
 			message.author.id == "802668636795830292"
 		) {
 			const target = message.mentions.users.first();
 			if (!target) return message.channel.send("Mention a valid user");
-			let mainRole = await message.guild.roles.cache.find(
-				(role) => role.name === roles[0]
-			);
-			let muteRole = await message.guild.roles.cache.find(
-				(role) => role.name === roles[1]
-			);
+			let mainRole = await message.guild.roles.cache.find((role) => role.name === roles[0]);
+			let muteRole = await message.guild.roles.cache.find((role) => role.name === roles[1]);
 			let memberTarget = await message.guild.members.cache.get(target.id);
 			if (memberTarget.bot) return "Bots cannot be muted";
 			if (
@@ -66,7 +58,6 @@ module.exports = {
 				message.channel.send(`<@${memberTarget.user.id}> has been unmuted.`);
 				return;
 			}
-		} else
-			return "You don't have the right permissions to execute this command.";
+		} else return "You don't have the right permissions to execute this command.";
 	},
 };

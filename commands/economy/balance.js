@@ -14,18 +14,14 @@ module.exports = {
 			let balanceEmbed = new MessageEmbed()
 				.setTitle("Balance")
 				.setColor("7BFF70")
-				.setDescription(
-					`Wallet: ${profileData.mincoDollars} Minco Dollars\nBank: ${profileData.bank} Minco Dollars`
-				);
+				.setDescription(`Wallet: ${profileData.mincoDollars} Minco Dollars\nBank: ${profileData.bank} Minco Dollars`);
 			message.channel.send(balanceEmbed);
 		} else {
 			let profile = await profileModel.findOne({ userID: mention.id });
 			let balanceEmbed = new MessageEmbed()
 				.setTitle("Balance")
 				.setColor("7BFF70")
-				.setDescription(
-					`Wallet: ${profile.mincoDollars} Minco Dollars\nBank: ${profile.bank} Minco Dollars`
-				);
+				.setDescription(`Wallet: ${profile.mincoDollars} Minco Dollars\nBank: ${profile.bank} Minco Dollars`);
 			message.channel.send(balanceEmbed);
 		}
 	},

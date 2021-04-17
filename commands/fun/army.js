@@ -4,7 +4,6 @@ module.exports = {
 	execute(message, args) {
 		if (args[0] != null && args[0].toLowerCase().startsWith("carl"))
 			return "Turtles🐢, Dolphins🐬, Lizards🦎, Monkeys🐵🐒, Birds🦜";
-		else
-			return "Penguins🐧, Candy bears🍬🐻, Blobfish, Doges, Vibing Cats, Jellyfish";
+		else return "Penguins🐧, Candy bears🍬🐻, Blobfish, Doges, Vibing Cats, Jellyfish";
 	},
 };
