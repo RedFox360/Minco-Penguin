@@ -48,7 +48,6 @@ module.exports = {
 		else if (oper == "-") result = `${num1 - num2}`;
 		else if (oper == "*") result = `${num1 * num2}`;
 		message.channel.send(`What is ${num1} ${oper} ${num2}?`);
-
 		var time = 15;
 		if (args[0] == "easy") time = 7;
 		else if (args[0] == "medium") time = 12;
@@ -62,13 +61,9 @@ module.exports = {
 			if (guess == result) {
 				message.channel.send("Correct!");
 				var amount;
-				if (args[0] == "easy") {
-					amount = 10;
-				} else if (args[0] == "medium") {
-					amount = 20;
-				} else {
-					amount = 40;
-				}
+				if (args[0] == "easy") amount = 10;
+				else if (args[0] == "medium") amount = 20;
+				else amount = 40;
 				message.channel.send(`You won ${amount} Minco Dollars!`);
 				await profileModel.findOneAndUpdate(
 					{ userID: message.author.id },
