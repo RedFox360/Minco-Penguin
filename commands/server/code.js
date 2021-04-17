@@ -7,7 +7,7 @@ module.exports = {
 			.setTitle(":robot_face: Code Info")
 			.setColor("70E5FF")
 			.addFields(
-				{ name: "Node Version", value: "v14.16.1" },
+				{ name: "Node Version", value: process.version },
 				{ name: "Discord.js Version", value: "v" + version },
 				{
 					name: "Heroku",
