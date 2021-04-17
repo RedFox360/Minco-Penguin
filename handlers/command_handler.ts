@@ -1,4 +1,4 @@
-import { commands } from "../main";
+import { commands } from "../main.ts";
 import { Client } from "discord.js";
 import * as fs from "fs";
 export default (client: Client) => {
@@ -6,7 +6,7 @@ export default (client: Client) => {
 	for (const category of categories) {
 		const commandFiles = fs.readdirSync(`./commands/${category}`).filter((file) => file.endsWith(".js"));
 		for (const file of commandFiles) {
-			import(`../commands/${category}/${file}`).then((command) => {
+			import(`../commands/${category}/${file}.ts`).then((command) => {
 				commands.set(file.split(".")[0], command);
 			});
 		}

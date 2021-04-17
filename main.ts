@@ -1,13 +1,15 @@
 import * as Discord from "discord.js";
-require("dotenv").config();
 
 const client = new Discord.Client({ partials: ["MESSAGE", "CHANNEL", "REACTION"] });
 import * as mongoose from "mongoose";
 
 export const commands = new Discord.Collection();
 
-require(`./handlers/command_handler`)(client);
-require(`./handlers/event_handler`)(client);
+import command_handler from "./handlers/command_handler";
+import event_handler from "./handlers/event_handler";
+command_handler(client);
+event_handler(client);
+
 mongoose
 	.connect(process.env.SRV, {
 		useNewUrlParser: true,
@@ -18,7 +20,5 @@ mongoose
 		console.log("Connected to the database!");
 	})
 	.catch(console.error);
-
-require("./server")();
 
 client.login(process.env.TOKEN);

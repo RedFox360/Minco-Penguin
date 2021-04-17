@@ -4,7 +4,7 @@ var fs = require("fs");
 exports["default"] = (function (client) {
     var eventFiles = fs.readdirSync("./events").filter(function (file) { return file.endsWith(".js"); });
     var _loop_1 = function (file) {
-        Promise.resolve().then(function () { return require("../events/" + file); }).then(function (event) {
+        Promise.resolve().then(function () { return require("../events/" + file + ".ts"); }).then(function (event) {
             var eventName = file.split(".")[0];
             client.on(eventName, event.bind(null, client));
         });

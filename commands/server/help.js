@@ -38,7 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.execute = exports.aliases = exports.description = exports.name = void 0;
 var Discord = require("discord.js");
-var main_1 = require("../../main");
+var main_ts_1 = require("../../main.ts");
 var fs = require("fs");
 exports.name = "help";
 exports.description = "Help for all Minco Penguin commands!";
@@ -56,7 +56,7 @@ function execute(message, args, _, client) {
                 case 0:
                     color = "C782FE";
                     if (args.length) {
-                        command = main_1.commands.get(args[0]) || client.commands.find(function (a) { return a.aliases && a.aliases.includes(args[0]); });
+                        command = main_ts_1.commands.get(args[0]) || client.commands.find(function (a) { return a.aliases && a.aliases.includes(args[0]); });
                         if (!command)
                             return [2 /*return*/, message.channel.send("Enter a valid command name")];
                         commandEmbed = new Discord.MessageEmbed()
