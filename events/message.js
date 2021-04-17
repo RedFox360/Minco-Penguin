@@ -102,6 +102,7 @@ module.exports = async (client, message) => {
 };
 /** @param {Discord.Message} message */
 function blacklist(message) {
+	if (!message.channel) return;
 	if (message.channel.name.includes("meme")) return;
 	if (message.channel.nsfw) return;
 	let swearWords = [
