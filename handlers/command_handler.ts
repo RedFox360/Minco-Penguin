@@ -1,4 +1,4 @@
-import { commands } from "../main.ts";
+import { commands } from "../main";
 import { Client } from "discord.js";
 import * as fs from "fs";
 export default (client: Client) => {

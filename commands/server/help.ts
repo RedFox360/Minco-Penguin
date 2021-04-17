@@ -1,5 +1,5 @@
 import * as Discord from "discord.js";
-import { commands } from "../../main.ts";
+import { commands } from "../../main";
 import * as fs from "fs";
 
 export const name = "help";
