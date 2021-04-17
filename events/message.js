@@ -117,7 +117,6 @@ function blacklist(message) {
 		"theraleighregister.com",
 		"sanfransentinel.com",
 		"futureme.org",
-		"amazon.com",
 		"twitch.tv",
 		"geni.us",
 		"poop",
