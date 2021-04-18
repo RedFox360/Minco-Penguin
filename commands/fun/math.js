@@ -73,7 +73,6 @@ module.exports = {
 						},
 					}
 				);
-				return;
 			} else {
 				message.channel.send("Incorrect!");
 			}
