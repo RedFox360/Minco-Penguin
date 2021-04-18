@@ -4,7 +4,7 @@ const ms = require("ms");
 module.exports = {
 	description: "Sends a math question for you to solve",
 	usage: "!math <easy/medium/hard> <operation>",
-	cooldown: ms("5m") / 1000,
+	cooldown: ms("10m") / 1000,
 	/** @param {Message} message */
 	async execute(message, args) {
 		var num1, num2, result, timeLimit;
