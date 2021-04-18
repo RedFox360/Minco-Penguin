@@ -2,7 +2,6 @@ const Discord = require("discord.js");
 
 const fs = require("fs");
 module.exports = {
-	name: "help",
 	description: "Help for all Minco Penguin commands!",
 	aliases: ["c"],
 	/**
@@ -15,7 +14,7 @@ module.exports = {
 			const command = client.commands.get(args[0]) || client.commands.find((a) => a.aliases && a.aliases.includes(args[0]));
 			if (!command) return message.channel.send("Enter a valid command name");
 			let commandEmbed = new Discord.MessageEmbed()
-				.setTitle(command.usage || "!" + command.name)
+				.setTitle(command.usage || "!" + args[0])
 				.setDescription(command.description)
 				.setColor(color);
 			return message.channel.send(commandEmbed);
@@ -54,7 +53,7 @@ module.exports = {
 					else if (category == "random") pos = 4;
 					else if (category == "economy") pos = 5;
 					if (command.usage) fields[pos].push([command.usage, command.description]);
-					else fields[pos].push([`!${command.name}`, command.description]);
+					else fields[pos].push([`!${file.split(".")[0]}`, command.description]);
 				}
 			}
 		}

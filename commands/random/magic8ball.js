@@ -1,6 +1,5 @@
 const { MessageEmbed, Message } = require("discord.js");
 module.exports = {
-	name: "magic8ball",
 	description: "A magic 8 ball in Discord",
 	cooldown: 4,
 	usage: "!magic8ball <Question>",

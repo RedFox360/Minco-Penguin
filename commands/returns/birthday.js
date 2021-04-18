@@ -2,7 +2,6 @@ const { Message } = require("discord.js");
 const profileModel = require("../../models/profileSchema");
 
 module.exports = {
-	name: "birthday",
 	aliases: ["bday", "b"],
 	cooldown: 3,
 	description: "View everyone's birthday. Usage: birthday <name>",

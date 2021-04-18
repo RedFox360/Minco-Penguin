@@ -1,5 +1,4 @@
 module.exports = {
-	name: "dancing-dorito",
 	description: "Sends in the dancing dorito!",
 	aliases: ["dd"],
 	usage: "!dd",

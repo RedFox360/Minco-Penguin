@@ -1,5 +1,4 @@
 module.exports = {
-	name: "random",
 	description: "Returns a random number between 2 numbers",
 	aliases: ["rand"],
 	usage: "!random <min number> <max number>",

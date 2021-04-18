@@ -1,5 +1,4 @@
 module.exports = {
-	name: "leave",
 	description: "[SAMEER ONLY] Makes Minco penguin leave the server",
 	async execute(message) {
 		if (message.author.id == "724786310711214118") {

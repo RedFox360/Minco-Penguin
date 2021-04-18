@@ -1,5 +1,4 @@
 module.exports = {
-	name: "nggyu",
 	description: "Secret command: Never Gonna Give You Up lyrics",
 	execute: () =>
 		[

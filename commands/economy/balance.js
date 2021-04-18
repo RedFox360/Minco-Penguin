@@ -2,7 +2,6 @@ const { MessageEmbed, Message } = require("discord.js");
 const profileModel = require("../../models/profileSchema");
 
 module.exports = {
-	name: "balance",
 	aliases: ["bal", "bl"],
 	description: "Checks the user's balance",
 	usage: "!balance (@user)",

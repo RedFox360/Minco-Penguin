@@ -1,5 +1,4 @@
 module.exports = {
-	name: "buy",
 	description:
 		"Buy items\nBuy a drawing: !buy drawing <drawing> (sends a request to Claire, Minco Penguin will DM you with more info)",
 	usage: "!buy drawing <drawing>",

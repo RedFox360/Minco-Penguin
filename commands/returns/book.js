@@ -1,5 +1,4 @@
 module.exports = {
-	name: "book",
 	description: "View a randomly selected book by my friend Ishan",
 	usage: "!book <title/(random)>",
 	execute(message, args, cmd, client, profileData) {

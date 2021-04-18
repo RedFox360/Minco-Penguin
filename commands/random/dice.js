@@ -1,5 +1,4 @@
 module.exports = {
-	name: "dice",
 	aliases: ["roll", "diceroll", "die"],
 	description: "Roll a die (returns a random number between 1 and 6, inclusive)",
 	execute() {

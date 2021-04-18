@@ -1,5 +1,4 @@
 module.exports = {
-	name: "coinflip",
 	aliases: ["flip"],
 	description: 'Returns "heads" or "tails" based on a random outcome.',
 	execute(_, args) {

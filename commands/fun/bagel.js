@@ -1,5 +1,4 @@
 module.exports = {
-	name: "bagel",
 	description: "Returns THE BAGELS :bagel:",
 	aliases: ["bagels"],
 	execute: () =>

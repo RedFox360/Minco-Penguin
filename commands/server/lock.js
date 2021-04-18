@@ -1,7 +1,6 @@
 const { Message } = require("discord.js");
 const ms = require("ms");
 module.exports = {
-	name: "lock",
 	description: "[ADMIN ONLY] Locks the current channel",
 	aliases: ["unlock"],
 	/** @param {Message} message */

@@ -1,5 +1,4 @@
 module.exports = {
-	name: "spacesay",
 	description: "puts spaces between characters in the say command",
 	cooldown: 3,
 	usage: "!spacesay <words>",

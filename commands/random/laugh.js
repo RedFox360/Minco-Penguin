@@ -1,5 +1,4 @@
 module.exports = {
-	name: "laugh",
 	description: "Fun command: sends a random laugh",
 	aliases: ["haha", "hehe"],
 	execute() {

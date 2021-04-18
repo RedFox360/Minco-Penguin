@@ -2,7 +2,6 @@ const prettyMs = require("pretty-ms");
 const Discord = require("discord.js");
 
 module.exports = {
-	name: "ping",
 	aliases: ["p"],
 	description: "check if the bot is online",
 	/**
@@ -18,7 +17,6 @@ module.exports = {
 			.addFields(
 				{ name: "Status:", value: status },
 				{
-					name: "Execution Time:",
 					value: `${Date.now() - message.createdTimestamp}ms`,
 				},
 				{ name: "Client Latency", value: `${Math.round(client.ws.ping)}ms` },

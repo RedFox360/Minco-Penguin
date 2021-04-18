@@ -1,5 +1,4 @@
 module.exports = {
-	name: "fortune",
 	description: "Gives you a fortune",
 	cooldown: 4,
 	execute() {

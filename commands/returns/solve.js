@@ -1,6 +1,5 @@
 const { simplify } = require("mathjs");
 module.exports = {
-	name: "solve",
 	description: "Solve a math problem\nOperations: +, -, *, /, ^, sqrt, cbrt",
 	aliases: ["s"],
 	usage: "!solve <Math Equation>",

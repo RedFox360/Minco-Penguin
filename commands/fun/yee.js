@@ -1,5 +1,4 @@
 module.exports = {
-	name: "yee",
 	description: "Sends a random yee gif",
 	cooldown: 1,
 	aliases: ["yeee", "yeeeee", "yeeeeee", "yeeeeeee", "yeeeeeeee", "yeeeeeeeee", "yeeeeeeeeee", "eeeeeeeeeee"],

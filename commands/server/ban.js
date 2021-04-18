@@ -1,6 +1,5 @@
 const { Message } = require("discord.js");
 module.exports = {
-	name: "ban",
 	description: "[ADMIN ONLY] Ban members",
 	usage: "!ban <@user>",
 	/** @param {Message} message */

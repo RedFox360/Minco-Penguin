@@ -1,7 +1,6 @@
 const { get } = require("mongoose");
 
 module.exports = {
-	name: "hello",
 	description: "Returns a random hello message.",
 	cooldown: 1,
 	aliases: ["howdy", "hi"],

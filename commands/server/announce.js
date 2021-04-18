@@ -1,6 +1,5 @@
 const { MessageEmbed } = require("discord.js");
 module.exports = {
-	name: "announce",
 	description: "[ADMIN ONLY] Sends a message in the announcement channel",
 	usage: "!announce <message>",
 	execute(message, args) {

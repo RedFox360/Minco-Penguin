@@ -1,5 +1,4 @@
 module.exports = {
-	name: "yeeyeet",
 	description: "Yees + Yeets = The Future of Memes!",
 	execute(message) {
 		let yeets = [

@@ -1,7 +1,6 @@
 const profileModel = require("../../models/profileSchema");
 
 module.exports = {
-	name: "giveuser",
 	description: "[ADMIN ONLY] give a user an amount of Minco Dollars",
 	usage: "!giveuser <@user> <number>",
 	async execute(message, args, cmd, client, profileData) {

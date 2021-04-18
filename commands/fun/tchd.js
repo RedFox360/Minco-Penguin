@@ -1,6 +1,5 @@
 // the chat has died
 module.exports = {
-	name: "tchd",
 	description: "Sends a random the chat has died message",
 	execute() {
 		let randomMessage = [

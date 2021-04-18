@@ -1,7 +1,6 @@
 const profileModel = require("../../models/profileSchema");
 
 module.exports = {
-	name: "setfav",
 	description: "Set your favorite animal, color, and food",
 	usage: "!setfav <color/animal/food> <fav object>",
 	async execute(message, args, _0, _1, profileData) {

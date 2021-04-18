@@ -1,5 +1,4 @@
 module.exports = {
-	name: "ubuntu",
 	description: "Get the ubuntu name of someone",
 	execute(_, args) {
 		switch (args[1].toLowerCase()) {

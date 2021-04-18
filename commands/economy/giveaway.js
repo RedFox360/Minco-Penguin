@@ -1,7 +1,6 @@
 const { Message } = require("discord.js");
 const profileModel = require("../../models/profileSchema");
 module.exports = {
-	name: "giveaway",
 	description: "[can only be used by Angela and Sameer] Creates a giveaway!",
 	usage: "!giveaway <@user 1> <@user 2> ...",
 	/** @param {Message} message */

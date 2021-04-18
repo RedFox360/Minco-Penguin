@@ -1,5 +1,4 @@
 module.exports = {
-	name: "prime",
 	description: "checks if a number is prime or not",
 	aliases: ["composite", "isprime"],
 	usage: "!prime <number",

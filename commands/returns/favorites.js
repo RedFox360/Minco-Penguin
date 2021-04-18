@@ -2,7 +2,6 @@ const profileModel = require("../../models/profileSchema");
 
 const { Message } = require("discord.js");
 module.exports = {
-	name: "favorites",
 	description: "Check the favorites of a user",
 	usage: "!favorites <@user>",
 	async execute(message) {

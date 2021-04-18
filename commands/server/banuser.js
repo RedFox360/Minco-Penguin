@@ -1,6 +1,5 @@
 const serverModel = require("../../models/serverSchema");
 module.exports = {
-	name: "banuser",
 	description: "[ADMIN ONLY] Ban a user from using Minco Penguin\nUnban: unban a user",
 	aliases: ["unban"],
 	usage: "!banuser <@user>",

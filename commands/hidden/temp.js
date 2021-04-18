@@ -1,6 +1,5 @@
 const { MessageEmbed } = require("discord.js");
 module.exports = {
-	name: "temp",
 	description: "Temp command for Sameer",
 	execute(message, args) {
 		if (message.author.id == "724786310711214118") {

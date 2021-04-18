@@ -1,7 +1,6 @@
 const ms = require("ms");
 const { MessageEmbed, Message } = require("discord.js");
 module.exports = {
-	name: "slowmode",
 	description: "[MANAGE CHANNELS] Changes slowmode",
 	usage: "!slowmode <number>",
 	/** @param {Message} message */

@@ -1,5 +1,4 @@
 module.exports = {
-	name: "yeet",
 	description: "Sends a random yeet gif",
 	execute(message, args) {
 		let yeets = [

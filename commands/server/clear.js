@@ -1,5 +1,4 @@
 module.exports = {
-	name: "clear",
 	description: "[MANAGE MESSAGES] Clears [number] messages from a text channel",
 	usage: "!clear <number>",
 	async execute(message, args) {

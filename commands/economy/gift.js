@@ -2,7 +2,6 @@ const { Message } = require("discord.js");
 const profileModel = require("../../models/profileSchema");
 
 module.exports = {
-	name: "gift",
 	description: "Gift an amount of coins to a user",
 	usage: "!gift <@user> <number>",
 	cooldown: 3,

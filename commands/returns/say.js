@@ -1,5 +1,4 @@
 module.exports = {
-	name: "say",
 	description: "This is a say command for Minco Penguin",
 	cooldown: 3,
 	usage: "!say <words>",

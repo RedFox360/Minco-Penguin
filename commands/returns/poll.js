@@ -1,6 +1,5 @@
 const { MessageEmbed, Message } = require("discord.js");
 module.exports = {
-	name: "poll",
 	description: "Sends a poll in the channel with thumbsup and thumbsdown emojis\nUse spoll to add a shrug emoji",
 	aliases: ["spoll"],
 	usage: "!poll/spoll <Question>",

@@ -2,7 +2,6 @@ const Discord = require("discord.js");
 
 const ms = require("ms");
 module.exports = {
-	name: "mute",
 	aliases: ["unmute"],
 	description: "[ADMIN ONLY] Mutes a member",
 	usage: "!mute <@user> <time> <reason>",

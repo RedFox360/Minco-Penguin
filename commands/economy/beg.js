@@ -1,6 +1,5 @@
 const profileModel = require("../../models/profileSchema");
 module.exports = {
-	name: "beg",
 	cooldown: 240, //4 minutes
 	aliases: ["gimmemoney"],
 	usage: "!beg",

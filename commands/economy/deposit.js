@@ -1,7 +1,6 @@
 const profileModel = require("../../models/profileSchema");
 
 module.exports = {
-	name: "deposit",
 	aliases: ["dep"],
 	description: "Despoit coins into your bank",
 	usage: "!deposit <number>",
