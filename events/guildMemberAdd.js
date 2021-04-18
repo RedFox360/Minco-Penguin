@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 
-const profileModel = require("../models/serverSchema");
+const profileModel = require("../models/profileSchema");
 
 var ordinal = require("ordinal");
 
