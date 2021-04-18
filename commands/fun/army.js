@@ -1,8 +1,7 @@
 module.exports = {
 	description: "This is a test command for Minco Penguin",
-	execute(message, args) {
-		if (args[0] != null && args[0].toLowerCase().startsWith("carl"))
-			return "Turtles🐢, Dolphins🐬, Lizards🦎, Monkeys🐵🐒, Birds🦜";
-		else return "Penguins🐧, Candy bears🍬🐻, Blobfish, Doges, Vibing Cats, Jellyfish";
-	},
+	execute: (_, args) =>
+		args[0] != null && args[0].toLowerCase().startsWith("carl")
+			? "Turtles🐢, Dolphins🐬, Lizards🦎, Monkeys🐵🐒, Birds🦜"
+			: "Penguins🐧, Candy bears🍬🐻, Blobfish, Doges, Vibing Cats, Jellyfish",
 };
