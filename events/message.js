@@ -69,9 +69,9 @@ module.exports = async (client, message) => {
 			}
 		}
 	}
-	if (!cooldowns.has(command.name)) cooldowns.set(command.name, new Discord.Collection());
+	if (!cooldowns.has(command)) cooldowns.set(command, new Discord.Collection());
 	const currentTime = Date.now();
-	const timeStamps = cooldowns.get(command.name);
+	const timeStamps = cooldowns.get(command);
 	const cooldownAmount = command.cooldown * 1000;
 
 	if (timeStamps.has(message.author.id)) {
