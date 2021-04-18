@@ -72,7 +72,7 @@ module.exports = async (client, message) => {
 	if (!cooldowns.has(command)) cooldowns.set(command, new Discord.Collection());
 	const currentTime = Date.now();
 	const timeStamps = cooldowns.get(command);
-	const cooldownAmount = command.cooldown * 1000;
+	const cooldownAmount = (command.cooldown || 2) * 1000;
 
 	if (timeStamps.has(message.author.id)) {
 		const expTime = timeStamps.get(message.author.id) + cooldownAmount;
