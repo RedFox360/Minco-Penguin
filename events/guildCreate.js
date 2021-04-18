@@ -1,5 +1,4 @@
-const Guild = require("discord.js");
-
+const { Guild } = require("discord.js");
 const serverModel = require("../models/serverSchema");
 /** @param {Guild} guild */
 module.exports = async (_, guild) => {
