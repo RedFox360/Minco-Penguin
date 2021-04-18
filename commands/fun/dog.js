@@ -44,14 +44,17 @@ module.exports = {
 					)
 					.addFields(
 						{
+							name: "Age",
 							value: "2",
 							inline: true,
 						},
 						{
+							name: "Birthday",
 							value: "May 18",
 							inline: true,
 						},
 						{
+							name: "Breed",
 							value: "Pure Shih Tzu",
 							inline: true,
 						}
@@ -65,15 +68,19 @@ module.exports = {
 					)
 					.addFields(
 						{
+							name: "Age",
 							value: "4",
 							inline: true,
 						},
 						{
+							name: "Birthday",
 							value: "March 18",
 							inline: true,
 						},
 						{
+							name: "Breed",
 							value: "Unknown (probably poodle mix)",
+							inline: true,
 						}
 					)
 					.setColor("3498DB") // blue
@@ -85,14 +92,17 @@ module.exports = {
 					)
 					.addFields(
 						{
+							name: "Age",
 							value: "4 1/2",
 							inline: true,
 						},
 						{
+							name: "Birthday",
 							value: "July 26",
 							inline: true,
 						},
 						{
+							name: "Breed",
 							value: "Red/Brown Toy Poodle",
 							inline: true,
 						}

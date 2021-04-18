@@ -9,10 +9,12 @@ module.exports = {
 				{ name: "Node Version", value: process.version },
 				{ name: "Discord.js Version", value: "v" + version },
 				{
+					name: "Server",
 					value: "Heroku free account, view the server [here](https://minco-penguin.herokuapp.com/)",
 				},
 				{
-					value: "discord.js, ms, dotenv, express, fs, mongoose",
+					name: "Packages used",
+					value: "discord.js, ms, express, fs, mongoose, discord.js-collector, ordinal, pretty-ms, mathjs",
 				}
 			);
 		message.channel.send(pingEmbed);
