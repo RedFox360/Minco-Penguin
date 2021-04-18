@@ -57,7 +57,8 @@ module.exports = {
 		collector.on("collect", async (m) => {
 			sendTimeOut = false;
 			let guess = m.content;
-			if (guess == result) {
+			if (isNaN(parseInt(guess))) sendTimeOut = true;
+			if (parseInt(guess) == result) {
 				message.channel.send("Correct!");
 				var amount;
 				if (args[0] == "easy") amount = 10;
