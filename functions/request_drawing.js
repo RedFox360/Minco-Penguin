@@ -1,7 +1,7 @@
 const ms = require("ms");
 const Discord = require("discord.js");
 
-const profileModel = require("../models/serverSchema");
+const profileModel = require("../models/profileSchema");
 
 const { MessageCollector } = require("discord.js-collector");
 module.exports =
