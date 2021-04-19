@@ -148,15 +148,6 @@ module.exports =
 					}, 2000);
 				});
 			}
-
-			const userReactions = reactMsgCl.reactions.cache.filter((react) => react.users.cache.has("802668636795830292"));
-			try {
-				for (const reaction of userReactions.values()) {
-					await reaction.users.remove("802668636795830292");
-				}
-			} catch (error) {
-				console.error("Failed to remove reactions.");
-			}
 		});
 
 		collector.on("end", (collected) => {
@@ -186,15 +177,6 @@ module.exports =
 				authorCollector.stop();
 				reactMsgAu.delete();
 				reactMsgCl.delete();
-			}
-
-			const userReactions = reactMsgAu.reactions.cache.filter((react) => react.users.cache.has(message.author.id));
-			try {
-				for (const reaction of userReactions.values()) {
-					await reaction.users.remove(message.author.id);
-				}
-			} catch (error) {
-				console.error("Failed to remove reactions.");
 			}
 		});
 	};
