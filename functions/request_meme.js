@@ -88,7 +88,7 @@ module.exports =
 							);
 						}
 						let confirmPriceMsg = await message.author.send(
-							`Mason L has decided on a price of ${price} Minco Dollars.\nReact below with a :white_check_mark: to agree and give ${price} Minco Dollars to claire.\nReact with a :no_entry_sign: if you disagree with the price.`
+							`Mason L has decided on a price of ${price} Minco Dollars.\nReact below with a :white_check_mark: to agree and give ${price} Minco Dollars to Mason L.\nReact with a :no_entry_sign: if you disagree with the price.`
 						);
 						confirmPriceMsg
 							.react("✅")
