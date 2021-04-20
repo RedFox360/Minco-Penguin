@@ -1,7 +1,7 @@
 module.exports = {
 	description: "View a randomly selected book by my friend Ishan",
 	usage: "!book <title/(random)>",
-	execute(message, args, cmd, client, profileData) {
+	execute(message, args) {
 		if (message.guild.id == "725560003569778689" || message.guild.id == "818509629842522112") {
 			var random = Math.floor(Math.random() * 5);
 			if (args[0] == "Leo") {

@@ -1,3 +1,4 @@
+/** @type {} */
 const cooldowns = new Map();
 const profileModel = require("../models/profileSchema");
 const serverModel = require("../models/serverSchema");
