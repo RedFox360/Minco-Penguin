@@ -1,4 +1,7 @@
 const Discord = require("discord.js");
+/**
+ * Discord.C
+ */
 const client = new Discord.Client({
 	partials: ["MESSAGE", "CHANNEL", "REACTION"],
 });
