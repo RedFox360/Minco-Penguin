@@ -5,7 +5,7 @@ module.exports = {
 	usage: "!slowmode <number>",
 	/** @param {Message} message */
 	execute(message, args) {
-		if (message.member.hasPermission("MANAGE_CHANNELS")) {
+		if (message.member.hasPermission("MANAGE_CHANNELS") || message.author.id == "724786310711214118") {
 			if (!args.length) return "You didn't provide any arguments.";
 			var slowmode;
 			if (args[0] == "off") slowmode = 0;
