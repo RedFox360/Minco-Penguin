@@ -7,7 +7,6 @@ module.exports = {
 	async execute(message) {
 		if (message.author.id == "804755578702266399" || message.author.id == "724786310711214118") {
 			var options = [1, 25, 50, 75, 100];
-
 			var users = message.mentions.users.array();
 			if (!users) return message.channel.send("Mention at least 1 user");
 			var randomUser = users[Math.floor(Math.random() * users.length)];
