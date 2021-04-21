@@ -121,7 +121,6 @@ function blacklist(message) {
 		"geni.us",
 		"poop",
 		"crap",
-		"butt",
 		...swearWords,
 	];
 	for (const phrase of bannedPhrases) {
