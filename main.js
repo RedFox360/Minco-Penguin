@@ -1,13 +1,9 @@
 const Discord = require("discord.js");
-/**
- * Discord.C
- */
 const client = new Discord.Client({
 	partials: ["MESSAGE", "CHANNEL", "REACTION"],
 });
 const mongoose = require("mongoose");
 client.commands = new Discord.Collection();
-
 require("./handlers/command_handler")(client);
 require("./handlers/event_handler")(client);
 mongoose
