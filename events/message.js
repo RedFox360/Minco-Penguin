@@ -3,6 +3,7 @@ const profileModel = require("../models/profileSchema");
 const serverModel = require("../models/serverSchema");
 const Discord = require("discord.js");
 const prettyMs = require("pretty-ms");
+const gifCooldowns = new Map();
 /**
  * @param {Discord.Message} message
  * @param {Discord.Client} client
@@ -36,6 +37,7 @@ module.exports = async (client, message) => {
 	} catch (err) {
 		console.error(err);
 	}
+	gifStop(message);
 	blacklist(message);
 	if (message.content.startsWith("<@!725917919292162051>")) {
 		let infoEmbed = new Discord.MessageEmbed()
@@ -126,5 +128,18 @@ function blacklist(message) {
 	for (const phrase of bannedPhrases) {
 		if (!message.content) return;
 		if (message.content.toLowerCase().includes(phrase)) return message.delete();
+	}
+}
+
+/** @param {Discord.Message} message */
+function gifStop(message) {
+	if (message.channel.name.includes("meme")) return;
+	if (!gifCooldowns.has(message.author.id)) gifCooldowns.set(message.author.id, 0);
+	if (message.content.includes("tenor.com")) gifCooldowns.get(message.author.id) += 1;
+	if (gifCooldowns.has(message.author.id)) {
+		if (gifCooldowns.get(message.author.id) == 2) message.delete();
+		setTimeout(() => {
+			gifCooldowns.delete(message.author.id);
+		}, 30000);
 	}
 }
