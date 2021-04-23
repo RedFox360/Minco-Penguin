@@ -1,7 +1,7 @@
 module.exports = {
 	description: "checks if a number is prime or not",
 	aliases: ["composite", "isprime"],
-	usage: "!prime <number",
+	usage: "!prime <number>",
 	/** @param {Array<String>} args */
 	execute(_, args, cmd) {
 		if (!args[0]) return "Please enter an argument (valid usage: !prime <Number>)";
