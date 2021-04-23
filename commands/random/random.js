@@ -1,3 +1,4 @@
+const { randomInt } = require("mathjs");
 module.exports = {
 	description: "Returns a random number between 2 numbers",
 	aliases: ["rand"],
@@ -7,7 +8,7 @@ module.exports = {
 		let max = parseInt(args[1]);
 		if (isNaN(min) || isNaN(max)) return "Enter valid numbers";
 		if (max < min) return "Your second number must be greater than your first number";
-		let random = Math.floor(Math.random() * (max - min + 1)) + min;
+		let random = randomInt(min, max + 1);
 		return random.toLocaleString();
 	},
 };
