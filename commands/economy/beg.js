@@ -2,7 +2,6 @@ const profileModel = require("../../models/profileSchema");
 module.exports = {
 	cooldown: 240, //4 minutes
 	aliases: ["gimmemoney"],
-	usage: "!beg",
 	description: "Beg for Minco Dollars",
 	async execute(message, _, cmd) {
 		let money = cmd === "gimmemoney" ? 2 : 4;
