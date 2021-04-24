@@ -7,7 +7,7 @@ module.exports = {
 		let min = parseInt(args[0]);
 		let max = parseInt(args[1]);
 		if (isNaN(min) || isNaN(max)) return "Enter valid numbers";
-		if (max < min) return "Your second number must be greater than your first number";
+		if (max <= min) return "Your second number must be greater than your first number";
 		let random = randomInt(min, max + 1);
 		return random.toLocaleString();
 	},
