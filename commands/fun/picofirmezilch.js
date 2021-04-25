@@ -17,7 +17,14 @@ module.exports = {
 				botMessage: placeMessage,
 				user: message.author.id,
 			});
-			let place = response.content;
+			let place;
+			try {
+				place = parseInt(response.content);
+			} catch (error) {
+				message.channel.send("You must enter a number");
+				message.channel.send("Terminating...");
+				return;
+			}
 			let number_at_place = digits[place - 1];
 
 			const digitMessage = await message.channel.send("Guess the digit: ");
@@ -29,18 +36,18 @@ module.exports = {
 			let guess = response2.content;
 
 			if (number_at_place == guess) {
-				print("Pico");
+				message.channel.send("Pico");
 				picos += 1;
 				userDigits[place - 1] = number_at_place;
 			} else if (guess in digits) {
-				print("Firme");
+				message.channel.send("Firme");
 			} else {
-				print("Zilch");
+				message.channel.send("Zilch");
 			}
-			let user_digits_str = userDigits.join("");
-			message.channel.send("Current:", user_digits_str);
+			let userDigitsStr = userDigits.join("");
+			message.channel.send("Current: " + userDigitsStr);
 			if (picos == 4) {
-				print("You won!");
+				message.channel.send("You won!");
 				break;
 			}
 		}
