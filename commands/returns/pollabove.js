@@ -3,7 +3,7 @@ module.exports = {
 	description: "Adds poll reactions to the message above",
 	aliases: ["spollabove", "polla", "spolla"],
 	/** @param {Message} message */
-	execute(message) {
+	execute(message, _, cmd) {
 		message.delete();
 		var react = ["👍", "👎"];
 		if (cmd === "spolla" || cmd === "spollabove") react.push("🤷");

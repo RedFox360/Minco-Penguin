@@ -3,6 +3,7 @@ module.exports = {
 	description: "Sends a poll in the channel with thumbsup and thumbsdown emojis\nUse spoll to add a shrug emoji",
 	aliases: ["spoll"],
 	usage: "!poll/spoll <Question>",
+	/** @param {Message} message */
 	async execute(message, args, cmd) {
 		var react = ["👍", "👎"];
 		if (cmd === "spoll") react.push("🤷");
