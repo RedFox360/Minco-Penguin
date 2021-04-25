@@ -8,7 +8,7 @@ module.exports = {
 	/** @param {Message} message */
 	async execute(message) {
 		var number = randomInt(1000, 10000);
-		var digits = number.split("");
+		var digits = number.toString().split("");
 		var userDigits = ["_", "_", "_", "_"];
 		var picos = 0;
 		while (true) {
