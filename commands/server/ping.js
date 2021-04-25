@@ -17,6 +17,7 @@ module.exports = {
 			.addFields(
 				{ name: "Status:", value: status },
 				{
+					name: "Execution Time",
 					value: `${Date.now() - message.createdTimestamp}ms`,
 				},
 				{ name: "Client Latency", value: `${Math.round(client.ws.ping)}ms` },
