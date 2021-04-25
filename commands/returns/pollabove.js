@@ -7,11 +7,10 @@ module.exports = {
 		message.delete();
 		var react = ["👍", "👎"];
 		if (cmd === "spolla" || cmd === "spollabove") react.push("🤷");
-		const lastMessage = message.channel.lastMessage;
 		try {
 			react.forEach(async (reaction) => {
 				try {
-					await lastMessage.react(reaction);
+					await message.channel.lastMessage.react(reaction);
 				} catch (err) {
 					console.error(err);
 					return;
