@@ -14,8 +14,14 @@ module.exports = {
 			.setDescription(msgArgs)
 			.setThumbnail(message.author.avatarURL());
 		message.delete();
-		message.channel.send(pollEmbed).then((msg) => {
-			react.forEach((emoji) => msg.react(emoji));
-		});
+		const pollMessage = await message.channel.send(pollEmbed);
+        react.forEach(async reaction => {
+            try { 
+                await pollMessage.react(reaction);
+            }catch(err) {
+                console.error(err);
+                return;
+            }
+        })
 	},
 };
