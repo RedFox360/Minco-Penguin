@@ -3,7 +3,7 @@ module.exports = {
 	description: "Sends a poll in the channel with thumbsup and thumbsdown emojis\nUse spoll to add a shrug emoji",
 	aliases: ["spoll"],
 	usage: "!poll/spoll <Question>",
-	execute(message, args, cmd) {
+	async execute(message, args, cmd) {
 		var react = ["👍", "👎"];
 		if (cmd === "spoll") react.push("🤷");
 		var msgArgs = args.join(" ");
@@ -15,13 +15,13 @@ module.exports = {
 			.setThumbnail(message.author.avatarURL());
 		message.delete();
 		const pollMessage = await message.channel.send(pollEmbed);
-        react.forEach(async reaction => {
-            try { 
-                await pollMessage.react(reaction);
-            }catch(err) {
-                console.error(err);
-                return;
-            }
-        })
+		react.forEach(async (reaction) => {
+			try {
+				await pollMessage.react(reaction);
+			} catch (err) {
+				console.error(err);
+				return;
+			}
+		});
 	},
 };
