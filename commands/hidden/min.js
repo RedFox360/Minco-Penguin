@@ -1,4 +1,4 @@
 module.exports = {
-	description: "Returns Co",
-	execute: () => "Co!",
+	description: "Returns Co!",
+	execute: () => "co!",
 };
