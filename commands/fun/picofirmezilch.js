@@ -9,6 +9,8 @@ module.exports = {
 		var number = randomInt(1000, 10000);
 		var digits = number.toString().split("");
 		var userDigits = ["\\_", "\\_", "\\_", "\\_"];
+		var zilches = [];
+		var firmes = [];
 		const updateEmbed = new MessageEmbed()
 			.setAuthor(message.member.nickname || message.author.username)
 			.setTitle("Pico Firme Zilch")
@@ -54,12 +56,16 @@ module.exports = {
 				message.channel.send("Firme").then((m) => {
 					setTimeout(() => m.delete(), 2200);
 				});
+				firmes.push(guess + " not at " + place);
 			} else {
 				message.channel.send("Zilch").then((m) => {
 					setTimeout(() => m.delete(), 2200);
 				});
+				zilches.push(guess);
 			}
-			updateEmbed.setDescription("Guessed Digits: " + userDigits.join(""));
+			updateEmbed.setDescription(
+				`Guessed Digits: ${userDigits.join("")}\nZilches: ${zilches.join(", ")}\nFirmes: ${firmes.join(", ")}`
+			);
 			gameMsg.edit(updateEmbed);
 			if (picos == 4) {
 				message.channel.send("You won!");
