@@ -43,13 +43,19 @@ module.exports = {
 				response2.delete();
 			}, 3500);
 			if (number_at_place == guess) {
-				message.channel.send("Pico");
+				message.channel.send("Pico").then((m) => {
+					setTimeout(() => m.delete(), 3000);
+				});
 				picos += 1;
 				userDigits[place - 1] = number_at_place;
 			} else if (digits.includes(guess) && !userDigits.includes(guess)) {
-				message.channel.send("Firme");
+				message.channel.send("Firme").then((m) => {
+					setTimeout(() => m.delete(), 3000);
+				});
 			} else {
-				message.channel.send("Zilch");
+				message.channel.send("Zilch").then((m) => {
+					setTimeout(() => m.delete(), 3000);
+				});
 			}
 			updateEmbed.setDescription("Guessed Digits: " + userDigits.join(""));
 			gameMsg.edit(updateEmbed);
