@@ -19,7 +19,7 @@ module.exports = {
 			.setDescription("Guessed Digits: " + userDigits.join(""));
 		const gameMsg = await message.channel.send(updateEmbed);
 		while (true) {
-			const placeMessage = await message.channel.send("Choose a place in the number (1-4): ");
+			const placeMessage = await message.channel.send(message.author.toString() + ": Choose a place in the number (1-4): ");
 			const response = await MessageCollector.asyncQuestion({
 				botMessage: placeMessage,
 				user: message.author.id,
@@ -33,7 +33,7 @@ module.exports = {
 			}, 2200);
 			let number_at_place = digits[place - 1];
 
-			const digitMessage = await message.channel.send("Guess the digit: ");
+			const digitMessage = await message.channel.send(message.author.toString() + ": Guess the digit: ");
 
 			const response2 = await MessageCollector.asyncQuestion({
 				botMessage: digitMessage,
