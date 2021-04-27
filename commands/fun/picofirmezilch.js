@@ -18,7 +18,6 @@ module.exports = {
 			.setThumbnail(message.author.avatarURL())
 			.setDescription("Guessed Digits: " + userDigits.join(""));
 		const gameMsg = await message.channel.send(updateEmbed);
-		var picos = 0;
 		while (true) {
 			const placeMessage = await message.channel.send("Choose a place in the number (1-4): ");
 			const response = await MessageCollector.asyncQuestion({
@@ -50,7 +49,6 @@ module.exports = {
 				message.channel.send("Pico").then((m) => {
 					setTimeout(() => m.delete(), 2200);
 				});
-				picos += 1;
 				userDigits[place - 1] = number_at_place;
 			} else if (digits.includes(guess) && !userDigits.includes(guess)) {
 				message.channel.send("Firme").then((m) => {
@@ -67,7 +65,7 @@ module.exports = {
 				`Guessed Digits: ${userDigits.join("")}\nZilches: ${zilches.join(", ")}\nFirmes: ${firmes.join(", ")}`
 			);
 			gameMsg.edit(updateEmbed);
-			if (picos == 4) {
+			if (userDigits.every((user) => user !== "\\_")) {
 				message.channel.send("You won!");
 				break;
 			}
