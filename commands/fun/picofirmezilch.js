@@ -17,7 +17,7 @@ module.exports = {
 			VIEW_CHANNEL: true,
 			SEND_MESSAGES: true,
 		});
-		message.channel.send(`Pico Firme Zilch game created in <@${channel.id}>`);
+		message.channel.send(`Pico Firme Zilch game created in <#${channel.id}>`);
 		var number = randomInt(1000, 10000);
 		var digits = number.toString().split("");
 		var userDigits = ["\\_", "\\_", "\\_", "\\_"];
