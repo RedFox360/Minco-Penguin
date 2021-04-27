@@ -13,6 +13,7 @@ module.exports = {
 		channel.setParent(message.channel.parent);
 		channel.updateOverwrite(message.guild.roles.everyone, {
 			VIEW_CHANNEL: false,
+			SEND_MESSAGES: false,
 		});
 		channel.updateOverwrite(message.author, {
 			VIEW_CHANNEL: true,
@@ -49,9 +50,7 @@ module.exports = {
 				response.delete();
 			}, 2200);
 			let number_at_place = digits[place - 1];
-
 			const digitMessage = await channel.send("Guess the digit: ");
-
 			const response2 = await MessageCollector.asyncQuestion({
 				botMessage: digitMessage,
 				user: message.author.id,
