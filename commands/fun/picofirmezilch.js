@@ -24,20 +24,24 @@ module.exports = {
 		var zilches = [];
 		var firmes = [];
 		const updateEmbed = new MessageEmbed()
-			.setAuthor(message.member.nickname || message.author.username)
 			.setTitle("Pico Firme Zilch")
 			.setColor("BLUE")
 			.setThumbnail(message.author.avatarURL())
 			.setDescription("Guessed Digits: " + userDigits.join(""));
 		const gameMsg = await channel.send(updateEmbed);
 		while (true) {
-			const placeMessage = await channel.send(message.author.toString() + ": Choose a place in the number (1-4): ");
+			const placeMessage = await channel.send("Choose a place in the number (1-4): ");
 			const response = await MessageCollector.asyncQuestion({
 				botMessage: placeMessage,
 				user: message.author.id,
 			});
 			let place;
-			if (isNaN(parseInt(response.content))) return channel.send(message.author.toString() + ": Terminating...");
+			if (isNaN(parseInt(response.content))) {
+				channel.send("Terminating...");
+				channel.send("Deleting channel in 5 seconds...");
+				setTimeout(() => channel.delete(), 5000);
+				break;
+			}
 			place = parseInt(response.content);
 			setTimeout(() => {
 				placeMessage.delete();
@@ -45,14 +49,19 @@ module.exports = {
 			}, 2200);
 			let number_at_place = digits[place - 1];
 
-			const digitMessage = await channel.send(message.author.toString() + ": Guess the digit: ");
+			const digitMessage = await channel.send("Guess the digit: ");
 
 			const response2 = await MessageCollector.asyncQuestion({
 				botMessage: digitMessage,
 				user: message.author.id,
 			});
 			let guess = response2.content;
-			if (isNaN(parseInt(guess))) return channel.send(message.author.toString() + ": Terminating...");
+			if (isNaN(parseInt(guess))) {
+				channel.send("Terminating...");
+				channel.send("Deleting channel in 5 seconds...");
+				setTimeout(() => channel.delete(), 5000);
+				break;
+			}
 			setTimeout(() => {
 				digitMessage.delete();
 				response2.delete();
