@@ -8,7 +8,7 @@ module.exports = {
 	async execute(message) {
 		var number = randomInt(1000, 10000);
 		var digits = number.toString().split("");
-		var userDigits = ["_", "_", "_", "_"];
+		var userDigits = ["\\_", "\\_", "\\_", "\\_"];
 		const updateEmbed = new MessageEmbed()
 			.setAuthor(message.member.nickname || message.author.username)
 			.setTitle("Pico Firme Zilch")
