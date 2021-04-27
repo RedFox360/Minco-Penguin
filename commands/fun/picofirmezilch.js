@@ -11,7 +11,9 @@ module.exports = {
 		var userDigits = ["_", "_", "_", "_"];
 		const updateEmbed = new MessageEmbed()
 			.setAuthor(message.member.nickname || message.author.username)
-			.setColor("Pico Firme Zilch")
+			.setTitle("Pico Firme Zilch")
+			.setColor("BLUE")
+			.setThumbnail(message.author.avatarURL())
 			.setDescription("Guessed Digits: " + userDigits.join(""));
 		const gameMsg = await message.channel.send(updateEmbed);
 		var picos = 0;
