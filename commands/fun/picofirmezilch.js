@@ -22,17 +22,12 @@ module.exports = {
 				user: message.author.id,
 			});
 			let place;
-			try {
-				place = parseInt(response.content);
-			} catch (error) {
-				message.channel.send("You must enter a number");
-				message.channel.send("Terminating...");
-				return;
-			}
+			if (isNaN(parseInt(response.content))) return message.channel.send("Terminating...");
+			place = parseInt(response.content);
 			setTimeout(() => {
 				placeMessage.delete();
 				response.delete();
-			}, 5000);
+			}, 3500);
 			let number_at_place = digits[place - 1];
 
 			const digitMessage = await message.channel.send("Guess the digit: ");
@@ -42,10 +37,11 @@ module.exports = {
 				user: message.author.id,
 			});
 			let guess = response2.content;
+			if (isNaN(parseInt(guess))) return message.channel.send("Terminating...");
 			setTimeout(() => {
 				digitMessage.delete();
 				response2.delete();
-			}, 5000);
+			}, 3500);
 			if (number_at_place == guess) {
 				message.channel.send("Pico");
 				picos += 1;
