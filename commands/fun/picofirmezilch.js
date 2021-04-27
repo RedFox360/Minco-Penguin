@@ -29,7 +29,7 @@ module.exports = {
 			setTimeout(() => {
 				placeMessage.delete();
 				response.delete();
-			}, 3000);
+			}, 2200);
 			let number_at_place = digits[place - 1];
 
 			const digitMessage = await message.channel.send("Guess the digit: ");
@@ -43,20 +43,20 @@ module.exports = {
 			setTimeout(() => {
 				digitMessage.delete();
 				response2.delete();
-			}, 3000);
+			}, 2200);
 			if (number_at_place == guess) {
 				message.channel.send("Pico").then((m) => {
-					setTimeout(() => m.delete(), 3000);
+					setTimeout(() => m.delete(), 2200);
 				});
 				picos += 1;
 				userDigits[place - 1] = number_at_place;
 			} else if (digits.includes(guess) && !userDigits.includes(guess)) {
 				message.channel.send("Firme").then((m) => {
-					setTimeout(() => m.delete(), 3000);
+					setTimeout(() => m.delete(), 2200);
 				});
 			} else {
 				message.channel.send("Zilch").then((m) => {
-					setTimeout(() => m.delete(), 3000);
+					setTimeout(() => m.delete(), 2200);
 				});
 			}
 			updateEmbed.setDescription("Guessed Digits: " + userDigits.join(""));
