@@ -6,15 +6,10 @@ module.exports = {
 	aliases: ["pfz"],
 	/** @param {Message} message */
 	async execute(message) {
-		if (
-			message.guild.channels.cache.find(
-				(c) => c.name === message.member.nickname.toLowerCase() || message.author.username.toLowerCase()
-			) !== undefined
-		)
+		const memberName = message.member.nickname.toLowerCase() || message.author.username.toLowerCase();
+		if (message.guild.channels.cache.find((c) => c.name === memberName)`c`)
 			return message.channel.send("You already have an ongoing game. Type a non-number in that channel to end the game.");
-		const channel = await message.guild.channels.create(
-			message.member.nickname.toLowerCase() || message.author.username.toLowerCase()
-		);
+		const channel = await message.guild.channels.create(memberName);
 		channel.setParent(message.channel.parent);
 		channel.updateOverwrite(message.guild.roles.everyone, {
 			VIEW_CHANNEL: false,
