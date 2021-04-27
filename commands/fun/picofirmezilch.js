@@ -61,7 +61,7 @@ module.exports = {
 				message.channel.send("Zilch").then((m) => {
 					setTimeout(() => m.delete(), 2200);
 				});
-				zilches.push(guess);
+				if (!zilches.includes(guess)) zilches.push(guess);
 			}
 			updateEmbed.setDescription(
 				`Guessed Digits: ${userDigits.join("")}\nZilches: ${zilches.join(", ")}\nFirmes: ${firmes.join(", ")}`
