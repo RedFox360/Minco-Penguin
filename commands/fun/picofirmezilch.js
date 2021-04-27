@@ -25,7 +25,7 @@ module.exports = {
 				user: message.author.id,
 			});
 			let place;
-			if (isNaN(parseInt(response.content))) return message.channel.send("Terminating...");
+			if (isNaN(parseInt(response.content))) return message.channel.send(message.author.toString() + ": Terminating...");
 			place = parseInt(response.content);
 			setTimeout(() => {
 				placeMessage.delete();
@@ -40,7 +40,7 @@ module.exports = {
 				user: message.author.id,
 			});
 			let guess = response2.content;
-			if (isNaN(parseInt(guess))) return message.channel.send("Terminating...");
+			if (isNaN(parseInt(guess))) return message.channel.send(message.author.toString() + ": Terminating...");
 			setTimeout(() => {
 				digitMessage.delete();
 				response2.delete();
