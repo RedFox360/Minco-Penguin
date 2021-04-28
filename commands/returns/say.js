@@ -15,7 +15,7 @@ module.exports = {
 			}
 			const chnl = client.channels.cache.get(channel);
 			chnl.send(msg);
-			message.react("✅");
+			await message.react("✅");
 		} else {
 			message.channel.send(args.join(" "));
 		}

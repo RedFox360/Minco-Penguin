@@ -26,6 +26,6 @@ module.exports = {
 		} catch (err) {
 			console.error(err);
 		}
-		message.react("✅");
+		await message.react("✅");
 	},
 };

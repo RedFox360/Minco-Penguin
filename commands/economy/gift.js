@@ -39,6 +39,6 @@ module.exports = {
 				},
 			}
 		);
-		message.react("✅");
+		await message.react("✅");
 	},
 };
