@@ -6,18 +6,13 @@ Created by: RedFox360
 created using tutorials by [CodeLyon](https://www.youtube.com/codelyon)
 
 ## Packages used:
-+ discord.js
-+ ms
-+ dotenv
-+ express
-+ fs
-+ mongoose
-+ pretty-ms
-+ ordinal
-+ discord.js-collector
 
-If you decide to fork this repository, create a new file called `.env` and add a new line:
-
-```
-TOKEN=<your discord bot token here>
-```
+- discord.js
+- ms
+- dotenv
+- express
+- fs
+- mongoose
+- pretty-ms
+- ordinal
+- discord.js-collector
