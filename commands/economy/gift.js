@@ -39,6 +39,6 @@ module.exports = {
 				},
 			}
 		);
-		message.channel.send(`You gifted ${amount} Minco Dollars to <@${mention.id}>`);
+		message.react("✅");
 	},
 };

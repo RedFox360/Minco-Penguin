@@ -22,6 +22,6 @@ module.exports = {
 		} catch (err) {
 			console.error(err);
 		}
-		message.channel.send(`You withdrawed ${amount} Minco Dollars.`);
+		message.react("✅");
 	},
 };

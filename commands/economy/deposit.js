@@ -26,6 +26,6 @@ module.exports = {
 		} catch (err) {
 			console.error(err);
 		}
-		message.channel.send(`You deposited ${amount} Minco Dollars into your bank.`);
+		message.react("✅");
 	},
 };
