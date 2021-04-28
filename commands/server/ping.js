@@ -2,7 +2,6 @@ const prettyMs = require("pretty-ms");
 const Discord = require("discord.js");
 
 module.exports = {
-	aliases: ["p"],
 	description: "check if the bot is online",
 	/**
 	 * @param {Discord.Message} message

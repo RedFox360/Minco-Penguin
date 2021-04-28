@@ -4,7 +4,7 @@ module.exports = {
 	description: "Withdraw coins from your bank",
 	cooldown: 5,
 	usage: "!withdraw <number>",
-	async execute(message, args, cmd, client, profileData) {
+	async execute(message, args, _0, _1, profileData) {
 		const amount = parseInt(args[0]);
 		if (isNaN(amount)) return message.channel.send("Enter a valid number");
 		if (amount % 1 != 0 || amount <= 0) return message.channel.send("Withdraw amount must be a whole number");
