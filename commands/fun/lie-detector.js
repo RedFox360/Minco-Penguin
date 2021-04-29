@@ -16,6 +16,6 @@ module.exports = {
 		var color = randomL[randomInt].includes("lying") ? "🔴" : "🟢";
 		if (randomL[randomInt].includes("info")) color = "🟡";
 		let name = message.member.displayName || message.author.username;
-		message.channel.send(`${color} Lie Detector: ${randomL[randomInt]}\n${name} asks: *${args.join(" ")}*`);
+		message.channel.send(`${color}  Lie Detector: ${randomL[randomInt]}\n${name} asks: *${args.join(" ")}*`);
 	},
 };
