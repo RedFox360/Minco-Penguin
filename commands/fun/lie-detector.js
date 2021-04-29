@@ -16,6 +16,6 @@ module.exports = {
 		let randomInt = Math.floor(Math.random() * randomL.length);
 		var color = randomL[randomInt].includes("lying") ? "🔴" : "🟢";
 		if (randomL[randomInt].includes("info")) color = "🟡";
-		message.channel.send(`${color}  Lie Detector: ${randomL[randomInt]}\n${message.author.toString()} asks: *${args.join(" ")}*`);
+		message.channel.send(`${color} Lie Detector: ${randomL[randomInt]}\n${message.author.toString()} asks: *${args.join(" ")}*`);
 	},
 };
