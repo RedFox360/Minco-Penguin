@@ -1,4 +1,5 @@
 const { Message } = require("discord.js");
+const { eventNames } = require("../../models/profileSchema");
 module.exports = {
 	description: "A magic 8 ball in Discord",
 	cooldown: 4,
@@ -44,12 +45,13 @@ module.exports = {
 		var noPhrases = ["no", "doubtful", "nah"];
 		var yesPhrases = ["no question"];
 		var color = "🟢";
+		var answer = answer[random];
 		for (let phrase of noPhrases) {
-			if (answers[random].toLowerCase().includes(phrase)) color = "🔴";
+			if (answer.toLowerCase().includes(phrase)) color = "🔴";
 		}
 		for (let phrase of yesPhrases) {
-			if (answers[random].toLowerCase().includes(phrase)) color = "🟢";
+			if (answers.toLowerCase().includes(phrase)) color = "🟢";
 		}
-		message.channel.send(`:8ball: | ${color} **${answers[random]}**\n${message.author.toString()} asks: *${args.join(" ")}*`);
+		message.channel.send(`:8ball: | ${color} **${answers}**\n${message.author.toString()} asks: *${args.join(" ")}*`);
 	},
 };
