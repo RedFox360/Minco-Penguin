@@ -2,7 +2,6 @@ const { Message } = require("discord.js");
 const { eventNames } = require("../../models/profileSchema");
 module.exports = {
 	description: "A magic 8 ball in Discord",
-	cooldown: 4,
 	usage: "!magic8ball <Question>",
 	aliases: ["8b", "magic8b", "8ball"],
 	/** @param {Message} message */
@@ -50,8 +49,8 @@ module.exports = {
 			if (answer.toLowerCase().includes(phrase)) color = "🔴";
 		}
 		for (let phrase of yesPhrases) {
-			if (answers.toLowerCase().includes(phrase)) color = "🟢";
+			if (answer.toLowerCase().includes(phrase)) color = "🟢";
 		}
-		message.channel.send(`:8ball: | ${color} **${answers}**\n${message.author.toString()} asks: *${args.join(" ")}*`);
+		message.channel.send(`:8ball: | ${color} **${answer}**\n${message.author.toString()} asks: *${args.join(" ")}*`);
 	},
 };
