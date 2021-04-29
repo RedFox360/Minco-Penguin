@@ -13,15 +13,9 @@ module.exports = {
 			`${message.author.toString()} is DEFINITELY lying.`,
 		];
 		let randomInt = Math.floor(Math.random() * randomL.length);
-		var color = randomL[randomInt].includes("lying") ? "F75853" : "58D68D";
-		if (randomL[randomInt].includes("info")) color = "F9E79F";
+		var color = randomL[randomInt].includes("lying") ? "🔴" : "🟢";
+		if (randomL[randomInt].includes("info")) color = "🟡";
 		let name = message.member.displayName || message.author.username;
-		message.channel.send(
-			new MessageEmbed()
-				.setTitle("Lie Detector")
-				.setDescription(randomL[randomInt])
-				.setColor(color)
-				.setFooter(args.join(" ") + " | " + name)
-		);
+		message.channel.send(`${color} Lie Detector: ${randomL[randomInt]}\n${name} asks: *${args.join(" ")}*`);
 	},
 };

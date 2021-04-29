@@ -41,14 +41,14 @@ module.exports = {
 		let random = Math.floor(Math.random() * answers.length);
 		var noPhrases = ["no", "doubtful", "nah"];
 		var yesPhrases = ["no question"];
-		var color = "32E6C5";
+		var color = "🟢";
 		for (let phrase of noPhrases) {
-			if (answers[random].toLowerCase().includes(phrase)) color = "F75853";
+			if (answers[random].toLowerCase().includes(phrase)) color = "🔴";
 		}
 		for (let phrase of yesPhrases) {
-			if (answers[random].toLowerCase().includes(phrase)) color = "32E6C5";
+			if (answers[random].toLowerCase().includes(phrase)) color = "🟢";
 		}
 		let name = message.member.displayName || message.author.username;
-		message.channel.send(`⑧ Ball: **${answers[random]}**\n${name} asks *${args.join(" ")}*`);
+		message.channel.send(`${color} ⑧ Ball: **${answers[random]}**\n${name} asks *${args.join(" ")}*`);
 	},
 };
