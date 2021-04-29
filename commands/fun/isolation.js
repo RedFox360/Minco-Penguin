@@ -1,4 +1,5 @@
 const { Message } = require("discord.js");
+const ms = require("ms");
 module.exports = {
 	description: "[Carrel Crew] Unlocks/locks the isolation channel",
 	usage: "!isolation",
@@ -11,6 +12,9 @@ module.exports = {
 			return `Isolation locked for user ${message.author.toString()}`;
 		}
 		message.member.roles.add(isolationRole);
+		setTimeout(() => {
+			message.member.roles.remove(isolationRole);
+		}, ms("30m"));
 		return `Isolation unlocked for user ${message.author.toString()}`;
 	},
 };
