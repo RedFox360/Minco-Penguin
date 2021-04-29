@@ -122,7 +122,6 @@ function blacklist(message) {
 		"futureme.org",
 		"twitch.tv",
 		"geni.us",
-		"poop",
 		"crap",
 		...swearWords,
 	];
