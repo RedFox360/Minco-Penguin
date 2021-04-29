@@ -4,7 +4,6 @@ const profileModel = require("../../models/profileSchema");
 module.exports = {
 	description: "Gift an amount of coins to a user",
 	usage: "!gift <@user> <number>",
-	aliases: [":gift:"],
 	cooldown: 3,
 	/** @param {Message} message */
 	async execute(message, args, _0, _1, profileData) {
