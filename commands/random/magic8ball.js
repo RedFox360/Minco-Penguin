@@ -7,8 +7,8 @@ module.exports = {
 	aliases: ["8b", "magic8b", "8ball"],
 	/** @param {Message} message */
 	execute(message, args) {
-		if (args.join(" ").replace(" ", "").toLowerCase().includes("crush"))
-			return message.channel.send("Stop asking questions about crushes!");
+		if (!args.length) return "Enter a question";
+		if (args.join(" ").replace(" ", "").toLowerCase().includes("crush")) return "Stop asking questions about crushes!";
 		let answers = [
 			"Yes",
 			"No",
@@ -45,7 +45,7 @@ module.exports = {
 		var noPhrases = ["no", "doubtful", "nah"];
 		var yesPhrases = ["no question"];
 		var color = "🟢";
-		var answer = answer[random];
+		var answer = answers[random];
 		for (let phrase of noPhrases) {
 			if (answer.toLowerCase().includes(phrase)) color = "🔴";
 		}
