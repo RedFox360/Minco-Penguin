@@ -1,4 +1,4 @@
-const { MessageEmbed, Message } = require("discord.js");
+const { Message } = require("discord.js");
 module.exports = {
 	aliases: ["lied", "ld"],
 	description: "Credit to Aiden for the idea : sends a is lying/not lying message",

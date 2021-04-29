@@ -1,4 +1,4 @@
-const { MessageEmbed, Message } = require("discord.js");
+const { Message } = require("discord.js");
 module.exports = {
 	description: "A magic 8 ball in Discord",
 	cooldown: 4,
