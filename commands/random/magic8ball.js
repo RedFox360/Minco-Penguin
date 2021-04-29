@@ -48,7 +48,6 @@ module.exports = {
 		for (let phrase of yesPhrases) {
 			if (answers[random].toLowerCase().includes(phrase)) color = "🟢";
 		}
-		let name = message.member.displayName || message.author.username;
-		message.channel.send(`${color}  ⑧ Ball: **${answers[random]}**\n${name} asks: *${args.join(" ")}*`);
+		message.channel.send(`${color}  ⑧ Ball: **${answers[random]}**\n${message.author.toString()} asks: *${args.join(" ")}*`);
 	},
 };
