@@ -51,7 +51,7 @@ module.exports = {
 		let name = message.member.displayName || message.author.username;
 		message.channel.send(
 			`⑧ Ball: **${answers[random]}**
-                ${name} asks *${args.join(" ")}*`
+            ${name} asks *${args.join(" ")}*`
 		);
 	},
 };
