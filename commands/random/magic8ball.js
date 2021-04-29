@@ -49,9 +49,6 @@ module.exports = {
 			if (answers[random].toLowerCase().includes(phrase)) color = "32E6C5";
 		}
 		let name = message.member.displayName || message.author.username;
-		message.channel.send(
-			`⑧ Ball: **${answers[random]}**
-            ${name} asks *${args.join(" ")}*`
-		);
+		message.channel.send(`⑧ Ball: **${answers[random]}**\n${name} asks *${args.join(" ")}*`);
 	},
 };
