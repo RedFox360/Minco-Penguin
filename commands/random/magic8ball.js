@@ -51,7 +51,7 @@ module.exports = {
 		let name = message.member.displayName || message.author.username;
 		message.channel.send(
 			new MessageEmbed()
-				.setTitle("Magic 8 Ball")
+				.setTitle("Magic ⑧ Ball")
 				.setDescription(answers[random])
 				.setColor(color)
 				.setFooter(args.join(" ") + " | " + name)
