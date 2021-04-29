@@ -5,12 +5,13 @@ module.exports = {
 	usage: "!ld <Question>",
 	/** @param {Message} message */
 	execute(message, args) {
+		let name = message.member.nickname || message.author.username;
 		let randomL = [
-			`${message.author.toString()} is lying!`,
-			`${message.author.toString()} is telling the truth!`,
+			`${name} is lying!`,
+			`${name} is telling the truth!`,
 			"hmmmm... I need more info!",
-			`I think ${message.author.toString()} is telling the truth`,
-			`${message.author.toString()} is DEFINITELY lying.`,
+			`I think ${name} is telling the truth`,
+			`${name} is DEFINITELY lying.`,
 		];
 		let randomInt = Math.floor(Math.random() * randomL.length);
 		var color = randomL[randomInt].includes("lying") ? "🔴" : "🟢";
