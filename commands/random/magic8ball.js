@@ -18,7 +18,6 @@ module.exports = {
 			"Doubtful",
 			"Undoubtedly",
 			"SERIOUSLY? NO",
-			"Ya think so?",
 			"Ofc",
 			"Why did you even ask that?",
 			"Nah",
