@@ -3,7 +3,7 @@ module.exports = {
 	description: "[ADMIN ONLY] Ban members",
 	usage: "!ban <@user>",
 	/** @param {Message} message */
-	execute(message) {
+	execute(message, args) {
 		if (!message.member.hasPermission("BAN_MEMBERS")) return "You don't have the correct permissions to execute this command";
 		const reason = args.join(" ");
 		const mention = message.mentions.users.first();
