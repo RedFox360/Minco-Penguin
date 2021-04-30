@@ -3,15 +3,19 @@ module.exports = {
 	description: "[ADMIN ONLY] Kick members",
 	usage: "!kick <@user>",
 	/** @param {Message} message */
-	async execute(message) {
-		if (!message.member.hasPermission("KICK_MEMBERS"))
-			return message.channel.send("You don't have the correct permissions to execute this command");
+	execute(message) {
+		if (!message.member.hasPermission("KICK_MEMBERS")) return "You don't have the correct permissions to execute this command";
+		const reason = args.join(" ");
 		const mention = message.mentions.users.first();
-		if (!mention) return message.channel.send("Mention a valid user");
+		if (!mention) return "Mention a valid user";
 		let memberTarget = message.guild.members.cache.get(mention.id);
-		if (memberTarget.hasPermission("MANAGE_GUILD") || memberTarget.hasPermission("KICK_MEMBERS"))
-			return message.channel.send("This person cannot be kicked.");
-		await memberTarget.kick();
+		if (
+			memberTarget.hasPermission("MANAGE_GUILD") ||
+			memberTarget.hasPermission("KICK_MEMBERS") ||
+			memberTarget.roles.cache.find((r) => r.name === "Moderator")
+		)
+			return "This person cannot be kicked.";
+		memberTarget.kick(reason);
 		return `${memberTarget.user.tag} was kicked from the server.`;
 	},
 };
