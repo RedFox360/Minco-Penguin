@@ -18,6 +18,6 @@ module.exports = {
 		var response = randomL[randomInt];
 		var color = response.includes("lying") ? "🔴" : "🟢";
 		if (response.includes("info")) color = "🟡";
-		message.channel.send(`${color} Lie Detector: ${response}`);
+		message.channel.send(`${color} Lie Detector: ${response} | ${name}`);
 	},
 };
