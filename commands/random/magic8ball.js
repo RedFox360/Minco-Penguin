@@ -59,3 +59,6 @@ module.exports = {
 		message.channel.send(`:8ball: | ${color} **${answer}** | ${name}`);
 	},
 };
+
+for (let i in range(1, 4)) {
+}
