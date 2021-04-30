@@ -43,7 +43,7 @@ module.exports = {
 		var noPhrases = ["no", "doubtful", "nah"];
 		var yesPhrases = ["no question"];
 		var yellowPhrases = ["confunded", "eh"];
-		var colors = cmd === "fruitball" || cmd === "fball" ? ["🔴", "🟢", "🟡"] : ["🍎", "🍏", "🍍"];
+		var colors = cmd.startsWith("f") ? ["🔴", "🟢", "🟡"] : ["🍎", "🍏", "🍍"];
 		var color = colors[1];
 		var answer = answers[random];
 		for (let phrase of noPhrases) {
