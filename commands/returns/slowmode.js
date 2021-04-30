@@ -9,6 +9,7 @@ module.exports = {
 			if (!args.length) return "You didn't provide any arguments.";
 			var slowmode;
 			if (args[0] == "off") slowmode = 0;
+			else if (!isNaN(parseInt(args[0]))) slowmode = parseInt(args[0]);
 			else slowmode = ms(args.join(" ")) / 1000;
 			if (isNaN(slowmode)) return "Enter a valid number";
 			if (slowmode > 21600) return "Please enter an amount less than or equal to 6 hours";
