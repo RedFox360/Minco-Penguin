@@ -50,6 +50,6 @@ module.exports = {
 		for (let phrase of yesPhrases) {
 			if (answer.toLowerCase().includes(phrase)) color = "🟢";
 		}
-		message.channel.send(`:8ball: | ${color} **${answer}**`);
+		message.channel.send(`:8ball: | ${color} ${answer}`);
 	},
 };
