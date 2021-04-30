@@ -3,7 +3,7 @@ const { eventNames } = require("../../models/profileSchema");
 module.exports = {
 	description: "A magic 8 ball in Discord",
 	usage: "!magic8ball <Question>",
-	aliases: ["8b", "magic8b", "8ball"],
+	aliases: ["8b", "magic8b", "8ball", "fruitball", "fball"],
 	/** @param {Message} message */
 	execute(message, args) {
 		if (!args.length) return "Enter a question";
@@ -43,16 +43,17 @@ module.exports = {
 		var noPhrases = ["no", "doubtful", "nah"];
 		var yesPhrases = ["no question"];
 		var yellowPhrases = ["confunded", "eh"];
-		var color = "🟢";
+		var colors = cmd === "fruitball" || cmd === "fball" ? ["🔴", "🟢", "🟡"] : ["🍎", "🍏", "🍍"];
+		var color = colors[1];
 		var answer = answers[random];
 		for (let phrase of noPhrases) {
-			if (answer.toLowerCase().includes(phrase)) color = "🔴";
+			if (answer.toLowerCase().includes(phrase)) color = colors[0];
 		}
 		for (let phrase of yesPhrases) {
-			if (answer.toLowerCase().includes(phrase)) color = "🟢";
+			if (answer.toLowerCase().includes(phrase)) color = colors[1];
 		}
 		for (let phrase of yellowPhrases) {
-			if (answer.toLowerCase().includes(phrase)) color = "🟡";
+			if (answer.toLowerCase().includes(phrase)) color = colors[2];
 		}
 		let name = message.member.nickname || message.author.username;
 		message.channel.send(`:8ball: | ${color} **${answer}** | ${name}`);
