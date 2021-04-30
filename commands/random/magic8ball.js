@@ -42,6 +42,7 @@ module.exports = {
 		let random = Math.floor(Math.random() * answers.length);
 		var noPhrases = ["no", "doubtful", "nah"];
 		var yesPhrases = ["no question"];
+		var yellowPhrases = ["confunded", "eh"];
 		var color = "🟢";
 		var answer = answers[random];
 		for (let phrase of noPhrases) {
@@ -49,6 +50,9 @@ module.exports = {
 		}
 		for (let phrase of yesPhrases) {
 			if (answer.toLowerCase().includes(phrase)) color = "🟢";
+		}
+		for (let phrase of yellowPhrases) {
+			if (answer.toLowerCase().includes(phrase)) color = "🟡";
 		}
 		let name = message.member.nickname || message.author.username;
 		message.channel.send(`:8ball: | ${color} **${answer}** | ${name}`);
