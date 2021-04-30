@@ -1,5 +1,4 @@
 const { Message } = require("discord.js");
-const { eventNames } = require("../../models/profileSchema");
 module.exports = {
 	description: "A magic 8 ball in Discord",
 	usage: "!magic8ball <Question>",
@@ -43,7 +42,8 @@ module.exports = {
 		var noPhrases = ["no", "doubtful", "nah"];
 		var yesPhrases = ["no question"];
 		var yellowPhrases = ["confunded", "eh"];
-		var colors = cmd.startsWith("f") ? ["🔴", "🟢", "🟡"] : ["🍎", "🍏", "🍍"];
+		var colors = ["🔴", "🟢", "🟡"];
+		if (cmd.startsWith("f")) colors = ["🍎", "🍏", "🍍"];
 		var color = colors[1];
 		var answer = answers[random];
 		for (let phrase of noPhrases) {
