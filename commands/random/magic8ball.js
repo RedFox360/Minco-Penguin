@@ -51,6 +51,6 @@ module.exports = {
 			if (answer.toLowerCase().includes(phrase)) color = "🟢";
 		}
 		let name = message.member.nickname || message.author.username;
-		message.channel.send(`:8ball: | ${color} ${answer} | **${name}**`);
+		message.channel.send(`:8ball: | ${color} **${answer}** | ${name}`);
 	},
 };
