@@ -1,24 +1,45 @@
+const { MessageEmbed, Message } = require("discord.js");
 const profileModel = require("../../models/profileSchema");
 module.exports = {
 	description: "Check the favorites of a user",
 	usage: "!favorites <@user>",
 	aliases: ["favs"],
+	/** @param {Message} message */
 	async execute(message) {
-		var id;
+		var id, avatarURL;
 		const mention = message.mentions.users.first();
 		if (mention) {
 			message.channel.send("Mention a valid user");
 			id = mention.id;
+			avatarURL = mention.avatarURL();
 		} else {
 			id = message.author.id;
+			avatarURL = message.author.avatarURL();
 		}
 		let profile = await profileModel.findOne({ userID: id });
-		try {
-			message.channel.send("Animal: " + profile.favs.animal);
-			message.channel.send("Color: " + profile.favs.color);
-			message.channel.send("Food: " + profile.favs.food);
-		} catch (err) {
-			console.error(err);
-		}
+		var { animal, color, food } = profile.favs;
+		message.channel.send(
+			new MessageEmbed()
+				.setTitle("Favorites")
+				.setDescription(`User: <@${id}>`)
+				.addFields(
+					{
+						name: "Animal",
+						value: animal || "not set",
+						inline: true,
+					},
+					{
+						name: "Color",
+						value: color || "not set",
+						inline: true,
+					},
+					{
+						name: "Food",
+						value: food || "not set",
+						inline: true,
+					}
+				)
+				.setThumbnail(avatarURL)
+		);
 	},
 };
