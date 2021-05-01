@@ -18,6 +18,16 @@ module.exports = {
 		}
 		let profile = await profileModel.findOne({ userID: id });
 		var { animal, color, food } = profile.favs;
+		let embedColor = "82E0AA"; //light green
+		(() => {
+			if (!color) return;
+			let lcolor = color.toLowerCase();
+			let colors = ["red", "orange", "yellow", "green", "blue", "purple"];
+			for (let colorT of colors) {
+				if (lcolor.includes(colorT)) embedColor = colorT;
+				return;
+			}
+		})();
 		message.channel.send(
 			new MessageEmbed()
 				.setTitle("Favorites")
@@ -36,7 +46,7 @@ module.exports = {
 						value: food || "not set",
 					}
 				)
-				.setColor("82E0AA") // light green
+				.setColor(embedColor)
 				.setThumbnail(avatarURL)
 		);
 	},
