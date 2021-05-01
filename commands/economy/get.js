@@ -20,7 +20,7 @@ module.exports = {
 				.setDescription(
 					`<@${
 						user.id
-					}>, accept the request to give ${amount} Minco Dollars to ${message.author.toString()} by reacting with a check mark`
+					}>, accept the request to give __**${amount}**__ Minco Dollars to ${message.author.toString()} by reacting with a check mark`
 				)
 				.setColor("GREEN")
 				.setFooter("These reactions will expire in 3 minutes")
