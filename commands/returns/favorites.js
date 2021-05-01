@@ -1,9 +1,8 @@
 const profileModel = require("../../models/profileSchema");
-
-const { Message } = require("discord.js");
 module.exports = {
 	description: "Check the favorites of a user",
 	usage: "!favorites <@user>",
+	aliases: ["favs"],
 	async execute(message) {
 		const mention = message.mentions.users.first();
 		if (!mention) return message.channel.send("Mention a valid user");
