@@ -31,20 +31,26 @@ module.exports = {
 		let onEnd = true;
 		collector.on("collect", async (reaction, user) => {
 			onEnd = false;
-			message.channel.send("Request approved");
+			message.channel.send("Request approved...");
 			await profileModel.findOneAndUpdate(
 				{ userID: user.id },
 				{
-					mincoDollars: -amount,
+					$inc: {
+						mincoDollars: -amount,
+					},
 				}
 			);
 			await profileModel.findOneAndUpdate(
 				{ userID: message.author.id },
 				{
-					mincoDollars: amount,
+					$inc: {
+						mincoDollars: amount,
+					},
 				}
 			);
-			message.channel.send("Transaction successful");
+			message.channel.send("Transaction successful!").then(async (m) => {
+				await m.react("💵");
+			});
 		});
 		collector.on("end", (collected) => {
 			if (onEnd) message.channel.send("Timed out...");
