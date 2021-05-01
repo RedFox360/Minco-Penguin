@@ -12,7 +12,6 @@
 	"dependencies": {
 		"discord.js": "^12.5.1",
 		"discord.js-collector": "^1.8.9",
-		"discordjs-colors": "^1.2.3",
 		"express": "^4.17.1",
 		"mathjs": "^9.3.0",
 		"mongoose": "^5.12.0",
