@@ -1,6 +1,5 @@
 module.exports = {
 	description: "Gives you a fortune",
-	cooldown: 4,
 	execute(_, args) {
 		let fortunes = [
 			"For the next coming bot war, you should be on the side of Minco Penguin",
