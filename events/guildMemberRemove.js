@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 
 /** @param {Discord.GuildMember} member */
 module.exports = (_, member) => {
-	var memberCount = member.guild.memberCount;
+	var memberCount = member.guild.members.cache.filter((m) => !m.user.bot).size;
 
 	let leaveEmbed = new Discord.MessageEmbed()
 		.setColor("EC7063") // red

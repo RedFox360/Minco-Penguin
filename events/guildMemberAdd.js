@@ -19,7 +19,7 @@ module.exports = async (_, member) => {
 		profile.save();
 	}
 
-	var memberCount = member.guild.memberCount;
+	var memberCount = member.guild.members.cache.filter((m) => !m.user.bot).size;
 	var memberCountOrdinal = ordinal(memberCount);
 
 	let joinEmbed = new Discord.MessageEmbed()
