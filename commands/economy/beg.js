@@ -12,7 +12,7 @@ module.exports = {
 				$inc: { mincoDollars: numberEcon },
 			}
 		);
-		let mdString = number == 1 ? "Dollars" : "Dollar";
+		let mdString = numberEcon == 1 ? "Dollars" : "Dollar";
 		message.channel.send(`You received ${numberEcon} Minco ${mdString}!`);
 	},
 };
