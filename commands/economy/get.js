@@ -5,7 +5,7 @@ module.exports = {
 	description: "Get Minco Dollars from a user (they have to react to approve)",
 	usage: "!get <@user> <amount>",
 	/** @param {Message} message */
-	async execute(message, args, cmd, client, profileData) {
+	async execute(message, args) {
 		const user = message.mentions.users.first();
 		if (!user) return message.channel.send("Mention a valid user");
 		const am = args[1];
@@ -14,6 +14,7 @@ module.exports = {
 		if (isNaN(amount)) return message.channel.send("Enter a valid number");
 		const userProfile = await profileModel.findOne({ userID: user.id });
 		if (amount > userProfile.mincoDollars) return message.channel.send(`<@${user.id}> does not have ${amount} Minco Dollars.`);
+		if (amount < 0) return message.channel.send("You must enter a positive amount (use !gift to give money)");
 		const checkM = await message.channel.send(
 			new MessageEmbed()
 				.setTitle("Minco Dollar Request")
