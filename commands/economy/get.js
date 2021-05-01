@@ -26,7 +26,7 @@ module.exports = {
 				.setFooter("These reactions will expire in 3 minutes")
 		);
 		await checkM.react("✅");
-		const filter = (reaction, u) => u.id == user.id && reaction.emoji.name === "✅";
+		const filter = (reaction, u) => u.id === user.id && reaction.emoji.name === "✅";
 		const collector = checkM.createReactionCollector(filter, ms("3m"));
 		let onEnd = true;
 		collector.on("collect", async (reaction, user) => {
@@ -51,6 +51,7 @@ module.exports = {
 			message.channel.send("Transaction successful!").then(async (m) => {
 				await m.react("💵");
 			});
+			collector.stop();
 		});
 		collector.on("end", (collected) => {
 			if (onEnd) message.channel.send("Timed out...");
