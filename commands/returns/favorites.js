@@ -9,7 +9,6 @@ module.exports = {
 		var id, avatarURL;
 		const mention = message.mentions.users.first();
 		if (mention) {
-			message.channel.send("Mention a valid user");
 			id = mention.id;
 			avatarURL = mention.avatarURL();
 		} else {
@@ -24,7 +23,7 @@ module.exports = {
 			let lcolor = color.toLowerCase();
 			let colors = ["red", "orange", "yellow", "green", "blue", "purple"];
 			for (let colorT of colors) {
-				if (lcolor.includes(colorT)) embedColor = colorT;
+				if (lcolor.includes(colorT)) embedColor = colorT.toUpperCase();
 				return;
 			}
 		})();
