@@ -26,17 +26,14 @@ module.exports = {
 					{
 						name: "Animal",
 						value: animal || "not set",
-						inline: true,
 					},
 					{
 						name: "Color",
 						value: color || "not set",
-						inline: true,
 					},
 					{
 						name: "Food",
 						value: food || "not set",
-						inline: true,
 					}
 				)
 				.setColor("82E0AA") // light green
