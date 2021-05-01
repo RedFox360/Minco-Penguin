@@ -39,6 +39,7 @@ module.exports = {
 						inline: true,
 					}
 				)
+				.setColor("82E0AA") // light green
 				.setThumbnail(avatarURL)
 		);
 	},
