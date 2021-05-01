@@ -9,9 +9,18 @@ module.exports = {
 			"Your internet will break down tomorrow",
 			"There will be **no** tomorrow",
 			"You will grow a mustache tomorrow (if you are a boy)",
+			"SIX SNOILS WILL COME TO YOUR BACKYARD AND EAT ALL YOUR PLANTS",
+			"You will like broccoli",
+			"You will get a pet soon",
+			"You will become a trillionaire",
+			"You will live on Mars when you grow up",
 		];
 
 		let random = Math.floor(Math.random() * fortunes.length);
-		return fortunes[random];
+		if (!args[0]) return fortunes[random];
+		const number = parseInt(args[0]);
+		if (isNaN(number)) return "Enter a valid number";
+		if (number > fortunes.length || number < 1) return "Invalid fortune index";
+		return fortunes[number - 1];
 	},
 };
