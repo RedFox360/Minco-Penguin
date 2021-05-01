@@ -17,7 +17,8 @@ module.exports = {
 		}
 		let profile = await profileModel.findOne({ userID: id });
 		var { animal, color, food } = profile.favs;
-		let embedColor = "82E0AA"; //light green
+		var embedColor = "82E0AA"; //light green
+
 		(() => {
 			if (!color) return;
 			let lcolor = color.toLowerCase();
