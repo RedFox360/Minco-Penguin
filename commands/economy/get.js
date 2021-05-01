@@ -22,8 +22,10 @@ module.exports = {
 						user.id
 					}>, accept the request to give ${amount} Minco Dollars to ${message.author.toString()} by reacting with a check mark`
 				)
+				.setColor("GREEN")
 				.setFooter("These reactions will expire in 3 minutes")
 		);
+		await checkM.react("✅");
 		const filter = (reaction, user) => m.author.id == user.id && reaction.emoji.name === "✅";
 		const collector = checkM.createReactionCollector(filter, ms("3m"));
 		let onEnd = true;
