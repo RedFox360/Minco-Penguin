@@ -16,3 +16,4 @@ created using tutorials by [CodeLyon](https://www.youtube.com/codelyon)
 - pretty-ms
 - ordinal
 - discord.js-collector
+- discordjs-colors
