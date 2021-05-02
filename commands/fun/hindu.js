@@ -15,7 +15,7 @@ module.exports = {
 				":diya_lamp: Divali: October/November\nA holiday that represents the victory of good over evil. AKA The Festival of Lights",
 			];
 
-			if (args[1] == "all") return holidays.join("\n");
+			if (args[1] == "all") return holidays.join("\n\n");
 			let random = Math.floor(Math.random() * holidays.length);
 			return holidays[random];
 		}
