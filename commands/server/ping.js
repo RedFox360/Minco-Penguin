@@ -23,11 +23,17 @@ module.exports = {
 				{ name: "Client Uptime", value: prettyMs(client.uptime) }
 			);
 		message.channel.send(pingEmbed);
-		if (args[0] == "all") {
-			message.channel.send(">ping");
-			message.channel.send("+ping");
-			message.channel.send("=ping");
-			message.channel.send("mo ping");
-		}
+		if (args[0] == "all")
+			(async () => {
+				let pings = [];
+				pings.push(await message.channel.send(">ping"));
+				pings.push(await message.channel.send("+ping"));
+				pings.push(await message.channel.send("=ping"));
+				pings.push(await message.channel.send("mo ping"));
+
+				setTimeout(() => {
+					pings.forEach((ping) => ping.delete());
+				}, 2000);
+			})();
 	},
 };
