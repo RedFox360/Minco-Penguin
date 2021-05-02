@@ -5,7 +5,6 @@ module.exports = {
 	aliases: ["sayd"],
 	execute(message, args, cmd, client) {
 		if (!args.length) return "You didn't provide any arguments.";
-		if (cmd === "sayd") message.delete();
 		if (args[0].startsWith("<#")) {
 			var channel = args[0];
 			channel = channel.replace("<", "").replace(">", "").replace("#", "");
@@ -19,5 +18,6 @@ module.exports = {
 		} else {
 			message.channel.send(args.join(" "));
 		}
+		if (cmd === "sayd") message.delete();
 	},
 };
