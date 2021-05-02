@@ -1,6 +1,5 @@
 module.exports = {
 	description: "Returns a random hello message.",
-	cooldown: 1,
 	aliases: ["howdy", "hi"],
 	execute(message) {
 		var ping = message.author.toString();
