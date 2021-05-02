@@ -6,7 +6,7 @@ module.exports = {
 			const holidays = [
 				":sun_with_face: Makar sankranti: January\nHoliday for the Sun God Surya",
 				":blue_book: Vasant Panchami: February\nHoliday for the goddess of wisdom Sarasvati",
-				"Holi: March :red_circle::orange_circle::yellow_circle::green_circle::blue_circle::purple_circle::brown_circle::black_circle::white_circle:",
+				":orange_circle: Holi: March\nThe holiday of colors",
 				"Rama Navami: April\nBirth of Rama",
 				"Hanuman Jayanti: April\nBirth of Hanuman",
 				":heart: Rakhi: August\nHoliday for brothers and sisters",
