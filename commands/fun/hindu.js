@@ -1,7 +1,7 @@
 module.exports = {
 	description: "Returns a random Hindu holiday",
 	usage: "!hindu holiday(s) (all)",
-	execute() {
+	execute(_, args) {
 		if (args[0].startsWith("holiday")) {
 			const holidays = [
 				":sun_with_face: Makar sankranti: January\nHoliday for the Sun God Surya",
