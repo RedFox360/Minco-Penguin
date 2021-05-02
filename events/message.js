@@ -9,38 +9,38 @@ const prettyMs = require("pretty-ms");
  */
 module.exports = async (client, message) => {
 	let profileData, guildData;
-    (() => {
-        if (message.author.bot) return;
-        try {
-            if (message.guild) {
-                profileData = await profileModel.findOne({ userID: message.author.id });
-                if (!profileData) {
-                    let profile = await profileModel.create({
-                        userID: message.author.id,
-                        serverID: message.guild.id,
-                        mincoDollars: 100,
-                        bank: 0,
-                        birthday: "This user's birthday has not been added to the database",
-                    });
-                    profile.save();
-                }
-                guildData = await serverModel.findOne({ serverID: message.guild.id });
-                if (!guildData) {
-                    let serverProfile = await serverModel.create({
-                        serverID: message.guild.id,
-                        bannedPeople: [],
-                        blacklist: [],
-                    });
-                    serverProfile.save();
-                }
-            }
-        } catch (err) {
-            console.error(err);
-        }
-	    blacklist(message);
-    })();
-    if (message.author.id === client.user.id) return;
-	
+	(async () => {
+		if (message.author.bot) return;
+		try {
+			if (message.guild) {
+				profileData = await profileModel.findOne({ userID: message.author.id });
+				if (!profileData) {
+					let profile = await profileModel.create({
+						userID: message.author.id,
+						serverID: message.guild.id,
+						mincoDollars: 100,
+						bank: 0,
+						birthday: "This user's birthday has not been added to the database",
+					});
+					profile.save();
+				}
+				guildData = await serverModel.findOne({ serverID: message.guild.id });
+				if (!guildData) {
+					let serverProfile = await serverModel.create({
+						serverID: message.guild.id,
+						bannedPeople: [],
+						blacklist: [],
+					});
+					serverProfile.save();
+				}
+			}
+		} catch (err) {
+			console.error(err);
+		}
+		blacklist(message);
+	})();
+	if (message.author.id === client.user.id) return;
+
 	if (message.content.startsWith("<@!725917919292162051>")) {
 		let infoEmbed = new Discord.MessageEmbed()
 			.setColor("32E6C5")
