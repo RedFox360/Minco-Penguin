@@ -11,8 +11,8 @@ module.exports = {
 		const mention = message.mentions.users.first();
 		if (!mention) {
 			let balanceEmbed = new MessageEmbed().setTitle("Balance").setColor("7BFF70").setDescription(
-				`:coin: Wallet: ${profileData.mincoDollars} Minco Dollars
-:dollar: Bank: ${profileData.bank} Minco Dollars`
+				`:coin: Wallet: **${profileData.mincoDollars}** Minco Dollars
+:dollar: Bank: **${profileData.bank}** Minco Dollars`
 			);
 			message.channel.send(balanceEmbed);
 		} else {
