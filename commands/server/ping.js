@@ -17,9 +17,9 @@ module.exports = {
 				{ name: "Status:", value: status },
 				{
 					name: "Execution Time",
-					value: `${Date.now() - message.createdTimestamp}ms`,
+					value: prettyMs(Date.now() - message.createdTimestamp),
 				},
-				{ name: "Client Latency", value: `${Math.round(client.ws.ping)}ms` },
+				{ name: "Client Latency", value: prettyMs(Math.round(client.ws.ping)) },
 				{ name: "Client Uptime", value: prettyMs(client.uptime) }
 			);
 		message.channel.send(pingEmbed);
