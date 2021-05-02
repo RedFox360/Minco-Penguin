@@ -1,4 +1,5 @@
 module.exports = {
 	description: "SNONK!!!!!",
-	execute: () => "SNONNNNNNNNNNK!\nDefinition of Snonk:\nPart of speech: any\nMeaning: any word in english excluding bad words",
+	execute: () =>
+		"**SNONNNNNNNNNNK!**\n*Definition of __Snonk__:*\nPart of speech: *any*\nMeaning: any word in english excluding bad words",
 };
