@@ -10,10 +10,10 @@ module.exports = {
 	async execute(message, _0, _1, _2, profileData) {
 		const mention = message.mentions.users.first();
 		if (!mention) {
-			let balanceEmbed = new MessageEmbed()
-				.setTitle("Balance")
-				.setColor("7BFF70")
-				.setDescription(`Wallet: ${profileData.mincoDollars} Minco Dollars\nBank: ${profileData.bank} Minco Dollars`);
+			let balanceEmbed = new MessageEmbed().setTitle("Balance").setColor("7BFF70").setDescription(
+				`:coin: Wallet: ${profileData.mincoDollars} Minco Dollars
+:dollar: Bank: ${profileData.bank} Minco Dollars`
+			);
 			message.channel.send(balanceEmbed);
 		} else {
 			let profile = await profileModel.findOne({ userID: mention.id });
