@@ -9,7 +9,7 @@ module.exports = {
 	 */
 	execute(message, args, _1, client) {
 		var status = Math.round(client.ws.ping) > 200 ? "lagging" : "online";
-		var color = status == "lagging" ? "ff0000" : "C782FE";
+		var color = status == "lagging" ? "ff0000" : "32E6C5";
 		let pingEmbed = new Discord.MessageEmbed()
 			.setTitle(":robot_face: Pong!")
 			.setColor(color)
