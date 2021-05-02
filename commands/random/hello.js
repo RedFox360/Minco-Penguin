@@ -1,19 +1,12 @@
-const { get } = require("mongoose");
-
 module.exports = {
 	description: "Returns a random hello message.",
 	cooldown: 1,
 	aliases: ["howdy", "hi"],
 	execute(message) {
-		let hellos = [
-			"Hi :)",
-			"Hai!",
-			"Hello! :)",
-			`Salutations, ${message.author.toString()}`,
-			"Bonjour!",
-			`Greetings, ${message.author.toString()}`,
-			"Howdy! :cowboy:",
-		];
+		var ping = message.author.toString();
+		const mention = message.mentions.users.first();
+		if (mention) ping = `<@${mention.id}>`;
+		let hellos = ["Hi :)", "Hai!", "Hello! :)", `Salutations, ${ping}`, "Bonjour!", `Greetings, ${ping}`, "Howdy! :cowboy:"];
 		let random = Math.floor(Math.random() * hellos.length);
 		return hellos[random];
 	},
