@@ -7,7 +7,7 @@ module.exports = {
 	 * @param {Discord.Message} message
 	 * @param {Discord.Client} client
 	 */
-	execute(message, _0, _1, client) {
+	execute(message, args, _1, client) {
 		var status = Math.round(client.ws.ping) > 200 ? "lagging" : "online";
 		var color = status == "lagging" ? "ff0000" : "32E6C5";
 		let pingEmbed = new Discord.MessageEmbed()
@@ -23,5 +23,11 @@ module.exports = {
 				{ name: "Client Uptime", value: prettyMs(client.uptime) }
 			);
 		message.channel.send(pingEmbed);
+		if (args[0] == "all") {
+			message.channel.send(">ping");
+			message.channel.send("+ping");
+			message.channel.send("=ping");
+			message.channel.send("mo ping");
+		}
 	},
 };
