@@ -31,9 +31,7 @@ module.exports = {
 				pings.push(await message.channel.send("=ping"));
 				pings.push(await message.channel.send("mo ping"));
 
-				setTimeout(() => {
-					pings.forEach((ping) => ping.delete());
-				}, 2000);
+				pings.forEach((ping) => ping.delete());
 			})();
 	},
 };
