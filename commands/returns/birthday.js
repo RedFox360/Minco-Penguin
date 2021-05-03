@@ -11,11 +11,9 @@ module.exports = {
 		if (!args.length) return "You didn't provide any arguments.";
 		const mention = message.mentions.users.first();
 		if (!mention) return "Mention a valid user";
-		try {
-			const profile = await profileModel.findOne({ userID: mention.id });
-			message.channel.send(profile.birthday);
-		} catch (err) {
-			message.channel.send("This user's birthday has not been added to the database");
-		}
+		const profile = await profileModel.findOne({ userID: mention.id });
+		message.channel.send(profile.birthday).catch((err) => {
+			message.channel.send("This user's birthday has not been added to the database.");
+		});
 	},
 };
