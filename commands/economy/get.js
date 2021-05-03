@@ -13,16 +13,13 @@ module.exports = {
 		let amount = parseInt(am);
 		if (isNaN(amount)) return message.channel.send("Enter a valid number");
 		const userProfile = await profileModel.findOne({ userID: user.id });
-		if (amount > userProfile.mincoDollars) return message.channel.send(`<@${user.id}> does not have ${amount} Minco Dollars.`);
+		if (amount > userProfile.mincoDollars)
+			return message.channel.send(`<@${user.id}> does not have ${amount} Minco Dollars in their wallet.`);
 		if (amount < 0) return message.channel.send("You must enter a positive amount (use !gift to give money)");
 		const checkM = await message.channel.send(
 			new MessageEmbed()
 				.setTitle("Minco Dollar Request")
-				.setDescription(
-					`<@${
-						user.id
-					}>, accept the request to give __**${amount}**__ Minco Dollars to ${message.author.toString()} by reacting with a check mark`
-				)
+				.setDescription(`<@${user.id}>, accept the request by reacting with a check mark`)
 				.setColor("GREEN")
 				.setFooter("These reactions will expire in 1.5 minutes")
 		);

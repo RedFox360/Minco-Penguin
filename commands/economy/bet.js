@@ -9,7 +9,7 @@ module.exports = {
 		let random = Math.floor(Math.random() * 2);
 		let amount = parseInt(args[0]);
 		if (isNaN(amount)) return message.channel.send("Enter a valid number");
-		if (amount > profileData.mincoDollars) return message.channel.send(`You don't have ${amount} Minco Dollars.`);
+		if (amount > profileData.mincoDollars) return message.channel.send(`You don't have ${amount} Minco Dollars in your wallet.`);
 		if (amount <= 0) return message.channel.send("You have to bet a positive number of Minco Dollars");
 		if (amount > 20) return message.channel.send("You can't bet more than 20 Minco Dollars");
 		if (random == 1) {
