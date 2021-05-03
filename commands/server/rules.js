@@ -41,7 +41,7 @@ module.exports = {
 				message.channel.send(rules);
 			} else if (args[0] == "im" || args[0] == "important") {
 				let rulesEmbed = new MessageEmbed()
-					.setColor("#FF0000")
+					.setColor("#E74C3C")
 					.setTitle(":exclamation: Important Announcement:")
 					.setDescription(
 						"People have been too focused on the Discord server recently, and it's stopping us from focusing on class since people are getting a lot of Discord notifications."
