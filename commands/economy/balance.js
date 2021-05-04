@@ -9,19 +9,19 @@ module.exports = {
 	/** @param {Message} message */
 	async execute(message, _0, _1, _2, profileData) {
 		const mention = message.mentions.users.first();
-		if (!mention) {
-			let balanceEmbed = new MessageEmbed().setTitle("Balance").setColor("7BFF70").setDescription(
-				`:coin: Wallet: **${profileData.mincoDollars}** Minco Dollars
-:dollar: Bank: **${profileData.bank}** Minco Dollars`
-			);
-			message.channel.send(balanceEmbed);
-		} else {
+		var md, bank;
+		if (mention) {
 			let profile = await profileModel.findOne({ userID: mention.id });
-			let balanceEmbed = new MessageEmbed()
-				.setTitle("Balance")
-				.setColor("7BFF70")
-				.setDescription(`Wallet: ${profile.mincoDollars} Minco Dollars\nBank: ${profile.bank} Minco Dollars`);
-			message.channel.send(balanceEmbed);
+			md = profile.mincoDollars;
+			bank = profile.bank;
+		} else {
+			md = profileData.mincoDollars;
+			bank = profileData.bank;
 		}
+		let balanceEmbed = new MessageEmbed().setTitle("Balance").setColor("7BFF70").setDescription(
+			`:coin: Wallet: **${md}** Minco Dollars
+:dollar: Bank: **${bank}** Minco Dollars`
+		);
+		message.channel.send(balanceEmbed);
 	},
 };
