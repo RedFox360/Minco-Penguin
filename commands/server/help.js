@@ -20,7 +20,7 @@ module.exports = {
 			return message.channel.send(commandEmbed);
 		}
 		var description =
-			"Use the :rewind: and :fast_forward: reactions to switch between pages.\nDon't put **< >** in the actual commands.\n**( )** show optional arguments\n\n**Categories**:\n`INFO/USEFUL commands`\n`FUN Commands`\n`SERVER Commands`\n`RANDOM RETURN Commands`\n`ECONOMY Commands`";
+			"Use the :rewind: and :fast_forward: reactions to switch between pages.\nDon't put **< >** in the actual commands.\n**( )** show optional arguments\n**ms** means write '1m, 2 seconds, 4 days', etc.\n\n**Categories**:\n`INFO/USEFUL commands`\n`FUN Commands`\n`SERVER Commands`\n`RANDOM RETURN Commands`\n`ECONOMY Commands`";
 
 		var titles = [
 			"Minco Penguin Commands",
@@ -66,7 +66,7 @@ module.exports = {
 
 		const filter = (reaction, user) => user.id === message.author.id;
 		const collector = helpMsg.createReactionCollector(filter, { time: 300000 });
-		await collector.on("collect", async (reaction, user) => {
+		collector.on("collect", async (reaction, user) => {
 			if (reaction.emoji.name == "⏪") {
 				if (currentPage != 0) currentPage--;
 				if (currentPage == 0) {

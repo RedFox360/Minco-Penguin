@@ -2,7 +2,7 @@ const ms = require("ms");
 const { MessageEmbed, Message } = require("discord.js");
 module.exports = {
 	description: "[MANAGE CHANNELS] Changes slowmode",
-	usage: "!slowmode <number>",
+	usage: "!slowmode <ms>",
 	/** @param {Message} message */
 	execute(message, args) {
 		if (message.member.hasPermission("MANAGE_CHANNELS") || message.author.id == "724786310711214118") {

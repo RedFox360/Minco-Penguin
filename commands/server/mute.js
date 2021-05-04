@@ -4,7 +4,7 @@ const ms = require("ms");
 module.exports = {
 	aliases: ["unmute"],
 	description: "[ADMIN ONLY] Mutes a member",
-	usage: "!mute <@user> <time> <reason>",
+	usage: "!mute <@user> <ms> <reason>",
 	/**
 	 * @param {Discord.Message} message
 	 * @param {Discord.Client} client
