@@ -14,6 +14,7 @@ module.exports = {
 			if (message.guild.id == "785642761814671381") mainRoleName = "Student";
 			else if (message.guild.id == "804079271986462811") mainRoleName = "Member";
 			else if (message.guild.id == "818509629842522112") mainRoleName = "Blob";
+			else if (message.guild.id == "838951077012832306") mainRoleName = "Peep";
 			else return message.channel.send("This command is invalid in this server.");
 			let mainRole = await message.guild.roles.cache.find((role) => role.name === mainRoleName);
 			if (!args.length) {
