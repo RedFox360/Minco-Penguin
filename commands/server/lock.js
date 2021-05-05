@@ -16,7 +16,7 @@ module.exports = {
 				SEND_MESSAGES: true,
 			});
 		}
-		message.channel.send(`🔒 <#${channel.id}> has been locked`);
+		message.channel.send(`🔒 <#${message.channel.id}> has been locked`);
 		if (args.length) {
 			const time = ms(args.join(" "));
 			if (!time) return "Enter a valid time";
@@ -24,7 +24,7 @@ module.exports = {
 				message.channel.updateOverwrite(message.guild.roles.everyone, {
 					SEND_MESSAGES: true,
 				});
-				message.channel.send(`✅ <#${channel.id}> has been unlocked`);
+				message.channel.send(`✅ <#${message.channel.id}> has been unlocked`);
 			}, ms);
 		}
 	},
