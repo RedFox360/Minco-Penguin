@@ -29,7 +29,7 @@ module.exports = {
 					SEND_MESSAGES: true,
 				});
 				message.channel.send(unlockMessage);
-			}, ms);
+			}, time);
 		}
 	},
 };
