@@ -19,7 +19,11 @@ module.exports = {
 		const checkM = await message.channel.send(
 			new MessageEmbed()
 				.setTitle("Minco Dollar Request")
-				.setDescription(`<@${user.id}>, accept the request by reacting with a check mark`)
+				.setDescription(
+					`<@${
+						user.id
+					}>, accept the request to give ${amount} Minco Dollars to ${message.author.toString()} by reacting with a check mark`
+				)
 				.setColor("GREEN")
 				.setFooter("These reactions will expire in 1.5 minutes")
 		);
