@@ -11,7 +11,7 @@ module.exports = {
 			let reason = "";
 			if (!args[1]) return "Enter a reason";
 			for (let i = 1; i < args.length; i++) {
-				reason += args[i];
+				reason += args[i] + " ";
 			}
 			const authorName = message.member.nickname || message.author.username;
 			message.channel.send(
@@ -19,6 +19,7 @@ module.exports = {
 					.setAuthor(authorName)
 					.setTitle("Warning")
 					.setDescription(`Warning for user <@${member.id}>\nReason: ${reason}`)
+					.setColor("E74C3C")
 			);
 
 			member.send(`${authorName} has warned you:\nReason: ${reason}`);
