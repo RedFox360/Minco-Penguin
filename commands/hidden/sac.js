@@ -30,7 +30,7 @@ Springfield, Illinois
 Madison, Wisconsin
 Lansing, Michigan
 Indianapolis, Indiana
-Coolumbus, Ohio`;
+Columbus, Ohio`;
 		const south = `Austin, Texas
 Oklahoma City, Oklahoma
 Little Rock, Arkansas,
