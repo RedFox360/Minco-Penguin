@@ -4,11 +4,11 @@ module.exports = {
 	usage: "!warn <@user> <reason>",
 	/** @param {Message} message */
 	execute(message, args) {
-		if (message.member.hasPermission("MANAGE_SERVER") || message.member.roles.cache.find((role) => role.name === "Moderator")) {
+		if (message.member.hasPermission("MANAGE_GUILD") || message.member.roles.cache.find((role) => role.name === "Moderator")) {
 			const member = message.mentions.users.first();
 			if (!args.length) return "Enter valid arguments";
 			if (!member) return "Mention a valid user";
-			const reason = "";
+			let reason = "";
 			if (!args[1]) return "Enter a reason";
 			for (let i = 1; i < args.length; i++) {
 				reason += args[i];
