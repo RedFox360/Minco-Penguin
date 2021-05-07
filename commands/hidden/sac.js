@@ -4,7 +4,7 @@ module.exports = {
 	aliases: ["states-and-capitals", "s-and-c", "state-cap", "states-capitals"],
 	usage: "!sac (west/midwest/south/northeast)",
 	execute(message, args) {
-		const embed = new MessageEmbed().setTitle(":flag_us: States & Capitals of the US");
+		const embed = new MessageEmbed().setTitle(":flag_us: States & Capitals of the US").setColor("#43426B");
 
 		const west = `Olympia, Washington
 Salem, Oregon
@@ -69,19 +69,19 @@ Harrisburg, Pennsylvania`;
 			embed.addFields(
 				{
 					name: "Western",
-					description: west,
+					value: west,
 				},
 				{
 					name: "Midwestern",
-					description: midwest,
+					value: midwest,
 				},
 				{
 					name: "Southern",
-					description: south,
+					value: south,
 				},
 				{
 					name: "Northeastern",
-					description: northeast,
+					value: northeast,
 				}
 			);
 		}
