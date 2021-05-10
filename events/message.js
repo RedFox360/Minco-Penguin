@@ -36,7 +36,6 @@ module.exports = async (client, message) => {
 	} catch (err) {
 		console.error(err);
 	}
-	blacklist(message);
 	if (message.author.id === client.user.id) return;
 
 	if (message.content.startsWith("<@!725917919292162051>")) {
@@ -105,30 +104,3 @@ module.exports = async (client, message) => {
 		console.error(error);
 	}
 };
-/** @param {Discord.Message} message */
-function blacklist(message) {
-	if (!message.channel) return;
-	if (message.channel.name.includes("meme")) return;
-	if (message.channel.nsfw) return;
-	let swearWords = [
-		"f*%k".replace("*", "u").replace("%", "c"),
-		"s%#t".replace("%", "h").replace("#", "i"),
-		"b%t^@".replace("%", "i").replace("^", "c").replace("@", "h"),
-	];
-
-	let bannedPhrases = [
-		"thisworldthesedays.com",
-		"tomorrowtides.com",
-		"theraleighregister.com",
-		"sanfransentinel.com",
-		"futureme.org",
-		"twitch.tv",
-		"geni.us",
-		"crap",
-		...swearWords,
-	];
-	for (const phrase of bannedPhrases) {
-		if (!message.content) return;
-		if (message.content.toLowerCase().includes(phrase)) return message.delete();
-	}
-}
