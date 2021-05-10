@@ -21,14 +21,14 @@ Phoenix, Arizona,
 Santa Fe, New Mexico`;
 		const midwest = `Bismarck, North Dakota
 Pierre, South Dakota
-Lincoln, Nebraska
-Topeka, Kansas
-St. Paul, Minnesota
-Des Moines, Iowa
-Jefferson City, Missouri
-Springfield, Illinois
+St Paul, Minnesota
 Madison, Wisconsin
 Lansing, Michigan
+Lincoln, Nebraska
+Topeka, Kansas
+Des Moines, Iowa
+Jefferson City, Missouri
+Springfield, Illionois
 Indianapolis, Indiana
 Columbus, Ohio`;
 		const south = `Austin, Texas
