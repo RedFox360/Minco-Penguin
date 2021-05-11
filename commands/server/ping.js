@@ -23,6 +23,7 @@ module.exports = {
 				{ name: "Client Latency", value: prettyMs(Math.round(client.ws.ping)) },
 				{ name: "Client Uptime", value: prettyMs(client.uptime) }
 			)
+			.setFooter(message.guild.name)
 			.setTimestamp();
 		message.channel.send(pingEmbed);
 		if (args[0] == "all")
