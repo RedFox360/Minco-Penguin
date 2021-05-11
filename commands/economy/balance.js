@@ -10,13 +10,10 @@ module.exports = {
 	async execute(message, _0, _1, _2, profileData) {
 		const mention = message.mentions.users.first();
 		var md, bank;
-		let name = message.member.nickname || message.author.username;
 		if (mention) {
 			let profile = await profileModel.findOne({ userID: mention.id });
 			md = profile.mincoDollars;
 			bank = profile.bank;
-			let member = await message.guild.members.cache.get(target.id);
-			name = member.nickname || mention.username;
 		} else {
 			md = profileData.mincoDollars;
 			bank = profileData.bank;
@@ -24,7 +21,6 @@ module.exports = {
 
 		let balanceEmbed = new MessageEmbed()
 			.setTitle("Balance")
-			.setAuthor(name, message.author.avatarURL())
 			.setColor("7BFF70")
 			.setDescription(
 				`:coin: Wallet: **${md}** Minco Dollars
