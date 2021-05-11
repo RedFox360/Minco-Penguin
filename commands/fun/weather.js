@@ -18,12 +18,11 @@ module.exports = {
 					return console.error(error);
 				}
 				if (result === undefined || result.length == 0) return message.channel.send("Specify a valid place.");
-
 				const { current, location } = result[0];
 				const forecast = result[0].forecast[1];
 				const embed = new MessageEmbed()
 					.setTitle(`Weather: ${location.name}`)
-					.setDescription(current.skytext)
+					.setDescription(`${current.day} | ${current.skytext}`)
 					.setThumbnail(current.imageUrl)
 					.setColor("#A6D4FF")
 					.setTimestamp()
