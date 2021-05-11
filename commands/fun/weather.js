@@ -35,12 +35,12 @@ module.exports = {
 						},
 						{
 							name: "High",
-							value: forecast.high,
+							value: forecast.high + "°F",
 							inline: true,
 						},
 						{
 							name: "Low",
-							value: forecast.low,
+							value: forecast.low + "°F",
 							inline: true,
 						},
 						{
