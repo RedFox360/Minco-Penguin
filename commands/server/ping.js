@@ -21,7 +21,8 @@ module.exports = {
 				},
 				{ name: "Client Latency", value: prettyMs(Math.round(client.ws.ping)) },
 				{ name: "Client Uptime", value: prettyMs(client.uptime) }
-			);
+			)
+			.setTimestamp();
 		message.channel.send(pingEmbed);
 		if (args[0] == "all")
 			(async () => {
