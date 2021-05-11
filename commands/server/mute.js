@@ -39,8 +39,7 @@ module.exports = {
 				.setColor("#F04747")
 				.setTitle("Mute Warning")
 				.setDescription(description)
-				.setAuthor(memberTarget.user.username)
-				.setThumbnail(memberTarget.user.avatarURL());
+				.setAuthor(memberTarget.user.username, memberTarget.user.avatarURL());
 			if (cmd === "mute") {
 				memberTarget.roles.remove(mainRole.id);
 				memberTarget.roles.add(muteRole.id);

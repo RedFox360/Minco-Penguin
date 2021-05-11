@@ -10,10 +10,12 @@ module.exports = {
 	 */
 	async execute(message, args, _, client) {
 		var color = "C782FE"; // light purple
+		var author = [message.member.nickname || message.author.username, message.author.avatarURL()];
 		if (args.length) {
 			const command = client.commands.get(args[0]) || client.commands.find((a) => a.aliases && a.aliases.includes(args[0]));
 			if (!command) return message.channel.send("Enter a valid command name");
 			let commandEmbed = new Discord.MessageEmbed()
+				.setAuthor(...author)
 				.setTitle(command.usage || "!" + args[0])
 				.setDescription(command.description)
 				.setColor(color)
@@ -33,6 +35,7 @@ module.exports = {
 		];
 		var currentPage = 0;
 		let helpEmbed = new Discord.MessageEmbed()
+			.setAuthor(...author)
 			.setTitle(titles[currentPage])
 			.setDescription(description)
 			.setColor(color)
@@ -73,6 +76,7 @@ module.exports = {
 				if (currentPage != 0) currentPage--;
 				if (currentPage == 0) {
 					helpEmbed = new Discord.MessageEmbed()
+						.setAuthor(...author)
 						.setTitle(titles[0])
 						.setDescription(description)
 						.setColor(color)
@@ -90,6 +94,7 @@ module.exports = {
 			} else if (reaction.emoji.name == "⏩") {
 				if (currentPage != 5) currentPage++;
 				helpEmbed = new Discord.MessageEmbed()
+					.setAuthor(...author)
 					.setTitle(titles[currentPage])
 					.setColor(color)
 					.setFooter(message.guild.name)
