@@ -18,7 +18,7 @@ module.exports =
 		if (!args[1]) return message.channel.send("Valid usage: !buy meme <meme>");
 		let requestEmbed = new Discord.MessageEmbed()
 			.setColor("#70FFC2")
-			.setAuthor(message.author.username)
+			.setAuthor(message.author.username, message.author.avatarURL())
 			.setTitle("Meme Request")
 			.setDescription(`${message.author.toString()} from ${message.guild.name} has requested a meme:\n__${meme}__`);
 		let returnEmbed = new Discord.MessageEmbed()
