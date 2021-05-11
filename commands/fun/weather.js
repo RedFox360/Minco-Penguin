@@ -5,7 +5,7 @@ module.exports = {
 	usage: "!weather <city>",
 	/** @param {Message} message */
 	execute(message, args) {
-		const search = args.join(" ");
+		let search = args.join(" ");
 		if (!args[0]) search = "san diego";
 		weather.find(
 			{
@@ -19,9 +19,8 @@ module.exports = {
 				}
 				if (result === undefined || result.length == 0) return message.channel.send("Specify a valid place.");
 
-				let current = result[0].current;
-				let location = result[0].location;
-
+				const { current, location } = result[0];
+				const forecast = result[0].forecast[1];
 				const embed = new MessageEmbed()
 					.setTitle(`Weather Info of ${location.name}`)
 					.setDescription(current.skytext)
@@ -35,8 +34,18 @@ module.exports = {
 							inline: true,
 						},
 						{
-							name: "Feels Like",
-							value: current.feelslike + "°F",
+							name: "High",
+							value: forecast.high,
+							inline: true,
+						},
+						{
+							name: "Low",
+							value: forecast.low,
+							inline: true,
+						},
+						{
+							name: "Precipitation",
+							value: forecast.precip + "%",
 							inline: true,
 						},
 						{
