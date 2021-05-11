@@ -22,15 +22,20 @@ module.exports = {
 				let location = result[0].location;
 
 				const embed = new MessageEmbed()
-					.setTitle(`Weather Info of ${current.observationPoint}`)
+					.setTitle(`Weather Info of ${location.name}`)
 					.setDescription(current.skytext)
 					.setThumbnail(current.imageurl)
-					.setColor("#C5E3FF")
+					.setColor("#A6D4FF")
 					.setTimestamp()
 					.addFields(
 						{
 							name: "Temperature",
 							value: current.temperature + "°F",
+							inline: true,
+						},
+						{
+							name: "Feels Like",
+							value: current.feelslike + "°F",
 							inline: true,
 						},
 						{
@@ -42,14 +47,9 @@ module.exports = {
 							name: "Humidity",
 							value: current.humidity + "%",
 							inline: true,
-						},
-						{
-							name: "Time Zone",
-							value: `UTC${location.timezone}`,
-							inline: true,
 						}
 					)
-					.setFooter(message.guild.name);
+					.setFooter(`Time Zone: UTC${location.timezone} | Observation time: ${current.date} ${current.observationtime}`);
 				message.channel.send(embed);
 			}
 		);
