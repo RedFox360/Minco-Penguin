@@ -16,7 +16,8 @@ module.exports = {
 		else if (message.guild.id == "835983158208888852") roles = ["People", "Muted"];
 		else return message.channel.send("The mute command is invalid in this server");
 		if (
-			(message.member.hasPermission("MANAGE_MESSAGES") && message.member.roles.cache.find((r) => r.name === "Moderator")) ||
+			message.member.hasPermission("MANAGE_CHANNELS") ||
+			message.member.roles.cache.find((r) => r.name === "Moderator") ||
 			message.member.hasPermission("MANAGE_ROLES") ||
 			message.author.id == "802668636795830292"
 		) {
@@ -58,6 +59,6 @@ module.exports = {
 				message.channel.send(`<@${memberTarget.user.id}> has been unmuted.`);
 				return;
 			}
-		} else return "You don't have the right permissions to execute this command.";
+		} else return message.channel.send("You don't have the right permissions to execute this command.");
 	},
 };
