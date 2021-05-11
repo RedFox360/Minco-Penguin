@@ -22,7 +22,7 @@ module.exports = {
 				const { current, location } = result[0];
 				const forecast = result[0].forecast[1];
 				const embed = new MessageEmbed()
-					.setTitle(`Weather Info of ${location.name}`)
+					.setTitle(`Weather: ${location.name}`)
 					.setDescription(current.skytext)
 					.setThumbnail(current.imageUrl)
 					.setColor("#A6D4FF")
