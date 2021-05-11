@@ -16,7 +16,8 @@ module.exports = {
 			let commandEmbed = new Discord.MessageEmbed()
 				.setTitle(command.usage || "!" + args[0])
 				.setDescription(command.description)
-				.setColor(color);
+				.setColor(color)
+				.setTimestamp();
 			return message.channel.send(commandEmbed);
 		}
 		var description =
@@ -35,7 +36,8 @@ module.exports = {
 			.setTitle(titles[currentPage])
 			.setDescription(description)
 			.setColor(color)
-			.setFooter(message.guild.name);
+			.setFooter(message.guild.name)
+			.setTimestamp();
 
 		const helpMsg = await message.channel.send(helpEmbed);
 		const fields = [0, [], [], [], [], []];
@@ -74,7 +76,8 @@ module.exports = {
 						.setTitle(titles[0])
 						.setDescription(description)
 						.setColor(color)
-						.setFooter(message.guild.name);
+						.setFooter(message.guild.name)
+						.setTimestamp();
 					helpMsg.edit(helpEmbed);
 				} else {
 					helpEmbed = new Discord.MessageEmbed().setTitle(titles[currentPage]).setColor(color).setFooter(message.guild.name);
@@ -86,7 +89,11 @@ module.exports = {
 				}
 			} else if (reaction.emoji.name == "⏩") {
 				if (currentPage != 5) currentPage++;
-				helpEmbed = new Discord.MessageEmbed().setTitle(titles[currentPage]).setColor(color).setFooter(message.guild.name);
+				helpEmbed = new Discord.MessageEmbed()
+					.setTitle(titles[currentPage])
+					.setColor(color)
+					.setFooter(message.guild.name)
+					.setTimestamp();
 				fields[currentPage].forEach((field) => {
 					helpEmbed.addField(field[0], field[1]);
 				});
