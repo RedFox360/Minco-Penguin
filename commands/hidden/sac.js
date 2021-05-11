@@ -12,7 +12,7 @@ Sacramento, California
 Juneau, Alaska
 Honolulu, Hawaii
 Boise, Idaho
-Helene Montana
+Helena, Montana
 Cheyenne, Wyoming
 Carson City, Nevada
 Salt Lake City, Utah
