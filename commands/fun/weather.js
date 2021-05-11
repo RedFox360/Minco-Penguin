@@ -18,7 +18,7 @@ module.exports = {
 				}
 				if (result === undefined || result.length == 0) return message.channel.send("Specify a valid place.");
 
-				let current = result[0];
+				let current = result[0].current;
 				let location = result[0].location;
 
 				const embed = new MessageEmbed()
