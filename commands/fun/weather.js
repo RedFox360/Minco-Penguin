@@ -1,9 +1,8 @@
 const weather = require("weather-js");
-const { Message, MessageEmbed } = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 module.exports = {
 	description: "Check the weather! (Checks San Diego if you don't provide a city argument)",
 	usage: "!weather <city>",
-	/** @param {Message} message */
 	execute(message, args) {
 		let search = args.join(" ");
 		if (!args[0]) search = "san diego";
