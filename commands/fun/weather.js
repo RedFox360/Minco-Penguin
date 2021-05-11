@@ -5,10 +5,11 @@ module.exports = {
 	usage: "!weather <city>",
 	/** @param {Message} message */
 	execute(message, args) {
-		if (!args[0]) return message.channel.send("Enter the name of a city");
+		const search = args.join(" ");
+		if (!args[0]) search = "san diego";
 		weather.find(
 			{
-				search: args.join(" "),
+				search,
 				degreeType: "F",
 			},
 			(error, result) => {
@@ -24,7 +25,7 @@ module.exports = {
 				const embed = new MessageEmbed()
 					.setTitle(`Weather Info of ${location.name}`)
 					.setDescription(current.skytext)
-					.setThumbnail(current.imageurl)
+					.setThumbnail(location.imagerelativeurl)
 					.setColor("#A6D4FF")
 					.setTimestamp()
 					.addFields(
