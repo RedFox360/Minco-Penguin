@@ -8,24 +8,25 @@ module.exports = {
 	 * @param {Discord.Message} message
 	 * @param {Discord.Client} client
 	 */
-	async execute(message, args, cmd) {
+	execute(message, args, cmd) {
 		var roles;
 		if (message.guild.id == "785642761814671381") roles = ["Student", "Muted"];
 		else if (message.guild.id == "804079271986462811") roles = ["Member", "Muted"];
 		else if (message.guild.id == "818509629842522112") roles = ["Blob", "Muted"];
 		else if (message.guild.id == "835983158208888852") roles = ["People", "Muted"];
-		else return message.channel.send("The mute command is invalid in this server");
+		else return "The mute command is invalid in this server";
 		if (
-			(message.member.hasPermission("MANAGE_MESSAGES") && message.member.roles.cache.find((r) => r.name === "Moderator")) ||
+			message.member.hasPermission("MANAGE_CHANNELS") ||
+			message.member.roles.cache.find((r) => r.name === "Moderator") ||
 			message.member.hasPermission("MANAGE_ROLES") ||
 			message.author.id == "802668636795830292"
 		) {
 			const target = message.mentions.users.first();
-			if (!target) return message.channel.send("Mention a valid user");
-			let mainRole = await message.guild.roles.cache.find((role) => role.name === roles[0]);
-			let muteRole = await message.guild.roles.cache.find((role) => role.name === roles[1]);
-			let memberTarget = await message.guild.members.cache.get(target.id);
-			if (memberTarget.bot) return "Bots cannot be muted";
+			if (!target) return "Mention a valid user";
+			let mainRole = message.guild.roles.cache.find((role) => role.name === roles[0]);
+			let muteRole = message.guild.roles.cache.find((role) => role.name === roles[1]);
+			let memberTarget = message.guild.members.cache.get(target.id);
+			if (memberTarget.user.bot) return "Bots cannot be muted";
 			if (
 				memberTarget.hasPermission("ADMINISTRATOR") ||
 				memberTarget.hasPermission("MANAGE_CHANNELS") ||
@@ -54,8 +55,7 @@ module.exports = {
 			} else if (cmd === "unmute") {
 				memberTarget.roles.remove(muteRole.id);
 				memberTarget.roles.add(mainRole.id);
-				message.channel.send(`<@${memberTarget.user.id}> has been unmuted.`);
-				return;
+				return `<@${memberTarget.user.id}> has been unmuted.`;
 			}
 		} else return "You don't have the right permissions to execute this command.";
 	},
