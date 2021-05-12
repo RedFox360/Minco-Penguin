@@ -21,9 +21,9 @@ module.exports = {
 			num1 = random(1600, 2400);
 			num2 = random(1000, 2000);
 		}
-		if (oper == "+") result = `${num1 + num2}`;
-		else if (oper == "-") result = `${num1 - num2}`;
-		else if (oper == "*") result = `${num1 * num2}`;
+		if (oper == "+") result = num1 + num2;
+		else if (oper == "-") result = num1 - num2;
+		else if (oper == "*") result = num1 * num2;
 		message.channel.send(`What is ${num1} ${oper} ${num2}?`);
 		const filter = (m) => m.author.id == message.author.id;
 		const collector = message.channel.createMessageCollector(filter, { time: 20000 });
@@ -45,7 +45,7 @@ module.exports = {
 					}
 				);
 			} else {
-				message.channel.send("Incorrect!");
+				message.channel.send(`Incorrect! The correct answer is ${result}`);
 			}
 			collector.stop();
 		});
