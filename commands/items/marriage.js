@@ -6,13 +6,15 @@ module.exports = {
 		const mention = message.mentions.users.first();
 		let are = "You are";
 		let spouse, nickname, avatar, username;
-		if (mention) (async () => {
-			are = `${mention.id} is`;
-			spouse = (await profileModel.findOne({ userID: mention.id })).spouse;
-			nickname = message.guild.members.cache.get(mention.id).nickname;
-			username = mention.username;
-			avatar = mention.avatarURL();
-        })() else {
+		if (mention)
+			(async () => {
+				are = `${mention.id} is`;
+				spouse = (await profileModel.findOne({ userID: mention.id })).spouse;
+				nickname = message.guild.members.cache.get(mention.id).nickname;
+				username = mention.username;
+				avatar = mention.avatarURL();
+			})();
+		else {
 			spouse = profileData.spouse;
 			nickname = message.member.nickname;
 			username = message.author.username;
