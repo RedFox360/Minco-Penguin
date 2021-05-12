@@ -24,7 +24,7 @@ module.exports = {
 				},
 				{
 					name: ":candy: (05) | Candy",
-					value: "9 Minco Dollars\nDoubles beg reward for the next 3 begs",
+					value: "12 Minco Dollars\nDoubles beg reward for the next 3 begs",
 				}
 			)
 			.setColor("BEDFFF");
