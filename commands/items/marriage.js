@@ -6,21 +6,21 @@ module.exports = {
 		const mention = message.mentions.users.first();
 		let are = "You are";
 		let profile, nickname, avatar, username;
-		if (mention)
-			(async () => {
-				are = `${mention.id} is`;
-				profile = await profileModel.findOne({ userID: mention.id });
-				nickname = message.guild.members.cache.get(mention.id).nickname;
-				username = mention.username;
-				avatar = mention.avatarURL();
-			})();
-		else {
+		if (mention) {
+			are = `${mention.id} is`;
+			profileModel.findOne({ userID: mention.id }).then((a) => {
+				profile = a;
+			});
+			nickname = message.guild.members.cache.get(mention.id).nickname;
+			username = mention.username;
+			avatar = mention.avatarURL();
+		} else {
 			profile = profileData;
 			nickname = message.member.nickname;
 			username = message.author.username;
 			avatar = message.author.avatarURL();
 		}
-		if (profileData.spouse == null) return `${are} not married`;
+		if (profile.spouse == null) return `${are} not married`;
 		message.channel.send(
 			new MessageEmbed()
 				.setTitle(":ring: Marriage")
