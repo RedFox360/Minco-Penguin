@@ -8,8 +8,7 @@ module.exports = {
 			new MessageEmbed()
 				.setTitle(":ring: Marriage")
 				.setAuthor(message.member.nickname || message.author.username, message.author.avatarURL())
-				.setDescription(`You are currently married to ${profileData.spouse}`)
-				.setThumbnail(profileData.spouse.avatarURL())
+				.setDescription(`You are currently married to <@${profileData.spouse.id}>`)
 				.setColor("BEDFFF") // light blue
 		);
 	},
