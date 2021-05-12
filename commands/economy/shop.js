@@ -20,7 +20,7 @@ module.exports = {
 				},
 				{
 					name: ":tomato: (04) | Tomato",
-					value: "4 Minco Dollars\nA fresh ripe tomato, can be eaten for between 2 and 5 Minco Dollars (use !tomato)",
+					value: "4 Minco Dollars\nA fresh ripe tomato, can be eaten for between 2 and 6 Minco Dollars (use !tomato)",
 				}
 			)
 			.setColor("BEDFFF");
