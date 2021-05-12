@@ -28,7 +28,7 @@ module.exports = {
 					value: "12 Minco Dollars\nDoubles beg reward for the next 3 begs",
 				},
 				{
-					name: `${client.emojis.cache.get("842109064187740191")} (06) | Jellyfish`,
+					name: `<:transparent_jellybot:833491227995013130> (06) | Jellyfish`,
 					value: "75 Minco Dollars\nAllows you to sting people using the !sting command",
 				}
 			)

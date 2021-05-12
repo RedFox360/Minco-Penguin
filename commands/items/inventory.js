@@ -9,7 +9,7 @@ module.exports = {
 			if (t == "03") return ":cowboy: Cowboy Hat";
 			if (t == "04") return ":tomato: Tomato";
 			if (t == "05") return ":candy: Candy";
-			if (t == "06") return `${client.emojis.cache.get("842109064187740191")} Jellyfish`;
+			if (t == "06") return `<:transparent_jellybot:833491227995013130> Jellyfish`;
 		});
 
 		message.channel.send(inventory.join("\n"));
