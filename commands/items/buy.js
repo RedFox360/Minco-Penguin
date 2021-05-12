@@ -16,9 +16,9 @@ module.exports = {
 			buy(message, "Tomato", 4, "04", profileData, false, client);
 		} else if (args[0] == "05") {
 			buy(message, "Candy", 12, "05", profileData, false, client);
-		} else {
-			return "Enter a valid item number";
-		}
+		} else if (args[0] == "06") {
+			buy(message, "Jellyfish", 100, "06", profileData, true, client);
+		} else return "Enter a valid item number";
 	},
 };
 

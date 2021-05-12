@@ -1,7 +1,8 @@
-const { MessageEmbed } = require("discord.js");
+const { MessageEmbed, Client } = require("discord.js");
 module.exports = {
 	description: "The Minco shop! Use it to view the items you can buy",
-	execute(message) {
+	/** @param {Client} client */
+	execute(message, _, client) {
 		const shopEmbed = new MessageEmbed()
 			.setAuthor(message.member.nickname || message.author.username, message.author.avatarURL())
 			.setTitle("Minco Shop")
@@ -25,6 +26,10 @@ module.exports = {
 				{
 					name: ":candy: (05) | Candy",
 					value: "12 Minco Dollars\nDoubles beg reward for the next 3 begs",
+				},
+				{
+					name: `${client.emojis.cache.get("842109064187740191")} (06) | Jellyfish`,
+					value: "100 Minco Dollars\nAllows you to sting people using the !sting command",
 				}
 			)
 			.setColor("BEDFFF")

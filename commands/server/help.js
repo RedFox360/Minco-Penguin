@@ -22,7 +22,7 @@ module.exports = {
 			return message.channel.send(commandEmbed);
 		}
 		var description =
-			"Use the :rewind: and :fast_forward: reactions to switch between pages.\nDon't put **< >** in the actual commands.\n**( )** show optional arguments\n**ms** means write '1m, 2 seconds, 4 days', etc.\n\n**Categories**:\n`INFO/USEFUL commands`\n`FUN Commands`\n`SERVER Commands`\n`RANDOM RETURN Commands`\n`ECONOMY Commands`";
+			"Use the :rewind: and :fast_forward: reactions to switch between pages.\nDon't put **< >** in the actual commands.\n**( )** show optional arguments\n**ms** means write '1m, 2 seconds, 4 days', etc.\n\n**Categories**:\n`INFO/USEFUL commands`\n`FUN Commands`\n`SERVER Commands`\n`RANDOM RETURN Commands`\n`ECONOMY Commands`\n`ITEM Commands`";
 
 		var titles = [
 			"Minco Penguin Commands",
@@ -31,6 +31,7 @@ module.exports = {
 			"SERVER Commands",
 			"RANDOM RETURN Commands",
 			"ECONOMY Commands",
+			"ITEM Commands",
 		];
 		var currentPage = 0;
 		let helpEmbed = new Discord.MessageEmbed()
@@ -41,7 +42,7 @@ module.exports = {
 			.setFooter(message.guild.name);
 
 		const helpMsg = await message.channel.send(helpEmbed);
-		const fields = [0, [], [], [], [], []];
+		const fields = [0, [], [], [], [], [], []];
 
 		const categories = fs.readdirSync("./commands/").filter((file) => !file.endsWith(".DS_Store"));
 		for (const category of categories) {
@@ -55,6 +56,7 @@ module.exports = {
 					else if (category == "server") pos = 3;
 					else if (category == "random") pos = 4;
 					else if (category == "economy") pos = 5;
+					else if (category == "items") pos = 6;
 					if (command.usage) fields[pos].push([command.usage, command.description]);
 					else fields[pos].push([`!${file.split(".")[0]}`, command.description]);
 				}
@@ -89,7 +91,7 @@ module.exports = {
 					helpMsg.edit(helpEmbed);
 				}
 			} else if (reaction.emoji.name == "⏩") {
-				if (currentPage != 5) currentPage++;
+				if (currentPage != 6) currentPage++;
 				helpEmbed = new Discord.MessageEmbed()
 					.setAuthor(...author)
 					.setTitle(titles[currentPage])
