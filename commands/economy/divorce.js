@@ -48,7 +48,7 @@ module.exports = {
 				reaction.emoji.name === "✅" && (user.id == message.author.id || user.id == profileData.spouse);
 			const collector = msg.createReactionCollector(filter, { time: ms("7m") });
 			const spouse = profileModel.findOne({ userID: profileData.spouse });
-			collector.on("collect", (reaction, user) => {
+			collector.on("collect", async (reaction, user) => {
 				if (reaction.emoji.name == "✅") {
 					message.channel.send("You have agreed to the divorce! Paying the fee...");
 					if (user.id === message.author.id) {
