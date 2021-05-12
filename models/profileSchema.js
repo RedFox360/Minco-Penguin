@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { User } = require("discord.js");
 const profileSchema = new mongoose.Schema({
 	userID: { type: String, require: true, unique: true },
 	serverID: { type: String, require: true },
@@ -10,6 +11,8 @@ const profileSchema = new mongoose.Schema({
 		color: { type: String },
 		animal: { type: String },
 	},
+	spouse: { type: User },
+	inventory: [String],
 });
 
 const model = mongoose.model("ProfileModels", profileSchema);
