@@ -8,6 +8,7 @@ module.exports = {
 			if (t == "02") return ":diamond_shape_with_a_dot_inside: Diamond Crown";
 			if (t == "03") return ":cowboy: Cowboy Hat";
 			if (t == "04") return ":tomato: Tomato";
+			if (t == "05") return ":candy: Candy";
 		});
 
 		message.channel.send(inventory.join("\n"));
