@@ -3,7 +3,7 @@ const removeValue = require("../../functions/removeValue");
 module.exports = {
 	description: "Sell your items!",
 	usage: "!sell <item number>",
-	execute(message, args, cmd, client, profileData) {
+	execute(message, args, _0, _1, profileData) {
 		const itemNumber = args[0];
 		if (!itemNumber) return message.channel.send("Enter an item number");
 		if (!profileData.inventory.includes(itemNumber)) return "You don't have that item!";
