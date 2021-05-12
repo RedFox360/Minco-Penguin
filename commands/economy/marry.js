@@ -11,7 +11,13 @@ module.exports = {
 		if (!user) return message.channel.send("Mention a valid user!");
 		if (user.id == message.author.id) return message.channel.send("You can't marry yourself, obviously");
 		if (user.bot) return message.channel.send("You can't marry a bot!");
-
+		const inv = profileModel.inventory.filter((a) => a !== "01");
+		await profileModel.findOneAndUpdate(
+			{ userID: message.author.id },
+			{
+				inventory: inv,
+			}
+		);
 		if (profileData.spouse != null) return message.channel.send("You are already married!");
 
 		const marryMsg = await message.channel.send(
