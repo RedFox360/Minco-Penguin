@@ -12,7 +12,7 @@ module.exports = {
 		if (user.id == message.author.id) return message.channel.send("You can't marry yourself, obviously");
 		if (user.bot) return message.channel.send("You can't marry a bot!");
 
-		if (profile.spouse || profile.spouse != "nm") return message.channel.send("You are already married!");
+		if (profile.spouse != null) return message.channel.send("You are already married!");
 
 		const marryMsg = await message.channel.send(
 			`You have proposed to marry <@${user.id}>! <@${user.id}>, accept by reacting with a check mark.`
