@@ -11,7 +11,9 @@ module.exports = {
 			if (t == "05") return ":candy: Candy";
 			if (t == "06") return `<:transparent_jellybot:833491227995013130> Jellyfish`;
 		});
-
+		for (let i = 0; i < inventory.length; i++) {
+			inventory[i] = `${i + 1}. ${inventory[i]}`;
+		}
 		message.channel.send(inventory.join("\n"));
 	},
 };
