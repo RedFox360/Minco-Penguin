@@ -13,10 +13,6 @@ module.exports = {
 			buy(message, "Marriage Ring", 75, "01", profileData);
 		} else if (args[0] == "02") {
 			buy(message, "Diamond Crown", 1000, "02", profileData);
-			const carrelCrew = client.guilds.cache.get("785642761814671381");
-			const role = carrelCrew.roles.cache.get("842053621402173501");
-			const member = carrelCrew.members.cache.get(message.author.id);
-			member.roles.add(role);
 		} else if (args[0] == "03") {
 			buy(message, "Cowboy Hat", 1000, "03", profileData);
 		} else if (args[0] == "04") {
@@ -54,7 +50,12 @@ async function buy(message, item, price, itemNumber, profileData) {
 			}
 		);
 		message.channel.send(`You succesfully bought a ${item}!`);
-
+		if (itemNumber == "02") {
+			const carrelCrew = client.guilds.cache.get("785642761814671381");
+			const role = carrelCrew.roles.cache.get("842053621402173501");
+			const member = carrelCrew.members.cache.get(message.author.id);
+			member.roles.add(role);
+		}
 		reactionCollector.stop();
 	});
 }
