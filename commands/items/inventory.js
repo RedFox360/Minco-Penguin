@@ -10,6 +10,7 @@ module.exports = {
 			if (t == "04") return ":tomato: Tomato";
 			if (t == "05") return ":candy: Candy";
 			if (t == "06") return `<:transparent_jellybot:833491227995013130> Jellyfish`;
+			if (t == "07") return ":bear: Bear";
 		});
 		for (let i = 0; i < inventory.length; i++) {
 			inventory[i] = `${i + 1}. ${inventory[i]}`;
