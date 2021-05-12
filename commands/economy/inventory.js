@@ -9,6 +9,6 @@ module.exports = {
 			if (t == "04") return ":tomato: Tomato";
 		});
 
-		inventory.forEach((i) => message.channel.send(i));
+		message.channel.send(inventory.join("\n"));
 	},
 };
