@@ -27,7 +27,8 @@ module.exports = {
 					value: "12 Minco Dollars\nDoubles beg reward for the next 3 begs",
 				}
 			)
-			.setColor("BEDFFF");
+			.setColor("BEDFFF")
+			.setFooter(message.guild.name);
 		message.channel.send(shopEmbed);
 	},
 };

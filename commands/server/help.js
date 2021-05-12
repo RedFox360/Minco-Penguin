@@ -18,8 +18,7 @@ module.exports = {
 				.setAuthor(...author)
 				.setTitle(command.usage || "!" + args[0])
 				.setDescription(command.description)
-				.setColor(color)
-				.setTimestamp();
+				.setColor(color);
 			return message.channel.send(commandEmbed);
 		}
 		var description =
@@ -39,8 +38,7 @@ module.exports = {
 			.setTitle(titles[currentPage])
 			.setDescription(description)
 			.setColor(color)
-			.setFooter(message.guild.name)
-			.setTimestamp();
+			.setFooter(message.guild.name);
 
 		const helpMsg = await message.channel.send(helpEmbed);
 		const fields = [0, [], [], [], [], []];
@@ -80,8 +78,7 @@ module.exports = {
 						.setTitle(titles[0])
 						.setDescription(description)
 						.setColor(color)
-						.setFooter(message.guild.name)
-						.setTimestamp();
+						.setFooter(message.guild.name);
 					helpMsg.edit(helpEmbed);
 				} else {
 					helpEmbed = new Discord.MessageEmbed().setTitle(titles[currentPage]).setColor(color).setFooter(message.guild.name);
@@ -97,8 +94,7 @@ module.exports = {
 					.setAuthor(...author)
 					.setTitle(titles[currentPage])
 					.setColor(color)
-					.setFooter(message.guild.name)
-					.setTimestamp();
+					.setFooter(message.guild.name);
 				fields[currentPage].forEach((field) => {
 					helpEmbed.addField(field[0], field[1]);
 				});
