@@ -1,11 +1,11 @@
-const { Message, Client } = require("discord.js");
+const { Message } = require("discord.js");
 const profileModel = require("../../models/profileSchema");
 const ms = require("ms");
 module.exports = {
 	description: "Buy items!",
 	usage: "!buy (item number)",
 	/** @param {Message} message */
-	async execute(message, args, _0, client, profileData) {
+	execute(message, args, _0, client, profileData) {
 		if (args[0] == "01") {
 			buy(message, "Marriage Ring", 75, "01", profileData, client);
 		} else if (args[0] == "02") {
