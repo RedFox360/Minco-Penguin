@@ -7,7 +7,7 @@ module.exports = {
 		if (!profileData.inventory.includes("04")) return message.channel.send("You don't have a tomato!");
 		const numberEcon = randomInt(2, 6);
 		const inv = removeValue("04", profileData.inventory);
-		if (randomInt(0, 1200) == 0) {
+		if (randomInt(0, 900) == 0) {
 			message.channel.send("Wow! The Minco Dice have decided you will win **100** Minco Dollars!");
 			await profileModel.findOneAndUpdate(
 				{
