@@ -14,7 +14,7 @@ module.exports = {
 		} else if (args[0] == "02") {
 			buy(message, "Diamond Crown", 1000, "02", profileData);
 		} else if (args[0] == "03") {
-			buy(message, "Cowboy Hat", 1000, "03", profileData);
+			buy(message, "Cowboy Hat", 25, "03", profileData);
 		} else if (args[0] == "04") {
 			buy(message, "Tomato", 4, "04", profileData);
 		} else {
@@ -26,7 +26,7 @@ module.exports = {
 /** @param {Message} message */
 async function buy(message, item, price, itemNumber, profileData) {
 	if (profileData.inventory.includes(itemNumber)) return message.channel.send("You already have this item!");
-	if (profileData.mincoDollars < price) return message.channel.send("You need 75 Minco Dollars to buy this item");
+	if (profileData.mincoDollars < price) return message.channel.send(`You need ${price} Minco Dollars to buy this item`);
 	const msg = await message.channel.send(`React to buy a **${item}**`);
 	await msg.react("✅");
 	const filter = (reaction, user) => reaction.emoji.name === "✅" && user.id === message.author.id;
