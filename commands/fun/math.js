@@ -6,7 +6,7 @@ module.exports = {
 	usage: "!math <operation>",
 	cooldown: ms("15m") / 1000,
 	/** @param {Message} message */
-	async execute(message, args) {
+	async execute(message, args, _0, _1, profileData) {
 		var num1, num2, result;
 		if (!args.length) return "Invalid usage. Correct usage: !math <operation>\n(Divions is not a permitted operation)";
 		var oper;
@@ -28,18 +28,19 @@ module.exports = {
 		const filter = (m) => m.author.id == message.author.id;
 		const collector = message.channel.createMessageCollector(filter, { time: 20000 });
 		var sendTimeOut = true;
+		const amount = profileData.spouse == null ? 30 : 35;
 		collector.on("collect", async (m) => {
 			sendTimeOut = false;
 			let guess = m.content.replace(/,/, "").replace(/ +/, "");
 			if (isNaN(parseInt(guess))) sendTimeOut = true;
 			if (parseInt(guess) == result) {
 				message.channel.send("Correct!");
-				message.channel.send(`You won 30 Minco Dollars!`);
+				message.channel.send(`You won ${amount} Minco Dollars!`);
 				await profileModel.findOneAndUpdate(
 					{ userID: message.author.id },
 					{
 						$inc: {
-							mincoDollars: 30,
+							mincoDollars: amount,
 						},
 					}
 				);

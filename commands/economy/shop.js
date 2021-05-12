@@ -8,7 +8,7 @@ module.exports = {
 			.addFields(
 				{
 					name: ":ring: (01) | Marriage Ring",
-					value: "75 Minco Dollars\nCan be used ",
+					value: "75 Minco Dollars\nCan be used to propose to someone",
 				},
 				{
 					name: ":diamond_shape_with_a_dot_inside: (02) | Diamond Crown",
