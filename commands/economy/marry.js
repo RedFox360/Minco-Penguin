@@ -11,13 +11,7 @@ module.exports = {
 		if (!user) return message.channel.send("Mention a valid user!");
 		if (user.id == message.author.id) return message.channel.send("You can't marry yourself, obviously");
 		if (user.bot) return message.channel.send("You can't marry a bot!");
-		const inv = profileModel?.inventory.filter((a) => a != "01");
-		await profileModel.findOneAndUpdate(
-			{ userID: message.author.id },
-			{
-				inventory: inv,
-			}
-		);
+
 		if (profileData.spouse != null) return message.channel.send("You are already married!");
 
 		const marryMsg = await message.channel.send(
@@ -27,9 +21,12 @@ module.exports = {
 		const filter = (reaction, u) => reaction.emoji.name === "✅" && u.id === user.id;
 		const collector = marryMsg.createReactionCollector(filter, { time: ms("2m") });
 		collector.on("collect", async () => {
+			const inv = removeValue("01", profileData.inventory);
+
 			await profileModel.findOneAndUpdate(
 				{ userID: message.author.id },
 				{
+					inventory: inv,
 					spouse: user.id,
 				}
 			);
@@ -46,3 +43,12 @@ module.exports = {
 		});
 	},
 };
+
+function removeValue(value, array) {
+	for (var i = 0; i < array.length; i++) {
+		if (array[i] === value) {
+			array.splice(i, 1);
+		}
+	}
+	return array;
+}
