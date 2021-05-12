@@ -7,7 +7,7 @@ module.exports = {
 		if (message.author.id == "724786310711214118" && cmd === "admindivorce") {
 			await profileModel.findOneAndUpdate(
 				{
-					userID: profileModel.spouse.id,
+					userID: profileData.spouse.id,
 				},
 				{
 					spouse: null,
