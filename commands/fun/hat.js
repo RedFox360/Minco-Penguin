@@ -4,7 +4,7 @@ module.exports = {
 		let sendNone = true;
 		if (profileData.inventory.includes("02")) {
 			message.channel.send("https://tenor.com/view/crystal-tiara-gif-18445329");
-			message.channel.send("Wow! You have a *fancy* diamond crown");
+			message.channel.send("Wow! You have a 𝓯𝓪𝓷𝓬𝔂 diamond crown");
 			sendNone = false;
 		}
 		if (profileData.inventory.includes("03")) {
