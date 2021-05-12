@@ -13,7 +13,7 @@ module.exports = {
 		} else if (message.guild.id == "818509629842522112") {
 			message.channel.send(blobfishRules);
 		}
-		if (message.guild.id == "818509629842522112") {
+		if (message.guild.id == "840339755350884402") {
 			message.channel.send(roleplayRules);
 		}
 	},
