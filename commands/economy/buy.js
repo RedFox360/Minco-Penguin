@@ -79,9 +79,7 @@ async function buy(message, item, price, itemNumber, profileData, showReaction, 
 			await profileModel.findOneAndUpdate(
 				{ userID: message.author.id },
 				{
-					$push: {
-						candyAmount: 3,
-					},
+					candyAmount: 3,
 				}
 			);
 		}
