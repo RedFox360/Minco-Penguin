@@ -4,7 +4,7 @@ const { randomInt } = require("mathjs");
 const ms = require("ms");
 module.exports = {
 	description: "Use your tomato! Get between 2 and 6 Minco Dollars",
-	cooldown: ms("90s"),
+	cooldown: 90,
 	async execute(message, _0, _1, _2, profileData) {
 		if (!profileData.inventory.includes("04")) return message.channel.send("You don't have a tomato!");
 		const numberEcon = randomInt(2, 7);
