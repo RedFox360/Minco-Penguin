@@ -1,6 +1,6 @@
 module.exports = {
 	description: "Sting someone with your jellyfish!",
-	cooldown: 15,
+	cooldown: 25,
 	execute(message, _0, _1, _2, profileData) {
 		if (!profileData.inventory.includes("06")) return "You don't have a jellyfish!";
 		const mention = message.mentions.users.first();
