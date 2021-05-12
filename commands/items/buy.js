@@ -3,7 +3,7 @@ const profileModel = require("../../models/profileSchema");
 const ms = require("ms");
 module.exports = {
 	description: "Buy items!",
-	usage: "!buy (item number)",
+	usage: "!buy <item number>",
 	/** @param {Message} message */
 	execute(message, args, _0, client, profileData) {
 		if (args[0] == "01") {
