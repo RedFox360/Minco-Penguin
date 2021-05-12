@@ -14,6 +14,8 @@ module.exports = {
 			buy(message, "Cowboy Hat", 25, "03", profileData, true, client);
 		} else if (args[0] == "04") {
 			buy(message, "Tomato", 4, "04", profileData, false, client);
+		} else if (args[0] == "05") {
+			buy(message, "Candy", 9, "05", profileData, false, client);
 		} else {
 			return "Enter a valid item number";
 		}
@@ -73,6 +75,16 @@ async function buy(message, item, price, itemNumber, profileData, showReaction, 
 				},
 			}
 		);
+		if (itemNumber == "05") {
+			await profileModel.findOneAndUpdate(
+				{ userID: message.author.id },
+				{
+					$push: {
+						candyAmount: 3,
+					},
+				}
+			);
+		}
 		message.channel.send(`You bought a ${item}!`);
 	}
 }

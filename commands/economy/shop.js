@@ -21,6 +21,10 @@ module.exports = {
 				{
 					name: ":tomato: (04) | Tomato",
 					value: "4 Minco Dollars\nA fresh ripe tomato, can be eaten for between 2 and 6 Minco Dollars (use !tomato)",
+				},
+				{
+					name: ":candy: (05) | Candy",
+					value: "9 Minco Dollars\nDoubles beg reward for the next 3 begs",
 				}
 			)
 			.setColor("BEDFFF");

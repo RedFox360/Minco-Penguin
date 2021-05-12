@@ -12,6 +12,7 @@ const profileSchema = new mongoose.Schema({
 	},
 	spouse: { type: String },
 	inventory: [String],
+	candyAmount: { type: Number },
 });
 
 const model = mongoose.model("ProfileModels", profileSchema);
