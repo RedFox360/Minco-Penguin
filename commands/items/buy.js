@@ -83,6 +83,6 @@ async function buy(message, item, price, itemNumber, profileData, showReaction, 
 				}
 			);
 		}
-		message.channel.send(`You bought a ${item}!`);
+		message.channel.send(`You bought a ${item} for ${price} MD`);
 	}
 }
