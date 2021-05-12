@@ -33,7 +33,7 @@ module.exports = {
 				{
 					name: ":bear: (07) | Pet Bear",
 					value:
-						"550 Minco Dollars\nIf you don't want to marry someone: (lower reward)\n5% chance of doubling beg reward, 33 Minco Dollar math reward",
+						"400 Minco Dollars\nIf you don't want to marry someone: (lower reward)\n5% chance of doubling beg reward, 33 Minco Dollar math reward",
 				}
 			)
 			.setColor("BEDFFF")

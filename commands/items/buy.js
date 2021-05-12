@@ -19,7 +19,7 @@ module.exports = {
 		} else if (args[0] == "06") {
 			buy(message, "Jellyfish", 75, "06", profileData, true, client);
 		} else if (args[0] == "07") {
-			buy(message, "Bear", 550, "07", profileData, true, client);
+			buy(message, "Bear", 400, "07", profileData, true, client);
 		} else return "Enter a valid item number";
 	},
 };
@@ -29,7 +29,7 @@ async function buy(message, item, price, itemNumber, profileData, showReaction, 
 	if (profileData.inventory.includes(itemNumber)) return message.channel.send("You already have this item!");
 	if (profileData.mincoDollars < price) return message.channel.send(`You need ${price} Minco Dollars to buy this item`);
 	if (showReaction) {
-		const msg = await message.channel.send(`React to buy a **${item}**`);
+		const msg = await message.channel.send(`React to buy a **${item}** for ${price} MD`);
 		await msg.react("✅");
 		const filter = (reaction, user) => reaction.emoji.name === "✅" && user.id === message.author.id;
 		const reactionCollector = msg.createReactionCollector(filter, { time: ms("30s") });
