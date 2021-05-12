@@ -1,15 +1,22 @@
-const { Message } = require("discord.js");
+const { Message, Client } = require("discord.js");
 const profileModel = require("../../models/profileSchema");
 const ms = require("ms");
 module.exports = {
 	description: "Buy items!",
 	usage: "!buy (item number)",
-
-	async execute(message, args, _0, _1, profileData) {
+	/**
+	 * @param {Message} message
+	 * @param {Client} client
+	 */
+	async execute(message, args, _0, client, profileData) {
 		if (args[0] == "01") {
 			buy(message, "Marriage Ring", 75, "01", profileData);
 		} else if (args[0] == "02") {
 			buy(message, "Diamond Crown", 1000, "02", profileData);
+			const carrelCrew = client.guilds.cache.get("785642761814671381");
+			const role = carrelCrew.roles.cache.get("842053621402173501");
+			const member = carrelCrew.members.cache.get(message.author.id);
+			member.roles.add(role);
 		} else if (args[0] == "03") {
 			buy(message, "Cowboy Hat", 1000, "03", profileData);
 		} else if (args[0] == "04") {
