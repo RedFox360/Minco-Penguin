@@ -4,19 +4,16 @@ const ms = require("ms");
 module.exports = {
 	description: "Buy items!",
 	usage: "!buy (item number)",
-	/**
-	 * @param {Message} message
-	 * @param {Client} client
-	 */
+	/** @param {Message} message */
 	async execute(message, args, _0, client, profileData) {
 		if (args[0] == "01") {
-			buy(message, "Marriage Ring", 75, "01", profileData);
+			buy(message, "Marriage Ring", 75, "01", profileData, client);
 		} else if (args[0] == "02") {
-			buy(message, "Diamond Crown", 1000, "02", profileData);
+			buy(message, "Diamond Crown", 1000, "02", profileData, client);
 		} else if (args[0] == "03") {
-			buy(message, "Cowboy Hat", 25, "03", profileData);
+			buy(message, "Cowboy Hat", 25, "03", profileData, client);
 		} else if (args[0] == "04") {
-			buy(message, "Tomato", 4, "04", profileData);
+			buy(message, "Tomato", 4, "04", profileData, client);
 		} else {
 			return "Enter a valid item number";
 		}
@@ -24,7 +21,7 @@ module.exports = {
 };
 
 /** @param {Message} message */
-async function buy(message, item, price, itemNumber, profileData) {
+async function buy(message, item, price, itemNumber, profileData, client) {
 	if (profileData.inventory.includes(itemNumber)) return message.channel.send("You already have this item!");
 	if (profileData.mincoDollars < price) return message.channel.send(`You need ${price} Minco Dollars to buy this item`);
 	const msg = await message.channel.send(`React to buy a **${item}**`);
