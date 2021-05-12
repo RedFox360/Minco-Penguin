@@ -28,7 +28,7 @@ async function buy(message, item, price, itemNumber, profileData) {
 	await msg.react("✅");
 	const filter = (reaction, user) => reaction.emoji.name === "✅" && user.id === message.author.id;
 	const reactionCollector = msg.createReactionCollector(filter, { time: ms("30s") });
-	reactionCollector.on("collect", () => {
+	reactionCollector.on("collect", async () => {
 		message.channel.send(`Buying a ${item}...`);
 		await profileModel.findOneAndUpdate(
 			{ userID: message.author.id },
