@@ -41,7 +41,7 @@ module.exports = {
 		} else {
 			if (profileData.spouse == null) return message.channel.send("You can't divorce if you aren't married!");
 			const msg = await message.channel.send(
-				`You have decided to divorce! You and <@${profileData.spouse}> will both have to pay a fee of 200 MD. Then, your Minco Dollar totals will be added up and split between you. Do you both agree?`
+				`You have decided to divorce! You and <@${profileData.spouse}> will both have to pay a fee of 150 MD. Then, your Minco Dollar totals will be added up and split between you. Do you both agree?`
 			);
 			await msg.react("✅");
 			const filter = (reaction, user) =>
@@ -58,7 +58,7 @@ module.exports = {
 							},
 							{
 								$inc: {
-									mincoDollars: -200,
+									mincoDollars: -150,
 								},
 							}
 						);
@@ -71,7 +71,7 @@ module.exports = {
 							},
 							{
 								$inc: {
-									mincoDollars: -200,
+									mincoDollars: -150,
 								},
 							}
 						);
