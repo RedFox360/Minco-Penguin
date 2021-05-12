@@ -29,7 +29,7 @@ module.exports = {
 				},
 				{
 					name: `${client.emojis.cache.get("842109064187740191")} (06) | Jellyfish`,
-					value: "100 Minco Dollars\nAllows you to sting people using the !sting command",
+					value: "75 Minco Dollars\nAllows you to sting people using the !sting command",
 				}
 			)
 			.setColor("BEDFFF")
