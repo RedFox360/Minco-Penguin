@@ -8,8 +8,8 @@ const prettyMs = require("pretty-ms");
  * @param {Discord.Client} client
  */
 module.exports = async (client, message) => {
-	let profileData, guildData;
 	if (message.author.bot) return;
+	let profileData, guildData;
 	try {
 		if (message.guild) {
 			profileData = await profileModel.findOne({ userID: message.author.id });
