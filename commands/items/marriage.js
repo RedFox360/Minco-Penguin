@@ -1,5 +1,4 @@
 const { MessageEmbed } = require("discord.js");
-const profileModel = require("../../models/profileSchema");
 module.exports = {
 	description: "View your marriage status",
 	execute(message, _0, _1, _2, profileData) {
