@@ -24,13 +24,13 @@ module.exports = {
 			await profileModel.findOneAndUpdate(
 				{ userID: message.author.id },
 				{
-					spouse: user,
+					spouse: user.id,
 				}
 			);
 			await profileModel.findOneAndUpdate(
 				{ userID: user.id },
 				{
-					spouse: message.author,
+					spouse: message.author.id,
 				}
 			);
 

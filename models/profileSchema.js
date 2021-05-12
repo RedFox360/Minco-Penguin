@@ -11,7 +11,7 @@ const profileSchema = new mongoose.Schema({
 		color: { type: String },
 		animal: { type: String },
 	},
-	spouse: {},
+	spouse: { type: String },
 	inventory: [String],
 });
 
