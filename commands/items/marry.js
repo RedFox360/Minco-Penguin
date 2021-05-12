@@ -13,6 +13,8 @@ module.exports = {
 		if (user.id == message.author.id) return message.channel.send("You can't marry yourself, obviously");
 		if (user.bot) return message.channel.send("You can't marry a bot!");
 
+		const userProfile = await profileModel.findOne({ userID: user.id });
+		if (userProfile.spouse != null) return message.channel.send(`<@${user.id}> is already married!`);
 		if (profileData.spouse != null) return message.channel.send("You are already married!");
 
 		const marryMsg = await message.channel.send(
