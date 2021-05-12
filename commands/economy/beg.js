@@ -32,12 +32,13 @@ module.exports = {
 				);
 			}
 		}
-		if (profileData.spouse != null) {
+		if (profileData.spouse != null || profileData.inventory.includes("07")) {
 			random = Math.floor(Math.random() * 100);
-			if (random <= 7) {
-				// 7% chance
+			const chance = profileData.spouse != null ? 10 : 5;
+			const mOrB = profileData.spouse != null ? "for marriage" : "from your bear";
+			if (random < chance) {
 				numberEcon *= 2;
-				message.channel.send("You got a double bonus for marriage!");
+				message.channel.send(`You got a double bonus ${mOrB}!`);
 			}
 		}
 		await profileModel.findOneAndUpdate(

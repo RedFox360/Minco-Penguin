@@ -28,7 +28,12 @@ module.exports = {
 		const filter = (m) => m.author.id == message.author.id;
 		const collector = message.channel.createMessageCollector(filter, { time: 20000 });
 		var sendTimeOut = true;
-		const amount = profileData.spouse == null ? 30 : 35;
+		let amount = 30;
+		if (profileData.spouse != null) {
+			amount = 35;
+		} else if (profileData.inventory.includes("07")) {
+			amount = 33;
+		}
 		collector.on("collect", async (m) => {
 			sendTimeOut = false;
 			let guess = m.content.replace(/,/, "").replace(/ +/, "");
