@@ -1,5 +1,6 @@
 module.exports = {
 	description: "View your item inventory! (from shop)",
+	aliases: ["inv"],
 	execute(message, _0, _1, _2, profileData) {
 		if (!profileData.inventory.length) return "You don't have any items in your inventory.";
 		const inventory = profileData.inventory.map((t) => {
