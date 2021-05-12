@@ -11,7 +11,7 @@ module.exports = {
 					value: "75 Minco Dollars\nCan be used ",
 				},
 				{
-					name: ":diamond_shape_with_a_dot_inside: (02) | Diamond-crusted Hat",
+					name: ":diamond_shape_with_a_dot_inside: (02) | Diamond Crown",
 					value: "1000 Minco Dollars",
 				},
 				{

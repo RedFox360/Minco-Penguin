@@ -9,7 +9,7 @@ module.exports = {
 		if (args[0] == "01") {
 			buy(message, "Marriage Ring", 75, "01", profileData);
 		} else if (args[0] == "02") {
-			buy(message, "Diamond Hat", 1000, "02", profileData);
+			buy(message, "Diamond Crown", 1000, "02", profileData);
 		} else if (args[0] == "03") {
 			buy(message, "Cowboy Hat", 1000, "03", profileData);
 		} else if (args[0] == "04") {
