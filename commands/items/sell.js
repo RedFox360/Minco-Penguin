@@ -9,7 +9,7 @@ module.exports = {
 		if (!profileData.inventory.includes(itemNumber)) return "You don't have that item!";
 		const prices = [75, 1000, 25, 4, 12, 75, 400];
 		const inv = removeValue(itemNumber, profileData.inventory);
-		const price = prices[parseInt(itemNumber)];
+		const price = prices[parseInt(itemNumber) - 1];
 
 		if (price >= 75) {
 			const msg = message.channel.send("React to sell your item");
@@ -26,20 +26,16 @@ module.exports = {
 };
 
 async function sell(message, price, inv) {
-	const amount = round5(price + 1 / 2);
-
+	const amount = Math.round(price / 2 / 5) * 5;
 	await profileModel.findOneAndUpdate(
 		{ userID: message.author.id },
 		{
 			$inc: {
-				mincoDollars: price,
+				mincoDollars: amount,
 			},
+			inventory: inv,
 		}
 	);
 
-	message.channel.send(`You sold your item for ${price} MD`);
-}
-
-function round5(x) {
-	return Math.ceil(x / 5) * 5;
+	message.channel.send(`You sold your item for ${amount} MD`);
 }
