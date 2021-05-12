@@ -1,7 +1,7 @@
 const profileModel = require("../../models/profileSchema");
 const { Message } = require("discord.js");
 module.exports = {
-	aliases: ["admindivorce", "aidendivorce"],
+	aliases: ["admindivorce"],
 	description:
 		"Divorce your spouse.\nThis requires a fee of 150 Minco Dollars. Your Minco Dollar money totals will be added and split between you.",
 	/** @param {Message} message */
