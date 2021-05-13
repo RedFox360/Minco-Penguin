@@ -1,5 +1,5 @@
 const { MessageCollector } = require("discord.js-collector");
-const { randomInt } = require("mathjs");
+const randomInt = require("../../functions/random");
 const { Message, MessageEmbed } = require("discord.js");
 module.exports = {
 	description: "Play pico firme zilch in Discord\n4 digit number",
