@@ -126,5 +126,65 @@
 	{
 		"name": "Dove",
 		"emoji": "🕊"
+	},
+	{
+		"name": "Monkey",
+		"emoji": "🐵"
+	},
+	{
+		"name": "Peacock",
+		"emoji": "🦚"
+	},
+	{
+		"name": "Raccoon",
+		"emoji": "🦝"
+	},
+	{
+		"name": "Sloth",
+		"emoji": "🦥"
+	},
+	{
+		"name": "Skunk",
+		"emoji": "🦨"
+	},
+	{
+		"name": "Rabbit",
+		"emoji": "🐰"
+	},
+	{
+		"name": "Orangutan",
+		"emoji": "🦧"
+	},
+	{
+		"name": "Pig",
+		"emoji": "🐷"
+	},
+	{
+		"name": "Koala",
+		"emoji": "🐨"
+	},
+	{
+		"name": "Dinosaur",
+		"emoji": "🦕"
+	},
+	{
+		"name": "Parrot",
+		"emoji": "🦜"
+	},
+	{
+		"name": "Rhino",
+		"emoji": "🦏"
+	},
+	{
+		"name": "Cockroach",
+		"emoji": "🪳"
+	},
+	{
+		"name": "Squid",
+		"emoji": "🦑"
+	},
+	{
+		"name": "Turkey",
+		"emoji": "🦃"
 	}
 ]
