@@ -8,7 +8,7 @@ module.exports = {
 		if (profileData.zoo.length >= 15) return "You have reached the maximum amount of animals (15)";
 		if (profileData.mincoDollars < 20) return "You need 20 Minco Dollars to buy an animal";
 		let randomAnimal = animals[Math.floor(Math.random() * animals.length)];
-		while ((hasAnimal(randomAnimal.name), profileData)) {
+		while (hasAnimal(randomAnimal.name, profileData)) {
 			randomAnimal = animals[Math.floor(Math.random() * animals.length)];
 		}
 		await profileModel.findOneAndUpdate(
