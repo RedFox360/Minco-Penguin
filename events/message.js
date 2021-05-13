@@ -9,6 +9,25 @@ const prettyMs = require("pretty-ms");
  */
 module.exports = async (client, message) => {
 	if (message.author.bot) return;
+	if (message.content.startsWith("<@!725917919292162051>")) {
+		let infoEmbed = new Discord.MessageEmbed()
+			.setColor("32E6C5")
+			.setTitle("Minco Penguin")
+			.setDescription("Hello, I'm Minco Penguin! My prefixes are '!' and 'minco '");
+		message.channel.send(infoEmbed);
+		return;
+	}
+	var prefixes = ["!", "###", "minco "];
+	var count = 0;
+	var currentPrefix;
+	for (let i = 0; i < prefixes.length; i++) {
+		let prefix = prefixes[i];
+		if (message.content.startsWith(prefix)) {
+			currentPrefix = prefix;
+			break;
+		} else count++;
+		if (count == prefixes.length) return;
+	}
 	let profileData, guildData;
 	try {
 		if (message.guild) {
@@ -35,27 +54,6 @@ module.exports = async (client, message) => {
 		}
 	} catch (err) {
 		console.error(err);
-	}
-	if (message.author.id === client.user.id) return;
-
-	if (message.content.startsWith("<@!725917919292162051>")) {
-		let infoEmbed = new Discord.MessageEmbed()
-			.setColor("32E6C5")
-			.setTitle("Minco Penguin")
-			.setDescription("Hello, I'm Minco Penguin! My prefixes are '!' and 'minco '");
-		message.channel.send(infoEmbed);
-		return;
-	}
-	var prefixes = ["!", "###", "minco "];
-	var count = 0;
-	var currentPrefix;
-	for (let i = 0; i < prefixes.length; i++) {
-		let prefix = prefixes[i];
-		if (message.content.startsWith(prefix)) {
-			currentPrefix = prefix;
-			break;
-		} else count++;
-		if (count == prefixes.length) return;
 	}
 	const args = message.content.slice(currentPrefix.length).split(/ +/);
 	const cmd = args.shift().toLowerCase();
