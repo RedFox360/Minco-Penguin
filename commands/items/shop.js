@@ -34,6 +34,15 @@ module.exports = {
 					name: ":bear: (07) | Pet Bear",
 					value:
 						"400 Minco Dollars\nIf you don't want to marry someone: (lower reward)\n5% chance of doubling beg reward, 33 Minco Dollar math reward",
+				},
+				{
+					name: ":art: Drawing",
+					value:
+						"!buy drawing <drawing>\nUse this to send a request to Claire for a personalized drawing! (price will be decided by her)",
+				},
+				{
+					name: "<:doge:797152138467082250> Meme",
+					value: "!buy meme <meme>\nUse this to send a request to Mason L for a custom meme! (price will be decided by him)",
 				}
 			)
 			.setColor("BEDFFF")

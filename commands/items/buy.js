@@ -6,7 +6,11 @@ module.exports = {
 	usage: "!buy <item number>",
 	/** @param {Message} message */
 	execute(message, args, _0, client, profileData) {
-		if (args[0] == "01") {
+		if (args[0] == "drawing") {
+			require("../../functions/request_drawing")(message, args, client, profileData);
+		} else if (args[0] == "meme") {
+			require("../../functions/request_meme")(message, args, client, profileData);
+		} else if (args[0] == "01") {
 			buy(message, "Marriage Ring", 75, "01", profileData, true, client);
 		} else if (args[0] == "02") {
 			buy(message, "Diamond Crown", 1000, "02", profileData, true, client);
