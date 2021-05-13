@@ -98,7 +98,7 @@ module.exports = async (client, message) => {
 	try {
 		const t = command.execute(message, args, cmd, client, profileData);
 		if (typeof t === "string") message.channel.send(t);
-		if (t instanceof Promise) {
+		if (isPromise(t)) {
 			const toSend = await t;
 			if (typeof toSend === "string") message.channel.send(toSend);
 		}
@@ -108,3 +108,6 @@ module.exports = async (client, message) => {
 		console.error(error);
 	}
 };
+function isPromise(p) {
+	return p && Object.prototype.toString.call(p) === "[object Promise]";
+}
