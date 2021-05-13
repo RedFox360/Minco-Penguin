@@ -39,7 +39,7 @@ function animalExists(animal) {
 }
 function getAnimal(animal) {
 	for (let a of animals) {
-		if (animal.name.toLowerCase() == a.name.toLowerCase()) return a;
+		if (animal.toLowerCase() == a.name.toLowerCase()) return a;
 	}
 	return null;
 }
