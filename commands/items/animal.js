@@ -8,7 +8,6 @@ module.exports = {
 		if (profileData.zoo.length >= 15) return message.channel.send("You have reached the maximum amount of animals (15)");
 		if (profileData.mincoDollars < 20) return message.channel.send("You need 20 Minco Dollars to buy an animal");
 		let randomAnimal = animals[Math.floor(Math.random() * animals.length)];
-
 		while (profileData.zoo.includes(randomAnimal)) {
 			randomAnimal = animals[Math.floor(Math.random() * animals.length)];
 		}
@@ -28,3 +27,15 @@ module.exports = {
 		message.channel.send(`You received a ${randomAnimal.name} ${randomAnimal.emoji}!`);
 	},
 };
+function checkForDuplicates(array) {
+	let valuesAlreadySeen = [];
+
+	for (let i = 0; i < array.length; i++) {
+		let value = array[i];
+		if (valuesAlreadySeen.indexOf(value) !== -1) {
+			return true;
+		}
+		valuesAlreadySeen.push(value);
+	}
+	return false;
+}

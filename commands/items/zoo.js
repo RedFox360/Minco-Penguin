@@ -5,17 +5,19 @@ module.exports = {
 		const animals = [];
 
 		for (let i = 1; i <= profileData.zoo.length; i++) {
-			const end = i % 5 === 0 ? "\n" : " ";
 			if (args[0] == "list") {
 				const { name, emoji } = profileData.zoo[i - 1];
-				let animal = `${emoji} ${name}\n`;
+				let end = i % 2 === 0 ? "\n" : " ";
+				let animal = `${emoji} ${name}${end}`;
 				animals.push(animal);
 			} else {
+				let end = i % 5 === 0 ? "\n" : " ";
 				let animal = profileData.zoo[i - 1].emoji + end;
 				animals.push(animal);
 			}
 		}
 
+		if (profileData.zoo.length == 0) return "You don't have any animals in your zoo.";
 		const zoo = new MessageEmbed()
 			.setAuthor(message.member.nickname || message.author.username, message.author.avatarURL())
 			.setColor("#F4D03F")
