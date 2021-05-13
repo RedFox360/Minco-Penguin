@@ -13,9 +13,8 @@ module.exports = {
 		let amount = parseInt(am);
 		if (isNaN(amount)) return "Enter a valid number";
 		const userProfile = await profileModel.findOne({ userID: user.id });
-		if (amount > userProfile.mincoDollars)
-			return `<@${user.id}> does not have ${amount} Minco Dollars in their wallet.`;
-		if (amount < 0) return "You must enter a positive amount (use !gift to give money");
+		if (amount > userProfile.mincoDollars) return `<@${user.id}> does not have ${amount} Minco Dollars in their wallet.`;
+		if (amount < 0) return "You must enter a positive amount (use !gift to give money)";
 		const checkM = await message.channel.send(
 			new MessageEmbed()
 				.setTitle("Minco Dollar Request")
