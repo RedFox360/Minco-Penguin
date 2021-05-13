@@ -1,4 +1,3 @@
-const removeValue = require("../../functions/removeValue");
 const animals = require("../../functions/animals.json");
 const profileModel = require("../../models/profileSchema");
 module.exports = {
@@ -8,8 +7,7 @@ module.exports = {
 		if (!animal) return "Enter an animal";
 		if (!animalExists(animal)) return "Enter a valid animal";
 		if (!hasAnimal(animal, profileData)) return "You don't have this animal!";
-		let gAnimal = getAnimal(animal);
-		const inv = removeValue(gAnimal, profileData.inventory);
+		const inv = removeAnimal(animal, profileData.inventory);
 		const price = 15;
 		await profileModel.findOneAndUpdate(
 			{ userID: message.author.id },
@@ -20,7 +18,7 @@ module.exports = {
 				},
 			}
 		);
-		message.channel.send(`You sold your ${gAnimal.name} for ${price} MD`);
+		message.channel.send(`You sold your ${gAnimal.name} ${getAnimal(animal).emoji} for ${price} MD`);
 	},
 };
 
@@ -42,4 +40,13 @@ function hasAnimal(animal, profileData) {
 		if (animal.toLowerCase() == name.toLowerCase()) return true;
 	}
 	return false;
+}
+
+function removeAnimal(array) {
+	for (var i = 0; i < array.length; i++) {
+		if (array[i].name === a) {
+			array.splice(i, 1);
+		}
+	}
+	return array;
 }
