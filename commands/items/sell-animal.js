@@ -14,10 +14,10 @@ module.exports = {
 		await profileModel.findOneAndUpdate(
 			{ userID: message.author.id },
 			{
-				inventory: inv,
 				$inc: {
 					mincoDollars: price,
 				},
+				inventory: inv,
 			}
 		);
 		message.channel.send(`You sold your ${gAnimal.name} ${gAnimal.emoji} for ${price} MD`);
