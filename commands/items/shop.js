@@ -1,7 +1,7 @@
-const { MessageEmbed, Client } = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 module.exports = {
 	description: "The Minco shop! Use it to view the items you can buy",
-	execute(message, args) {
+	execute(message) {
 		const shopEmbed = new MessageEmbed()
 			.setAuthor(message.member.nickname || message.author.username, message.author.avatarURL())
 			.setTitle("Minco Shop")

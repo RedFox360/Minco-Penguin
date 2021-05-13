@@ -1,0 +1,130 @@
+[
+	{
+		"name": "Penguin",
+		"emoji": "<:penguinzoo:842208725165932584>"
+	},
+	{
+		"name": "Bear",
+		"emoji": ":bear:"
+	},
+	{
+		"name": "Jellyfish",
+		"emoji": "<:transparent_jellybot:833491227995013130>"
+	},
+	{
+		"name": "Blobfish",
+		"emoji": "<:transparent_blobfish:818535776027541605>"
+	},
+	{
+		"name": "Octopus",
+		"emoji": "🐙"
+	},
+	{
+		"name": "Tiger",
+		"emoji": "🐯"
+	},
+	{
+		"name": "Mouse",
+		"emoji": "🐭"
+	},
+	{
+		"name": "Pufferfish",
+		"emoji": "🐡"
+	},
+	{
+		"name": "Lion",
+		"emoji": "🦁"
+	},
+	{
+		"name": "Dolphin",
+		"emoji": "🐬"
+	},
+	{
+		"name": "Elephant",
+		"emoji": "🐘"
+	},
+	{
+		"name": "Hippo",
+		"emoji": "🦛"
+	},
+	{
+		"name": "Giraffe",
+		"emoji": "🦒"
+	},
+	{
+		"name": "Ladybug",
+		"emoji": "🐞"
+	},
+	{
+		"name": "Fly",
+		"emoji": "🪰"
+	},
+	{
+		"name": "Chicken",
+		"emoji": "🐔"
+	},
+	{
+		"name": "Cow",
+		"emoji": "🐮"
+	},
+	{
+		"name": "Turtle",
+		"emoji": "🐢"
+	},
+	{
+		"name": "Snake",
+		"emoji": "🐍"
+	},
+	{
+		"name": "Spider",
+		"emoji": "🕷"
+	},
+	{
+		"name": "Duck",
+		"emoji": "🦆"
+	},
+	{
+		"name": "Swan",
+		"emoji": "🦢"
+	},
+	{
+		"name": "Flamingo",
+		"emoji": "🦩"
+	},
+	{
+		"name": "Fish",
+		"emoji": "🐟"
+	},
+	{
+		"name": "Fox",
+		"emoji": "🦊"
+	},
+	{
+		"name": "Wolf",
+		"emoji": "🐺"
+	},
+	{
+		"name": "Horse",
+		"emoji": "🐴"
+	},
+	{
+		"name": "Panda",
+		"emoji": "🐼"
+	},
+	{
+		"name": "Whale",
+		"emoji": "🐳"
+	},
+	{
+		"name": "Dog",
+		"emoji": "🐶"
+	},
+	{
+		"name": "Snoil",
+		"emoji": "🐌"
+	},
+	{
+		"name": "Dove",
+		"emoji": "🕊"
+	}
+]

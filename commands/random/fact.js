@@ -1,4 +1,4 @@
-var facts = require("../../functions/penguin_facts.json");
+const facts = require("../../functions/penguin_facts.json");
 module.exports = {
 	description: "Sends a random fact about penguins",
 	execute() {
