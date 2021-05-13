@@ -5,7 +5,7 @@ module.exports = {
 	usage: "!sell <item number>",
 	async execute(message, args, _0, _1, profileData) {
 		const itemNumber = args[0];
-		if (!itemNumber) return message.channel.send("Enter an item number");
+		if (!itemNumber) return "Enter an item number";
 		if (!profileData.inventory.includes(itemNumber)) return "You don't have that item!";
 		const prices = [75, 1000, 25, 4, 12, 75, 400];
 		const inv = removeValue(itemNumber, profileData.inventory);

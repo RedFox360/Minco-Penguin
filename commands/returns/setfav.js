@@ -5,7 +5,7 @@ module.exports = {
 	usage: "!setfav <color/animal/food> <fav object>",
 	async execute(message, args, _0, _1, profileData) {
 		if (!args.length) {
-			return message.channel.send("Valid usage: !setfav <animal/color/food> <favorite object>");
+			return "Valid usage: !setfav <animal/color/food> <favorite object>";
 		}
 		let favObj = "";
 		for (let i = 1; i < args.length; i++) {
@@ -45,7 +45,7 @@ module.exports = {
 				}
 			);
 		} else {
-			return message.channel.send("Valid usage: !setfav <animal/color/food> <favorite object>");
+			return "Valid usage: !setfav <animal/color/food> <favorite object>";
 		}
 		message.channel.send(`Favorite ${args[0]} set to ${favObj}`);
 	},

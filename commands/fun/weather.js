@@ -16,7 +16,7 @@ module.exports = {
 					message.channel.send("An error occured");
 					return console.error(error);
 				}
-				if (result === undefined || result.length == 0) return message.channel.send("Specify a valid place.");
+				if (result === undefined || result.length == 0) return "Specify a valid place.";
 				const { current, location } = result[0];
 				const forecast = result[0].forecast[1];
 				const embed = new MessageEmbed()

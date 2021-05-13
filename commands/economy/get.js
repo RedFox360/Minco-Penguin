@@ -7,15 +7,15 @@ module.exports = {
 	/** @param {Message} message */
 	async execute(message, args) {
 		const user = message.mentions.users.first();
-		if (!user) return message.channel.send("Mention a valid user");
+		if (!user) return "Mention a valid user";
 		const am = args[1];
-		if (!am) return message.channel.send("Enter an amount of Minco Dollars");
+		if (!am) return "Enter an amount of Minco Dollars";
 		let amount = parseInt(am);
-		if (isNaN(amount)) return message.channel.send("Enter a valid number");
+		if (isNaN(amount)) return "Enter a valid number";
 		const userProfile = await profileModel.findOne({ userID: user.id });
 		if (amount > userProfile.mincoDollars)
-			return message.channel.send(`<@${user.id}> does not have ${amount} Minco Dollars in their wallet.`);
-		if (amount < 0) return message.channel.send("You must enter a positive amount (use !gift to give money)");
+			return `<@${user.id}> does not have ${amount} Minco Dollars in their wallet.`;
+		if (amount < 0) return "You must enter a positive amount (use !gift to give money");
 		const checkM = await message.channel.send(
 			new MessageEmbed()
 				.setTitle("Minco Dollar Request")

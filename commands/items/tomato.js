@@ -5,7 +5,7 @@ module.exports = {
 	description: "Use your tomato! Get between 2 and 6 Minco Dollars",
 	cooldown: 90,
 	async execute(message, _0, _1, _2, profileData) {
-		if (!profileData.inventory.includes("04")) return message.channel.send("You don't have a tomato!");
+		if (!profileData.inventory.includes("04")) return "You don't have a tomato!";
 		const numberEcon = randomInt(2, 6);
 		const inv = removeValue("04", profileData.inventory);
 		if (randomInt(0, 900) == 0) {

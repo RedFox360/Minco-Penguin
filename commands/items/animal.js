@@ -5,8 +5,8 @@ module.exports = {
 	description: "Pay 20 MD for a random animal!",
 	cooldown: ms("15m") / 1000, // 15 minutes
 	async execute(message, _0, _1, _2, profileData) {
-		if (profileData.zoo.length >= 15) return message.channel.send("You have reached the maximum amount of animals (15)");
-		if (profileData.mincoDollars < 20) return message.channel.send("You need 20 Minco Dollars to buy an animal");
+		if (profileData.zoo.length >= 15) return "You have reached the maximum amount of animals (15)";
+		if (profileData.mincoDollars < 20) return "You need 20 Minco Dollars to buy an animal";
 		let randomAnimal = animals[Math.floor(Math.random() * animals.length)];
 		while (profileData.zoo.includes(randomAnimal)) {
 			randomAnimal = animals[Math.floor(Math.random() * animals.length)];

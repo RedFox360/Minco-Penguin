@@ -37,9 +37,9 @@ module.exports = {
 				}
 			);
 
-			return message.channel.send("You have divorced!");
+			return "You have divorced!";
 		} else {
-			if (profileData.spouse == null) return message.channel.send("You can't divorce if you aren't married!");
+			if (profileData.spouse == null) return "You can't divorce if you aren't married!";
 			const msg = await message.channel.send(
 				`You have decided to divorce! You and <@${profileData.spouse}> will both have to pay a fee of 150 MD. Then, your Minco Dollar totals will be added up and split between you. Do you both agree?`
 			);

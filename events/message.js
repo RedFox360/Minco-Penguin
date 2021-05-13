@@ -66,7 +66,7 @@ module.exports = async (client, message) => {
 		for (let i = 0; i < guildData.bannedPeople.length; i++) {
 			let person = guildData.bannedPeople[i];
 			if (message.author.id == person) {
-				return message.channel.send("You were banned from using Minco Penguin.");
+				return "You were banned from using Minco Penguin.";
 			}
 		}
 	}
@@ -96,8 +96,12 @@ module.exports = async (client, message) => {
 	}
 	timeStamps.set(message.author.id, currentTime);
 	try {
-		let t = command.execute(message, args, cmd, client, profileData);
+		const t = command.execute(message, args, cmd, client, profileData);
 		if (typeof t === "string") message.channel.send(t);
+		if (t instanceof Promise) {
+			const toSend = await t;
+			if (typeof toSend === "string") message.channel.send(toSend);
+		}
 	} catch (error) {
 		message.react("❌");
 		message.channel.send("An error occured while trying to execute this command");

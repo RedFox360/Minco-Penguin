@@ -8,7 +8,7 @@ module.exports = {
 	async execute(message) {
 		const memberName = message.member.nickname.toLowerCase() || message.author.username.toLowerCase();
 		if (message.guild.channels.cache.find((c) => c.name === memberName))
-			return message.channel.send("You already have an ongoing game. Type a non-number in that channel to end the game.");
+			return "You already have an ongoing game. Type a non-number in that channel to end the game.";
 		const channel = await message.guild.channels.create(memberName);
 		channel.setParent(message.channel.parent);
 		channel.updateOverwrite(message.guild.roles.everyone, {

@@ -6,9 +6,9 @@ module.exports = {
 	async execute(message, args) {
 		if (message.author.id == "724786310711214118") {
 			const mention = message.mentions.users.first();
-			if (!mention) return message.channel.send("Mention a valid user");
+			if (!mention) return "Mention a valid user";
 			const amount = parseInt(args[1]);
-			if (isNaN(amount)) return message.channel.send("Enter a valid number");
+			if (isNaN(amount)) return "Enter a valid number";
 			await profileModel.findOneAndUpdate(
 				{ userID: mention.id },
 				{

@@ -13,13 +13,13 @@ module.exports = {
 		var author = [message.member.nickname || message.author.username, message.author.avatarURL()];
 		if (args.length) {
 			const command = client.commands.get(args[0]) || client.commands.find((a) => a.aliases && a.aliases.includes(args[0]));
-			if (!command) return message.channel.send("Enter a valid command name");
+			if (!command) return "Enter a valid command name";
 			let commandEmbed = new Discord.MessageEmbed()
 				.setAuthor(...author)
 				.setTitle(command.usage || "!" + args[0])
 				.setDescription(command.description)
 				.setColor(color);
-			return message.channel.send(commandEmbed);
+			return commandEmbed;
 		}
 		var description =
 			"Use the :rewind: and :fast_forward: reactions to switch between pages.\nDon't put **< >** in the actual commands.\n**( )** show optional arguments\n**ms** means write '1m, 2 seconds, 4 days', etc.\n\n**Categories**:\n`INFO/USEFUL commands`\n`FUN Commands`\n`SERVER Commands`\n`RANDOM RETURN Commands`\n`ECONOMY Commands`\n`ITEM Commands`";

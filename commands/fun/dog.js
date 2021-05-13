@@ -123,7 +123,7 @@ module.exports = {
 		} else if (args[0] == "rocco") {
 			pics = roccoPics;
 		} else {
-			return message.channel.send("Enter a valid dog (oreo/archie/rocco)");
+			return "Enter a valid dog (oreo/archie/rocco");
 		}
 
 		let random = Math.floor(Math.random() * pics.length);

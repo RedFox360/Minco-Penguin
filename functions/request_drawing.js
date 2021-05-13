@@ -15,7 +15,7 @@ module.exports =
 		for (let i = 1; i < args.length; i++) {
 			drawing += args[i] + " ";
 		}
-		if (!args[1]) return message.channel.send("Valid usage: !buy drawing <drawing>");
+		if (!args[1]) return "Valid usage: !buy drawing <drawing>";
 		let requestEmbed = new Discord.MessageEmbed()
 			.setColor("#70FFC2")
 			.setAuthor(message.author.username, message.author.avatarURL())
