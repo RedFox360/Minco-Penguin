@@ -5,7 +5,7 @@ module.exports = {
 	async execute(message, args, _0, _1, profileData) {
 		const animal = args[0];
 		if (!animal) return "Enter an animal";
-		if (!animalExists()) return "Enter a valid animal";
+		if (!animalExists(animal)) return "Enter a valid animal";
 		if (!hasAnimal(animal, profileData)) return "You don't have this animal!";
 		let gAnimal = getAnimal(animal);
 		const inv = removeValue(gAnimal, profileData.inventory);
