@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js");
 
 module.exports = {
 	description: "View your Minco Zoo!",
-	execute(message, _0, _1, _2, profileData) {
+	execute(message, args, _1, _2, profileData) {
 		const animals = [];
 
 		for (let i = 1; i <= profileData.zoo.length; i++) {
