@@ -1,23 +1,26 @@
 const { MessageEmbed } = require("discord.js");
+const profileModel = require("../../models/profileSchema");
 module.exports = {
 	description: "View your Minco Zoo!",
-	execute(message, args, _1, _2, profileData) {
+	async execute(message, args, _1, _2, profileData) {
 		const animals = [];
-
-		for (let i = 1; i <= profileData.zoo.length; i++) {
+		const mention = message.mentions.users.first();
+		let profile = profileData;
+		if (mention) profile = await profileModel.findOne({ userID: mention.id });
+		for (let i = 1; i <= profile.zoo.length; i++) {
 			if (args[0] == "list") {
-				const { name, emoji } = profileData.zoo[i - 1];
+				const { name, emoji } = profile.zoo[i - 1];
 				let end = i % 2 === 0 ? "\n" : " ";
 				let animal = `${emoji} ${name}${end}`;
 				animals.push(animal);
 			} else {
 				let end = i % 5 === 0 ? "\n" : " ";
-				let animal = profileData.zoo[i - 1].emoji + end;
+				let animal = profile.zoo[i - 1].emoji + end;
 				animals.push(animal);
 			}
 		}
 
-		if (profileData.zoo.length == 0) return "You don't have any animals in your zoo.";
+		if (profile.zoo.length == 0) return "You don't have any animals in your zoo.";
 		const zoo = new MessageEmbed()
 			.setAuthor(message.member.nickname || message.author.username, message.author.avatarURL())
 			.setColor("#F4D03F")
