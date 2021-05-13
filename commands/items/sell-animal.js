@@ -9,7 +9,7 @@ module.exports = {
 		if (!animalExists(animal)) return "Enter a valid animal";
 		if (!hasAnimal(animal, profileData)) return "You don't have this animal!";
 		const gAnimal = getAnimal(animal);
-		const inv = removeValue(gAnimal, profileData.inventory);
+		const inv = removeAnimal(animal, profileData);
 		const price = 15;
 		await profileModel.findOneAndUpdate(
 			{ userID: message.author.id },
@@ -42,4 +42,14 @@ function hasAnimal(animal, profileData) {
 		if (animal.toLowerCase() == name.toLowerCase()) return true;
 	}
 	return false;
+}
+function removeAnimal(animal, profileData) {
+	const zoo = profileData.zoo;
+	for (let i = 0; i < zoo.length; i++) {
+		if (array[i].name.toLowerCase() === animal.toLowerCase()) {
+			zoo.splice(i, 1);
+			i--;
+		}
+	}
+	return zoo;
 }
