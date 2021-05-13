@@ -9,7 +9,7 @@ module.exports = {
 	 * @param {Discord.Client} client
 	 */
 	execute(message, args, cmd) {
-		var roles;
+		let roles;
 		if (message.guild.id == "785642761814671381") roles = ["Student", "Muted"];
 		else if (message.guild.id == "804079271986462811") roles = ["Member", "Muted"];
 		else if (message.guild.id == "818509629842522112") roles = ["Blob", "Muted"];
@@ -34,7 +34,7 @@ module.exports = {
 				memberTarget.id == "724786310711214118"
 			)
 				return `<@${memberTarget.id}> cannot be muted`;
-			var description = `<@${memberTarget.user.id}> has been muted`;
+			let description = `<@${memberTarget.user.id}> has been muted`;
 			if (args[1]) description += ` for ${args[1]}`;
 			let muteEmbed = new Discord.MessageEmbed()
 				.setColor("#F04747")

@@ -17,9 +17,9 @@ module.exports = async (client, message) => {
 		message.channel.send(infoEmbed);
 		return;
 	}
-	var prefixes = ["!", "###", "minco "];
-	var count = 0;
-	var currentPrefix;
+	let prefixes = ["!", "###", "minco "];
+	let count = 0;
+	let currentPrefix;
 	for (let i = 0; i < prefixes.length; i++) {
 		let prefix = prefixes[i];
 		if (message.content.startsWith(prefix)) {
