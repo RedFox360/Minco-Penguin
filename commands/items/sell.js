@@ -45,15 +45,15 @@ module.exports = {
 			const filter = (reaction, user) => reaction.emoji.name === "✅" && user.id === message.author.id;
 			const reactionCollector = msg.createReactionCollector(filter, { time: ms("30s") });
 			reactionCollector.on("collect", () => {
-				sell(message, price, inv, itemNumber, client, false);
+				sell(message, price, inv, itemNumber, client);
 			});
 		} else {
-			sell(message, price, inv, itemNumber, client, false);
+			sell(message, price, inv, itemNumber, client);
 		}
 	},
 };
-async function sell(message, price, inv, itemN, client, actualPrice) {
-	const amount = actualPrice ? price : Math.round(price / 2 / 5) * 5;
+async function sell(message, price, inv, itemN, client) {
+	const amount = Math.round(price / 2 / 5) * 5;
 	await profileModel.findOneAndUpdate(
 		{ userID: message.author.id },
 		{
