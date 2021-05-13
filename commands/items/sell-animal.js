@@ -46,7 +46,7 @@ function hasAnimal(animal, profileData) {
 function removeAnimal(animal, profileData) {
 	const zoo = profileData.zoo;
 	for (let i = 0; i < zoo.length; i++) {
-		if (array[i].name.toLowerCase() === animal.toLowerCase()) {
+		if (zoo[i].name.toLowerCase() === animal.toLowerCase()) {
 			zoo.splice(i, 1);
 			i--;
 		}
