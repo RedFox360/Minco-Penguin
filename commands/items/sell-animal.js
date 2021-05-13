@@ -18,7 +18,8 @@ module.exports = {
 				},
 			}
 		);
-		message.channel.send(`You sold your ${gAnimal.name} ${getAnimal(animal).emoji} for ${price} MD`);
+		const gAnimal = getAnimal(animal);
+		message.channel.send(`You sold your ${gAnimal.name} ${gAnimal.emoji} for ${price} MD`);
 	},
 };
 
