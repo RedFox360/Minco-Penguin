@@ -97,10 +97,13 @@ module.exports = async (client, message) => {
 	timeStamps.set(message.author.id, currentTime);
 	try {
 		const t = command.execute(message, args, cmd, client, profileData);
-		if (typeof t === "string") message.channel.send(t);
-		if (t instanceof Promise) {
-			const toSend = await t;
-			if (typeof toSend === "string") message.channel.send(toSend);
+		if (t) {
+			if (command.cooldown) timeStamps.set(message.author.id, 0);
+			if (typeof t === "string") message.channel.send(t);
+			if (t instanceof Promise) {
+				const toSend = await t;
+				if (typeof toSend === "string") message.channel.send(toSend);
+			}
 		}
 	} catch (error) {
 		message.react("❌");
