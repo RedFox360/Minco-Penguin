@@ -12,7 +12,7 @@ module.exports = {
 			if (name.toLowerCase() == animal.toLowerCase()) return "You already have this animal!";
 		}
 		if (!animalExists(animal)) return "Enter a valid animal";
-
+		let gAnimal = getAnimal(animal);
 		await profileModel.findOneAndUpdate(
 			{
 				userID: message.author.id,
@@ -22,12 +22,12 @@ module.exports = {
 					mincoDollars: -50,
 				},
 				$push: {
-					zoo: getAnimal(animal),
+					zoo: gAnimal,
 				},
 			}
 		);
 
-		message.channel.send(`You bought a ${animal} for 50 MD!`);
+		message.channel.send(`You bought a ${gAnimal.name} ${gAnimal.emoji} for 50 MD!`);
 	},
 };
 

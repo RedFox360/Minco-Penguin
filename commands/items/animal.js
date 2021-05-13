@@ -27,15 +27,3 @@ module.exports = {
 		message.channel.send(`You bought a ${randomAnimal.name} ${randomAnimal.emoji} for 20 MD!`);
 	},
 };
-function checkForDuplicates(array) {
-	let valuesAlreadySeen = [];
-
-	for (let i = 0; i < array.length; i++) {
-		let value = array[i];
-		if (valuesAlreadySeen.indexOf(value) !== -1) {
-			return true;
-		}
-		valuesAlreadySeen.push(value);
-	}
-	return false;
-}
