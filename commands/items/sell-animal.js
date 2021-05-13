@@ -1,4 +1,5 @@
 const removeValue = require("../../functions/removeValue");
+const animals = require("../../functions/animals.json");
 const profileModel = require("../../models/profileSchema");
 module.exports = {
 	description: "Sell your animals",
