@@ -6,7 +6,8 @@ module.exports = {
 		const animals = [];
 
 		for (let i = 0; i < profileData.zoo.length; i++) {
-			const animal = profileData.zoo[i].emoji + (i % 5 == 0 ? "\n" : " ");
+			const end = i % 5 == 0 && i != 0 ? "\n" : " ";
+			const animal = profileData.zoo[i].emoji + end;
 			animals.push(animal);
 		}
 
