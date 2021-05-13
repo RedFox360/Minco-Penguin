@@ -1,8 +1,9 @@
 const animals = require("../../functions/animals.json");
 const profileModel = require("../../models/profileSchema");
+const ms = require("ms");
 module.exports = {
 	description: "Buy an animal! Costs 50 MD",
-	cooldown: 420, // 7 minutes
+	cooldown: ms("12m") / 1000, // 7 minutes
 	async execute(message, args, _0, _1, profileData) {
 		const animal = args[0];
 		if (!animal) return "Enter an animal";
