@@ -7,7 +7,7 @@ module.exports = {
 	 * @param {Discord.Message} message
 	 * @param {Discord.Client} client
 	 */
-	execute(message, args, _1, client) {
+	async execute(message, args, _1, client) {
 		var status = Math.round(client.ws.ping) > 400 ? "lagging" : "online";
 		var color = status == "lagging" ? "E74C3C" : "32E6C5";
 		let pingEmbed = new Discord.MessageEmbed()
@@ -26,15 +26,14 @@ module.exports = {
 			.setFooter(message.guild.name)
 			.setTimestamp();
 		message.channel.send(pingEmbed);
-		if (args[0] == "all")
-			(async () => {
-				let pings = [];
-				pings.push(await message.channel.send(">ping"));
-				pings.push(await message.channel.send("+ping"));
-				pings.push(await message.channel.send("=ping"));
-				pings.push(await message.channel.send("mo ping"));
+		if (args[0] == "all") {
+			let pings = [];
+			pings.push(await message.channel.send(">ping"));
+			pings.push(await message.channel.send("+ping"));
+			pings.push(await message.channel.send("=ping"));
+			pings.push(await message.channel.send("mo ping"));
 
-				pings.forEach((ping) => ping.delete());
-			})();
+			pings.forEach((ping) => ping.delete());
+		}
 	},
 };
