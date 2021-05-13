@@ -24,7 +24,7 @@ module.exports = {
 				},
 			}
 		);
-		message.channel.send(`You received a ${randomAnimal.name} ${randomAnimal.emoji}!`);
+		message.channel.send(`You bought a ${randomAnimal.name} ${randomAnimal.emoji} for 20 MD!`);
 	},
 };
 function checkForDuplicates(array) {
