@@ -42,7 +42,7 @@ function hasAnimal(animal, profileData) {
 	return false;
 }
 
-function removeAnimal(array) {
+function removeAnimal(a, array) {
 	for (var i = 0; i < array.length; i++) {
 		if (array[i].name === a) {
 			array.splice(i, 1);
