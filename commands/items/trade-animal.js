@@ -42,7 +42,7 @@ module.exports = {
 			);
 
 			await profileModel.findOneAndUpdate(
-				{ userID: message.author.id },
+				{ userID: mention.id },
 				{
 					$inc: {
 						mincoDollars: -price,
