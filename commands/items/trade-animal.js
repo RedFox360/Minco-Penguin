@@ -10,6 +10,8 @@ module.exports = {
 		const mention = message.mentions.users.first();
 		const animal = args[1];
 		const price = parseInt(args[2]);
+		const mentionProfile = await profileModel.findOne({ userID: mention.id });
+		if (profileData.zoo.length >= 15) return `<@${mention.id}> has reached the maximum amount of animals (15)`;
 		if (!animal) return "Enter an animal";
 		if (!mention) return "Mention a valid user";
 		if (isNaN(price)) return "Enter a valid price";

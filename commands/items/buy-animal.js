@@ -6,6 +6,7 @@ module.exports = {
 	cooldown: ms("12m") / 1000, // 7 minutes
 	usage: "!buy-animal <animal name>",
 	async execute(message, args, _0, _1, profileData) {
+		if (profileData.zoo.length >= 15) return "You have reached the maximum amount of animals (15)";
 		const animal = args[0];
 		if (!animal) return "Enter an animal";
 		if (profileData.mincoDollars < 50) return "You don't have 50 MD";
