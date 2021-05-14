@@ -40,7 +40,6 @@ module.exports = {
 					if (random > mdefense) {
 						mhealth -= attack;
 					}
-					console.log("a");
 					turnAuthor = false;
 				} else {
 					let random = Math.floor(Math.random() * 100) + 1;
@@ -48,10 +47,7 @@ module.exports = {
 						health -= mattack;
 					}
 					turnAuthor = true;
-					console.log("m");
 				}
-				console.log(health);
-				console.log(mhealth);
 			}
 			const profile = await profileModel.findOne({ userID: winner });
 			const amount = calculateAmount(profile.mincoDollars + profile.bank);
