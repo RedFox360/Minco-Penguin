@@ -6,9 +6,7 @@ module.exports = {
 		const itemNumber = args[0];
 		if (!itemNumber) return "Enter an item number";
 		if (!profileData.inventory.includes(itemNumber)) return "You don't have that item!";
-		const mention = message.mentions.users.first();
 		const price = args[2];
-		const prices = [75, 1000, 25, 4, 12, 75, 400];
 		if (price >= 75) {
 			const msg = message.channel.send("React to sell your item");
 			msg.react("✅");
