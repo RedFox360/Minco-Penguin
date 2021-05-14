@@ -10,10 +10,10 @@ module.exports = {
 	async execute(message, args, _0, _1, profileData) {
 		const animal = args[0];
 		const mention = message.mentions.users.first();
-		const price = args[2];
+		const price = parseInt(args[2]);
 		if (!animal) return "Enter an animal";
 		if (!mention) return "Mention a valid user";
-		if (!price) return "Enter a price";
+		if (!price || isNaN(price)) return "Enter a valid price";
 		if (!animalExists(animal)) return "Enter a valid animal name";
 		if (!hasAnimal(animal, profileData)) return "You don't have this animal!";
 		const gAnimal = getAnimal(animal);
