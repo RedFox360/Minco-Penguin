@@ -24,7 +24,16 @@ module.exports = {
 			"ITEM Commands",
 		];
 		if (args.length) {
-			if (["items", "economy", "random", "useful", "server", "fun", "returns", "info"].includes(args[0])) {
+			//["items", "economy", "random", "useful", "server", "fun", "returns", "info"]
+			if (
+				args[0] == "items" ||
+				args[0] == "economy" ||
+				args[0] == "useful" ||
+				args[0] == "server" ||
+				args[0] == "fun" ||
+				args[0] == "returns" ||
+				args[0] == "info"
+			) {
 				if (args[0] == "returns" || args[0] == "useful" || args[0] == "info") pos = 1;
 				else if (args[0] == "fun") pos = 2;
 				else if (args[0] == "server") pos = 3;
@@ -39,6 +48,7 @@ module.exports = {
 					pageEmbed.addField(field[0], field[1]);
 				});
 				message.channel.send(pageEmbed);
+				return;
 			}
 			const command = client.commands.get(args[0]) || client.commands.find((a) => a.aliases && a.aliases.includes(args[0]));
 			if (!command) return "Enter a valid command name";
