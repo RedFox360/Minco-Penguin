@@ -11,6 +11,7 @@ module.exports = {
 		const msg = await message.channel.send(
 			`<@${mention.id}>, ${message.author.toString()} has challenged you to a battle! Accept by reacting with a ✅`
 		);
+		let profile;
 		msg.react("✅");
 		const filter = (reaction, user) => reaction.emoji.name === "✅" && user.id === mention.id;
 		const reactionCollector = msg.createReactionCollector(filter, { time: ms("3m") });
@@ -18,10 +19,17 @@ module.exports = {
 			let [attack, defense, health] = await calculatePower(message.author.id);
 			let [mattack, mdefense, mhealth] = await calculatePower(mention.id);
 			let winner = "none";
+			let loser = "none";
 			let turnAuthor = true;
 			while (winner == "none") {
-				if (health <= 0) winner = `<@${mention.id}>`;
-				if (mhealth <= 0) winner = message.author.toString();
+				if (health <= 0) {
+					winner = mention.id;
+					loser = message.author.id;
+				}
+				if (mhealth <= 0) {
+					winner = message.author.id;
+					loser = mention.id;
+				}
 
 				if (attack == mattack && defense == mdefense && health == mhealth) {
 					winner = Math.floor(Math.random()) == 0 ? `<@${mention.id}>` : message.author.toString();
@@ -45,8 +53,25 @@ module.exports = {
 				console.log(health);
 				console.log(mhealth);
 			}
-
-			message.channel.send(`The battle is over! The winner is ${winner}`);
+			const profile = await profileModel.findOne({ userID: winner });
+			const amount = calculateAmount(profile.mincoDollars + profile.bank);
+			const md = profileData.mincoDollars;
+			const inc =
+				amount > md
+					? {
+							mincoDollars: 0,
+							$inc: {
+								bank: amount - md,
+							},
+					  }
+					: {
+							$inc: {
+								mincoDollars: -amount,
+							},
+					  };
+			await profileModel.findOneAndUpdate({ userID: loser }, inc);
+			await profileModel.findOneAndUpdate({ userID: winner }, { mincoDollars: amount });
+			message.channel.send(`The battle is over! The winner is <@${winner}>, they won ${amount} MD!`);
 		});
 	},
 };
@@ -75,4 +100,25 @@ async function calculatePower(userID) {
 	);
 
 	return [attack, defense, health];
+}
+
+/** @param {number} amount */
+async function calculateAmount(amount) {
+	const randomAmount = Math.floor(Math.random() * 10) - 5;
+	let divideAmount;
+	if (amount > 3000) {
+		divideAmount = 15;
+	} else if (amount > 1000) {
+		divideAmount = 10;
+	} else if (amount > 850) {
+		divideAmount = 11;
+	} else if (amount > 600) {
+		divideAmount = 12;
+	} else if (amount > 300) {
+		divideAmount = 13;
+	} else {
+		divideAmount = 15;
+	}
+
+	return amount / divideAmount + randomAmount;
 }
