@@ -1,5 +1,4 @@
 const animals = require("../../functions/animals.json");
-const removeValue = require("../../functions/removeValue");
 const profileModel = require("../../models/profileSchema");
 module.exports = {
 	description: "Sell your animals",
@@ -9,7 +8,6 @@ module.exports = {
 		if (!animalExists(animal)) return "Enter a valid animal";
 		if (!hasAnimal(animal, profileData)) return "You don't have this animal!";
 		const gAnimal = getAnimal(animal);
-		const zoo = removeValue(gAnimal, profileData.zoo);
 		const price = 15;
 		await profileModel.findOneAndUpdate(
 			{ userID: message.author.id },
@@ -17,7 +15,9 @@ module.exports = {
 				$inc: {
 					mincoDollars: price,
 				},
-				zoo,
+				$pull: {
+					zoo: gAnimal,
+				},
 			}
 		);
 		message.channel.send(`You sold your ${gAnimal.name} ${gAnimal.emoji} for ${price} MD`);

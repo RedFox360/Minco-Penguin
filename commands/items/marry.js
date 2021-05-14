@@ -1,5 +1,4 @@
 const { Message } = require("discord.js");
-const removeValue = require("../../functions/removeValue");
 const ms = require("ms");
 const profileModel = require("../../models/profileSchema");
 module.exports = {
@@ -28,12 +27,12 @@ module.exports = {
 		const filter = (reaction, u) => reaction.emoji.name === "✅" && u.id === user.id;
 		const collector = marryMsg.createReactionCollector(filter, { time: ms("2m") });
 		collector.on("collect", async () => {
-			const inv = removeValue("01", profileData.inventory);
-
 			await profileModel.findOneAndUpdate(
 				{ userID: message.author.id },
 				{
-					inventory: inv,
+					$pull: {
+						inventory: "01",
+					},
 					spouse: user.id,
 				}
 			);

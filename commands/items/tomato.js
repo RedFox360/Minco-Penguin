@@ -1,4 +1,3 @@
-const removeValue = require("../../functions/removeValue");
 const profileModel = require("../../models/profileSchema");
 const randomInt = require("../../functions/random");
 module.exports = {
@@ -7,7 +6,6 @@ module.exports = {
 	async execute(message, _0, _1, _2, profileData) {
 		if (!profileData.inventory.includes("04")) return "You don't have a tomato!";
 		const numberEcon = randomInt(2, 6);
-		const inv = removeValue("04", profileData.inventory);
 		if (randomInt(0, 900) == 0) {
 			message.channel.send("Wow! The Minco Dice have decided you will win **100** Minco Dollars!");
 			await profileModel.findOneAndUpdate(
@@ -18,7 +16,9 @@ module.exports = {
 					$inc: {
 						mincoDollars: 100,
 					},
-					inventory: inv,
+					$pull: {
+						inventory: "04",
+					},
 				}
 			);
 			return;
@@ -31,7 +31,9 @@ module.exports = {
 				$inc: {
 					mincoDollars: numberEcon,
 				},
-				inventory: inv,
+				$pull: {
+					inventory: "04",
+				},
 			}
 		);
 		message.channel.send(`You ate your fresh tomato and won ${numberEcon} Minco Dollars!`);

@@ -1,5 +1,4 @@
 const profileModel = require("../../models/profileSchema");
-const removeValue = require("../../functions/removeValue");
 module.exports = {
 	cooldown: 240, //4 minutes
 	aliases: ["gimmemoney"],
@@ -23,11 +22,12 @@ module.exports = {
 				numberEcon *= 2;
 				message.channel.send("You got a double bonus from your candy!");
 			} else {
-				const inv = removeValue("05", profileData.inventory);
 				await profileModel.findOneAndUpdate(
 					{ userID: message.author.id },
 					{
-						inventory: inv,
+						$pull: {
+							inventory: "05",
+						},
 					}
 				);
 			}
