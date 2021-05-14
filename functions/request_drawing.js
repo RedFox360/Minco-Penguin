@@ -26,7 +26,7 @@ module.exports =
 			.setAuthor("Claire")
 			.setTitle("Drawing Request")
 			.setDescription(
-				`You have succesfully sent Claire a drawing request:\n__${drawing}__\n**Reactions**\n📞: Send a message to Mason\n⛔️: cancel your request`
+				`You have succesfully sent Claire a drawing request:\n__${drawing}__\n**Reactions**\n📞: Send a message to Claire\n⛔️: cancel your request`
 			);
 		const reactMsgCl = await claire.send(requestEmbed);
 		const reactMsgAu = await message.author.send(returnEmbed);
