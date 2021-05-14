@@ -1,4 +1,9 @@
 const mongoose = require("mongoose");
+
+const zooSchema = new mongoose.Schema({
+	name: { type: String },
+	emoji: { type: String },
+});
 const profileSchema = new mongoose.Schema({
 	userID: { type: String, require: true, unique: true },
 	serverID: { type: String, require: true },
@@ -13,12 +18,7 @@ const profileSchema = new mongoose.Schema({
 	spouse: { type: String },
 	inventory: [String],
 	candyAmount: { type: Number },
-	zoo: [
-		{
-			name: { type: String },
-			emoji: { type: String },
-		},
-	],
+	zoo: [zooSchema],
 });
 
 const model = mongoose.model("ProfileModels", profileSchema);
