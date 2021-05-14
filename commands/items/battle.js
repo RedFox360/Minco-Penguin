@@ -23,7 +23,7 @@ module.exports = {
 				if (health <= 0) winner = `<@${mention.id}>`;
 				if (mhealth <= 0) winner = message.author.toString();
 
-				if (attack == mattack && defense == mdefense) {
+				if (attack == mattack && defense == mdefense && health == mhealth) {
 					winner = Math.floor(Math.random()) == 0 ? `<@${mention.id}>` : message.author.toString();
 				}
 
