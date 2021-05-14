@@ -1,5 +1,6 @@
 const profileModel = require("../../models/profileSchema");
 const ms = require("ms");
+const { animalExists, getAnimal, hasAnimal } = require("../../functions/animalFunctions");
 const { Message } = require("discord.js");
 const animals = require("../../functions/animals.json");
 module.exports = {
@@ -60,23 +61,3 @@ module.exports = {
 		});
 	},
 };
-
-function animalExists(animal) {
-	for (let { name } of animals) {
-		if (name.toLowerCase() == animal.toLowerCase()) return true;
-	}
-	return false;
-}
-function getAnimal(animal) {
-	for (let a of animals) {
-		if (animal.toLowerCase() == a.name.toLowerCase()) return a;
-	}
-	return null;
-}
-
-function hasAnimal(animal, profileData) {
-	for (let { name } of profileData.zoo) {
-		if (animal.toLowerCase() == name.toLowerCase()) return true;
-	}
-	return false;
-}

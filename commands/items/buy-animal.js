@@ -1,5 +1,6 @@
 const animals = require("../../functions/animals.json");
 const profileModel = require("../../models/profileSchema");
+const { animalExists, getAnimal } = require("../../functions/animalFunctions");
 const ms = require("ms");
 module.exports = {
 	description: "Buy an animal! Costs 50 MD",
@@ -31,16 +32,3 @@ module.exports = {
 		message.channel.send(`You bought a ${gAnimal.name} ${gAnimal.emoji} for 50 MD!`);
 	},
 };
-
-function animalExists(animal) {
-	for (let { name } of animals) {
-		if (name.toLowerCase() == animal.toLowerCase()) return true;
-	}
-	return false;
-}
-function getAnimal(animal) {
-	for (let a of animals) {
-		if (animal.toLowerCase() == a.name.toLowerCase()) return a;
-	}
-	return null;
-}
