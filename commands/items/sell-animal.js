@@ -2,6 +2,7 @@ const animals = require("../../functions/animals.json");
 const profileModel = require("../../models/profileSchema");
 module.exports = {
 	description: "Sell your animals",
+	usage: "!sell-animal <animal name>",
 	async execute(message, args, _0, _1, profileData) {
 		const animal = args[0];
 		if (!animal) return "Enter an animal";

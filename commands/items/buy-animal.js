@@ -4,6 +4,7 @@ const ms = require("ms");
 module.exports = {
 	description: "Buy an animal! Costs 50 MD",
 	cooldown: ms("12m") / 1000, // 7 minutes
+	usage: "!buy-animal <animal name>",
 	async execute(message, args, _0, _1, profileData) {
 		const animal = args[0];
 		if (!animal) return "Enter an animal";

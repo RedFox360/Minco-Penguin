@@ -6,6 +6,8 @@ module.exports = {
 		const itemNumber = args[0];
 		if (!itemNumber) return "Enter an item number";
 		if (!profileData.inventory.includes(itemNumber)) return "You don't have that item!";
+		const mention = message.mentions.users.first();
+		const price = args[2];
 		const prices = [75, 1000, 25, 4, 12, 75, 400];
 		const price = prices[parseInt(itemNumber) - 1];
 		if (price >= 75) {
