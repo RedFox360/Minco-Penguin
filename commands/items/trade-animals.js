@@ -17,7 +17,7 @@ module.exports = {
 		if (!hasAnimal(animal, profileData)) return "You don't have this animal!";
 		const gAnimal = getAnimal(animal);
 
-		const msg = message.channel.send(
+		const msg = await message.channel.send(
 			`<@${mention.id}>, ${message.author.toString()} has offered to trade you their ${gAnimal.name} ${
 				gAnimal.emoji
 			} for ${price} MD. Accept by reacting with a ✅`
@@ -27,7 +27,7 @@ module.exports = {
 		const filter = (reaction, user) => reaction.emoji.name === "✅" && user.id === mention.id;
 		const reactionCollector = await msg.createReactionCollector(filter, { time: ms("3m") });
 
-		reactionCollector.on("collect", () => {
+		reactionCollector.on("collect", async () => {
 			await profileModel.findOneAndUpdate(
 				{
 					userID: message.author.id,
