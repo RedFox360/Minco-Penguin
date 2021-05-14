@@ -1,3 +1,4 @@
+const animals = require("./animals.json");
 function animalExists(animal) {
 	for (let { name } of animals) {
 		if (name.toLowerCase() == animal.toLowerCase()) return true;
