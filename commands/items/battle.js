@@ -49,9 +49,9 @@ module.exports = {
 					turnAuthor = true;
 				}
 			}
-			const loser = await profileModel.findOne({ userID: loser });
-			const amount = calculateAmount(loser.mincoDollars + loser.bank);
-			const md = loser.mincoDollars;
+			const loserProfile = await profileModel.findOne({ userID: loser });
+			const amount = calculateAmount(loserProfile.mincoDollars + loserProfile.bank);
+			const md = loserProfile.mincoDollars;
 			const inc =
 				amount > md
 					? {
