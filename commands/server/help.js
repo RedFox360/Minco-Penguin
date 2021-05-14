@@ -35,7 +35,7 @@ module.exports = {
 					.setAuthor(...author)
 					.setTitle(titles[pos])
 					.setColor(color);
-				fields[pos].forEach((field) => {
+				getFields()[pos].forEach((field) => {
 					pageEmbed.addField(field[0], field[1]);
 				});
 				message.channel.send(pageEmbed);
