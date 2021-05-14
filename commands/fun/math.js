@@ -24,7 +24,7 @@ module.exports = {
 		if (oper == "+") result = num1 + num2;
 		else if (oper == "-") result = num1 - num2;
 		else if (oper == "*") result = num1 * num2;
-		message.channel.send(`What is ${num1} ${oper} ${num2}?`);
+		message.channel.send(`${message.author.toString()}, what is ${num1} ${oper} ${num2}?`);
 		const filter = (m) => m.author.id == message.author.id;
 		const collector = message.channel.createMessageCollector(filter, { time: 20000 });
 		var sendTimeOut = true;
