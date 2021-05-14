@@ -30,9 +30,7 @@ module.exports = {
 
 		reactionCollector.on("collect", async () => {
 			await profileModel.findOneAndUpdate(
-				{
-					userID: message.author.id,
-				},
+				{ userID: message.author.id },
 				{
 					$inc: {
 						mincoDollars: price,
@@ -44,9 +42,7 @@ module.exports = {
 			);
 
 			await profileModel.findOneAndUpdate(
-				{
-					userID: message.author.id,
-				},
+				{ userID: message.author.id },
 				{
 					$inc: {
 						mincoDollars: -price,
