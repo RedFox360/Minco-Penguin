@@ -88,7 +88,7 @@ module.exports = async (client, message) => {
 			});
 			setTimeout(() => {
 				message.delete();
-			}, timeLeft + 2000);
+			}, timeLeft + 15000);
 			return;
 		}
 	}
