@@ -4,7 +4,7 @@ module.exports = {
 	description: "BATTLE A USER!",
 	usage: "!battle <@user>",
 	cooldown: 15,
-	async execute(message, args, _0, _1, profileData) {
+	async execute(message, args, _0, _1) {
 		const mention = message.mentions.users.first();
 		if (!mention) return "Mention a valid user";
 
@@ -51,7 +51,7 @@ module.exports = {
 			}
 			const profile = await profileModel.findOne({ userID: winner });
 			const amount = calculateAmount(profile.mincoDollars + profile.bank);
-			const md = profileData.mincoDollars;
+			const md = await profileModel.findOne({ userID: loser }).mincoDollars;
 			const inc =
 				amount > md
 					? {
@@ -110,6 +110,10 @@ async function calculateAmount(amount) {
 		divideAmount = 12;
 	} else if (amount > 300) {
 		divideAmount = 13;
+	} else if (amount > 200) {
+		divideAmount = 15;
+	} else if (amount > 100) {
+		divideAmount = 8;
 	}
 
 	return amount / divideAmount + randomAmount;
