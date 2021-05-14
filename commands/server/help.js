@@ -11,16 +11,6 @@ module.exports = {
 	async execute(message, args, _, client) {
 		var color = "C782FE"; // light purple
 		var author = [message.member.nickname || message.author.username, message.author.avatarURL()];
-		if (args.length) {
-			const command = client.commands.get(args[0]) || client.commands.find((a) => a.aliases && a.aliases.includes(args[0]));
-			if (!command) return "Enter a valid command name";
-			let commandEmbed = new Discord.MessageEmbed()
-				.setAuthor(...author)
-				.setTitle(command.usage || "!" + args[0])
-				.setDescription(command.description)
-				.setColor(color);
-			return commandEmbed;
-		}
 		var description =
 			"Use the :rewind: and :fast_forward: reactions to switch between pages.\nDon't put **< >** in the actual commands.\n**( )** show optional arguments\n**ms** means write '1m, 2 seconds, 4 days', etc.\n\n**Categories**:\n`INFO/USEFUL commands`\n`FUN Commands`\n`SERVER Commands`\n`RANDOM RETURN Commands`\n`ECONOMY Commands`\n`ITEM Commands`";
 
@@ -33,6 +23,32 @@ module.exports = {
 			"ECONOMY Commands",
 			"ITEM Commands",
 		];
+		if (args.length) {
+			if (["items", "economy", "random", "useful", "server", "fun", "returns", "info"].includes(args[0])) {
+				if (args[0] == "returns" || args[0] == "useful" || args[0] == "info") pos = 1;
+				else if (args[0] == "fun") pos = 2;
+				else if (args[0] == "server") pos = 3;
+				else if (args[0] == "random") pos = 4;
+				else if (args[0] == "economy") pos = 5;
+				else if (args[0] == "items") pos = 6;
+				let pageEmbed = new Discord.MessageEmbed()
+					.setAuthor(...author)
+					.setTitle(titles[pos])
+					.setColor(color);
+				fields[pos].forEach((field) => {
+					pageEmbed.addField(field[0], field[1]);
+				});
+				message.channel.send(pageEmbed);
+			}
+			const command = client.commands.get(args[0]) || client.commands.find((a) => a.aliases && a.aliases.includes(args[0]));
+			if (!command) return "Enter a valid command name";
+			let commandEmbed = new Discord.MessageEmbed()
+				.setAuthor(...author)
+				.setTitle(command.usage || "!" + args[0])
+				.setDescription(command.description)
+				.setColor(color);
+			return commandEmbed;
+		}
 		var currentPage = 0;
 		let helpEmbed = new Discord.MessageEmbed()
 			.setAuthor(...author)
@@ -42,26 +58,8 @@ module.exports = {
 			.setFooter(message.guild.name);
 
 		const helpMsg = await message.channel.send(helpEmbed);
-		const fields = [0, [], [], [], [], [], []];
+		const fields = getFields();
 
-		const categories = fs.readdirSync("./commands/").filter((file) => !file.endsWith(".DS_Store"));
-		for (const category of categories) {
-			if (category != "hidden") {
-				const commandFiles = fs.readdirSync(`./commands/${category}`).filter((File) => File.endsWith(".js"));
-				for (const file of commandFiles) {
-					const command = require(`../../commands/${category}/${file}`);
-					let pos = 0;
-					if (category == "returns") pos = 1;
-					else if (category == "fun") pos = 2;
-					else if (category == "server") pos = 3;
-					else if (category == "random") pos = 4;
-					else if (category == "economy") pos = 5;
-					else if (category == "items") pos = 6;
-					if (command.usage) fields[pos].push([command.usage, command.description]);
-					else fields[pos].push([`!${file.split(".")[0]}`, command.description]);
-				}
-			}
-		}
 		try {
 			await helpMsg.react("⏪");
 			await helpMsg.react("⏩");
@@ -114,3 +112,26 @@ module.exports = {
 		});
 	},
 };
+
+function getFields() {
+	const fields = [0, [], [], [], [], [], []];
+	const categories = fs.readdirSync("./commands/").filter((file) => !file.endsWith(".DS_Store"));
+	for (const category of categories) {
+		if (category != "hidden") {
+			const commandFiles = fs.readdirSync(`./commands/${category}`).filter((File) => File.endsWith(".js"));
+			for (const file of commandFiles) {
+				const command = require(`../../commands/${category}/${file}`);
+				let pos = 0;
+				if (category == "returns") pos = 1;
+				else if (category == "fun") pos = 2;
+				else if (category == "server") pos = 3;
+				else if (category == "random") pos = 4;
+				else if (category == "economy") pos = 5;
+				else if (category == "items") pos = 6;
+				if (command.usage) fields[pos].push([command.usage, command.description]);
+				else fields[pos].push([`!${file.split(".")[0]}`, command.description]);
+			}
+		}
+	}
+	return fields;
+}
