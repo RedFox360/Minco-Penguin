@@ -27,7 +27,8 @@ module.exports = {
 			new MessageEmbed()
 				.setAuthor(nickname || author.username, author.avatarURL())
 				.setTitle("Inventory")
-				.setDescription(inventory.join("\n").setColor("#F8C471"))
+				.setDescription(inventory.join("\n"))
+				.setColor("#F8C471")
 		);
 	},
 };
