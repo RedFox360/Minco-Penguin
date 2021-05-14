@@ -8,16 +8,16 @@ const profileSchema = new mongoose.Schema({
 	userID: { type: String, require: true, unique: true },
 	serverID: { type: String, require: true },
 	mincoDollars: { type: Number, default: 100 },
-	bank: { type: Number },
-	birthday: { type: String },
+	bank: Number,
+	birthday: String,
 	favs: {
 		food: { type: String },
 		color: { type: String },
 		animal: { type: String },
 	},
-	spouse: { type: String },
+	spouse: String,
 	inventory: [String],
-	candyAmount: { type: Number },
+	candyAmount: Number,
 	zoo: [zooSchema],
 });
 
