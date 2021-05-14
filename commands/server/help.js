@@ -57,7 +57,7 @@ module.exports = {
 				.setTitle(command.usage || "!" + args[0])
 				.setDescription(command.description)
 				.setColor(color);
-			return commandEmbed;
+			message.channel.send(commandEmbed);
 		}
 		var currentPage = 0;
 		let helpEmbed = new Discord.MessageEmbed()

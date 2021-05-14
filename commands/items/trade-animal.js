@@ -2,14 +2,13 @@ const profileModel = require("../../models/profileSchema");
 const ms = require("ms");
 const { animalExists, getAnimal, hasAnimal } = require("../../functions/animalFunctions");
 const { Message } = require("discord.js");
-const animals = require("../../functions/animals.json");
 module.exports = {
 	description: "Trade your animals!",
-	usage: "!trade-animal <animal name> <@user> <price>",
+	usage: "!trade-animal <@user> <animal> <price>",
 	/** @param {Message} message */
 	async execute(message, args, _0, _1, profileData) {
-		const animal = args[0];
 		const mention = message.mentions.users.first();
+		const animal = args[1];
 		const price = parseInt(args[2]);
 		if (!animal) return "Enter an animal";
 		if (!mention) return "Mention a valid user";
