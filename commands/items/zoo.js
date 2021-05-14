@@ -31,7 +31,9 @@ module.exports = {
 			.setAuthor(member.nickname || author.username, author.avatarURL())
 			.setColor("#F4D03F")
 			.setTitle("Minco Zoo")
-			.setDescription(animals.join(""));
+			.setDescription(animals.join(""))
+			.setFooter(message.guild.name)
+			.setTimestamp();
 
 		message.channel.send(zoo);
 	},

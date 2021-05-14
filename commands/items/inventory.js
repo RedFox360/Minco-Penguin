@@ -19,6 +19,7 @@ module.exports = {
 			if (t == "05") return ":candy: Candy";
 			if (t == "06") return `<:transparent_jellybot:833491227995013130> Jellyfish`;
 			if (t == "07") return ":bear: Bear";
+			if (t == "08") return ":cactus: Cactus";
 		});
 		for (let i = 0; i < inventory.length; i++) {
 			inventory[i] = `${i + 1}. ${inventory[i]}`;
@@ -29,6 +30,8 @@ module.exports = {
 				.setTitle("Inventory")
 				.setDescription(inventory.join("\n"))
 				.setColor("#F8C471")
+				.setFooter(message.guild.name)
+				.setTimestamp()
 		);
 	},
 };
