@@ -101,10 +101,8 @@ async function calculatePower(userID) {
 /** @param {number} amount */
 async function calculateAmount(amount) {
 	const randomAmount = Math.floor(Math.random() * 10) - 5;
-	let divideAmount;
-	if (amount > 3000) {
-		divideAmount = 15;
-	} else if (amount > 1000) {
+	let divideAmount = 15;
+	if (amount > 1000) {
 		divideAmount = 10;
 	} else if (amount > 850) {
 		divideAmount = 11;
@@ -112,8 +110,6 @@ async function calculateAmount(amount) {
 		divideAmount = 12;
 	} else if (amount > 300) {
 		divideAmount = 13;
-	} else {
-		divideAmount = 15;
 	}
 
 	return amount / divideAmount + randomAmount;
