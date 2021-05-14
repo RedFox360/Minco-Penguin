@@ -31,7 +31,7 @@ module.exports = {
 				args[0] == "useful" ||
 				args[0] == "server" ||
 				args[0] == "fun" ||
-				args[0] == "returns" ||
+				args[0] == "random" ||
 				args[0] == "info"
 			) {
 				if (args[0] == "returns" || args[0] == "useful" || args[0] == "info") pos = 1;

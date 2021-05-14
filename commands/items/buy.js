@@ -24,6 +24,8 @@ module.exports = {
 			buy(message, "Jellyfish", 75, "06", profileData, true, client);
 		} else if (args[0] == "07") {
 			buy(message, "Bear", 400, "07", profileData, true, client);
+		} else if (args[0] == "08") {
+			buy(message, "Cactus", 50, "08", profileData, true, client);
 		} else return "Enter a valid item number";
 	},
 };

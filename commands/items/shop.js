@@ -28,12 +28,16 @@ module.exports = {
 				},
 				{
 					name: "<:transparent_jellybot:833491227995013130> (06) | Jellyfish",
-					value: "75 Minco Dollars\nAllows you to sting people using the !sting command",
+					value: "75 Minco Dollars\nAllows you to sting people using the !sting command. Gives a +12 attack bonus in battle.",
 				},
 				{
 					name: ":bear: (07) | Pet Bear",
 					value:
 						"400 Minco Dollars\nIf you don't want to marry someone: (lower reward)\n5% chance of doubling beg reward, 33 Minco Dollar math reward",
+				},
+				{
+					name: ":cactus: (08) | Cactus",
+					value: "50 Minco Dollars | Gives a +8 defense bonus in battle.",
 				},
 				{
 					name: ":art: Drawing",

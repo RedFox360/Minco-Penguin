@@ -19,6 +19,12 @@ const profileSchema = new mongoose.Schema({
 	inventory: [String],
 	candyAmount: Number,
 	zoo: [zooSchema],
+	battle: {
+		attack: Number,
+		defense: Number,
+		health: { type: Number, default: 100 },
+		battleShield: Boolean,
+	},
 });
 
 const model = mongoose.model("ProfileModels", profileSchema);
