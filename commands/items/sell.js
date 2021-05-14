@@ -9,7 +9,6 @@ module.exports = {
 		const mention = message.mentions.users.first();
 		const price = args[2];
 		const prices = [75, 1000, 25, 4, 12, 75, 400];
-		const price = prices[parseInt(itemNumber) - 1];
 		if (price >= 75) {
 			const msg = message.channel.send("React to sell your item");
 			msg.react("✅");
