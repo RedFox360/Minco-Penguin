@@ -1,6 +1,7 @@
 const animals = require("../../functions/animals.json");
 const profileModel = require("../../models/profileSchema");
 const ms = require("ms");
+const { hasAnimal } = require("../../functions/animalFunctions");
 module.exports = {
 	description: "Pay 20 MD for a random animal!",
 	cooldown: ms("15m") / 1000, // 15 minutes
@@ -27,10 +28,3 @@ module.exports = {
 		message.channel.send(`You bought a ${randomAnimal.name} ${randomAnimal.emoji} for 20 MD!`);
 	},
 };
-
-function hasAnimal(animal, profileData) {
-	for (let { name } of profileData.zoo) {
-		if (animal.toLowerCase() == name.toLowerCase()) return true;
-	}
-	return false;
-}

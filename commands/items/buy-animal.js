@@ -1,4 +1,3 @@
-const animals = require("../../functions/animals.json");
 const profileModel = require("../../models/profileSchema");
 const { animalExists, getAnimal } = require("../../functions/animalFunctions");
 const ms = require("ms");
