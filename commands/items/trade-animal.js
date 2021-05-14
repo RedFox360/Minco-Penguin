@@ -13,7 +13,7 @@ module.exports = {
 		const price = parseInt(args[2]);
 		if (!animal) return "Enter an animal";
 		if (!mention) return "Mention a valid user";
-		if (!price || isNaN(price)) return "Enter a valid price";
+		if (isNaN(price)) return "Enter a valid price";
 		if (!animalExists(animal)) return "Enter a valid animal name";
 		if (!hasAnimal(animal, profileData)) return "You don't have this animal!";
 		const gAnimal = getAnimal(animal);
