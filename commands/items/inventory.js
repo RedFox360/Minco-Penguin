@@ -1,7 +1,15 @@
+const { MessageEmbed } = require("discord.js");
 module.exports = {
 	description: "View your item inventory! (from shop)",
 	aliases: ["inv"],
 	execute(message, _0, _1, _2, profileData) {
+		let nickname = message.member.nickname;
+		let author = message.author;
+		const mention = message.mentions.users.first();
+		if (mention) {
+			let { nickname } = message.guild.members.cache.get(mention.id);
+			let author = mention;
+		}
 		if (!profileData.inventory.length) return "You don't have any items in your inventory.";
 		const inventory = profileData.inventory.map((t) => {
 			if (t == "01") return ":ring: Marriage Ring";
@@ -15,6 +23,11 @@ module.exports = {
 		for (let i = 0; i < inventory.length; i++) {
 			inventory[i] = `${i + 1}. ${inventory[i]}`;
 		}
-		message.channel.send(inventory.join("\n"));
+		message.channel.send(
+			new MessageEmbed()
+				.setAuthor(nickname || author.username, author.avatarURL())
+				.setTitle("Inventory")
+				.setDescription(inventory.join("\n").setColor("#F8C471"))
+		);
 	},
 };
