@@ -1,6 +1,6 @@
 const profileModel = require("../../models/profileSchema");
 module.exports = {
-	cooldown: 240, //4 minutes
+	cooldown: "4m",
 	aliases: ["gimmemoney"],
 	description: "Beg for Minco Dollars",
 	async execute(message, _0, cmd, _1, profileData) {

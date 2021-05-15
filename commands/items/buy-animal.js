@@ -1,9 +1,8 @@
 const profileModel = require("../../models/profileSchema");
 const { animalExists, getAnimal } = require("../../functions/animalFunctions");
-const ms = require("ms");
 module.exports = {
 	description: "Buy an animal! Costs 50 MD",
-	cooldown: ms("12m") / 1000, // 7 minutes
+	cooldown: "12m",
 	usage: "!buy-animal <animal name>",
 	async execute(message, args, _0, _1, profileData) {
 		if (profileData.zoo.length >= 15) return "You have reached the maximum amount of animals (15)";
