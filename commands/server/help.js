@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
 
 const fs = require("fs");
+const ms = require("ms");
 module.exports = {
 	description: "Help for all Minco Penguin commands!",
 	aliases: ["c"],
@@ -77,9 +78,9 @@ module.exports = {
 			console.error(err);
 		}
 
-		const filter = (reaction, user) => user.id === message.author.id;
-		const collector = helpMsg.createReactionCollector(filter, { time: 300000 });
-		collector.on("collect", async (reaction, user) => {
+		const filter = (_, user) => user.id === message.author.id;
+		const collector = helpMsg.createReactionCollector(filter, { time: ms("4m") });
+		collector.on("collect", async (reaction) => {
 			if (reaction.emoji.name == "⬅️") {
 				if (currentPage != 0) currentPage--;
 				if (currentPage == 0) {
