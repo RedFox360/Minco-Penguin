@@ -14,24 +14,26 @@ module.exports = {
 		msg.react("✅");
 		const filter = (reaction, user) => reaction.emoji.name === "✅" && user.id === mention.id;
 		const reactionCollector = msg.createReactionCollector(filter, { time: ms("3m") });
+		console.log(mention.id);
+		console.log(message.author.id);
 		reactionCollector.on("collect", async () => {
 			let [attack, defense, health] = await calculatePower(message.author.id);
 			let [mattack, mdefense, mhealth] = await calculatePower(mention.id);
-			let winner = "none";
-			let loser = "none";
+			let winner;
 			let turnAuthor = true;
-			while (winner === "none") {
+			while (true) {
 				if (health <= 0) {
-					loser = message.author.id;
 					winner = mention.id;
+					break;
 				}
 				if (mhealth <= 0) {
-					loser = mention.id;
 					winner = message.author.id;
+					break;
 				}
 
 				if (attack == mattack && defense == mdefense && health == mhealth) {
-					winner = Math.floor(Math.random()) == 0 ? `<@${mention.id}>` : message.author.toString();
+					winner = Math.floor(Math.random()) == 0 ? mention.id : message.author.toString();
+					break;
 				}
 
 				if (turnAuthor) {
@@ -48,11 +50,14 @@ module.exports = {
 					turnAuthor = true;
 				}
 			}
+			const loser = winner === message.author.id ? mention.id : message.author.id;
+			console.log(loser);
+			console.log(winner);
 			const loserProfile = await profileModel.findOne({ userID: loser });
 			const md = loserProfile.mincoDollars;
 			const amount = calculateAmount(md + loserProfile.bank);
 			const inc =
-				amount > md
+				amount < md
 					? {
 							mincoDollars: 0,
 							$inc: {
@@ -98,7 +103,7 @@ async function calculatePower(userID) {
 }
 
 /** @param {number} amount */
-async function calculateAmount(amount) {
+function calculateAmount(amount) {
 	const randomAmount = Math.floor(Math.random() * 10) - 5;
 	let divideAmount = 15;
 	if (amount > 1000) {
@@ -115,5 +120,5 @@ async function calculateAmount(amount) {
 		divideAmount = 8;
 	}
 
-	return amount / divideAmount + randomAmount;
+	return Math.round(amount / divideAmount + randomAmount);
 }
