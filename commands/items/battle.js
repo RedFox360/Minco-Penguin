@@ -20,14 +20,14 @@ module.exports = {
 			let winner = "none";
 			let loser = "none";
 			let turnAuthor = true;
-			while (winner == "none") {
+			while (winner === "none") {
 				if (health <= 0) {
-					winner = mention.id;
 					loser = message.author.id;
+					winner = mention.id;
 				}
 				if (mhealth <= 0) {
-					winner = message.author.id;
 					loser = mention.id;
+					winner = message.author.id;
 				}
 
 				if (attack == mattack && defense == mdefense && health == mhealth) {
