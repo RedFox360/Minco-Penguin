@@ -1,4 +1,5 @@
 const { MessageEmbed } = require("discord.js");
+const profileModel = require("../../models/profileSchema");
 module.exports = {
 	description: "View your item inventory! (from shop)",
 	aliases: ["inv"],
@@ -7,11 +8,13 @@ module.exports = {
 		let author = message.author;
 		const mention = message.mentions.users.first();
 		if (mention) {
-			let { nickname } = message.guild.members.cache.get(mention.id);
-			let author = mention;
+			nickname = message.guild.members.cache.get(mention.id).nickname;
+			author = mention;
 		}
-		if (!profileData.inventory.length) return "You don't have any items in your inventory.";
-		const inventory = profileData.inventory.map((t) => {
+
+		const { inventory } = await profileModel.findOne({ userID: author.id });
+		if (!inventory.length) return "You don't have any items in your inventory.";
+		const inv = inventory.map((t) => {
 			if (t == "01") return ":ring: Marriage Ring";
 			if (t == "02") return ":diamond_shape_with_a_dot_inside: Diamond Crown";
 			if (t == "03") return ":cowboy: Cowboy Hat";
@@ -21,14 +24,14 @@ module.exports = {
 			if (t == "07") return ":bear: Bear";
 			if (t == "08") return ":cactus: Cactus";
 		});
-		for (let i = 0; i < inventory.length; i++) {
-			inventory[i] = `${i + 1}. ${inventory[i]}`;
+		for (let i = 0; i < inv.length; i++) {
+			inv[i] = `${i + 1}. ${inv[i]}`;
 		}
 		message.channel.send(
 			new MessageEmbed()
 				.setAuthor(nickname || author.username, author.avatarURL())
 				.setTitle("Inventory")
-				.setDescription(inventory.join("\n"))
+				.setDescription(inv.join("\n"))
 				.setColor("#F8C471")
 				.setFooter(message.guild.name)
 		);
