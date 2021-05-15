@@ -23,6 +23,8 @@ module.exports = {
 			if (t == "06") return `<:transparent_jellybot:833491227995013130> Jellyfish`;
 			if (t == "07") return ":bear: Bear";
 			if (t == "08") return ":cactus: Cactus";
+			if (t == "09") return ":fire: Fire";
+			if (t == "10") return "<:cardboard_box:843173235549667349> Lootbox";
 		});
 		for (let i = 0; i < inv.length; i++) {
 			inv[i] = `${i + 1}. ${inv[i]}`;

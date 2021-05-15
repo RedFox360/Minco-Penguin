@@ -17,6 +17,7 @@ const profileSchema = new mongoose.Schema({
 	},
 	spouse: String,
 	inventory: [String],
+	gems: [String],
 	candyAmount: Number,
 	zoo: [zooSchema],
 	battle: {
