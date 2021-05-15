@@ -11,23 +11,25 @@ module.exports = {
 		} else if (args[0] == "meme") {
 			require("../../functions/request_meme")(message, args, client, profileData);
 		} else if (args[0] == "01") {
-			buy(message, "Marriage Ring", 75, "01", profileData, true, client);
+			buy(message, "Marriage Ring :ring:", 75, "01", profileData, true, client);
 		} else if (args[0] == "02") {
-			buy(message, "Diamond Crown", 1000, "02", profileData, true, client);
+			buy(message, "Diamond Crown :diamond_shape_with_a_dot_inside:", 1000, "02", profileData, true, client);
 		} else if (args[0] == "03") {
-			buy(message, "Cowboy Hat", 25, "03", profileData, true, client);
+			buy(message, "Cowboy Hat :cowboy:", 25, "03", profileData, true, client);
 		} else if (args[0] == "04") {
-			buy(message, "Tomato", 4, "04", profileData, false, client);
+			buy(message, "Tomato :tomato:", 4, "04", profileData, false, client);
 		} else if (args[0] == "05") {
-			buy(message, "Candy", 12, "05", profileData, false, client);
+			buy(message, "Candy :candy:", 12, "05", profileData, false, client);
 		} else if (args[0] == "06") {
-			buy(message, "Jellyfish", 75, "06", profileData, true, client);
+			buy(message, "Jellyfish <:transparent_jellybot:833491227995013130> ", 75, "06", profileData, true, client);
 		} else if (args[0] == "07") {
-			buy(message, "Bear", 400, "07", profileData, true, client);
+			buy(message, "Bear :bear:", 400, "07", profileData, true, client);
 		} else if (args[0] == "08") {
-			buy(message, "Cactus", 50, "08", profileData, true, client);
+			buy(message, "Cactus :cactus:", 50, "08", profileData, true, client);
 		} else if (args[0] == "09") {
-			buy(message, "Fire", 50, "09", profileData, true, client);
+			buy(message, "Fire :fire:", 50, "09", profileData, true, client);
+		} else if (args[0] == "08") {
+			buy(message, "Lootbox <:cardboard_box:843173235549667349> ", 50, "10", profileData, true, client);
 		} else return "Enter a valid item number";
 	},
 };

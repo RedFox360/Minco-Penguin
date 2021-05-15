@@ -44,6 +44,10 @@ module.exports = {
 					value: "50 Minco Dollars | Gives +6 attack -3 health in battle.",
 				},
 				{
+					name: "<:cardboard_box:843173235549667349> (10) | Lootbox",
+					value: "60 Minco Dollars | Gives a random reward worth between 50 and 100 MD",
+				},
+				{
 					name: ":art: Drawing",
 					value:
 						"!buy drawing <drawing>\nUse this to send a request to Claire for a personalized drawing! (price will be decided by her)",
