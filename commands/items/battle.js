@@ -1,5 +1,5 @@
 const ms = require("ms");
-const { calculatePower } = require("../../functions/calculatePower");
+const calculatePower = require("../../functions/calculatePower");
 const profileModel = require("../../models/profileSchema");
 module.exports = {
 	description: "BATTLE A USER!",
