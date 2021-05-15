@@ -15,8 +15,6 @@ module.exports = {
 		msg.react("✅");
 		const filter = (reaction, user) => reaction.emoji.name === "✅" && user.id === mention.id;
 		const reactionCollector = msg.createReactionCollector(filter, { time: ms("3m") });
-		console.log(mention.id);
-		console.log(message.author.id);
 		reactionCollector.on("collect", async () => {
 			let [attack, defense, health] = await calculatePower(message.author.id);
 			let [mattack, mdefense, mhealth] = await calculatePower(mention.id);
@@ -52,8 +50,6 @@ module.exports = {
 				}
 			}
 			const loser = winner === message.author.id ? mention.id : message.author.id;
-			console.log(loser);
-			console.log(winner);
 			const loserProfile = await profileModel.findOne({ userID: loser });
 			const md = loserProfile.mincoDollars;
 			const amount = calculateAmount(md + loserProfile.bank);
