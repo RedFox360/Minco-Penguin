@@ -1,3 +1,4 @@
+const profileModel = require("../../models/profileSchema");
 const ms = require("ms");
 module.exports = {
 	description: "Buy a gem!",
