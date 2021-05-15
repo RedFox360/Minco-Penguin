@@ -12,7 +12,7 @@ module.exports = {
 		}
 
 		const { gems } = await profileModel.findOne({ userID: author.id });
-		if (!gems.length) return "You don't have any items in your inventory.";
+		if (!gems.length) return "You don't have any gems!";
 		const g = gems.map((t) => {
 			if (t == "01") return "<:blue_diamond:843178044894216202> Blue Diamond";
 			if (t == "02") return "<:pink_diamond:843177780946010132> Pink Diamond";
@@ -28,7 +28,7 @@ module.exports = {
 		message.channel.send(
 			new MessageEmbed()
 				.setAuthor(nickname || author.username, author.avatarURL())
-				.setTitle("Inventory")
+				.setTitle("Gems")
 				.setDescription(g.join("\n"))
 				.setColor("#F8C471")
 				.setFooter(message.guild.name)
