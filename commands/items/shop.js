@@ -50,8 +50,9 @@ module.exports = {
 		];
 		const shopEmbed = new MessageEmbed()
 			.setAuthor(message.member.nickname || message.author.username, message.author.avatarURL())
-			.setTitle("Minco Shop")
+			.setTitle(titles[0])
 			.setColor("BEDFFF")
+			.setDescription(descriptions[0])
 			.setFooter(message.guild.name);
 		for (let field of fields[0]) {
 			shopEmbed.addField(field[0], field[1]);
@@ -68,7 +69,7 @@ module.exports = {
 		collector.on("collect", async (reaction) => {
 			if (reaction.emoji.name == "⬅️") {
 				if (currentPage != 0) currentPage--;
-				shopEmbed.setTitle(titles[currentPage]);
+				shopEmbed.setTitle(titles[currentPage]).setDescription(descriptions[currentPage]);
 				shopEmbed.fields = [];
 				fields[currentPage].forEach((field) => {
 					shopEmbed.addField(field[0], field[1]);
@@ -76,7 +77,7 @@ module.exports = {
 				shopMsg.edit(shopEmbed);
 			} else if (reaction.emoji.name == "➡️") {
 				if (currentPage != titles.length - 1) currentPage++;
-				shopEmbed.setTitle(titles[currentPage]);
+				shopEmbed.setTitle(titles[currentPage]).setDescription(descriptions[currentPage]);
 				shopEmbed.fields = [];
 				fields[currentPage].forEach((field) => {
 					shopEmbed.addField(field[0], field[1]);
