@@ -27,7 +27,7 @@ module.exports = {
 					.setColor("#F5B041")
 					.setDescription(`Top: ${message.author.toString()}, Bottom: <@${mention.id}>`)
 					.setFooter(message.guild.name)
-					.addFields(...getDescription(attack, defense, health), ...getDescription(mattack, mdefense, health))
+					.addFields(...getDescription(attack, defense, health), ...getDescription(mattack, mdefense, mhealth))
 			);
 			let winner;
 			let turnAuthor = true;
