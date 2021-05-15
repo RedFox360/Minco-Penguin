@@ -15,6 +15,9 @@ module.exports = {
 				$inc: {
 					mincoDollars: mincoAmount,
 				},
+				$pull: {
+					inventory: "10",
+				},
 			}
 		);
 		if (Math.floor(Math.random() * 3) == 0) {
