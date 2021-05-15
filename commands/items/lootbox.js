@@ -8,7 +8,7 @@ module.exports = {
 		if (!profileData.inventory.includes("10")) return "You don't have a lootbox!";
 
 		const mincoAmount = randomInt(20, 60);
-		const g = gems[0];
+
 		await profileModel.findOneAndUpdate(
 			{ userID: message.author.id },
 			{
@@ -21,6 +21,7 @@ module.exports = {
 			}
 		);
 		if (Math.floor(Math.random() * 3) == 0) {
+			const g = gems[0];
 			let gem = g[Math.floor(Math.random() * g.length)];
 
 			while (profileData.inventory.includes(gem)) {
@@ -34,7 +35,7 @@ module.exports = {
 				{ userID: message.author.id },
 				{
 					$push: {
-						gems: gems,
+						gems: gem,
 					},
 				}
 			);
