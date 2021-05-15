@@ -80,6 +80,21 @@ module.exports = {
 			await profileModel.findOneAndUpdate({ userID: loser }, inc);
 			await profileModel.findOneAndUpdate({ userID: winner }, { mincoDollars: amount });
 			message.channel.send(`The battle is over! The winner is <@${winner}>, they won ${amount} MD!`);
+			if (Math.floor(Math.random() * 15) == 0) {
+				const winnerProfile = await profileModel.findOne({ userID: winner });
+				if (winnerProfile.inventory.includes("10")) return;
+				await profileModel.findOneAndUpdate(
+					{
+						userID: winner,
+					},
+					{
+						$push: {
+							inventory: "10",
+						},
+					}
+				);
+				message.channel.send(`<@${winner}> also won a lootbox <:cardboard_box:843173235549667349>!`);
+			}
 		});
 	},
 };
