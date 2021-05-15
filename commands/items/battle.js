@@ -26,7 +26,7 @@ module.exports = {
 					.setAuthor(name, message.author.avatarURL())
 					.setTitle("Battle")
 					.setColor("#F5B041")
-					.setDescription(`Top: ${name}, Bottom: ${mentionName}`)
+					.setDescription(`Top: ${message.author.toString()}, Bottom: <@${mention.id}>`)
 					.setFooter(message.guild.name)
 					.addFields(...getDescription(attack, defense, health), ...getDescription(mattack, mdefense, health))
 			);
