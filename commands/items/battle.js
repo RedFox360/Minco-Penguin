@@ -1,4 +1,5 @@
 const ms = require("ms");
+const { calculatePower } = require("../../functions/calculatePower");
 const profileModel = require("../../models/profileSchema");
 module.exports = {
 	description: "BATTLE A USER!",
@@ -57,7 +58,7 @@ module.exports = {
 			const md = loserProfile.mincoDollars;
 			const amount = calculateAmount(md + loserProfile.bank);
 			const inc =
-				amount < md
+				amount > md
 					? {
 							mincoDollars: 0,
 							$inc: {
@@ -76,38 +77,14 @@ module.exports = {
 	},
 };
 
-async function calculatePower(userID) {
-	let attack = 0;
-	let defense = 0;
-	let health = 100;
-	const { inventory } = await profileModel.findOne({ userID });
-
-	if (inventory.includes("06")) attack += 12;
-
-	if (inventory.includes("08")) defense += 8;
-
-	await profileModel.findOneAndUpdate(
-		{
-			userID,
-		},
-		{
-			battle: {
-				attack,
-				defense,
-				health,
-			},
-		}
-	);
-
-	return [attack, defense, health];
-}
-
 /** @param {number} amount */
 function calculateAmount(amount) {
 	const randomAmount = Math.floor(Math.random() * 10) - 5;
-	let divideAmount = 15;
-	if (amount > 1000) {
-		divideAmount = 10;
+	let divideAmount = 20;
+	if (amount > 3000) {
+		divideAmount = 16;
+	} else if (amount > 1500) {
+		divideAmount = 12;
 	} else if (amount > 850) {
 		divideAmount = 11;
 	} else if (amount > 600) {

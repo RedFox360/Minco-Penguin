@@ -26,6 +26,8 @@ module.exports = {
 			buy(message, "Bear", 400, "07", profileData, true, client);
 		} else if (args[0] == "08") {
 			buy(message, "Cactus", 50, "08", profileData, true, client);
+		} else if (args[0] == "09") {
+			buy(message, "Fire", 50, "09", profileData, true, client);
 		} else return "Enter a valid item number";
 	},
 };

@@ -1,17 +1,17 @@
 const { MessageEmbed } = require("discord.js");
+const { calculatePower } = require("../../functions/calculatePower");
 const profileModel = require("../../models/profileSchema");
 module.exports = {
 	description: "View your battle stats",
 	async execute(message, args, _0, _1, profileData) {
 		const mention = message.mentions.users.first();
-		let profile = profileData;
 		let member = message.member;
 		let author = message.author;
 		if (mention) {
-			profile = await profileModel.findOne({ userID: mention.id });
 			member = message.guild.members.cache.get(mention.id);
 			author = mention;
 		}
+		const [attack, defense, health] = await calculatePower(author.id);
 		message.channel.send(
 			new MessageEmbed()
 				.setAuthor(member.nickname || author.username, author.avatarURL())
@@ -21,15 +21,18 @@ module.exports = {
 				.addFields(
 					{
 						name: ":fire:Attack",
-						value: profile.battle.attack,
+						value: attack,
+						inline: true,
 					},
 					{
 						name: ":crossed_swords: Defense",
-						value: profile.battle.defense,
+						value: defense,
+						inline: true,
 					},
 					{
 						name: ":heart: Health",
-						value: profile.battle.health,
+						value: health,
+						inline: true,
 					}
 				)
 		);

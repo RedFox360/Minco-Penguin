@@ -40,6 +40,10 @@ module.exports = {
 					value: "50 Minco Dollars | Gives a +8 defense bonus in battle.",
 				},
 				{
+					name: ":fire: (09) | Fire",
+					value: "50 Minco Dollars | Gives +6 attack -3 health in battle.",
+				},
+				{
 					name: ":art: Drawing",
 					value:
 						"!buy drawing <drawing>\nUse this to send a request to Claire for a personalized drawing! (price will be decided by her)",
