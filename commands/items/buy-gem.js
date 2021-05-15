@@ -1,3 +1,4 @@
+const ms = require("ms");
 module.exports = {
 	description: "Buy a gem!",
 	usage: "!buy <gem number>",

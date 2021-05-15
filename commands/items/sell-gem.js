@@ -1,4 +1,5 @@
 const profileModel = require("../../models/profileSchema");
+const ms = require("ms");
 module.exports = {
 	description: "Sell your gems!",
 	usage: "!sell <gem number>",
