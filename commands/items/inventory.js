@@ -31,7 +31,6 @@ module.exports = {
 				.setDescription(inventory.join("\n"))
 				.setColor("#F8C471")
 				.setFooter(message.guild.name)
-				.setTimestamp()
 		);
 	},
 };

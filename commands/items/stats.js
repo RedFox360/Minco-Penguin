@@ -14,23 +14,22 @@ module.exports = {
 		}
 		message.channel.send(
 			new MessageEmbed()
-				.setAuthor(member.nickname, author.username, author.avatarURL())
+				.setAuthor(member.nickname || author.username, author.avatarURL())
 				.setTitle("Stats")
 				.setColor("#F5B041")
 				.setFooter(message.guild.name)
-				.setTimestamp()
 				.addFields(
 					{
 						name: ":fire:Attack",
-						value: profile.attack,
+						value: profile.battle.attack,
 					},
 					{
 						name: ":crossed_swords: Defense",
-						value: profileData.defense,
+						value: profile.battle.defense,
 					},
 					{
 						name: ":heart: Health",
-						value: profileData.health,
+						value: profile.battle.health,
 					}
 				)
 		);
