@@ -57,7 +57,7 @@ module.exports = {
 			.setFooter(message.guild.name);
 		if (args[0] == "gems") {
 			shopEmbed.setTitle(titles[1]).setDescription(descriptions[1]);
-			fields[currentPage].forEach((field) => {
+			fields[1].forEach((field) => {
 				shopEmbed.addField(field[0], field[1]);
 			});
 			return message.channel.send(shopEmbed);
