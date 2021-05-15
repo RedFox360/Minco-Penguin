@@ -42,5 +42,4 @@ async function buyGem(message, item, price, itemNumber, profileData) {
 		message.channel.send(`You succesfully bought a ${item}!`);
 		reactionCollector.stop();
 	});
-	message.channel.send(`You bought a ${item} for ${price} MD`);
 }
