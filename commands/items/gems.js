@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js");
 const profileModel = require("../../models/profileSchema");
 module.exports = {
 	description: "View your gems!",
-	execute(message) {
+	async execute(message) {
 		let nickname = message.member.nickname;
 		let author = message.author;
 		const mention = message.mentions.users.first();
