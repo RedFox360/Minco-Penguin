@@ -1,10 +1,8 @@
-const { Message } = require("discord.js");
 const profileModel = require("../../models/profileSchema");
 const ms = require("ms");
 module.exports = {
 	description: "Buy items!",
 	usage: "!buy <item number>",
-	/** @param {Message} message */
 	execute(message, args, _0, client, profileData) {
 		if (args[0] == "drawing") {
 			require("../../functions/request_drawing")(message, args, client, profileData);
@@ -29,12 +27,11 @@ module.exports = {
 		} else if (args[0] == "09") {
 			buy(message, "Fire :fire:", 50, "09", profileData, true, client);
 		} else if (args[0] == "08") {
-			buy(message, "Lootbox <:cardboard_box:843173235549667349> ", 50, "10", profileData, true, client);
+			buy(message, "Lootbox <:cardboard_box:843173235549667349>", 50, "10", profileData, true, client);
 		} else return "Enter a valid item number";
 	},
 };
 
-/** @param {Message} message */
 async function buy(message, item, price, itemNumber, profileData, showReaction, client) {
 	if (profileData.inventory.includes(itemNumber)) return "You already have this item!";
 	if (profileData.mincoDollars < price) return `You need ${price} Minco Dollars to buy this item`;
