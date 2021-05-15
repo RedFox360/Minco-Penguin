@@ -11,7 +11,6 @@ module.exports = {
 		const msg = await message.channel.send(
 			`<@${mention.id}>, ${message.author.toString()} has challenged you to a battle! Accept by reacting with a ✅`
 		);
-		let profile;
 		msg.react("✅");
 		const filter = (reaction, user) => reaction.emoji.name === "✅" && user.id === mention.id;
 		const reactionCollector = msg.createReactionCollector(filter, { time: ms("3m") });
@@ -50,8 +49,8 @@ module.exports = {
 				}
 			}
 			const loserProfile = await profileModel.findOne({ userID: loser });
-			const amount = calculateAmount(loserProfile.mincoDollars + loserProfile.bank);
 			const md = loserProfile.mincoDollars;
+			const amount = calculateAmount(md + loserProfile.bank);
 			const inc =
 				amount > md
 					? {
