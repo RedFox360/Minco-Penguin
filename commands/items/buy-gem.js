@@ -1,5 +1,6 @@
 module.exports = {
 	description: "Buy a gem!",
+	usage: "!buy <gem number>",
 	execute(message, args, _0, _1, profileData) {
 		if (args[0] == "01") {
 			buyGem(message, "Blue Diamond <:blue_diamond:843178044894216202>", 100, "01", profileData);
