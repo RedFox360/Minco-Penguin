@@ -1,6 +1,5 @@
 const { MessageEmbed } = require("discord.js");
 const calculatePower = require("../../functions/calculatePower");
-const profileModel = require("../../models/profileSchema");
 module.exports = {
 	description: "View your battle stats",
 	async execute(message, args, _0, _1, profileData) {
