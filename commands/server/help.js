@@ -93,7 +93,7 @@ module.exports = {
 					helpMsg.edit(helpEmbed);
 				} else {
 					helpEmbed.setTitle(titles[currentPage]);
-
+					helpEmbed.fields = [];
 					fields[currentPage].forEach((field) => {
 						helpEmbed.addField(field[0], field[1]);
 					});
@@ -101,11 +101,8 @@ module.exports = {
 				}
 			} else if (reaction.emoji.name == "➡️") {
 				if (currentPage != titles.length - 1) currentPage++;
-				helpEmbed = new Discord.MessageEmbed()
-					.setAuthor(...author)
-					.setTitle(titles[currentPage])
-					.setColor(color)
-					.setFooter(message.guild.name);
+				helpEmbed.setTitle(titles[currentPage]);
+				helpEmbed.fields = [];
 				fields[currentPage].forEach((field) => {
 					helpEmbed.addField(field[0], field[1]);
 				});

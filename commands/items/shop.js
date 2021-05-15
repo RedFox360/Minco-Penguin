@@ -64,28 +64,27 @@ module.exports = {
 			console.error(err);
 		}
 		const filter = (_, user) => user.id === message.author.id;
-		const collector = helpMsg.createReactionCollector(filter, { time: ms("4m") });
+		const collector = shopMsg.createReactionCollector(filter, { time: ms("4m") });
 		collector.on("collect", async (reaction) => {
 			if (reaction.emoji.name == "⬅️") {
 				if (currentPage != 0) currentPage--;
-				if (currentPage == 0) {
-					shopEmbed.setTitle(titles[0]);
-					shopEmbed.setTitle(titles[currentPage]);
-					fields[currentPage].forEach((field) => {
-						shopEmbed.addField(field[0], field[1]);
-					});
-					helpMsg.edit(shopEmbed);
-				}
-			} else if (reaction.emoji.name == "➡️") {
-				if (currentPage != titles.length - 1) currentPage++;
 				shopEmbed.setTitle(titles[currentPage]);
+				shopEmbed.fields = [];
 				fields[currentPage].forEach((field) => {
 					shopEmbed.addField(field[0], field[1]);
 				});
-				helpMsg.edit(shopEmbed);
-				helpMsg.edit(shopEmbed);
+				shopMsg.edit(shopEmbed);
+			} else if (reaction.emoji.name == "➡️") {
+				if (currentPage != titles.length - 1) currentPage++;
+				shopEmbed.setTitle(titles[currentPage]);
+				shopEmbed.fields = [];
+				fields[currentPage].forEach((field) => {
+					shopEmbed.addField(field[0], field[1]);
+				});
+				shopMsg.edit(shopEmbed);
+				shopMsg.edit(shopEmbed);
 			}
-			const userReactions = helpMsg.reactions.cache.filter((react) => react.users.cache.has(message.author.id));
+			const userReactions = shopMsg.reactions.cache.filter((react) => react.users.cache.has(message.author.id));
 			try {
 				for (const reaction of userReactions.values()) {
 					await reaction.users.remove(message.author.id);
