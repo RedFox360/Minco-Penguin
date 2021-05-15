@@ -1,0 +1,41 @@
+[
+    [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "06",
+        "07"
+    ],
+    [
+        {
+            "number": "01",
+            "name": "Blue Diamond"
+        },
+        {
+            "number": "02",
+            "name": "Pink Diamond"
+        },
+        {
+            "number": "03",
+            "name": "Emerald"
+        },
+        {
+            "number": "04",
+            "name": "Gold Bar"
+        },
+        {
+            "number": "05",
+            "name": "Sapphire"
+        },
+        {
+            "number": "06",
+            "name": "Ruby"
+        },
+        {
+            "number": "07",
+            "nmae": "Amethyst"
+        }
+    ]
+]
