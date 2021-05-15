@@ -1,3 +1,4 @@
+const { MessageEmbed } = require("discord.js");
 const ms = require("ms");
 const calculatePower = require("../../functions/calculatePower");
 const profileModel = require("../../models/profileSchema");
@@ -18,6 +19,23 @@ module.exports = {
 		reactionCollector.on("collect", async () => {
 			let [attack, defense, health] = await calculatePower(message.author.id);
 			let [mattack, mdefense, mhealth] = await calculatePower(mention.id);
+			const name = message.member.nickname || message.author.username;
+			const mentionName = message.guild.members.cache.get(mention.id).nickname || mention.username;
+			const m = await message.channel.send(
+				new MessageEmbed()
+					.setAuthor(name, message.author.avatarURL())
+					.setTitle("Battle")
+					.addFields(
+						{
+							name: `Stats for ${name}`,
+							value: getDescription(attack, defense, health),
+						},
+						{
+							name: `Stats for ${mentionName}`,
+							value: getDescription(mattack, mdefense, health),
+						}
+					)
+			);
 			let winner;
 			let turnAuthor = true;
 			while (true) {
@@ -48,6 +66,22 @@ module.exports = {
 					}
 					turnAuthor = true;
 				}
+				m.edit(
+					new MessageEmbed()
+						.setAuthor(name, message.author.avatarURL())
+						.setTitle("Battle")
+						.addFields(
+							{
+								name: `Stats for ${name}`,
+								value: getDescription(attack, defense, health),
+							},
+							{
+								name: `Stats for ${mentionName}`,
+								value: getDescription(mattack, mdefense, health),
+							}
+						)
+				);
+				await sleep(50);
 			}
 			const loser = winner === message.author.id ? mention.id : message.author.id;
 			const loserProfile = await profileModel.findOne({ userID: loser });
@@ -94,4 +128,18 @@ function calculateAmount(amount) {
 	}
 
 	return Math.round(amount / divideAmount + randomAmount);
+}
+
+function getDescription(attack, defense, health) {
+	return `:fire: Attack
+${attack}
+
+:crossed_swords: Defense
+${defense}
+
+:heart: Health
+${health}`;
+}
+function sleep(ms) {
+	return new Promise((resolve) => setTimeout(resolve, ms));
 }
