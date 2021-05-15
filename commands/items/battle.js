@@ -20,8 +20,7 @@ module.exports = {
 			let [attack, defense, health] = await calculatePower(message.author.id);
 			let [mattack, mdefense, mhealth] = await calculatePower(mention.id);
 			const name = message.member.nickname || message.author.username;
-			const mentionName = message.guild.members.cache.get(mention.id).nickname || mention.username;
-			const m = await message.channel.send(
+			message.channel.send(
 				new MessageEmbed()
 					.setAuthor(name, message.author.avatarURL())
 					.setTitle("Battle")
