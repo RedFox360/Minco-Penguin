@@ -71,8 +71,8 @@ module.exports = {
 		const fields = getFields();
 
 		try {
-			await helpMsg.react("⏪");
-			await helpMsg.react("⏩");
+			await helpMsg.react("⬅️");
+			await helpMsg.react("➡️");
 		} catch (err) {
 			console.error(err);
 		}
@@ -80,7 +80,7 @@ module.exports = {
 		const filter = (reaction, user) => user.id === message.author.id;
 		const collector = helpMsg.createReactionCollector(filter, { time: 300000 });
 		collector.on("collect", async (reaction, user) => {
-			if (reaction.emoji.name == "⏪") {
+			if (reaction.emoji.name == "⬅️") {
 				if (currentPage != 0) currentPage--;
 				if (currentPage == 0) {
 					helpEmbed = new Discord.MessageEmbed()
@@ -98,7 +98,7 @@ module.exports = {
 					});
 					helpMsg.edit(helpEmbed);
 				}
-			} else if (reaction.emoji.name == "⏩") {
+			} else if (reaction.emoji.name == "➡️") {
 				if (currentPage != 6) currentPage++;
 				helpEmbed = new Discord.MessageEmbed()
 					.setAuthor(...author)
