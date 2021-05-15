@@ -9,7 +9,7 @@ module.exports = {
 	async execute(message, args, _0, _1) {
 		const mention = message.mentions.users.first();
 		if (!mention) return "Mention a valid user";
-
+		if (mention.bot) return "You can't battle a bot!";
 		const msg = await message.channel.send(
 			`<@${mention.id}>, ${message.author.toString()} has challenged you to a battle! Accept by reacting with a ✅`
 		);
@@ -25,16 +25,10 @@ module.exports = {
 				new MessageEmbed()
 					.setAuthor(name, message.author.avatarURL())
 					.setTitle("Battle")
-					.addFields(
-						{
-							name: `Stats for ${name}`,
-							value: getDescription(attack, defense, health),
-						},
-						{
-							name: `Stats for ${mentionName}`,
-							value: getDescription(mattack, mdefense, health),
-						}
-					)
+					.setColor("#F5B041")
+					.setDescription(`Top: ${name}, Bottom: ${mentionName}`)
+					.setFooter(message.guild.name)
+					.addFields(...getDescription(attack, defense, health), ...getDescription(mattack, mdefense, health))
 			);
 			let winner;
 			let turnAuthor = true;
@@ -66,22 +60,6 @@ module.exports = {
 					}
 					turnAuthor = true;
 				}
-				m.edit(
-					new MessageEmbed()
-						.setAuthor(name, message.author.avatarURL())
-						.setTitle("Battle")
-						.addFields(
-							{
-								name: `Stats for ${name}`,
-								value: getDescription(attack, defense, health),
-							},
-							{
-								name: `Stats for ${mentionName}`,
-								value: getDescription(mattack, mdefense, health),
-							}
-						)
-				);
-				await sleep(50);
 			}
 			const loser = winner === message.author.id ? mention.id : message.author.id;
 			const loserProfile = await profileModel.findOne({ userID: loser });
@@ -110,36 +88,46 @@ module.exports = {
 /** @param {number} amount */
 function calculateAmount(amount) {
 	const randomAmount = Math.floor(Math.random() * 10) - 5;
-	let divideAmount = 20;
-	if (amount > 3000) {
-		divideAmount = 16;
+	let divideAmount;
+	if (amount > 10000) {
+		divideAmount = 40;
+	} else if (amount > 5000) {
+		divideAmount = 30;
+	} else if (amount > 3000) {
+		divideAmount = 20;
 	} else if (amount > 1500) {
-		divideAmount = 12;
-	} else if (amount > 850) {
-		divideAmount = 11;
-	} else if (amount > 600) {
-		divideAmount = 12;
-	} else if (amount > 300) {
-		divideAmount = 13;
-	} else if (amount > 200) {
 		divideAmount = 15;
-	} else if (amount > 100) {
+	} else if (amount > 850) {
+		divideAmount = 12;
+	} else if (amount > 600) {
+		divideAmount = 11;
+	} else if (amount > 300) {
+		divideAmount = 10;
+	} else if (amount > 200) {
+		divideAmount = 9;
+	} else {
 		divideAmount = 8;
 	}
 
 	return Math.round(amount / divideAmount + randomAmount);
 }
 
-function getDescription(attack, defense, health) {
-	return `:fire: Attack
-${attack}
-
-:crossed_swords: Defense
-${defense}
-
-:heart: Health
-${health}`;
-}
-function sleep(ms) {
-	return new Promise((resolve) => setTimeout(resolve, ms));
+function getDescription(name, attack, defense, health) {
+	return [
+		{
+			name: ":fire: Attack",
+			value: attack,
+			inline: true,
+		},
+		{
+			name: ":crossed_swords: Defense",
+			value: defense,
+			inline: true,
+		},
+		{
+			name: ":heart: Health",
+			value: health,
+			inline: true,
+		},
+	];
 }
