@@ -2,7 +2,8 @@ const { MessageEmbed } = require("discord.js");
 const ms = require("ms");
 module.exports = {
 	description: "The Minco shop! Use it to view the items you can buy",
-	async execute(message) {
+	usage: "!shop (page)",
+	async execute(message, args) {
 		const descriptions = ["Buy these using !buy <item number>", "Buy these using !buy-gem <item number>"];
 		const titles = ["Minco Shop | Basics", "Minco Shop | Gems"];
 		let currentPage = 0;
@@ -51,9 +52,21 @@ module.exports = {
 		const shopEmbed = new MessageEmbed()
 			.setAuthor(message.member.nickname || message.author.username, message.author.avatarURL())
 			.setTitle(titles[0])
-			.setColor("BEDFFF")
 			.setDescription(descriptions[0])
+			.setColor("BEDFFF")
 			.setFooter(message.guild.name);
+		if (args[0] == "gems") {
+			shopEmbed.setTitle(titles[1]).setDescription(descriptions[1]);
+			fields[currentPage].forEach((field) => {
+				shopEmbed.addField(field[0], field[1]);
+			});
+			return message.channel.send(shopEmbed);
+		} else if (args[0] == "basics") {
+			fields[0].forEach((field) => {
+				shopEmbed.addField(field[0], field[1]);
+			});
+			return message.channel.send(shopEmbed);
+		}
 		for (let field of fields[0]) {
 			shopEmbed.addField(field[0], field[1]);
 		}
