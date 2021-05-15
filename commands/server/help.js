@@ -61,7 +61,7 @@ module.exports = {
 			return message.channel.send(commandEmbed);
 		}
 		var currentPage = 0;
-		let helpEmbed = new Discord.MessageEmbed()
+		const helpEmbed = new Discord.MessageEmbed()
 			.setAuthor(...author)
 			.setTitle(titles[currentPage])
 			.setDescription(description)
@@ -92,7 +92,7 @@ module.exports = {
 						.setFooter(message.guild.name);
 					helpMsg.edit(helpEmbed);
 				} else {
-					helpEmbed = new Discord.MessageEmbed().setTitle(titles[currentPage]).setColor(color).setFooter(message.guild.name);
+					helpEmbed.setTitle(titles[currentPage]);
 
 					fields[currentPage].forEach((field) => {
 						helpEmbed.addField(field[0], field[1]);
@@ -100,7 +100,7 @@ module.exports = {
 					helpMsg.edit(helpEmbed);
 				}
 			} else if (reaction.emoji.name == "➡️") {
-				if (currentPage != 6) currentPage++;
+				if (currentPage != titles.length - 1) currentPage++;
 				helpEmbed = new Discord.MessageEmbed()
 					.setAuthor(...author)
 					.setTitle(titles[currentPage])
