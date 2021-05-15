@@ -47,6 +47,8 @@ module.exports = {
 				["(03) <:emerald:843180288984219689> | Emerald", "150 MD"],
 				["(04) <:gold_bar:843180638705287188> | Gold Bar", "75 MD"],
 				["(05) <:sapphire:843182746050232340> | Sapphire", "75 MD"],
+				["(06) <:ruby:843184456025112606> | Ruby", "100 MD"],
+				["(07) <:amethyst:843184890337296454> | Amethyst", "50 MD"],
 			],
 		];
 		const shopEmbed = new MessageEmbed()
