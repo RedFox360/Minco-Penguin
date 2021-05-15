@@ -33,8 +33,8 @@ module.exports = {
 };
 
 async function buy(message, item, price, itemNumber, profileData, showReaction, client) {
-	if (profileData.inventory.includes(itemNumber)) return "You already have this item!";
-	if (profileData.mincoDollars < price) return `You need ${price} Minco Dollars to buy this item`;
+	if (profileData.inventory.includes(itemNumber)) return message.channel.send("You already have this item!");
+	if (profileData.mincoDollars < price) return message.channel.send(`You need ${price} Minco Dollars to buy this item`);
 	if (showReaction) {
 		const msg = await message.channel.send(`React to buy a **${item}** for ${price} MD`);
 		await msg.react("✅");
@@ -48,11 +48,6 @@ async function buy(message, item, price, itemNumber, profileData, showReaction, 
 					$inc: {
 						mincoDollars: -price,
 					},
-				}
-			);
-			await profileModel.findOneAndUpdate(
-				{ userID: message.author.id },
-				{
 					$push: {
 						inventory: itemNumber,
 					},
@@ -74,11 +69,6 @@ async function buy(message, item, price, itemNumber, profileData, showReaction, 
 				$inc: {
 					mincoDollars: -price,
 				},
-			}
-		);
-		await profileModel.findOneAndUpdate(
-			{ userID: message.author.id },
-			{
 				$push: {
 					inventory: itemNumber,
 				},
