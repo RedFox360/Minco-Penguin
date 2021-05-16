@@ -41,6 +41,20 @@ module.exports = {
 			);
 			message.channel.send(`You won a ${gemName}!`);
 		}
+		if (Math.floor(Math.random() * 5) == 0 && !profileData.inventory.includes("05")) {
+			await profileModel.findOneAndUpdate(
+				{
+					userID: message.author.id,
+				},
+				{
+					$push: {
+						inventory: "05",
+					},
+				}
+			);
+
+			message.channel.send("You won a Candy :candy:!");
+		}
 
 		message.channel.send(`You won ${mincoAmount} Minco Dollars!`);
 	},
