@@ -17,8 +17,8 @@ module.exports = {
 		const filter = (reaction, user) => reaction.emoji.name === "✅" && user.id === mention.id;
 		const reactionCollector = msg.createReactionCollector(filter, { time: ms("3m") });
 		reactionCollector.on("collect", async () => {
-			const [attack, defense, health] = await calculatePower(message.author.id);
-			const [mattack, mdefense, mhealth] = await calculatePower(mention.id);
+			let [attack, defense, health] = await calculatePower(message.author.id);
+			let [mattack, mdefense, mhealth] = await calculatePower(mention.id);
 			const name = message.member.nickname || message.author.username;
 			message.channel.send(
 				new MessageEmbed()
