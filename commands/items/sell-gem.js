@@ -9,7 +9,6 @@ module.exports = {
 		if (!itemNumber) return "Enter an item number";
 		if (!profileData.inventory.includes(itemNumber)) return "You don't have that item!";
 		let price;
-		let price;
 		for (const g of gems[1]) {
 			if (g.number == itemNumber) price = b.price;
 		}
