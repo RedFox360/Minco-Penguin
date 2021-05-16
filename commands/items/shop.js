@@ -5,7 +5,7 @@ module.exports = {
 	usage: "!shop (page)",
 	async execute(message, args) {
 		const descriptions = ["Buy these using !buy <item number>", "Buy these using !buy-gem <item number>"];
-		const titles = ["Minco Shop | Basics", "Minco Shop | Gems"];
+		const titles = ["Minco Shop | Basics", "Minco Shop | Basics continued", "Minco Shop | Gems"];
 		let currentPage = 0;
 		const fields = [
 			[
@@ -26,6 +26,8 @@ module.exports = {
 
 					"400 Minco Dollars\nIf you don't want to marry someone: (lower reward)\n5% chance of doubling beg reward, 33 Minco Dollar math reward",
 				],
+			],
+			[
 				[":cactus: (08) | Cactus", "50 Minco Dollars | Gives a +8 defense bonus in battle."],
 				[":fire: (09) | Fire", "50 Minco Dollars | Gives +6 attack -3 health in battle."],
 				["<:cardboard_box:843173235549667349> (10) | Lootbox", "50 Minco Dollars | Gives a random reward with !lootbox"],
@@ -57,12 +59,14 @@ module.exports = {
 			.setFooter(message.guild.name);
 		if (args[0] == "gems") {
 			shopEmbed.setTitle(titles[1]).setDescription(descriptions[1]);
-			fields[1].forEach((field) => {
+			fields[2].forEach((field) => {
 				shopEmbed.addField(field[0], field[1]);
 			});
 			return message.channel.send(shopEmbed);
 		} else if (args[0] == "basics") {
-			fields[0].forEach((field) => {
+			let fieldNum = 1;
+			if (args[1] == "2") fieldNum = 2;
+			fields[fieldNum].forEach((field) => {
 				shopEmbed.addField(field[0], field[1]);
 			});
 			return message.channel.send(shopEmbed);
