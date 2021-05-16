@@ -4,8 +4,12 @@ module.exports = {
 	description: "The Minco shop! Use it to view the items you can buy",
 	usage: "!shop (page)",
 	async execute(message, args) {
-		const descriptions = ["Buy these using !buy <item number>", "Buy these using !buy-gem <item number>"];
-		const titles = ["Minco Shop | Basics", "Minco Shop | Basics continued", "Minco Shop | Gems"];
+		const descriptions = [
+			"Buy these using !buy <item number>",
+			"continued...\nBuy these using !buy <item number>",
+			"Buy these using !buy-gem <item number>",
+		];
+		const titles = ["Minco Shop | Basics", "Minco Shop | Basics", "Minco Shop | Gems"];
 		let currentPage = 0;
 		const fields = [
 			[
