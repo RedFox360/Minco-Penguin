@@ -2,7 +2,7 @@ const profileModel = require("../../models/profileSchema");
 module.exports = {
 	description: "Sell your items!",
 	usage: "!sell <item number>",
-	async execute(message, args, _0, _1, profileData) {
+	async execute(message, args, _0, client, profileData) {
 		const itemNumber = args[0];
 		if (!itemNumber) return "Enter an item number";
 		if (!profileData.inventory.includes(itemNumber)) return "You don't have that item!";
