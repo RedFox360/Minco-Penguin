@@ -6,7 +6,8 @@
         "04",
         "05",
         "06",
-        "07"
+        "07",
+        "08"
     ],
     [
         {
@@ -43,6 +44,11 @@
             "number": "07",
             "nmae": "Amethyst",
             "price": 50
+        },
+        {
+            "number": "08",
+            "name": "Black Diamond",
+            "price": 500
         }
     ]
 ]

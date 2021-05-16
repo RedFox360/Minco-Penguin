@@ -16,7 +16,11 @@ module.exports = {
 			buyGem(message, "Sapphire <:sapphire:843182746050232340>", 100, "05", profileData);
 		} else if (args[0] == "06") {
 			buyGem(message, "Ruby <:ruby:843184456025112606>", 100, "06", profileData);
-		} else if (args[0] == "07") [buyGem(message, "Amethyst <:amethyst:843184890337296454>", 50, "07", profileData)];
+		} else if (args[0] == "07") {
+			buyGem(message, "Amethyst <:amethyst:843184890337296454>", 50, "07", profileData);
+		} else if (args[0] == "08") {
+			buyGem(message, "Black Diamond <:black_diamond:843607902136696862>", 500, "08", profileData);
+		} else return "Enter a valid item number";
 	},
 };
 
