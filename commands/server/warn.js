@@ -13,7 +13,7 @@ module.exports = {
 			for (let i = 1; i < args.length; i++) {
 				reason += args[i] + " ";
 			}
-			const authorName = message.member.nickname || message.author.username;
+			const authorName = message.member.nickname;
 			message.channel.send(
 				new MessageEmbed()
 					.setAuthor(authorName)

@@ -6,7 +6,7 @@ module.exports = {
 		message.channel.send(
 			new MessageEmbed()
 				.setTitle(":ring: Marriage")
-				.setAuthor(message.member.nickname || message.author.username, message.author.avatarURL())
+				.setAuthor(message.member.nickname, message.author.avatarURL())
 				.setDescription(`You are currently married to <@${profileData.spouse}>`)
 				.setColor("BEDFFF") // light blue
 		);

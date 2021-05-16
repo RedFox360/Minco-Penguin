@@ -57,7 +57,7 @@ module.exports = {
 			],
 		];
 		const shopEmbed = new MessageEmbed()
-			.setAuthor(message.member.nickname || message.author.username, message.author.avatarURL())
+			.setAuthor(message.member.nickname, message.author.avatarURL())
 			.setTitle(titles[0])
 			.setDescription(descriptions[0])
 			.setColor("BEDFFF")

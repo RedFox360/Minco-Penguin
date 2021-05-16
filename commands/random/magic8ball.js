@@ -55,7 +55,7 @@ module.exports = {
 		for (let phrase of yellowPhrases) {
 			if (answer.toLowerCase().includes(phrase)) color = colors[2];
 		}
-		let name = message.member.nickname || message.author.username;
+		let name = message.member.nickname;
 		message.channel.send(`:8ball: | ${color} **${answer}** | ${name}`);
 	},
 };

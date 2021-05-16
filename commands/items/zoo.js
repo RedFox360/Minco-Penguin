@@ -28,7 +28,7 @@ module.exports = {
 
 		if (profile.zoo.length == 0) return "You don't have any animals in your zoo.";
 		const zoo = new MessageEmbed()
-			.setAuthor(member.nickname || author.username, author.avatarURL())
+			.setAuthor(member.nickname, author.avatarURL())
 			.setColor("#F4D03F")
 			.setTitle("Minco Zoo")
 			.setDescription(animals.join(""))

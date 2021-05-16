@@ -31,7 +31,7 @@ module.exports = {
 		}
 		message.channel.send(
 			new MessageEmbed()
-				.setAuthor(nickname || author.username, author.avatarURL())
+				.setAuthor(nickname, author.avatarURL())
 				.setTitle("Inventory")
 				.setDescription(inv.join("\n"))
 				.setColor("#F8C471")
