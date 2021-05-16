@@ -1,6 +1,5 @@
 const { Message } = require("discord.js");
 const profileModel = require("../../models/profileSchema");
-const ms = require("ms");
 module.exports = {
 	description: "Sends a math question for you to solve",
 	usage: "!math <operation>",
