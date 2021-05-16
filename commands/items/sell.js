@@ -1,4 +1,5 @@
 const profileModel = require("../../models/profileSchema");
+const basics = require("../../functions/basics.json");
 module.exports = {
 	description: "Sell your items!",
 	usage: "!sell <item number>",
@@ -6,7 +7,10 @@ module.exports = {
 		const itemNumber = args[0];
 		if (!itemNumber) return "Enter an item number";
 		if (!profileData.inventory.includes(itemNumber)) return "You don't have that item!";
-		const price = args[2];
+		let price;
+		for (const b of basics) {
+			if (b.number == itemNumber) price = b.price;
+		}
 		if (price >= 75) {
 			const msg = message.channel.send("React to sell your item");
 			msg.react("✅");
@@ -22,7 +26,7 @@ module.exports = {
 };
 async function sell(message, price, itemN, client) {
 	const amount = Math.round(price / 2 / 5) * 5;
-	await profileModel.findOneAndUpdate(
+	await profileModel.fi1ndOneAndUpdate(
 		{ userID: message.author.id },
 		{
 			$inc: {

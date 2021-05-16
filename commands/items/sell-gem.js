@@ -1,5 +1,6 @@
 const profileModel = require("../../models/profileSchema");
 const ms = require("ms");
+const gems = require("../../functions/gems.json");
 module.exports = {
 	description: "Sell your gems!",
 	usage: "!sell <gem number>",
@@ -7,7 +8,11 @@ module.exports = {
 		const itemNumber = args[0];
 		if (!itemNumber) return "Enter an item number";
 		if (!profileData.inventory.includes(itemNumber)) return "You don't have that item!";
-		const price = args[2];
+		let price;
+		let price;
+		for (const g of gems[1]) {
+			if (g.number == itemNumber) price = b.price;
+		}
 		if (price >= 75) {
 			const msg = message.channel.send("React to sell your item");
 			msg.react("✅");

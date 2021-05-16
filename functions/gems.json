@@ -11,31 +11,38 @@
     [
         {
             "number": "01",
-            "name": "Blue Diamond"
+            "name": "Blue Diamond",
+            "price": 100
         },
         {
             "number": "02",
-            "name": "Pink Diamond"
+            "name": "Pink Diamond",
+            "price": 150
         },
         {
             "number": "03",
-            "name": "Emerald"
+            "name": "Emerald",
+            "price": 150
         },
         {
             "number": "04",
-            "name": "Gold Bar"
+            "name": "Gold Bar",
+            "price": 75
         },
         {
             "number": "05",
-            "name": "Sapphire"
+            "name": "Sapphire",
+            "price": 75
         },
         {
             "number": "06",
-            "name": "Ruby"
+            "name": "Ruby",
+            "price": 100
         },
         {
             "number": "07",
-            "nmae": "Amethyst"
+            "nmae": "Amethyst",
+            "price": 50
         }
     ]
 ]
