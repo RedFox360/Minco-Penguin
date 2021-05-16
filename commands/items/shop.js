@@ -28,7 +28,7 @@ module.exports = {
 				],
 				[":cactus: (08) | Cactus", "50 Minco Dollars | Gives a +8 defense bonus in battle."],
 				[":fire: (09) | Fire", "50 Minco Dollars | Gives +6 attack -3 health in battle."],
-				["<:cardboard_box:843173235549667349> (10) | Lootbox", "60 Minco Dollars | Gives a random reward with !lootbox"],
+				["<:cardboard_box:843173235549667349> (10) | Lootbox", "50 Minco Dollars | Gives a random reward with !lootbox"],
 				[
 					":art: Drawing",
 
