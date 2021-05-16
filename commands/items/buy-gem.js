@@ -13,7 +13,7 @@ module.exports = {
 		} else if (args[0] == "04") {
 			buyGem(message, "Gold Bar <:gold_bar:843180638705287188>", 75, "04", profileData);
 		} else if (args[0] == "05") {
-			buyGem(message, "Sapphire <:sapphire:843182746050232340>", 100, "05", profileData);
+			buyGem(message, "Sapphire <:sapphire:843182746050232340>", 75, "05", profileData);
 		} else if (args[0] == "06") {
 			buyGem(message, "Ruby <:ruby:843184456025112606>", 100, "06", profileData);
 		} else if (args[0] == "07") {
