@@ -13,17 +13,17 @@ module.exports = {
 		let md = profileData.mincoDollars;
 		let bank = profileData.bank;
 		let nickname = message.member.nickname;
-		let avatarURL = message.author.avatarURL();
+		let author = message.author;
 		if (mention) {
 			let profile = await profileModel.findOne({ userID: mention.id });
 			md = profile.mincoDollars;
 			bank = profile.bank;
 			nickname = message.guild.members.cache.get(mention.id).nickname;
-			avatarURL = mention.avatarURL();
+			author = mention;
 		}
 
 		let balanceEmbed = new MessageEmbed()
-			.setAuthor(nickname, avatarURL)
+			.setAuthor(nickname || author.username, author.avatarURL())
 			.setTitle("Balance")
 			.setColor("7BFF70")
 			.setDescription(
