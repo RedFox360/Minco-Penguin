@@ -23,7 +23,7 @@ module.exports = {
 		}
 
 		let balanceEmbed = new MessageEmbed()
-			.setAuthor(nickname, avatarURL())
+			.setAuthor(nickname, avatarURL)
 			.setTitle("Balance")
 			.setColor("7BFF70")
 			.setDescription(
