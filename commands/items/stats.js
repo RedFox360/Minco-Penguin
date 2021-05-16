@@ -2,18 +2,18 @@ const { MessageEmbed } = require("discord.js");
 const calculatePower = require("../../functions/calculatePower");
 module.exports = {
 	description: "View your battle stats",
-	async execute(message, args, _0, _1, profileData) {
+	async execute(message) {
 		const mention = message.mentions.users.first();
-		let member = message.member;
-		let author = message.author;
+		let nickname = message.member.nickname;
+		let avatarURL = message.author.avatarURL();
 		if (mention) {
-			member = message.guild.members.cache.get(mention.id);
+			nickname = message.guild.members.cache.get(mention.id).nickname;
 			author = mention;
 		}
 		const [attack, defense, health] = await calculatePower(author.id);
 		message.channel.send(
 			new MessageEmbed()
-				.setAuthor(member.nickname || author.username, author.avatarURL())
+				.setAuthor(nickname, avatarURL)
 				.setTitle("Stats")
 				.setColor("#F5B041")
 				.setFooter(message.guild.name)
