@@ -9,14 +9,12 @@ async function calculatePower(userID) {
 
 	if (profile.inventory.includes("08")) defense += 8;
 
-	if (profile.inventory.includes("07")) health += 8;
+	if (profile.inventory.includes("07") || profile.spouse != null) health += 8;
 
 	if (profile.inventory.includes("09")) {
 		attack += 6;
 		health -= 3;
 	}
-
-	if (profile.spouse != null) health += 8;
 
 	await profileModel.findOneAndUpdate(
 		{
