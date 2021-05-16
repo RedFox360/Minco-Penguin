@@ -21,7 +21,7 @@ module.exports = {
 };
 
 async function buyGem(message, item, price, itemNumber, profileData) {
-	if (profileData.inventory.includes(itemNumber)) return message.channel.send("You already have this item!");
+	if (profileData.gems.includes(itemNumber)) return message.channel.send("You already have this item!");
 	if (profileData.mincoDollars < price) return message.channel.send(`You need ${price} Minco Dollars to buy this item`);
 	const msg = await message.channel.send(`React to buy a **${item}** for ${price} MD`);
 	await msg.react("✅");
