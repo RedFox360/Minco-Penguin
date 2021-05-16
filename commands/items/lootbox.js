@@ -20,7 +20,7 @@ module.exports = {
 				},
 			}
 		);
-		if (Math.floor(Math.random() * 12) == 0) {
+		if (Math.floor(Math.random() * 20) == 0) {
 			const g = gems[0];
 			let gem = g[Math.floor(Math.random() * g.length)];
 
