@@ -7,17 +7,6 @@ module.exports = {
 		let money = cmd === "gimmemoney" ? 2 : 4;
 		let numberEcon = Math.floor(Math.random() * money) + 1;
 		if (profileData.inventory.includes("05")) {
-			await profileModel.findOneAndUpdate(
-				{
-					userID: message.author.id,
-				},
-				{
-					$inc: {
-						candyAmount: -1,
-					},
-				}
-			);
-
 			if (profileData.candyAmount <= 0) {
 				await profileModel.findOneAndUpdate(
 					{ userID: message.author.id },
@@ -28,6 +17,16 @@ module.exports = {
 					}
 				);
 			} else {
+				await profileModel.findOneAndUpdate(
+					{
+						userID: message.author.id,
+					},
+					{
+						$inc: {
+							candyAmount: -1,
+						},
+					}
+				);
 				numberEcon *= 2;
 				message.channel.send("You got a double bonus from your candy!");
 			}
