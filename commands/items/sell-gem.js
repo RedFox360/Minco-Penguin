@@ -28,7 +28,7 @@ module.exports = {
 		}
 	},
 };
-async function sell(message, price, itemN, name) {
+async function sell(message, price, itemN) {
 	const amount = Math.round(price / 2 / 5) * 5;
 	await profileModel.findOneAndUpdate(
 		{ userID: message.author.id },
@@ -41,5 +41,5 @@ async function sell(message, price, itemN, name) {
 			},
 		}
 	);
-	message.channel.send(`You sold your item for ${amount} MD`);
+	message.channel.send(`You sold your ${name} for ${amount} MD`);
 }
