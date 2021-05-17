@@ -50,6 +50,7 @@ module.exports = {
 					$push: {
 						inventory: "05",
 					},
+					candyAmount: 3,
 				}
 			);
 
