@@ -24,22 +24,21 @@ module.exports = {
 			const g = gems[0];
 			let gem = g[Math.floor(Math.random() * g.length)];
 
-			while (profileData.inventory.includes(gem)) {
-				gem = g[Math.floor(Math.random() * g.length)];
-			}
-			let gemName;
-			for (let { number, name } of gems[1]) {
-				if (gem == number) gemName = name;
-			}
-			await profileModel.findOneAndUpdate(
-				{ userID: message.author.id },
-				{
-					$push: {
-						gems: gem,
-					},
+			if (!profileData.gems.includes(gem)) {
+				let gemName;
+				for (let { number, name } of gems[1]) {
+					if (gem == number) gemName = name;
 				}
-			);
-			message.channel.send(`You won a ${gemName}!`);
+				await profileModel.findOneAndUpdate(
+					{ userID: message.author.id },
+					{
+						$push: {
+							gems: gem,
+						},
+					}
+				);
+				message.channel.send(`You won a ${gemName}!`);
+			}
 		}
 		if (Math.floor(Math.random() * 5) == 0 && !profileData.inventory.includes("05")) {
 			await profileModel.findOneAndUpdate(
