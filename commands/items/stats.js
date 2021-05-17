@@ -13,7 +13,7 @@ module.exports = {
 		const [attack, defense, health] = await calculatePower(author.id);
 		message.channel.send(
 			new MessageEmbed()
-				.setAuthor(nickname || author.username, author.avatarURL)
+				.setAuthor(nickname || author.username, author.avatarURL())
 				.setTitle("Stats")
 				.setColor("#F5B041")
 				.setFooter(message.guild.name)
