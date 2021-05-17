@@ -16,7 +16,7 @@ module.exports = {
 			}
 		}
 		if (price >= 75) {
-			const msg = message.channel.send("React to sell your item");
+			const msg = await message.channel.send("React to sell your item");
 			msg.react("✅");
 			const filter = (reaction, user) => reaction.emoji.name === "✅" && user.id === message.author.id;
 			const reactionCollector = msg.createReactionCollector(filter, { time: ms("30s") });
