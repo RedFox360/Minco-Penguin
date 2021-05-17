@@ -29,7 +29,7 @@ module.exports = {
 		} else if (args[0] == "10") {
 			buy(message, "Lootbox <:cardboard_box:843173235549667349>", 50, "10", profileData, true, client);
 		} else if (args[0] == "11") {
-			buy(message, "Egg :egg:", 12, "11", profileData, false, client);
+			buy(message, "Egg :egg:", 8, "11", profileData, false, client);
 		} else return "Enter a valid item number";
 	},
 };
