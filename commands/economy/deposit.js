@@ -4,7 +4,6 @@ module.exports = {
 	aliases: ["dep"],
 	description: "Deposit coins into your bank",
 	usage: "!deposit <number>",
-	cooldown: 5,
 	async execute(message, args, _0, _1, profileData) {
 		const amount = parseInt(args[0]);
 		if (isNaN(amount)) return "Enter a valid number";

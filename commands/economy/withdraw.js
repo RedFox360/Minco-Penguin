@@ -2,7 +2,6 @@ const profileModel = require("../../models/profileSchema");
 module.exports = {
 	aliases: ["wd"],
 	description: "Withdraw coins from your bank",
-	cooldown: 5,
 	usage: "!withdraw <number>",
 	async execute(message, args, _0, _1, profileData) {
 		const amount = parseInt(args[0]);
