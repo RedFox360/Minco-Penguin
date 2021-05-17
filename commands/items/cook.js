@@ -14,7 +14,7 @@ module.exports = {
 			} else if (args[1] == "omelette") {
 				price = await cook(8, "11-2", profileData, message.author.id);
 			} else return "Enter a valid egg type";
-			if (price.startsWith("You don't have")) return price;
+			if (typeof price === "string") return price;
 			const eggName = args[1] == "omelette" ? args[1] : `${args[1]} egg`;
 			message.channel.send(`You cooked an ${eggName} for ${price} MD`);
 		}
