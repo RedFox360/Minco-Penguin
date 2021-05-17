@@ -18,7 +18,7 @@ module.exports = {
 				[":cowboy: (03) | Cowboy Hat", "25 Minco Dollars"],
 				[
 					":tomato: (04) | Tomato",
-					"4 Minco Dollars\nA fresh ripe tomato, can be eaten for between 2 and 6 Minco Dollars (use !tomato)",
+					"4 Minco Dollars\nA fresh ripe tomato, can be eaten for between 2 and 6 Minco Dollars (use !eat tomato)",
 				],
 				[":candy: (05) | Candy", "12 Minco Dollars\nDoubles beg reward for the next 3 begs"],
 				[
@@ -35,6 +35,7 @@ module.exports = {
 				[":cactus: (08) | Cactus", "50 Minco Dollars | Gives a +8 defense bonus in battle."],
 				[":fire: (09) | Fire", "50 Minco Dollars | Gives +6 attack -3 health in battle."],
 				["<:cardboard_box:843173235549667349> (10) | Lootbox", "50 Minco Dollars | Gives a random reward with !lootbox"],
+				[":egg: (11) | Egg", "12 Minco Dollars\nCan be eaten (!eat egg) raw or cooked using !cook egg <type> for a reward"],
 				[
 					":art: Drawing",
 
