@@ -46,15 +46,15 @@ module.exports = {
 				}
 			})();
 			let numberEcon;
-			if (value == "11") {
+			if (eggValue == "11") {
 				numberEcon = randomInt(5, 12);
-			} else if (value == "11-0") {
+			} else if (eggValue == "11-0") {
 				// boiled egg
 				numberEcon = randomInt(10, 16);
-			} else if (value == "11-1") {
+			} else if (eggValue == "11-1") {
 				// scrambled egg
 				numberEcon = randomInt(9, 17);
-			} else if (value == "11-2") {
+			} else if (eggValue == "11-2") {
 				// omelette
 				numberEcon = randomInt(10, 17);
 			}
