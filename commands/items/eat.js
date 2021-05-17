@@ -42,7 +42,7 @@ module.exports = {
 			if (!profileData.inventory.some((v) => v.startsWith("11"))) return "You don't have an egg!";
 			const eggValue = (() => {
 				for (const value of profileData.inventory) {
-					if (value.startswith("11")) return value;
+					if (value.startsWith("11")) return value;
 				}
 			})();
 			let numberEcon;
