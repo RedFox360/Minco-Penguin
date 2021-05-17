@@ -4,18 +4,20 @@ module.exports = {
 		"Cook your items!\nEgg values: boiled, scrambled, omelette\nPrices: 6 MD for boiled or scrmabled, 8 MD for omelette",
 	usage: "!cook egg <egg type>",
 	async execute(message, args, _0, _1, profileData) {
-		if (!profileData.inventory.includes("11")) return "You don't have a raw egg!";
-		let price;
-		if (args[0] == "boiled") {
-			price = cook(6, "11-0", profileData, message.author.id);
-		} else if (args[0] == "scrambled") {
-			price = cook(8, "11-1", profileData, message.author.id);
-		} else if (args[0] == "omelette") {
-			price = cook(8, "11-2", profileData, message.author.id);
-		} else return "Enter a valid egg type";
+		if (args[0] == "egg") {
+			if (!profileData.inventory.includes("11")) return "You don't have a raw egg!";
+			let price;
+			if (args[1] == "boiled") {
+				price = cook(6, "11-0", profileData, message.author.id);
+			} else if (args[1] == "scrambled") {
+				price = cook(8, "11-1", profileData, message.author.id);
+			} else if (args[1] == "omelette") {
+				price = cook(8, "11-2", profileData, message.author.id);
+			} else return "Enter a valid egg type";
 
-		const eggName = args[0] == "omelette" ? args[0] : `${args[0]} egg`;
-		message.channel.send(`You cooked an ${eggName} for ${price} MD`);
+			const eggName = args[1] == "omelette" ? args[1] : `${args[1]} egg`;
+			message.channel.send(`You cooked an ${eggName} for ${price} MD`);
+		}
 	},
 };
 
