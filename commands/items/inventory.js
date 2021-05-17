@@ -25,6 +25,10 @@ module.exports = {
 			if (t == "08") return ":cactus: Cactus";
 			if (t == "09") return ":fire: Fire";
 			if (t == "10") return "<:cardboard_box:843173235549667349> Lootbox";
+			if (t == "11") return ":egg: Raw Egg";
+			if (t == "11-0") return ":egg: Boiled Egg";
+			if (t == "11-1") return ":egg: Scrambled Eggs";
+			if (t == "12-2") return ":egg: Omelette";
 		});
 		for (let i = 0; i < inv.length; i++) {
 			inv[i] = `${i + 1}. ${inv[i]}`;

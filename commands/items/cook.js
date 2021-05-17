@@ -8,11 +8,11 @@ module.exports = {
 			if (!profileData.inventory.includes("11")) return "You don't have a raw egg!";
 			let price;
 			if (args[1] == "boiled") {
-				price = cook(6, "11-0", profileData, message.author.id);
+				price = await cook(6, "11-0", profileData, message.author.id);
 			} else if (args[1] == "scrambled") {
-				price = cook(8, "11-1", profileData, message.author.id);
+				price = await cook(8, "11-1", profileData, message.author.id);
 			} else if (args[1] == "omelette") {
-				price = cook(8, "11-2", profileData, message.author.id);
+				price = await cook(8, "11-2", profileData, message.author.id);
 			} else return "Enter a valid egg type";
 
 			const eggName = args[1] == "omelette" ? args[1] : `${args[1]} egg`;
