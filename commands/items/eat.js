@@ -50,13 +50,13 @@ module.exports = {
 				numberEcon = randomInt(5, 12);
 			} else if (eggValue == "11-0") {
 				// boiled egg
-				numberEcon = randomInt(10, 16);
+				numberEcon = randomInt(12, 17);
 			} else if (eggValue == "11-1") {
 				// scrambled egg
-				numberEcon = randomInt(9, 17);
+				numberEcon = randomInt(10, 20);
 			} else if (eggValue == "11-2") {
 				// omelette
-				numberEcon = randomInt(10, 17);
+				numberEcon = randomInt(12, 20);
 			}
 			await profileModel.findOneAndUpdate(
 				{
@@ -77,7 +77,7 @@ module.exports = {
 				if (eggValue == "11-1") return "Scrambled Egg";
 				if (eggValue == "11-2") return "Omelette";
 			})();
-			message.channel.send(`You ate your ${eggName} and won ${numberEcon} Minco Dollasr!`);
+			message.channel.send(`You ate your ${eggName} and won ${numberEcon} Minco Dollars!`);
 		}
 	},
 };
