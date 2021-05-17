@@ -10,6 +10,7 @@ module.exports = {
 		const mention = message.mentions.users.first();
 		if (!mention) return "Mention a valid user";
 		if (mention.bot) return "You can't battle a bot!";
+		if (mention.id === message.author.id) return "You can't battle yourself!";
 		const msg = await message.channel.send(
 			`<@${mention.id}>, ${message.author.toString()} has challenged you to a battle! Accept by reacting with a ✅`
 		);
