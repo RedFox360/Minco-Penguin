@@ -32,6 +32,13 @@ async function cook(price, itemN, profileData, userID) {
 			$pull: {
 				inventory: "11",
 			},
+		}
+	);
+	await profileModel.findOneAndUpdate(
+		{
+			userID,
+		},
+		{
 			$push: {
 				inventory: itemN,
 			},
