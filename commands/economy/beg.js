@@ -18,10 +18,7 @@ module.exports = {
 				}
 			);
 
-			if (profileData.candyAmount != 0) {
-				numberEcon *= 2;
-				message.channel.send("You got a double bonus from your candy!");
-			} else {
+			if (profileData.candyAmount <= 0) {
 				await profileModel.findOneAndUpdate(
 					{ userID: message.author.id },
 					{
@@ -30,6 +27,9 @@ module.exports = {
 						},
 					}
 				);
+			} else {
+				numberEcon *= 2;
+				message.channel.send("You got a double bonus from your candy!");
 			}
 		}
 		if (profileData.spouse != null || profileData.inventory.includes("07")) {
