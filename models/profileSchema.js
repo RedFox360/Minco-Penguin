@@ -4,6 +4,13 @@ const zooSchema = new mongoose.Schema({
 	name: { type: String },
 	emoji: { type: String },
 });
+
+const marketSchema = new mongoose.Schema({
+	number: Number,
+	price: Number,
+	name: String,
+});
+
 const profileSchema = new mongoose.Schema({
 	userID: { type: String, require: true, unique: true },
 	serverID: { type: String, require: true },
@@ -26,6 +33,7 @@ const profileSchema = new mongoose.Schema({
 		health: { type: Number, default: 100 },
 		battleShield: Boolean,
 	},
+	market: [marketSchema],
 });
 
 const model = mongoose.model("ProfileModels", profileSchema);
