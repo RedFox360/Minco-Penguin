@@ -2,8 +2,7 @@ const profileModel = require("../../models/profileSchema");
 const { Message } = require("discord.js");
 module.exports = {
 	aliases: ["admindivorce"],
-	description:
-		"Divorce your spouse.\nThis requires a fee of 150 Minco Dollars. Your Minco Dollar money totals will be added and split between you.",
+	description: "Divorce your spouse.\nThis requires a fee of 150 Minco Dollars.",
 	/** @param {Message} message */
 	async execute(message, _0, cmd, _1, profileData) {
 		if (message.author.id == "724786310711214118" && cmd === "admindivorce") {
@@ -40,6 +39,7 @@ module.exports = {
 			return "You have divorced!";
 		} else {
 			if (profileData.spouse == null) return "You can't divorce if you aren't married!";
+			if (profileData.mincoDollars < 150) return "You don't have 150 MD (fee) in your wallet.";
 			const msg = await message.channel.send(
 				`You have decided to divorce! You and <@${profileData.spouse}> will both have to pay a fee of 150 MD. Then, your Minco Dollar totals will be added up and split between you. Do you both agree?`
 			);
@@ -64,67 +64,25 @@ module.exports = {
 						);
 					}
 
-					if (user.id === spouse.userID) {
-						await profileModel.findOneAndUpdate(
-							{
-								userID: spouse.userID,
-							},
-							{
-								$inc: {
-									mincoDollars: -150,
-								},
-							}
-						);
-					}
+					message.channel.send("You have divorced!");
 
-					if (reaction.count >= 1) {
-						message.channel.send("You have divorced! Your Minco Dollar totals will be split when both people agree.");
+					await profileModel.findOneAndUpdate(
+						{
+							userID: spouse.userID,
+						},
+						{
+							spouse: null,
+						}
+					);
 
-						await profileModel.findOneAndUpdate(
-							{
-								userID: spouse.userID,
-							},
-							{
-								spouse: null,
-							}
-						);
-
-						await profileModel.findOneAndUpdate(
-							{
-								userID: message.author.id,
-							},
-							{
-								spouse: null,
-							}
-						);
-					}
-					if (reaction.count == 2) {
-						message.channel.send("Your Minco Dollars totals will now be distributed.");
-
-						const authorMd = profileData.mincoDollars + profileData.bank;
-						const spouseMd = spouse.mincoDollars + spouse.bank;
-
-						const distribution = (authorMd + spouseMd) / 2;
-
-						await profileModel.findOneAndUpdate(
-							{
-								userID: spouse.userID,
-							},
-							{
-								mincoDollars: distribution,
-								bank: 0,
-							}
-						);
-						await profileModel.findOneAndUpdate(
-							{
-								userID: message.author.id,
-							},
-							{
-								mincoDollars: distribution,
-								bank: 0,
-							}
-						);
-					}
+					await profileModel.findOneAndUpdate(
+						{
+							userID: message.author.id,
+						},
+						{
+							spouse: null,
+						}
+					);
 				}
 			});
 		}
