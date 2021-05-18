@@ -13,9 +13,7 @@ module.exports = {
 		const profile = await profileModel.findOne({ userID: mention.id });
 		if (!hasItem(item, profile)) return `<@${mention.id}> does not have that item! (remember capitalization)`;
 		const i = getItem(item, profile);
-		if (profileData.mincoDollars < i.price) {
-			message.channel.send(`You do not have ${i.price} MD (price) in your wallet.`);
-		}
+		if (profileData.mincoDollars < i.price) return `You do not have ${i.price} MD (price) in your wallet.`;
 		const msg = await message.channel.send(`Confirm by reacting to buy **${i.name}** for ${i.price} MD.`);
 		msg.react("✅");
 		const filter = (reaction, user) => reaction.emoji.name === "✅" && user.id === message.author.id;
