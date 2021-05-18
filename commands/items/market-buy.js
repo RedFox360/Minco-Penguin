@@ -50,7 +50,6 @@ module.exports = {
 };
 function hasItem(item, profileData) {
 	for (const m of profileData.market) {
-		console.log(m);
 		if (item == m.name) return true;
 	}
 	return false;
