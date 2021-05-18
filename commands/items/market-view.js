@@ -4,7 +4,7 @@ module.exports = {
 	description: "View the market of a user!",
 	usage: "!market-view <@user>",
 	aliases: ["mv"],
-	async execute(message, _0, _1, _2, profileData) {
+	async execute(message) {
 		const mention = message.mentions.users.first();
 		if (!mention) return "Mention a valid user!";
 		const profile = await profileModel.findOne({ userID: mention.id });
