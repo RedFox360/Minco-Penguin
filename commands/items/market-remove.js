@@ -5,7 +5,7 @@ module.exports = {
 	aliases: ["mr"],
 	async execute(message, args, _0, _1, profileData) {
 		if (!args.length) return "Valid usage: !market-add <ITEM NUMBER>";
-		const item = args[0];
+		const item = args.join(" ");
 		if (!hasItem(item, profileData)) return "You don't have this item! (remember capitalization)";
 		await profileModel.findOneAndUpdate(
 			{
