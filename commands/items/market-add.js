@@ -27,6 +27,6 @@ module.exports = {
 			}
 		);
 
-		message.channel.send(`**${name}** for **${price}** MD has been added to your market.`);
+		message.channel.send(`**${name}** for ${price} MD has been added to your market.`);
 	},
 };
