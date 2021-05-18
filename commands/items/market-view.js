@@ -18,7 +18,7 @@ module.exports = {
 			.setDescription(`User: <@${mention.id}>`)
 			.setFooter(message.guild.name);
 		for (const { number, name, price } of market) {
-			marketEmbed.addField(`${number}. ${name}`, `Price: ${price} MD`);
+			marketEmbed.addField(`${name}`, `Price: ${price} MD`);
 		}
 
 		message.channel.send(marketEmbed);

@@ -1,16 +1,11 @@
 module.exports = {
 	description: "Remove items from your market",
-	usage: "!market-remove <item number>",
+	usage: "!market-remove <item name>",
 	aliases: ["mr"],
 	async execute(message, args, _0, _1, profileData) {
 		if (!args.length) return "Valid usage: !market-add <ITEM NUMBER>";
-		const itemNumber = parseInt(args[0]);
-		if (isNaN(itemNumber)) return "Enter a valid number ";
-		let number;
-		for (const m of profileData.market) {
-			if (itemNumber == m.number) number = m.number;
-		}
-		const number = market.length + 1;
+		const item = args[0];
+		if (!hasItem(item, profileData)) return "You don't have this item! (remember capitalization)";
 		await profileModel.findOneAndUpdate(
 			{
 				userID: message.author.id,
@@ -18,7 +13,7 @@ module.exports = {
 			{
 				$pull: {
 					market: {
-						number,
+						item,
 					},
 				},
 			}
@@ -27,3 +22,10 @@ module.exports = {
 		message.channel.send(`The item number ${itemNumber} has been removed from your market.`);
 	},
 };
+
+function hasItem(item, profileData) {
+	for (const { name } of profileData.market) {
+		if (item == name) return true;
+	}
+	return false;
+}

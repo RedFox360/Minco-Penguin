@@ -15,7 +15,6 @@ module.exports = {
 				return "You already have this item in your market!";
 			}
 		}
-		const number = market.length + 1;
 		await profileModel.findOneAndUpdate(
 			{
 				userID: message.author.id,
@@ -25,7 +24,6 @@ module.exports = {
 					market: {
 						name,
 						price,
-						number,
 					},
 				},
 			}
