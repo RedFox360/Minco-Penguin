@@ -7,10 +7,8 @@ module.exports = {
 		if (!args.length) {
 			return "Valid usage: !setfav <animal/color/food> <favorite object>";
 		}
-		let favObj = "";
-		for (let i = 1; i < args.length; i++) {
-			favObj += args[i] + " ";
-		}
+		args.shift();
+		let favObj = args.join(" ");
 		if (args[0] == "animal") {
 			await profileModel.findOneAndUpdate(
 				{ userID: message.author.id },

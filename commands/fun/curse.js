@@ -5,10 +5,8 @@ module.exports = {
 	execute(message, args) {
 		if (!args[1]) return "Valid usage: !curse <person> <Harry Potter curse>";
 		var person = args[0];
-		var curse = "";
-		for (let i = 1; i < args.length; i++) {
-			curse += args[i] + " ";
-		}
+		args.shift();
+		var curse = args.join(" ");
 		let checkCurse = curse.toLowerCase();
 		if (
 			checkCurse.includes("avada kedavra") ||

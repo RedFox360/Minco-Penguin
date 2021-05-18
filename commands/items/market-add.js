@@ -6,10 +6,8 @@ module.exports = {
 	async execute(message, args, _0, _1, profileData) {
 		if (args.length < 1) return "Valid usage: !market-add <price> <item name>";
 		const price = args[0];
-		let name = " ";
-		for (let i = 1; i < args.length; i++) {
-			name += args[i] + " ";
-		}
+		args.shift();
+		let name = a.join(" ");
 		for (const m of profileData.market) {
 			if (name.toLowerCase() == m.name.toLowerCase()) {
 				return "You already have this item in your market!";

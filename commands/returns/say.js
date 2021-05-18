@@ -8,10 +8,8 @@ module.exports = {
 		if (args[0].startsWith("<#")) {
 			var channel = args[0];
 			channel = channel.replace("<", "").replace(">", "").replace("#", "");
-			let msg = "";
-			for (let i = 1; i < args.length; i++) {
-				msg += args[i] + " ";
-			}
+			args.shift();
+			let msg = args.join(" ");
 			const chnl = client.channels.cache.get(channel);
 			chnl.send(msg);
 			message.react("✅");

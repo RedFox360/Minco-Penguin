@@ -4,10 +4,8 @@ module.exports = {
 	usage: "!set birthday <birthday: format: January 23, 2010>",
 	async execute(message, args) {
 		if (args[0] == "birthday") {
-			let bday = "";
-			for (let i = 1; i < args.length; i++) {
-				bday += args[i] + " ";
-			}
+			args.shift();
+			let bday = args.join(" ");
 			await profileModel.findOneAndUpdate(
 				{ userID: message.author.id },
 				{
