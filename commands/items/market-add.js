@@ -7,7 +7,7 @@ module.exports = {
 		if (args.length < 1) return "Valid usage: !market-add <price> <item name>";
 		const price = args[0];
 		args.shift();
-		let name = a.join(" ");
+		let name = args.join(" ");
 		for (const m of profileData.market) {
 			if (name.toLowerCase() == m.name.toLowerCase()) {
 				return "You already have this item in your market!";
