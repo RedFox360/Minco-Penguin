@@ -9,6 +9,7 @@ const marketSchema = new mongoose.Schema({
 	number: Number,
 	price: Number,
 	name: String,
+	desc: String,
 });
 
 const profileSchema = new mongoose.Schema({

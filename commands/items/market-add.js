@@ -8,34 +8,30 @@ module.exports = {
 		const price = parseInt(args[0]);
 		if (isNaN(price)) return "Enter a valid price";
 		args.shift();
-		let [title, desc] = args.join(" ").split("|");
+		let [title, desc] = args.join(" ").split(" | ");
 		for (const m of profileData.market) {
 			if (title.toLowerCase() == m.name.toLowerCase()) {
 				return "You already have this item in your market!";
 			}
 		}
-		const toPush =
-			desc == undefined
-				? {
-						name: title,
-						price,
-				  }
-				: {
-						name: title,
-						desc,
-						price,
-				  };
 		await profileModel.findOneAndUpdate(
 			{
 				userID: message.author.id,
 			},
 			{
 				$push: {
-					market: toPush,
+					market: {
+						name: title,
+						desc,
+						price,
+					},
 				},
 			}
 		);
-
-		message.channel.send(`**${td[0]}** ${td[1]} for ${price} MD has been added to your market.`);
+		if (desc) {
+			message.channel.send(`**${title}** | ${desc} for ${price} MD has been added to your market.`);
+		} else {
+			message.channel.send(`**${title}** for ${price} MD has been added to your market.`);
+		}
 	},
 };
