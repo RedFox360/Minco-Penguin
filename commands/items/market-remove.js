@@ -1,3 +1,4 @@
+const profileModel = require("../../models/profileSchema");
 module.exports = {
 	description: "Remove items from your market",
 	usage: "!market-remove <item name>",
