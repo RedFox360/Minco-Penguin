@@ -47,16 +47,16 @@ module.exports = {
 			})();
 			let numberEcon;
 			if (eggValue == "11") {
-				numberEcon = randomInt(5, 12);
+				numberEcon = randomInt(5, 9);
 			} else if (eggValue == "11-0") {
 				// boiled egg
 				numberEcon = randomInt(12, 17);
 			} else if (eggValue == "11-1") {
 				// scrambled egg
-				numberEcon = randomInt(10, 20);
+				numberEcon = randomInt(13, 18);
 			} else if (eggValue == "11-2") {
 				// omelette
-				numberEcon = randomInt(12, 20);
+				numberEcon = randomInt(14, 20);
 			}
 			await profileModel.findOneAndUpdate(
 				{
@@ -78,6 +78,40 @@ module.exports = {
 				if (eggValue == "11-2") return "Omelette";
 			})();
 			message.channel.send(`You ate your ${eggName} and won ${numberEcon} Minco Dollars!`);
+		} else if (args[0] == "banana") {
+			if (!profileData.inventory.includes("12")) return "You don't have a banana!";
+			let numberEcon = randomInt(5, 18);
+			if (randomInt(0, 650) == 0) {
+				message.channel.send("Wow! The Minco Dice have decided you will win **75** Minco Dollars!");
+				await profileModel.findOneAndUpdate(
+					{
+						userID: message.author.id,
+					},
+					{
+						$inc: {
+							mincoDollars: 100,
+						},
+						$pull: {
+							inventory: "12",
+						},
+					}
+				);
+				return;
+			}
+			await profileModel.findOneAndUpdate(
+				{
+					userID: message.author.id,
+				},
+				{
+					$inc: {
+						mincoDollars: numberEcon,
+					},
+					$pull: {
+						inventory: "12",
+					},
+				}
+			);
+			message.channel.send(`You ate your banana and won ${numberEcon} Minco Dollars!`);
 		}
 	},
 };
