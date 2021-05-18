@@ -7,6 +7,7 @@ module.exports = {
 		if (args.length < 1) return "Valid usage: !market-add <price> <item name>";
 		const price = parseInt(args[0]);
 		if (isNaN(price)) return "Enter a valid price";
+		if (price > 1000) return "Your price cannot be greater than 1000";
 		args.shift();
 		let [title, desc] = args.join(" ").split(" | ");
 		for (const m of profileData.market) {
