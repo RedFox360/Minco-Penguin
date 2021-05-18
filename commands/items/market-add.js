@@ -5,7 +5,8 @@ module.exports = {
 	usage: "!market-add <price> <item name>",
 	async execute(message, args, _0, _1, profileData) {
 		if (args.length < 1) return "Valid usage: !market-add <price> <item name>";
-		const price = args[0];
+		const price = parseInt(args[0]);
+		if (isNaN(price)) return "Enter a valid price";
 		args.shift();
 		let name = args.join(" ");
 		for (const m of profileData.market) {

@@ -25,8 +25,8 @@ module.exports = {
 };
 
 function hasItem(item, profileData) {
-	for (const { name } of profileData.market) {
-		if (item == name) return true;
+	for (const m of profileData.market) {
+		if (item == m.name) return true;
 	}
 	return false;
 }
