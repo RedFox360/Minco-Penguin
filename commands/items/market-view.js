@@ -8,15 +8,23 @@ module.exports = {
 		const mention = message.mentions.users.first();
 		if (!mention) return "Mention a valid user!";
 		const profile = await profileModel.findOne({ userID: mention.id });
-
-		if (!profile.market.length) return `<@${mention.id}> does not have anything in their market`;
-
+		const market = profile.market;
+		if (!market.length) return `<@${mention.id}> does not have anything in their market`;
+		market.sort((a, b) => b.price - a.price);
+		await profileModel.findOneAndUpdate(
+			{
+				userID: mention.id,
+			},
+			{
+				market,
+			}
+		);
 		const marketEmbed = new MessageEmbed()
 			.setColor("#D1F2EB")
 			.setTitle("Market")
 			.setDescription(`User: <@${mention.id}>`)
 			.setFooter(message.guild.name);
-		for (const { name, price, desc } of profile.market) {
+		for (const { name, price, desc } of market) {
 			const value = desc == undefined ? `Price: ${price} MD` : `Price: ${price} MD\n${desc}`;
 			marketEmbed.addField(`${name}`, value);
 		}
