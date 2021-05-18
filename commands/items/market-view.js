@@ -16,10 +16,10 @@ module.exports = {
 			.setTitle("Market")
 			.setDescription(`User: <@${mention.id}>`)
 			.setFooter(message.guild.name);
-		for (const { name, price } of profile.market) {
-			marketEmbed.addField(`${name}`, `Price: ${price} MD`);
+		for (const { name, price, desc } of profile.market) {
+			const value = desc == undefined ? `Price: ${price} MD` : `Price: ${price} MD\n${desc}`;
+			marketEmbed.addField(`${name}`, value);
 		}
-
 		message.channel.send(marketEmbed);
 	},
 };
