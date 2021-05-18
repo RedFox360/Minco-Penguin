@@ -41,7 +41,7 @@ module.exports = {
 					},
 				}
 			);
-			mention.send(`${message.author.id} has bought your **${i.name}**!`);
+			mention.send(`${message.author.toString()} has bought your **${i.name}**!`);
 			message.channel.send(
 				`You bought **${i.name}** for **${i.price}** MD! <@${mention.id}> will be DMed notifying your purchase.`
 			);
