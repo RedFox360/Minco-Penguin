@@ -9,15 +9,14 @@ module.exports = {
 		if (!mention) return "Mention a valid user!";
 		const profile = await profileModel.findOne({ userID: mention.id });
 
-		if (!profileData.market.length) return `<@${mention.id}> does not have anything in their market`;
+		if (!profile.market.length) return `<@${mention.id}> does not have anything in their market`;
 
-		const market = profileData.market;
 		const marketEmbed = new MessageEmbed()
 			.setColor("#D1F2EB")
 			.setTitle("Market")
 			.setDescription(`User: <@${mention.id}>`)
 			.setFooter(message.guild.name);
-		for (const { number, name, price } of market) {
+		for (const { name, price } of profile.market) {
 			marketEmbed.addField(`${name}`, `Price: ${price} MD`);
 		}
 
