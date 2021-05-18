@@ -14,7 +14,7 @@ module.exports = {
 			{
 				$pull: {
 					market: {
-						item,
+						name: item,
 					},
 				},
 			}
