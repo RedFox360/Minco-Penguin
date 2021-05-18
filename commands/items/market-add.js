@@ -4,7 +4,7 @@ module.exports = {
 	aliases: ["ma"],
 	usage: "!market-add <price> <item name>",
 	async execute(message, args, _0, _1, profileData) {
-		if (!args.length < 1) return "Valid usage: !market-add <price> <item name>";
+		if (args.length < 1) return "Valid usage: !market-add <price> <item name>";
 		const price = args[0];
 		let name = " ";
 		for (let i = 1; i < args.length; i++) {
