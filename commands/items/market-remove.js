@@ -20,7 +20,7 @@ module.exports = {
 			}
 		);
 
-		message.channel.send(`The item number ${itemNumber} has been removed from your market.`);
+		message.channel.send(`**${item}** has been removed from your market.`);
 	},
 };
 
