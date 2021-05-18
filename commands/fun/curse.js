@@ -17,6 +17,6 @@ module.exports = {
 			checkCurse.includes("sectumsempra")
 		)
 			return "HEY! No dark magic here.";
-		return `${person} was cursed by ${message.author.toString()} using the${curse} curse`;
+		return `${person} was cursed by ${message.author.toString()} using the ${curse} curse`;
 	},
 };
