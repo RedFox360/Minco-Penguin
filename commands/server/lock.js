@@ -7,6 +7,7 @@ module.exports = {
 	/** @param {Message} message */
 	execute(message, args, cmd) {
 		if (!message.member.hasPermission("MANAGE_CHANNELS")) return "You don't have the correct permissions to execute this command";
+		if (message.guild.id == "804079271986462811" && !message.author.id == "724786310711214118") return;
 		var SEND_MESSAGES = cmd === "unlock";
 		message.channel.updateOverwrite(message.guild.roles.everyone, {
 			SEND_MESSAGES,
