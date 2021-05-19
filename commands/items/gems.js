@@ -23,6 +23,7 @@ module.exports = {
 			if (t == "07") return "<:amethyst:843184890337296454> Amethyst";
 			if (t == "08") return "<:black_diamond:843607902136696862> | Black Diamond";
 			if (t == "09") return "<:topaz:844645993747185686> Topaz";
+			if (t == "10") return "<:moonstone:844646676337131521> Moonstone";
 			if (t == "157") return "<:green_diamond:844236649948905483> **Green Diamond**";
 		});
 		for (let i = 0; i < g.length; i++) {

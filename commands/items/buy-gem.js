@@ -22,6 +22,8 @@ module.exports = {
 			buyGem(message, "Black Diamond <:black_diamond:843607902136696862>", 500, "08", profileData);
 		} else if (args[0] == "09") {
 			buyGem(message, "Topaz <:topaz:844645993747185686>", 75, "09", profileData);
+		} else if (args[0] == "10") {
+			buyGem(message, "Moonstone <:moonstone:844646676337131521>", 100, "10", profileData);
 		} else return "Enter a valid gem number";
 	},
 };
