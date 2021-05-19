@@ -68,7 +68,7 @@ module.exports = {
 			.setColor("BEDFFF")
 			.setFooter(message.guild.name);
 		if (args[0] == "gems") {
-			shopEmbed.setTitle(titles[1]).setDescription(descriptions[1]);
+			shopEmbed.setTitle(titles[2]).setDescription(descriptions[2]);
 			fields[2].forEach((field) => {
 				shopEmbed.addField(field[0], field[1]);
 			});
