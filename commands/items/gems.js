@@ -25,6 +25,7 @@ module.exports = {
 			if (t == "09") return "<:topaz:844645993747185686> Topaz";
 			if (t == "10") return "<:moonstone:844646676337131521> Moonstone";
 			if (t == "157") return "<:green_diamond:844236649948905483> **Green Diamond**";
+			if (t == "158") return "<:ametrine:844649341481910323> **Ametrine**";
 		});
 		for (let i = 0; i < g.length; i++) {
 			g[i] = `${i + 1}. ${g[i]}`;
