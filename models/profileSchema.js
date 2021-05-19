@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 
 const zooSchema = new mongoose.Schema({
-	name: { type: String },
-	emoji: { type: String },
+	name: String,
+	emoji: String,
 });
 
 const marketSchema = new mongoose.Schema({
@@ -19,9 +19,9 @@ const profileSchema = new mongoose.Schema({
 	bank: Number,
 	birthday: String,
 	favs: {
-		food: { type: String },
-		color: { type: String },
-		animal: { type: String },
+		food: String,
+		color: String,
+		animal: String,
 	},
 	spouse: String,
 	inventory: [String],
@@ -32,7 +32,6 @@ const profileSchema = new mongoose.Schema({
 		attack: Number,
 		defense: Number,
 		health: { type: Number, default: 100 },
-		battleShield: Boolean,
 	},
 	market: [marketSchema],
 });
