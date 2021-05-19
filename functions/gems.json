@@ -46,6 +46,21 @@
             "number": "08",
             "name": "Black Diamond",
             "price": 500
+        },
+        {
+            "number": "09",
+            "name": "Topaz",
+            "price": 75
+        },
+        {
+            "number": "10",
+            "name": "Moonstone",
+            "price": 100
+        },
+        {
+            "number": "11",
+            "name": "Opal",
+            "price": 75
         }
     ]
 ]
