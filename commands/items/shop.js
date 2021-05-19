@@ -58,6 +58,7 @@ module.exports = {
 				["(08) <:black_diamond:843607902136696862> | Black Diamond", "500 MD"],
 				["(09) <:topaz:844645993747185686> | Topaz", "75 MD"],
 				["(10) <:moonstone:844646676337131521> | Moonstone", "100 MD"],
+				["(11) <:opal:844663271705280533> | Opal", "75 MD"],
 			],
 		];
 		const shopEmbed = new MessageEmbed()
