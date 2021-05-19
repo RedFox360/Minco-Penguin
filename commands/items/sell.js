@@ -8,11 +8,10 @@ module.exports = {
 		const itemNumber = args[0];
 		if (!itemNumber) return "Enter an item number";
 		if (!profileData.inventory.includes(itemNumber)) return "You don't have that item!";
-		let price, name;
+		let price;
 		for (const b of basics) {
 			if (b.number == itemNumber) {
-				price = b.price;
-				name = b.name;
+				price = b[1];
 			}
 		}
 		if (price >= 75) {
@@ -21,14 +20,14 @@ module.exports = {
 			const filter = (reaction, user) => reaction.emoji.name === "✅" && user.id === message.author.id;
 			const reactionCollector = msg.createReactionCollector(filter, { time: ms("30s") });
 			reactionCollector.on("collect", () => {
-				sell(message, price, itemNumber, client, name);
+				sell(message, price, itemNumber, client);
 			});
 		} else {
-			sell(message, price, itemNumber, client, name);
+			sell(message, price, itemNumber, client);
 		}
 	},
 };
-async function sell(message, price, itemN, client, name) {
+async function sell(message, price, itemN, client) {
 	const amount = Math.round(price / 2 / 5) * 5;
 	await profileModel.findOneAndUpdate(
 		{ userID: message.author.id },
@@ -47,5 +46,5 @@ async function sell(message, price, itemN, client, name) {
 		const member = carrelCrew.members.cache.get(message.author.id);
 		member.roles.remove(role);
 	}
-	message.channel.send(`You sold your ${name} for ${amount} MD`);
+	message.channel.send(`You sold your item for ${amount} MD`);
 }

@@ -16,7 +16,7 @@ module.exports = {
 			}
 		}
 		if (price >= 75) {
-			const msg = await message.channel.send("React to sell your item");
+			const msg = await message.channel.send(`React to sell your ${name}`);
 			msg.react("✅");
 			const filter = (reaction, user) => reaction.emoji.name === "✅" && user.id === message.author.id;
 			const reactionCollector = msg.createReactionCollector(filter, { time: ms("30s") });
@@ -28,7 +28,7 @@ module.exports = {
 		}
 	},
 };
-async function sell(message, price, itemN) {
+async function sell(message, price, itemN, name) {
 	const amount = Math.round(price / 2 / 5) * 5;
 	await profileModel.findOneAndUpdate(
 		{ userID: message.author.id },
