@@ -56,6 +56,7 @@ module.exports = {
 				["(06) <:ruby:843184456025112606> | Ruby", "100 MD"],
 				["(07) <:amethyst:843184890337296454> | Amethyst", "50 MD"],
 				["(08) <:black_diamond:843607902136696862> | Black Diamond", "500 MD"],
+				["(09) <:topaz:844645993747185686> | Topaz", "75 MD"],
 			],
 		];
 		const shopEmbed = new MessageEmbed()
