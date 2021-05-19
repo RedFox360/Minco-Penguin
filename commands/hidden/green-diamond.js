@@ -1,3 +1,4 @@
+const profileModel = require("../../models/profileSchema");
 module.exports = {
 	description: "[sameer only] Gives the green diamond to a user",
 	usage: "!green-diamond <@user>",

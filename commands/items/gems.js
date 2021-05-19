@@ -21,7 +21,7 @@ module.exports = {
 			if (t == "05") return "<:sapphire:843182746050232340> Sapphire";
 			if (t == "06") return "<:ruby:843184456025112606> Ruby";
 			if (t == "07") return "<:amethyst:843184890337296454> Amethyst";
-			if (t == "157") return "<:green_diamond:844236649948905483> Green Diamond";
+			if (t == "157") return "<:green_diamond:844236649948905483> **Green Diamond**";
 		});
 		for (let i = 0; i < g.length; i++) {
 			g[i] = `${i + 1}. ${g[i]}`;
