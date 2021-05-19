@@ -28,7 +28,8 @@ module.exports = {
 			if (t == "11") return ":egg: Raw Egg";
 			if (t == "11-0") return ":egg: Boiled Egg";
 			if (t == "11-1") return ":egg: Scrambled Eggs";
-			if (t == "12-2") return ":egg: Omelette";
+			if (t == "11-2") return ":egg: Omelette";
+			if (t == "12") return ":banana: Banana";
 		});
 		for (let i = 0; i < inv.length; i++) {
 			inv[i] = `${i + 1}. ${inv[i]}`;
