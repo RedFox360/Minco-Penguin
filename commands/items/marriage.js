@@ -2,6 +2,7 @@ const { MessageEmbed } = require("discord.js");
 const profileModel = require("../../models/profileSchema");
 module.exports = {
 	description: "View your marriage status",
+	usage: "!marriage (@user)",
 	async execute(message, _0, _1, _2, profileData) {
 		const profile = profileData;
 		const are = "You are";
