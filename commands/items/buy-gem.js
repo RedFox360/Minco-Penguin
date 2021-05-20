@@ -26,6 +26,8 @@ module.exports = {
 			buyGem(message, "Moonstone <:moonstone:844646676337131521>", 100, "10", profileData);
 		} else if (args[0] == "11") {
 			buyGem(message, "Opal <:opal:844663271705280533>", 75, "11", profileData);
+		} else if (args[0] == "12") {
+			buyGem(message, "Quartz <:quartz:844740992473104384>", 50, "12", profileData);
 		} else return "Enter a valid gem number";
 	},
 };

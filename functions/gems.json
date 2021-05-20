@@ -61,6 +61,11 @@
             "number": "11",
             "name": "Opal",
             "price": 75
+        },
+        {
+            "number": "12",
+            "name": "Quartz",
+            "price": 50
         }
     ]
 ]
