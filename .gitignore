@@ -1,4 +1,4 @@
-/.DS_Store
+.DS_Store
 /.dir-locals.el
 node_modules
 .env
