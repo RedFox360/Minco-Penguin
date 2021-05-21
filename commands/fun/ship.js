@@ -1,3 +1,4 @@
+const vowels = ["a", "e", "i", "o", "u", "y"];
 module.exports = {
 	description: "Combine two people's names!",
 	usage: "!ship <name 1> <name 2>",
