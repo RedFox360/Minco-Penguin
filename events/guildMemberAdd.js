@@ -29,5 +29,5 @@ module.exports = async (_, member) => {
 		.setThumbnail(member.user.avatarURL());
 
 	member.guild.systemChannel.send(joinEmbed);
-	member.send(`Welcome to the ${member.guild.name} server, <@${member.id}>! You are the ${memberCountOrdinal} member!`);
+	member.send(`Welcome to ${member.guild.name}, <@${member.id}>! You are the ${memberCountOrdinal} member!`);
 };
