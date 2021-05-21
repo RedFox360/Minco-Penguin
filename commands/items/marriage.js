@@ -19,7 +19,7 @@ module.exports = {
 		message.channel.send(
 			new MessageEmbed()
 				.setTitle(":ring: Marriage")
-				.setAuthor(name, avatarURL())
+				.setAuthor(name, avatarURL)
 				.setDescription(`${are} currently married to <@${profile.spouse}>`)
 				.setColor("BEDFFF") // light blue
 		);

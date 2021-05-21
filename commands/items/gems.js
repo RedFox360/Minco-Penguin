@@ -5,10 +5,10 @@ module.exports = {
 	async execute(message) {
 		let name = message.member.displayName;
 		const mention = message.mentions.users.first();
-		let avatarURL = message.author.avatarURL();
+		let author = message.author;
 		if (mention) {
 			name = message.guild.members.cache.get(mention.id).displayName;
-			avatarURL = mention.avatarURL();
+			author = mention;
 		}
 
 		const { gems } = await profileModel.findOne({ userID: author.id });
@@ -34,7 +34,7 @@ module.exports = {
 		}
 		message.channel.send(
 			new MessageEmbed()
-				.setAuthor(name, avatarURL)
+				.setAuthor(name, author.avatarURL())
 				.setTitle("Gems")
 				.setDescription(g.join("\n"))
 				.setColor("#F8C471")
