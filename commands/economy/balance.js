@@ -9,21 +9,20 @@ module.exports = {
 	/** @param {Message} message */
 	async execute(message, _0, _1, _2, profileData) {
 		const mention = message.mentions.users.first();
-
 		let md = profileData.mincoDollars;
 		let bank = profileData.bank;
-		let nickname = message.member.nickname;
-		let author = message.author;
+		let name = message.member.displayName;
+		let avatarURL = message.author.avatarURL();
 		if (mention) {
 			let profile = await profileModel.findOne({ userID: mention.id });
 			md = profile.mincoDollars;
 			bank = profile.bank;
-			nickname = message.guild.members.cache.get(mention.id).nickname;
-			author = mention;
+			name = message.guild.members.cache.get(mention.id).displayName;
+			avatarURL = mention.avatarURL();
 		}
 
 		let balanceEmbed = new MessageEmbed()
-			.setAuthor(nickname || author.username, author.avatarURL())
+			.setAuthor(name, avatarURL)
 			.setTitle("Balance")
 			.setColor("7BFF70")
 			.setDescription(

@@ -10,8 +10,7 @@ module.exports = {
 		var msgArgs = args.join(" ");
 		let pollEmbed = new MessageEmbed()
 			.setColor("BLUE")
-			.setAuthor(message.member.displayName, message.author.avatarURL())
-			.setTitle("Poll")
+			.setAuthor("Poll", message.author.avatarURL())
 			.setDescription(msgArgs)
 			.setThumbnail();
 		message.delete();

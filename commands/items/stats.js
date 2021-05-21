@@ -4,16 +4,16 @@ module.exports = {
 	description: "View your battle stats",
 	async execute(message) {
 		const mention = message.mentions.users.first();
-		let nickname = message.member.nickname;
-		let author = message.author;
+		let name = message.member.displayName;
+		let avatarURL = message.author.avatarURL();
 		if (mention) {
-			nickname = message.guild.members.cache.get(mention.id).nickname;
-			author = mention;
+			name = message.guild.members.cache.get(mention.id).displayName;
+			avatarURL = mention.avatarURL();
 		}
 		const [attack, defense, health] = await calculatePower(author.id);
 		message.channel.send(
 			new MessageEmbed()
-				.setAuthor(nickname || author.username, author.avatarURL())
+				.setAuthor(name, avatarURL())
 				.setTitle("Stats")
 				.setColor("#F5B041")
 				.setFooter(message.guild.name)
