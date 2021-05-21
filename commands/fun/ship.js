@@ -3,7 +3,7 @@ module.exports = {
 	usage: "!ship <name 1> <name 2>",
 	execute(_, args) {
 		if (args.length < 1) return "Valid arguments: !ship <name 1> <name 2>";
-		return combineNames(args[0], args[2]);
+		return combineNames(args[0], args[1]);
 	},
 };
 // note: this is copied from OwO Bot
