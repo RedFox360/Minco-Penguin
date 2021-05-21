@@ -5,11 +5,11 @@ module.exports = {
 	aliases: ["inv"],
 	async execute(message) {
 		let name = message.member.displayName;
-		let avatarURL = message.author.avatarURL();
+		let author = message.author;
 		const mention = message.mentions.users.first();
 		if (mention) {
 			name = message.guild.members.cache.get(mention.id).displayName;
-			avatarURL = mention.avatarURL();
+			author = mention;
 		}
 
 		const { inventory } = await profileModel.findOne({ userID: author.id });
@@ -36,7 +36,7 @@ module.exports = {
 		}
 		message.channel.send(
 			new MessageEmbed()
-				.setAuthor(name, avatarURL)
+				.setAuthor(name, author.avatarURL())
 				.setTitle("Inventory")
 				.setDescription(inv.join("\n"))
 				.setColor("#F8C471")
