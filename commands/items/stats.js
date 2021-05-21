@@ -12,28 +12,23 @@ module.exports = {
 		}
 		const [attack, defense, health] = await calculatePower(author.id);
 		message.channel.send(
-			new MessageEmbed()
-				.setAuthor(name, avatarURL())
-				.setTitle("Stats")
-				.setColor("#F5B041")
-				.setFooter(message.guild.name)
-				.addFields(
-					{
-						name: ":fire:Attack",
-						value: attack,
-						inline: true,
-					},
-					{
-						name: ":crossed_swords: Defense",
-						value: defense,
-						inline: true,
-					},
-					{
-						name: ":heart: Health",
-						value: health,
-						inline: true,
-					}
-				)
+			new MessageEmbed().setAuthor(name, avatarURL).setTitle("Stats").setColor("#F5B041").setFooter(message.guild.name).addFields(
+				{
+					name: ":fire:Attack",
+					value: attack,
+					inline: true,
+				},
+				{
+					name: ":crossed_swords: Defense",
+					value: defense,
+					inline: true,
+				},
+				{
+					name: ":heart: Health",
+					value: health,
+					inline: true,
+				}
+			)
 		);
 	},
 };
