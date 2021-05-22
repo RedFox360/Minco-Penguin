@@ -1,5 +1,6 @@
 const { Message } = require("discord.js");
 const profileModel = require("../../models/profileSchema");
+const randomInt = require("../../functions/random");
 module.exports = {
 	description: "Sends a math question for you to solve",
 	usage: "!math <operation>",
@@ -27,11 +28,11 @@ module.exports = {
 		const filter = (m) => m.author.id == message.author.id;
 		const collector = message.channel.createMessageCollector(filter, { time: 20000 });
 		var sendTimeOut = true;
-		let amount = 30;
+		let amount = randomInt(20, 40);
 		if (profileData.spouse != null) {
-			amount = 35;
+			amount = randomInt(25, 40);
 		} else if (profileData.inventory.includes("07")) {
-			amount = 33;
+			amount = randomInt(23, 40);
 		}
 		collector.on("collect", async (m) => {
 			sendTimeOut = false;
