@@ -66,6 +66,11 @@
             "number": "12",
             "name": "Quartz",
             "price": 50
+        },
+        {
+            "number": "13",
+            "name": "Alexandrite",
+            "price": 100
         }
     ]
 ]

@@ -60,6 +60,7 @@ module.exports = {
 				["(10) <:moonstone:844646676337131521> | Moonstone", "100 MD"],
 				["(11) <:opal:844663271705280533> | Opal", "75 MD"],
 				["(12) <:quartz:844740992473104384> | Quartz", "50 MD"],
+				["(13) <:alexandrite:845793544278638603> | Alexandrite", "100 MD"],
 			],
 		];
 		const shopEmbed = new MessageEmbed()

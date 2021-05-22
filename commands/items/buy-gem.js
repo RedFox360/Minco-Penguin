@@ -28,6 +28,8 @@ module.exports = {
 			buyGem(message, "Opal <:opal:844663271705280533>", 75, "11", profileData);
 		} else if (args[0] == "12") {
 			buyGem(message, "Quartz <:quartz:844740992473104384>", 50, "12", profileData);
+		} else if (args[0] == "13") {
+			buyGem(message, "Alexandrite <:alexandrite:845793544278638603>", 100, "13", profileData);
 		} else return "Enter a valid gem number";
 	},
 };
