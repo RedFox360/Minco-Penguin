@@ -20,14 +20,13 @@ module.exports = {
 			name = message.guild.members.cache.get(mention.id).displayName;
 			avatarURL = mention.avatarURL();
 		}
-
 		let balanceEmbed = new MessageEmbed()
 			.setAuthor(name, avatarURL)
 			.setTitle("Balance")
 			.setColor("7BFF70")
 			.setDescription(
-				`:coin: Wallet: **${md}** Minco Dollars
-:dollar: Bank: **${bank}** Minco Dollars`
+				`:coin: Wallet: **${md.toLocaleString()}** Minco Dollars
+:dollar: Bank: **${bank.toLocaleString()}** Minco Dollars`
 			);
 		message.channel.send(balanceEmbed);
 	},
