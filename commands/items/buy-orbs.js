@@ -1,3 +1,4 @@
+const profileModel = require("../../models/profileSchema");
 module.exports = {
 	description: "Buy orbs! 1 orb = 10 MD",
 	usage: "!buy-orbs <number of orbs>",
