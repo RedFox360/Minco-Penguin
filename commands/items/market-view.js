@@ -7,8 +7,10 @@ module.exports = {
 	async execute(message) {
 		const mention = message.mentions.users.first();
 		let profile = profileData;
+		let id = message.author.id;
 		if (mention) {
 			profile = await profileModel.findOne({ userID: mention.id });
+			id = mention.id;
 		}
 		const market = profile.market;
 		if (!market.length) return `<@${mention.id}> does not have anything in their market`;
@@ -24,7 +26,7 @@ module.exports = {
 		const marketEmbed = new MessageEmbed()
 			.setColor("#D1F2EB")
 			.setTitle("Market")
-			.setDescription(`User: <@${mention.id}>`)
+			.setDescription(`User: <@${id}>`)
 			.setFooter(message.guild.name);
 		for (const { name, price, desc } of market) {
 			const value = desc == undefined ? `Price: ${price} MD` : `Price: ${price} MD\n${desc}`;
