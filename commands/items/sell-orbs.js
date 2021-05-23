@@ -1,3 +1,4 @@
+const profileModel = require("../../models/profileSchema");
 module.exports = {
 	description: "Sell your orbs for money (1 orb = 10 MD)",
 	usage: "!sell-orbs <number of orbs>",
@@ -18,6 +19,6 @@ module.exports = {
 			}
 		);
 
-		message.channel.send(`You sold ${amount} orbs for ${price} MD`);
+		message.channel.send(`You sold ${amount} Orbs for ${price} MD`);
 	},
 };

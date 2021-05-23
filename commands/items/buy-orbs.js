@@ -19,6 +19,6 @@ module.exports = {
 			}
 		);
 
-		message.channel.send(`You bought ${amount} orbs for ${price} MD`);
+		message.channel.send(`You bought ${amount} Orbs for ${price} MD`);
 	},
 };
