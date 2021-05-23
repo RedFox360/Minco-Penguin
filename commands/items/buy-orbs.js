@@ -1,6 +1,6 @@
 const profileModel = require("../../models/profileSchema");
 module.exports = {
-	description: "Buy orbs! 1 orb = 10 MD",
+	description: "Buy orbs! 10 MD = 1 orb",
 	usage: "!buy-orbs <number of orbs>",
 	async execute(message, args, _0, _1, profileData) {
 		const amount = parseInt(args[0]);
