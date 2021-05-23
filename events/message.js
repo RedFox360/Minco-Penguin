@@ -39,6 +39,7 @@ module.exports = async (client, message) => {
 					serverID: message.guild.id,
 					mincoDollars: 100,
 					bank: 0,
+					orbs: 0,
 					birthday: "This user's birthday has not been added to the database",
 				});
 				profile.save();

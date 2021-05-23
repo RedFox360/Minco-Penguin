@@ -16,6 +16,7 @@ const profileSchema = new mongoose.Schema({
 	userID: { type: String, require: true, unique: true },
 	serverID: { type: String, require: true },
 	mincoDollars: { type: Number, default: 100 },
+	orbs: { type: Number, default: 0 },
 	bank: Number,
 	birthday: String,
 	favs: {

@@ -10,22 +10,24 @@ module.exports = {
 	async execute(message, _0, _1, _2, profileData) {
 		const mention = message.mentions.users.first();
 		let md = profileData.mincoDollars;
-		let bank = profileData.bank;
+		let { bank, orbs } = profileData;
 		let name = message.member.displayName;
-		let avatarURL = message.author.avatarURL();
+		let author = message.author;
 		if (mention) {
 			let profile = await profileModel.findOne({ userID: mention.id });
 			md = profile.mincoDollars;
 			bank = profile.bank;
+			orbs = profile.orbs;
 			name = message.guild.members.cache.get(mention.id).displayName;
-			avatarURL = mention.avatarURL();
+			author = mention;
 		}
 		let balanceEmbed = new MessageEmbed()
-			.setAuthor(name, avatarURL)
+			.setAuthor(name, author.avatarURL())
 			.setTitle("Balance")
 			.setColor("7BFF70")
 			.setDescription(
 				`:coin: Wallet: **${md.toLocaleString()}** Minco Dollars
+:crystal_ball: Minco Orbs: ${orbs.toLocaleString()} Orbs**
 :dollar: Bank: **${bank.toLocaleString()}** Minco Dollars`
 			);
 		message.channel.send(balanceEmbed);
