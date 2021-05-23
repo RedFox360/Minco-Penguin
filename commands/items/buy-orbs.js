@@ -6,7 +6,8 @@ module.exports = {
 		const amount = parseInt(args[0]);
 		if (isNaN(amount)) return "Enter a valid number";
 		const price = amount * 10;
-		if (profileData.mincoDollars < price) return `You need ${price} MD to buy this many orbs`;
+		const pl = amount == 1 ? "Orb" : "Orbs";
+		if (profileData.mincoDollars < price) return `You need ${price} MD to buy this many ${pl.toLowerCase()}`;
 		await profileModel.findOneAndUpdate(
 			{
 				userID: message.author.id,
@@ -19,6 +20,6 @@ module.exports = {
 			}
 		);
 
-		message.channel.send(`You bought ${amount} Orbs for ${price} MD`);
+		message.channel.send(`You bought ${amount} ${pl} for ${price} MD`);
 	},
 };

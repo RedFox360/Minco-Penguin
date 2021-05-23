@@ -77,9 +77,10 @@ async function buy(message, item, price, itemNumber, profileData, showReaction, 
 
 async function buyWithOrbs(message, item, price, itemNumber, profileData, showReaction, client) {
 	if (profileData.inventory.includes(itemNumber)) return message.channel.send("You already have this item!");
-	if (profileData.orbs < price) return message.channel.send(`You need ${price} Minco Orbs to buy this item`);
+	const pl = price == 1 ? "Orb" : "Orbs";
+	if (profileData.orbs < price) return message.channel.send(`You need ${price} Minco ${pl} to buy this item`);
 	if (showReaction) {
-		const msg = await message.channel.send(`React to buy a **${item}** for ${price} Minco Orbs`);
+		const msg = await message.channel.send(`React to buy a **${item}** for ${price} Minco ${pl}`);
 		await msg.react("✅");
 		const filter = (reaction, user) => reaction.emoji.name === "✅" && user.id === message.author.id;
 		const reactionCollector = msg.createReactionCollector(filter, { time: ms("30s") });
@@ -124,6 +125,6 @@ async function buyWithOrbs(message, item, price, itemNumber, profileData, showRe
 				}
 			);
 		}
-		message.channel.send(`You bought a ${item} for ${price} Orbs`);
+		message.channel.send(`You bought a ${item} for ${price} ${pl}`);
 	}
 }
