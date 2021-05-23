@@ -4,7 +4,7 @@ module.exports = {
 	description: "sends the rules for the server in an Embed",
 	/**@param {Message} message*/
 	execute(message, args) {
-		if (message.guild.id == "785642761814671381" || message.guild.id == "804079271986462811") {
+		if (message.guild.id == "785642761814671381") {
 			if (!args.length) {
 				message.channel.send(carrelRules);
 			} else if (args[0] == "im" || args[0] == "important") {
