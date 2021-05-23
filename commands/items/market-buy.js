@@ -15,7 +15,7 @@ module.exports = {
 		const i = getItem(item, profile);
 		const oomStr = i.orbs ? "Orbs" : "MD";
 		const oom = i.orbs ? profileData.orbs : profileData.mincoDollars;
-		if (oom < i.price) return `You do not have ${i.price} ${orbs} (price).`;
+		if (oom < i.price) return `You do not have ${i.price} ${oomStr} (price).`;
 		const msg = await message.channel.send(`Confirm by reacting to buy **${i.name}** for ${i.price} ${oomStr}.`);
 		msg.react("✅");
 		const filter = (reaction, user) => reaction.emoji.name === "✅" && user.id === message.author.id;
