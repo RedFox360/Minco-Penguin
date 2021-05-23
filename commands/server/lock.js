@@ -13,9 +13,15 @@ module.exports = {
 			SEND_MESSAGES,
 		});
 		let modRole = message.guild.roles.cache.find((role) => role.name === "Moderator");
+		let muteRole = message.guild.roles.cache.find((role) => role.name === "Muted");
 		if (modRole) {
 			message.channel.updateOverwrite(modRole, {
 				SEND_MESSAGES: true,
+			});
+		}
+		if (muteRole) {
+			message.channel.updateOverwrite(muteRole, {
+				SEND_MESSAGES: false,
 			});
 		}
 		const unlockMessage = `✅ <#${message.channel.id}> has been unlocked`;
