@@ -27,8 +27,8 @@ module.exports = {
 			.setColor("7BFF70")
 			.setDescription(
 				`:coin: Wallet: **${md.toLocaleString()}** Minco Dollars
-:crystal_ball: Orbs: **${orbs.toLocaleString()}** Minco Orbs
-:dollar: Bank: **${bank.toLocaleString()}** Minco Dollars`
+:dollar: Bank: **${bank.toLocaleString()}** Minco Dollars
+:crystal_ball: Orbs: **${orbs.toLocaleString()}** Minco Orbs`
 			);
 		message.channel.send(balanceEmbed);
 	},
