@@ -77,8 +77,8 @@ module.exports = {
 			});
 			return message.channel.send(shopEmbed);
 		} else if (args[0] == "basics") {
-			let fieldNum = 1;
-			if (args[1] == "2") fieldNum = 2;
+			let fieldNum = 0;
+			if (args[1] == "2") fieldNum = 1;
 			fields[fieldNum].forEach((field) => {
 				shopEmbed.addField(field[0], field[1]);
 			});
