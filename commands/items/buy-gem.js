@@ -30,6 +30,8 @@ module.exports = {
 			buyGem(message, "Quartz <:quartz:844740992473104384>", 50, "12", profileData);
 		} else if (args[0] == "13") {
 			buyGem(message, "Alexandrite <:alexandrite:845793544278638603>", 100, "13", profileData);
+		} else if (args[0] == "14") {
+			buyGem(message, "Jade <:jade:845834920903704587>", 75, "14", profileData);
 		} else return "Enter a valid gem number";
 	},
 };

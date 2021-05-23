@@ -26,6 +26,8 @@ module.exports = {
 			if (t == "10") return "<:moonstone:844646676337131521> Moonstone";
 			if (t == "11") return "<:opal:844663271705280533> Opal";
 			if (t == "12") return "<:quartz:844740992473104384> Quartz";
+			if (t == "13") return "<:alexandrite:845793544278638603> Alexandrite";
+			if (t == "14") return "<:jade:845834920903704587> Jade";
 			if (t == "157") return "<:green_diamond:844236649948905483> **Green Diamond**";
 			if (t == "158") return "<:ametrine:844649341481910323> **Ametrine**";
 		});

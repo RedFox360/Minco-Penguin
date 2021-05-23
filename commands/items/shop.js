@@ -61,6 +61,7 @@ module.exports = {
 				["(11) <:opal:844663271705280533> | Opal", "75 MD"],
 				["(12) <:quartz:844740992473104384> | Quartz", "50 MD"],
 				["(13) <:alexandrite:845793544278638603> | Alexandrite", "100 MD"],
+				["(14) <:jade:845834920903704587> | Jade", "75 MD"],
 			],
 		];
 		const shopEmbed = new MessageEmbed()
