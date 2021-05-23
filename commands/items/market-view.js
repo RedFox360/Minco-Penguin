@@ -9,15 +9,15 @@ module.exports = {
 		let profile = profileData;
 		let id = message.author.id;
 		if (mention) {
-			profile = await profileModel.findOne({ userID: mention.id });
 			id = mention.id;
+			profile = await profileModel.findOne({ userID: id });
 		}
 		const market = profile.market;
-		if (!market.length) return `<@${mention.id}> does not have anything in their market`;
+		if (!market.length) return `<@${id}> does not have anything in their market`;
 		market.sort((a, b) => b.price - a.price);
 		await profileModel.findOneAndUpdate(
 			{
-				userID: mention.id,
+				userID: id,
 			},
 			{
 				market,
