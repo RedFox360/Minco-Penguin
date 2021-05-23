@@ -17,7 +17,7 @@ module.exports = {
 		} else if (args[0] == "04") {
 			buy(message, "Tomato :tomato:", 4, "04", profileData, false, client);
 		} else if (args[0] == "05") {
-			buy(message, "Candy :candy:", 12, "05", profileData, false, client);
+			buy(message, "Candy :candy:", 11, "05", profileData, false, client);
 		} else if (args[0] == "06") {
 			buy(message, "Jellyfish <:transparent_jellybot:833491227995013130> ", 75, "06", profileData, true, client);
 		} else if (args[0] == "07") {
