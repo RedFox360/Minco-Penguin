@@ -11,13 +11,13 @@ module.exports = {
 		if (!mention) return "Mention a valid user";
 		if (mention.bot) return "You can't battle a bot!";
 		if (mention.id === message.author.id) return "You can't battle yourself!";
+		const { mincoDollars } = await profileModel.findOne({ userID: mention.id });
+		if (mincoDollars <= 0) return "You can't battle someone with no or negative money!";
+		const filter = (reaction, user) => reaction.emoji.name === "✅" && user.id === mention.id;
 		const msg = await message.channel.send(
 			`<@${mention.id}>, ${message.author.toString()} has challenged you to a battle! Accept by reacting with a ✅`
 		);
 		msg.react("✅");
-		const { mincoDollars } = await profileModel.findOne({ userID: mention.id });
-		if (mincoDollars <= 0) return "You can't battle someone with no or negative money!";
-		const filter = (reaction, user) => reaction.emoji.name === "✅" && user.id === mention.id;
 		const reactionCollector = msg.createReactionCollector(filter, { time: ms("3m") });
 		reactionCollector.on("collect", async () => {
 			let [attack, defense, health] = await calculatePower(message.author.id);
