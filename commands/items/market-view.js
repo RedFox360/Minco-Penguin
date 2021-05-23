@@ -28,8 +28,12 @@ module.exports = {
 			.setTitle("Market")
 			.setDescription(`User: <@${id}>`)
 			.setFooter(message.guild.name);
-		for (const { name, price, desc } of market) {
-			const value = desc == undefined ? `Price: ${price} MD` : `Price: ${price} MD\n${desc}`;
+		for (const { name, price, desc, orbs } of market) {
+			const orbsOrMd = orbs == true ? "Orbs" : "Md";
+			let value = `Price: ${price} ${orbsOrMd}`;
+			if (desc != undefined) {
+				value += `\n${desc}`;
+			}
 			marketEmbed.addField(`${name}`, value);
 		}
 		message.channel.send(marketEmbed);
