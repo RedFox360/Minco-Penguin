@@ -15,6 +15,8 @@ module.exports = {
 			`<@${mention.id}>, ${message.author.toString()} has challenged you to a battle! Accept by reacting with a ✅`
 		);
 		msg.react("✅");
+		const { mincoDollars } = await profileModel.findOne({ userID: mention.id });
+		if (mincoDollars <= 0) return "You can't battle someone with no or negative money!";
 		const filter = (reaction, user) => reaction.emoji.name === "✅" && user.id === mention.id;
 		const reactionCollector = msg.createReactionCollector(filter, { time: ms("3m") });
 		reactionCollector.on("collect", async () => {
