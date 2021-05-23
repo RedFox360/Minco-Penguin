@@ -20,7 +20,7 @@ module.exports = {
 					":tomato: (04) | Tomato",
 					"4 Minco Dollars\nA fresh ripe tomato, can be eaten for between 2 and 6 Minco Dollars (use !eat tomato)",
 				],
-				[":candy: (05) | Candy", "7 Minco Dollars\nDoubles beg reward for the next 3 begs"],
+				[":candy: (05) | Candy", "12 Minco Dollars\nDoubles beg reward for the next 3 begs"],
 				[
 					"<:transparent_jellybot:833491227995013130> (06) | Jellyfish",
 					"75 Minco Dollars\nAllows you to sting people using the !sting command. Gives a +12 attack bonus in battle.",
