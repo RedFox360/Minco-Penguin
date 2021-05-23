@@ -31,7 +31,7 @@ module.exports = {
 		} else if (args[0] == "11") {
 			buy(message, "Egg :egg:", 8, "11", profileData, false, client);
 		} else if (args[0] == "12") {
-			buy(message, "Banana :banana:", 10, "12", profileData, false, client);
+			buyWithOrbs(message, "Banana :banana:", 1, "12", profileData, false, client);
 		} else return "Enter a valid item number";
 	},
 };
