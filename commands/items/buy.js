@@ -124,6 +124,6 @@ async function buyWithOrbs(message, item, price, itemNumber, profileData, showRe
 				}
 			);
 		}
-		message.channel.send(`You bought a ${item} for ${price} MD`);
+		message.channel.send(`You bought a ${item} for ${price} Orbs`);
 	}
 }
