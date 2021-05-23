@@ -75,7 +75,7 @@ async function buy(message, item, price, itemNumber, profileData, showReaction, 
 	}
 }
 
-async function buyWithOrbs(message, item, orbs, itemNumber, profileData, showReaction, client) {
+async function buyWithOrbs(message, item, price, itemNumber, profileData, showReaction, client) {
 	if (profileData.inventory.includes(itemNumber)) return message.channel.send("You already have this item!");
 	if (profileData.orbs < price) return message.channel.send(`You need ${price} Minco Orbs to buy this item`);
 	if (showReaction) {
