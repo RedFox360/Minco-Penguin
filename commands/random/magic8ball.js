@@ -7,55 +7,47 @@ module.exports = {
 	execute(message, args, cmd) {
 		if (!args.length) return "Enter a question";
 		if (args.join(" ").replace(" ", "").toLowerCase().includes("crush")) return "Stop asking questions about crushes!";
+		/*
+        0 = yes
+        1 = neutral
+        2 = no
+        */
 		let answers = [
-			"Yes",
-			"No",
-			"I am not completely sure",
-			"It is decidedly so",
-			"OBVIOUSLY",
-			"OBVIOUSLY No",
-			"Doubtful",
-			"Undoubtedly",
-			"SERIOUSLY? NO",
-			"Ofc",
-			"Why did you even ask that?",
-			"Nah",
-			"Meh",
-			"No question!",
-			"Sorry, I was confunded. Try again.",
-			"Of course!!!!",
-			"Definitely",
-			"...No",
-			"Probably not.",
-			"eh",
-			"Are you kidding me? Definitely not.",
-			"Really?",
-			"Ya think so?",
-			"Totally!",
-			"YES",
-			"YESSSS",
-			"Yea",
-			"Seriously? YES",
-			"Yes, DUH",
+			[0, "Yes"],
+			[2, "No"],
+			[1, "I am not completely sure"],
+			[0, "It is decidedly so"],
+			[0, "OBVIOUSLY"],
+			[2, "OBVIOUSLY No"],
+			[2, "Doubtful"],
+			[0, "Undoubtedly"],
+			[2, "SERIOUSLY? NO"],
+			[0, "Ofc"],
+			[1, "Why did you even ask that?"],
+			[2, "Nah"],
+			[1, "Meh"],
+			[0, "No question!"],
+			[1, "Sorry, I was confunded. Try again."],
+			[0, "Of course!!!!"],
+			[0, "Definitely"],
+			[2, "...No"],
+			[2, "Probably not."],
+			[1, "eh"],
+			[2, "Are you kidding me? Definitely not."],
+			[1, "Really?"],
+			[1, "Ya think so?"],
+			[0, "Totally!"],
+			[0, "YES"],
+			[0, "YESSSS"],
+			[0, "Yea"],
+			[0, "Seriously? YES"],
+			[0, "Yes, DUH"],
 		];
 		let random = Math.floor(Math.random() * answers.length);
-		var noPhrases = ["no", "doubtful", "nah"];
-		var yesPhrases = ["no question"];
-		var yellowPhrases = ["confunded", "eh"];
-		var colors = ["🔴", "🟢", "🟡"];
-		if (cmd.startsWith("f")) colors = ["🍎", "🍏", "🍍"];
-		var color = colors[1];
-		var answer = answers[random];
-		for (let phrase of noPhrases) {
-			if (answer.toLowerCase().includes(phrase)) color = colors[0];
-		}
-		for (let phrase of yesPhrases) {
-			if (answer.toLowerCase().includes(phrase)) color = colors[1];
-		}
-		for (let phrase of yellowPhrases) {
-			if (answer.toLowerCase().includes(phrase)) color = colors[2];
-		}
-		let name = message.member.nickname;
+		let colors = cmd.startsWith("f") ? ["🍏", "🍍", "🍎"] : ["🟢", "🟡", "🔴"];
+		const [colorNum, answer] = answers[random];
+		const color = (colors = colors[colorNum]);
+		const name = message.member.displayName;
 		message.channel.send(`:8ball: | ${color} **${answer}** | ${name}`);
 	},
 };
