@@ -10,10 +10,9 @@ module.exports = {
 		var msgArgs = args.join(" ");
 		let pollEmbed = new MessageEmbed()
 			.setColor("BLUE")
-			.setAuthor(message.member.displayName)
+			.setAuthor(message.member.displayName, message.author.avatarURL())
 			.setTitle("Poll")
-			.setDescription(msgArgs)
-			.setThumbnail(message.author.avatarURL());
+			.setDescription(msgArgs);
 		message.delete();
 		const pollMessage = await message.channel.send(pollEmbed);
 		react.forEach(async (reaction) => {
