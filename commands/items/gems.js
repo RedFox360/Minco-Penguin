@@ -21,7 +21,7 @@ module.exports = {
 			if (t == "05") return "<:sapphire:843182746050232340> Sapphire";
 			if (t == "06") return "<:ruby:843184456025112606> Ruby";
 			if (t == "07") return "<:amethyst:843184890337296454> Amethyst";
-			if (t == "08") return "<:black_diamond:843607902136696862> | Black Diamond";
+			if (t == "08") return "<:black_diamond:843607902136696862> **Black Diamond**";
 			if (t == "09") return "<:topaz:844645993747185686> Topaz";
 			if (t == "10") return "<:moonstone:844646676337131521> Moonstone";
 			if (t == "11") return "<:opal:844663271705280533> Opal";
