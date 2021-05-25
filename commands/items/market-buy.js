@@ -21,8 +21,8 @@ module.exports = {
 		const filter = (reaction, user) => reaction.emoji.name === "✅" && user.id === message.author.id;
 		const reactionCollector = msg.createReactionCollector(filter, { time: ms("30s") });
 		reactionCollector.on("collect", async () => {
-			const authorUpdate = i.orbs ? { $inc: { mincoDollars: -i.price } } : { $inc: { orbs: -i.price } };
-			const mentionUpdate = i.orbs ? { $inc: { mincoDollars: i.price } } : { $inc: { orbs: i.price } };
+			const authorUpdate = i.orbs ? { $inc: { orbs: -i.price } } : { $inc: { mincoDollars: -i.price } };
+			const mentionUpdate = i.orbs ? { $inc: { orbs: i.price } } : { $inc: { mincoDollars: i.price } };
 			await profileModel.findOneAndUpdate(
 				{
 					userID: mention.id,
