@@ -21,23 +21,19 @@ module.exports = {
 		const filter = (reaction, user) => reaction.emoji.name === "✅" && user.id === message.author.id;
 		const reactionCollector = msg.createReactionCollector(filter, { time: ms("30s") });
 		reactionCollector.on("collect", async () => {
-			const mentionUpdate = i.orbs ? { $inc: { mincoDollars: i.price } } : { $inc: { orbs: i.price } };
 			const authorUpdate = i.orbs ? { $inc: { mincoDollars: -i.price } } : { $inc: { orbs: -i.price } };
+			const mentionUpdate = i.orbs ? { $inc: { mincoDollars: i.price } } : { $inc: { orbs: i.price } };
 			await profileModel.findOneAndUpdate(
 				{
 					userID: mention.id,
 				},
-				{
-					mentionUpdate,
-				}
+				mentionUpdate
 			);
 			await profileModel.findOneAndUpdate(
 				{
 					userID: message.author.id,
 				},
-				{
-					authorUpdate,
-				}
+				authorUpdate
 			);
 			mention.send(`${message.author.toString()} has bought your **${i.name}**!`);
 			message.channel.send(
