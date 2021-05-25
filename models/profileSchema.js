@@ -6,7 +6,7 @@ const zooSchema = new mongoose.Schema({
 });
 
 const marketSchema = new mongoose.Schema({
-	number: Number,
+	orbs: Boolean,
 	price: Number,
 	name: String,
 	desc: String,
