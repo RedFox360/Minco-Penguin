@@ -29,7 +29,7 @@ module.exports = {
 			.setDescription(`User: <@${id}>`)
 			.setFooter(message.guild.name);
 		for (const { name, price, desc, orbs } of market) {
-			const orbsOrMd = orbs == true ? "Orbs" : "MD";
+			const orbsOrMd = orbs ? "Orbs" : "MD";
 			let value = `Price: ${price} ${orbsOrMd}`;
 			if (desc != undefined) {
 				value += `\n${desc}`;
