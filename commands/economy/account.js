@@ -21,7 +21,6 @@ module.exports = {
 			}
 			return undefined;
 		})();
-		const accountMentioned = accounts.find((a) => a.name === accountName);
 		if (args[0] == "create") {
 			if (accountMentioned) {
 				return "This account already exists!";
