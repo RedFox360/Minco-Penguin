@@ -14,6 +14,13 @@ module.exports = {
 		}
 		if (args.length < 1) return "Valid usage: !account create/remove <account name>";
 		const accountName = args[1];
+
+		const accountMentioned = (() => {
+			for (const account of accounts) {
+				if (account.name === accountName) return account;
+			}
+			return undefined;
+		})();
 		const accountMentioned = accounts.find((a) => a.name === accountName);
 		if (args[0] == "create") {
 			if (accountMentioned) {
