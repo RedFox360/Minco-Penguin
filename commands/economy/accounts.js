@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js");
 
 module.exports = {
 	description: "View your accounts",
-	execute(message, args, _0, _1, profileData) {
+	execute(message, _0, _1, _2, profileData) {
 		const { accounts } = profileData;
 		if (!accounts.length) return "You don't have any accounts";
 

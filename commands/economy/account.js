@@ -2,7 +2,7 @@ const profileModel = require("../../models/profileSchema");
 module.exports = {
 	description: "Create or remove an account to store Minco Dollars!",
 	usage: "!account create/remove <account name>",
-	execute(message, args, _0, _1, profileData) {
+	async execute(message, args, _0, _1, profileData) {
 		const accounts = profileData.acounts || [];
 		if (!accounts) {
 			profileModel.findOneAndUpdate(
@@ -52,7 +52,7 @@ module.exports = {
 					},
 					$inc: {
 						mincoDollars: accountMentioned.mincoDollars,
-						orbs: accountedMentioned.orbs,
+						orbs: accountMentioned.orbs,
 					},
 				}
 			);
