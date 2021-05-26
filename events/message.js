@@ -66,7 +66,7 @@ module.exports = async (client, message) => {
 		for (let i = 0; i < guildData.bannedPeople.length; i++) {
 			let person = guildData.bannedPeople[i];
 			if (message.author.id == person) {
-				return "You were banned from using Minco Penguin.";
+				return message.channel.send("You were banned from using Minco Penguin.");
 			}
 		}
 	}
