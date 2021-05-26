@@ -24,15 +24,15 @@ module.exports = {
 				.addFields(
 					{
 						name: "Animal",
-						value: animal || "not set",
+						value: animal ?? "not set",
 					},
 					{
 						name: "Color",
-						value: color || "not set",
+						value: color ?? "not set",
 					},
 					{
 						name: "Food",
-						value: food || "not set",
+						value: food ?? "not set",
 					}
 				)
 				.setColor("82E0AA")

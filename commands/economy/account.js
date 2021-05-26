@@ -3,7 +3,7 @@ module.exports = {
 	description: "Create or remove an account to store Minco Dollars!",
 	usage: "!account create/remove <account name>",
 	async execute(message, args, _0, _1, profileData) {
-		const accounts = profileData.acounts || [];
+		const accounts = profileData.acounts ?? [];
 		if (!profileData.accounts) {
 			profileModel.findOneAndUpdate(
 				{ userID: message.author.id },
