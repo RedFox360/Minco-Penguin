@@ -12,11 +12,18 @@ const marketSchema = new mongoose.Schema({
 	desc: String,
 });
 
+const accountSchema = new mongoose.Schema({
+	name: String,
+	mincoDollars: Number,
+	orbs: Number,
+});
+
 const profileSchema = new mongoose.Schema({
 	userID: { type: String, require: true, unique: true },
 	serverID: { type: String, require: true },
 	mincoDollars: { type: Number, default: 100 },
 	orbs: { type: Number, default: 0 },
+	accounts: [accountSchema],
 	bank: Number,
 	birthday: String,
 	favs: {
