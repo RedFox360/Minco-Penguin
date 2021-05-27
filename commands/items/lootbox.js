@@ -7,7 +7,7 @@ module.exports = {
 	async execute(message, _0, _1, _2, profileData) {
 		if (!profileData.inventory.includes("10")) return "You don't have a lootbox!";
 
-		const mincoAmount = randomInt(40, 70);
+		const mincoAmount = randomInt(45, 70);
 
 		await profileModel.findOneAndUpdate(
 			{ userID: message.author.id },
@@ -40,7 +40,7 @@ module.exports = {
 				message.channel.send(`You won a ${gemName}!`);
 			}
 		}
-		if (Math.floor(Math.random() * 5) == 0 && !profileData.inventory.includes("05")) {
+		if (Math.floor(Math.random() * 4) == 0 && !profileData.inventory.includes("05")) {
 			await profileModel.findOneAndUpdate(
 				{
 					userID: message.author.id,
