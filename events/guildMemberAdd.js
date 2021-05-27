@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 
 const profileModel = require("../models/profileSchema");
 
-const { default: ordinal } = require("ordinal");
+const ordinal = require("ordinal");
 
 /** @param {Discord.GuildMember} member */
 module.exports = async (_, member) => {
