@@ -11,11 +11,8 @@ module.exports =
 	 */
 	async (message, args, client, profileData) => {
 		const claire = await client.users.fetch("802668636795830292");
-		args.shift;
-		var drawing = "";
-		for (let i = 1; i < args.length; i++) {
-			drawing += args[i] + " ";
-		}
+		args.shift();
+		var drawing = args.join(" ");
 		if (!args[1]) return "Valid usage: !buy drawing <drawing>";
 		let requestEmbed = new Discord.MessageEmbed()
 			.setColor("#70FFC2")

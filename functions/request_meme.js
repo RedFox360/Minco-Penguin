@@ -11,10 +11,8 @@ module.exports =
 	 */
 	async (message, args, client, profileData) => {
 		const mason = await client.users.fetch("769313131108237322");
-		var meme = "";
-		for (let i = 1; i < args.length; i++) {
-			meme += args[i] + " ";
-		}
+		args.shift();
+		var meme = args.join(" ");
 		if (!args[1]) return "Valid usage: !buy meme <meme>";
 		let requestEmbed = new Discord.MessageEmbed()
 			.setColor("#70FFC2")
