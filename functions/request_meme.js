@@ -41,14 +41,14 @@ module.exports =
 		}
 		var reacted = false;
 		var accepted = false;
-		const filter = (reaction, user) => user.id !== "725917919292162051";
+		const filter = (_, user) => user.id !== "725917919292162051";
 		const collector = reactMsgMa.createReactionCollector(filter, {
 			time: ms("30m"),
 		});
 		const authorCollector = reactMsgAu.createReactionCollector(filter, {
 			time: ms("30m"),
 		});
-		collector.on("collect", async (reaction, user) => {
+		collector.on("collect", async (reaction) => {
 			reacted = true;
 			if (reaction.emoji.name == "🚫") {
 				message.author.send("Mason L has declined your request");
@@ -92,9 +92,9 @@ module.exports =
 							.react("✅")
 							.then(() => confirmPriceMsg.react("🚫"))
 							.catch(console.error);
-						const filter2 = (reaction, user) => user.id !== "725917919292162051";
+						const filter2 = (_, user) => user.id !== "725917919292162051";
 						const confirmCollector = confirmPriceMsg.createReactionCollector(filter2, { time: 10000 });
-						confirmCollector.on("collect", async (reaction, user) => {
+						confirmCollector.on("collect", async (reaction) => {
 							if (reaction.emoji.name == "✅") {
 								await profileModel.findOneAndUpdate(
 									{ userID: message.author.id },
@@ -157,13 +157,13 @@ module.exports =
 			}
 		});
 
-		collector.on("end", (collected) => {
+		collector.on("end", () => {
 			if (!reacted) {
 				mason.send("Reactions timed out");
 			}
 		});
 
-		authorCollector.on("collect", async (reaction, user) => {
+		authorCollector.on("collect", async (reaction) => {
 			if (reaction.emoji.name == "📞") {
 				let botMsg = await message.author.send("Send a message to Mason L...");
 				let userMessage = await MessageCollector.asyncQuestion({

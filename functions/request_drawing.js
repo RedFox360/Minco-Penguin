@@ -41,14 +41,14 @@ module.exports =
 		}
 		var reacted = false;
 		var accepted = false;
-		const filter = (reaction, user) => user.id !== "725917919292162051";
+		const filter = (_, user) => user.id !== "725917919292162051";
 		const collector = reactMsgCl.createReactionCollector(filter, {
 			time: ms("30m"),
 		});
 		const authorCollector = reactMsgAu.createReactionCollector(filter, {
 			time: ms("30m"),
 		});
-		collector.on("collect", async (reaction, user) => {
+		collector.on("collect", async (reaction) => {
 			reacted = true;
 			if (reaction.emoji.name == "🚫") {
 				message.author.send("Claire has declined your request");
@@ -148,13 +148,13 @@ module.exports =
 			}
 		});
 
-		collector.on("end", (collected) => {
+		collector.on("end", () => {
 			if (!reacted) {
 				claire.send("Reactions timed out");
 			}
 		});
 
-		authorCollector.on("collect", async (reaction, user) => {
+		authorCollector.on("collect", async (reaction) => {
 			if (reaction.emoji.name == "📞") {
 				let botMsg = await message.author.send("Send a message to Claire...");
 				let userMessage = await MessageCollector.asyncQuestion({
