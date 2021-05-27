@@ -43,10 +43,10 @@ module.exports =
 		var accepted = false;
 		const filter = (_, user) => user.id !== "725917919292162051";
 		const collector = reactMsgCl.createReactionCollector(filter, {
-			time: ms("30m"),
+			time: ms("12m"),
 		});
 		const authorCollector = reactMsgAu.createReactionCollector(filter, {
-			time: ms("30m"),
+			time: ms("12m"),
 		});
 		collector.on("collect", async (reaction) => {
 			reacted = true;
