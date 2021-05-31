@@ -7,7 +7,7 @@ module.exports = {
 	async execute(message, _0, _1, _2, profileData) {
 		if (!profileData.inventory.includes("10")) return "You don't have a lootbox!";
 
-		const mincoAmount = randomInt(45, 70);
+		const mincoAmount = randomInt(35, 70);
 
 		await profileModel.findOneAndUpdate(
 			{ userID: message.author.id },
