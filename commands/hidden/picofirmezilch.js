@@ -6,7 +6,7 @@ module.exports = {
 	aliases: ["pfz"],
 	/** @param {Message} message */
 	async execute(message) {
-		const memberName = message.member.nickname.toLowerCase();
+		const memberName = message.member.displayName.toLowerCase();
 		if (message.guild.channels.cache.find((c) => c.name === memberName))
 			return "You already have an ongoing game. Type a non-number in that channel to end the game.";
 		const channel = await message.guild.channels.create(memberName);

@@ -1,6 +1,6 @@
 const profileModel = require("../models/profileSchema");
 async function calculatePower(userID) {
-	let attack = 0;
+	let attack = 1;
 	let defense = 0;
 	let health = 100;
 	const profile = await profileModel.findOne({ userID });
