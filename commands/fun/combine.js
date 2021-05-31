@@ -1,7 +1,8 @@
 const vowels = ["a", "e", "i", "o", "u", "y"];
 module.exports = {
 	description: "Combine two people's names!",
-	usage: "!ship <name 1> <name 2>",
+	usage: "!combine/ship <name 1> <name 2>",
+	aliases: ["ship"],
 	execute(_, args) {
 		if (args.length < 1) return "Valid arguments: !ship <name 1> <name 2>";
 		return combineNames(args[0], args[1]);
