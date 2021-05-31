@@ -11,7 +11,7 @@ module.exports = {
 	 */
 	async execute(message, args, _, client) {
 		var color = "C782FE"; // light purple
-		var author = [message.member.nickname, message.author.avatarURL()];
+		var author = [message.member.displayName, message.author.avatarURL()];
 		var description =
 			"Use the :arrow_left: and :arrow_right: reactions to switch between pages.\nDon't put **< >** in the actual commands.\n**( )** show optional arguments\n**ms** means write '1m, 2 seconds, 4 days', etc.\n\n**Categories**:\n`INFO/USEFUL commands`\n`FUN Commands`\n`SERVER Commands`\n`RANDOM RETURN Commands`\n`ECONOMY Commands`\n`ITEM Commands`";
 
