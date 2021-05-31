@@ -1,7 +1,8 @@
-const app = require("express")();
+const polka = require("polka");
+const app = polka();
 
 app.get("/", (req, res) => {
-	res.send("Minco Penguin Host Server");
+	res.send("Minco Penguin Host server");
 });
 
 module.exports = () => {
