@@ -41,11 +41,9 @@ module.exports = (client) => {
 
 		if (command == "ping") {
 			client.api.interactions(interaction.id, interaction.token).callback.post({
+				type: 4,
 				data: {
-					type: 4,
-					data: {
-						content: "pong!",
-					},
+					content: "pong!",
 				},
 			});
 		}
@@ -54,11 +52,9 @@ module.exports = (client) => {
 			const description = args.find((arg) => arg.name.toLowerCase() == "content").value;
 
 			client.api.interactions(interaction.id, interaction.token).callback.post({
+				type: 4,
 				data: {
-					type: 4,
-					data: {
-						content: description,
-					},
+					content: description,
 				},
 			});
 		}
