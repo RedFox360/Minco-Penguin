@@ -12,12 +12,52 @@ module.exports = {
 			}
 		} else if (message.guild.id == "818509629842522112") {
 			message.channel.send(blobfishRules);
-		}
-		if (message.guild.id == "840339755350884402") {
+		} else if (message.guild.id == "848987165601693737") {
+			message.channel.send(mincoServerRules);
+		} else if (message.guild.id == "840339755350884402") {
 			message.channel.send(roleplayRules);
 		}
 	},
 };
+
+const mincoServerRules = new MessageEmbed()
+	.setColor("#80CED7")
+	.setTitle("Minco Rules")
+	.addFields(
+		{
+			name: "Rule 1",
+			value: "Be civil and respectful",
+		},
+		{
+			name: "Rule 2",
+			value: "Don't spam except in the spam channel",
+		},
+		{
+			name: "Rule 3",
+			value: "Do not use inappropriate language or swear",
+		},
+		{
+			name: "Rule 4",
+			value: "Don't ping @everyone or @here",
+		},
+		{
+			name: "Rule 5",
+			value: "Act civil/don't interrupt in voice chat",
+		},
+		{
+			name: "Rule 6",
+			value: "Post content in the correct channels",
+		},
+		{
+			name: "Rule 7",
+			value: "Do not post others' personal information",
+		},
+		{
+			name: "Rule 8",
+			value: "Do not post NSFW or other inappropriate content",
+		}
+	)
+	.setDescription("Follow these rules when talking in the server. If you break these rules multiple times, you will be muted.");
 
 const importantRules = new MessageEmbed()
 	.setColor("#E74C3C")

@@ -14,6 +14,7 @@ module.exports = {
 		else if (message.guild.id == "843951306745577524") roles = ["Member", "Muted"];
 		else if (message.guild.id == "818509629842522112") roles = ["Blob", "Muted"];
 		else if (message.guild.id == "835983158208888852") roles = ["People", "Muted"];
+		else if (message.guild.id == "848987165601693737") roles = ["Minco Member", "Muted"];
 		else return "The mute command is invalid in this server";
 		if (
 			message.member.hasPermission("MANAGE_CHANNELS") ||
