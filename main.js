@@ -4,6 +4,7 @@ const client = new Discord.Client({
 });
 const mongoose = require("mongoose");
 client.commands = new Discord.Collection();
+client.slashCommands = new Discord.Collection();
 require("./handlers/command_handler")(client);
 require("./handlers/event_handler")(client);
 mongoose
