@@ -19,7 +19,7 @@ module.exports = {
 			},
 			{
 				name: "color",
-				description: "Color of the embed (default: purple)",
+				description: "Hex code color of the embed (default: purple)",
 				type: 3,
 				required: false,
 			},
