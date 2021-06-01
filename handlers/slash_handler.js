@@ -4,7 +4,7 @@ const { Client } = require("discord.js");
 module.exports = (client) => {
 	const slashFiles = readdirSync(`./slashCommands`).filter((file) => file.endsWith(".js"));
 	for (const file of slashFiles) {
-		const command = require(`../events/${file}`);
+		const command = require(`../slashCommands/${file}`);
 		const fileName = file.split(".")[0];
 		client.api
 			.applications(client.user.id)
