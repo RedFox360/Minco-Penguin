@@ -1,17 +1,17 @@
-const { Message } = require("discord.js");
 module.exports = {
-	description: "A magic 8 ball in Discord",
-	usage: "!magic8ball <Question>",
-	aliases: ["8b", "magic8b", "8ball", "fruitball", "fball"],
-	/** @param {Message} message */
-	execute(message, args, cmd) {
-		if (!args.length) return "Enter a question";
-		if (args.join(" ").replace(" ", "").toLowerCase().includes("crush")) return "Stop asking questions about crushes!";
-		/*
-        0 = yes
-        1 = neutral
-        2 = no
-        */
+	data: {
+		description: "Gives a random (definitely correct) answer to a question",
+
+		options: [
+			{
+				name: "question",
+				description: "Your question for the magic 8 ball",
+				type: 3,
+				required: false,
+			},
+		],
+	},
+	execute(p) {
 		let answers = [
 			[0, "Yes"],
 			[2, "No"],
@@ -44,10 +44,9 @@ module.exports = {
 			[0, "Yes, DUH"],
 		];
 		let random = Math.floor(Math.random() * answers.length);
-		let colors = cmd.startsWith("f") ? ["🍏", "🍍", "🍎"] : ["🟢", "🟡", "🔴"];
+		let colors = ["🟢", "🟡", "🔴"];
 		const [colorNum, answer] = answers[random];
 		const color = colors[colorNum];
-		const name = message.member.displayName;
-		message.channel.send(`:8ball: | ${color} **${answer}** | ${name}`);
+		p.reply(`:8ball: | ${color} **${answer}**`);
 	},
 };
