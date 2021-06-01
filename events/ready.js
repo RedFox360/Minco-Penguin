@@ -28,10 +28,11 @@ module.exports = (client) => {
 				});
 			},
 			replyEmbed(embed) {
+				const msg = await createAPIMessage(interaction, embed);
 				client.api.interactions(interaction.id, interaction.token).callback.post({
 					data: {
 						type: 4,
-						data: await createAPIMessage(interaction, embed),
+						data: msg,
 					},
 				});
 			},
