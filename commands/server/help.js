@@ -84,12 +84,8 @@ module.exports = {
 			if (reaction.emoji.name == "⬅️") {
 				if (currentPage != 0) currentPage--;
 				if (currentPage == 0) {
-					helpEmbed = new Discord.MessageEmbed()
-						.setAuthor(...author)
-						.setTitle(titles[0])
-						.setDescription(description)
-						.setColor(color)
-						.setFooter(message.guild.name);
+					helpEmbed.setTitle(titles[0]).setDescription(description);
+					helpEmbed.fields = [];
 					helpMsg.edit(helpEmbed);
 				} else {
 					helpEmbed.setTitle(titles[currentPage]).setDescription("");
