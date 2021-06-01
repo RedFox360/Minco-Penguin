@@ -26,13 +26,13 @@ module.exports = {
 		],
 	},
 
-	execute(p) {
+	async execute(p) {
 		const title = p.getArg("title");
 		const desc = p.getArg("description");
 		const color = p.getArg("color") ?? "C782FE";
 
 		const embed = new MessageEmbed().setTitle(title).setDescription(desc).setColor(color);
-
-		p.reply(await p.createAPIMessage(embed));
+		const msg = await p.createAPIMessage(embed);
+		p.reply(msg);
 	},
 };
