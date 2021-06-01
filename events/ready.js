@@ -14,6 +14,8 @@ module.exports = (client) => {
 			client,
 			args,
 			command,
+			interaction,
+			channel: client.channels.cache.get(interaction.channel_id),
 			getArg(name) {
 				return args.find((arg) => arg.name.toLowerCase() == name)?.value;
 			},

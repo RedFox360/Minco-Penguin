@@ -17,7 +17,7 @@ module.exports = {
 		const description = p.getArg("content");
 		p.reply(
 			Util.cleanContent(description, {
-				channel: p.interaction.channel,
+				channel: p.channel,
 			})
 		);
 	},
