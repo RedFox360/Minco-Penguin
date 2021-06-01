@@ -18,13 +18,11 @@ module.exports = (client) => {
 				return args.find((arg) => arg.name.toLowerCase() == name)?.value;
 			},
 			async reply(message) {
-				let msg = message instanceof MessageEmbed ? await createAPIMessage(interaction, client, message) : message;
+				let msg = message instanceof MessageEmbed ? await createAPIMessage(interaction, client, message) : { content: message };
 				client.api.interactions(interaction.id, interaction.token).callback.post({
 					data: {
 						type: 4,
-						data: {
-							content: msg,
-						},
+						data: msg,
 					},
 				});
 			},
