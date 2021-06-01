@@ -1,4 +1,4 @@
-const { Client } = require("discord.js");
+const { Client, APIMessage } = require("discord.js");
 /** @param {Client} client */
 module.exports = (client) => {
 	require("../handlers/slash_handler")(client);
@@ -14,6 +14,9 @@ module.exports = (client) => {
 			client,
 			args,
 			command,
+			getArg(name) {
+				return args.find((arg) => arg.name.toLowerCase() == name).value;
+			},
 			reply(message) {
 				client.api.interactions(interaction.id, interaction.token).callback.post({
 					data: {
@@ -23,6 +26,13 @@ module.exports = (client) => {
 						},
 					},
 				});
+			},
+			async createAPIMessage(content) {
+				const apiMessage = await APIMessage.create(client.channels.resolve(interaction.channel_id), content)
+					.resolveData()
+					.resolveFiles();
+
+				return apiMessage;
 			},
 		};
 		require(`../slashCommands/${command}`).execute(p);

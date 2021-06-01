@@ -12,7 +12,7 @@ module.exports = {
 		],
 	},
 	execute(p) {
-		const description = p.args.find((arg) => arg.name.toLowerCase() == "content").value;
+		const description = p.getArg("content");
 		p.reply(description);
 	},
 };
