@@ -1,9 +1,6 @@
 const { Client } = require("discord.js");
 /** @param {Client} client */
 module.exports = (client) => {
-	require("../handlers/slash_handler")(client);
-	require("./handlers/command_handler")(client);
-	require("./handlers/event_handler")(client);
 	console.log(`${client.user.tag} is online!`);
 	client.user.setActivity("!help for help", {
 		type: "PLAYING",
