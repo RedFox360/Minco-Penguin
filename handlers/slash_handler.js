@@ -15,6 +15,5 @@ module.exports = (client) => {
 					...command.data,
 				},
 			});
-		client.slashCommands.set(fileName, command);
 	}
 };

@@ -24,6 +24,6 @@ module.exports = (client) => {
 				});
 			},
 		};
-		client.slashCommands.get(command).execute(p);
+		require(`../slashCommands/${command}`).execute(p);
 	});
 };
