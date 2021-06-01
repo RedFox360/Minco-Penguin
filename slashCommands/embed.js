@@ -32,7 +32,6 @@ module.exports = {
 		const color = p.getArg("color") ?? "C782FE";
 
 		const embed = new MessageEmbed().setTitle(title).setDescription(desc).setColor(color);
-		const msg = await p.createAPIMessage(embed);
-		p.reply(msg);
+		p.replyEmbed(embed);
 	},
 };

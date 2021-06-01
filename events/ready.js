@@ -27,14 +27,22 @@ module.exports = (client) => {
 					},
 				});
 			},
-			async createAPIMessage(content) {
-				const apiMessage = await APIMessage.create(client.channels.resolve(interaction.channel_id), content)
-					.resolveData()
-					.resolveFiles();
-
-				return { ...apiMessage.data, files: apiMessage.files };
+			replyEmbed(embed) {
+				client.api.interactions(interaction.id, interaction.token).callback.post({
+					data: {
+						type: 4,
+						data: await createAPIMessage(interaction, embed),
+					},
+				});
 			},
 		};
 		require(`../slashCommands/${command}`).execute(p);
 	});
 };
+async function createAPIMessage(interaction, content) {
+	const apiMessage = await APIMessage.create(client.channels.resolve(interaction.channel_id), content)
+		.resolveData()
+		.resolveFiles();
+
+	return { ...apiMessage.data, files: apiMessage.files };
+}
