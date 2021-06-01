@@ -1,6 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 module.exports = {
-	description: "Returns the states and capitals\nCredit to Aiden for the idea",
+	description: "Returns the states and capitals",
 	aliases: ["states-and-capitals", "s-and-c", "state-cap", "states-capitals"],
 	usage: "!sac (west/midwest/south/northeast)",
 	execute(message, args) {
