@@ -3,6 +3,6 @@ module.exports = {
 		description: "Pings the bot",
 	},
 	execute(p) {
-		p.reply(pong);
+		p.reply("pong!");
 	},
 };
