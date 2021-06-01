@@ -1,3 +1,5 @@
+const { Util } = require("discord.js");
+
 module.exports = {
 	data: {
 		description: "Echos what you say back",
@@ -13,6 +15,6 @@ module.exports = {
 	},
 	execute(p) {
 		const description = p.getArg("content");
-		p.reply(description);
+		p.reply(Util.cleanContent(description, null));
 	},
 };
