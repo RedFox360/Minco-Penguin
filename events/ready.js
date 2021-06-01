@@ -15,7 +15,7 @@ module.exports = (client) => {
 			args,
 			command,
 			getArg(name) {
-				return args.find((arg) => arg.name.toLowerCase() == name).value;
+				return args.find((arg) => arg.name.toLowerCase() == name)?.value;
 			},
 			reply(message) {
 				client.api.interactions(interaction.id, interaction.token).callback.post({
