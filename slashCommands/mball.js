@@ -12,41 +12,57 @@ module.exports = {
 		],
 	},
 	execute(p) {
-		let answers = [
-			[0, "Yes"],
-			[2, "No"],
-			[1, "I am not completely sure"],
-			[0, "It is decidedly so"],
-			[0, "OBVIOUSLY"],
-			[2, "OBVIOUSLY No"],
-			[2, "Doubtful"],
-			[0, "Undoubtedly"],
-			[2, "SERIOUSLY? NO"],
-			[0, "Ofc"],
-			[1, "Why did you even ask that?"],
-			[2, "Nah"],
-			[1, "Meh"],
-			[0, "No question!"],
-			[1, "Sorry, I was confunded. Try again."],
-			[0, "Of course!!!!"],
-			[0, "Definitely"],
-			[2, "...No"],
-			[2, "Probably not."],
-			[1, "eh"],
-			[2, "Are you kidding me? Definitely not."],
-			[1, "Really?"],
-			[1, "Ya think so?"],
-			[0, "Totally!"],
-			[0, "YES"],
-			[0, "YESSSS"],
-			[0, "Yea"],
-			[0, "Seriously? YES"],
-			[0, "Yes, DUH"],
+		let yesAnswers = [
+			"Yes",
+			"It is decidedly so",
+			"OBVIOUSLY",
+			"Undoubtedly",
+			"Ofc",
+			"No question!",
+			"Of course!!!!",
+			"Definitely",
+			"Totally!",
+			"YES",
+			"YESSSS",
+			"Yea",
+			"Seriously? YES",
+			"Yes, DUH",
 		];
-		let random = Math.floor(Math.random() * answers.length);
-		let colors = ["🟢", "🟡", "🔴"];
-		const [colorNum, answer] = answers[random];
-		const color = colors[colorNum];
+		let noAnswers = [
+			"No",
+			"OBVIOUSLY NO",
+			"Doubtful",
+			"SERIOUSLY? NO",
+			"Nah",
+			"...No",
+			"Probably not.",
+			"Are you kidding me? Definitely not.",
+			"Why did you even ask that? No!",
+		];
+		let neutralAnswers = [
+			"I am not completely sure",
+			"Why did you even ask that?",
+			"Sorry, I was confunded. Try again.",
+			"Meh",
+			"eh",
+			"Ya think so?",
+			"Maybe",
+		];
+		let yesNoN = Math.floor(Math.random() * 11);
+		let color, answer;
+		if (yesNoN == 0) {
+			// neutral
+			color = "🟡";
+			answer = neutralAnswers[Math.floor(Math.random() * neutralAnswers.length)];
+		} else if (yesNoN <= 5) {
+			// no
+			color = "🔴";
+			answer = noAnswers[Math.floor(Math.random() * noAnswers.length)];
+		} else {
+			// yes
+			color = "🟢";
+			answer = yesAnswers[Math.floor(Math.random() * yesAnswers.length)];
+		}
 		p.reply(`:8ball: | ${color} **${answer}**`);
 	},
 };
