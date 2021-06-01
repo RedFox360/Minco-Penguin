@@ -15,11 +15,6 @@ module.exports = {
 	},
 	execute(p) {
 		const description = p.getArg("content");
-		p.reply(
-			Util.cleanContent(description, {
-				channel: p.channel,
-				client: p.interaction.client,
-			})
-		);
+		p.reply(description);
 	},
 };
