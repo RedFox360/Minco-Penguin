@@ -32,7 +32,7 @@ module.exports = (client) => {
 					.resolveData()
 					.resolveFiles();
 
-				return apiMessage;
+				return { ...apiMessage.data, files: apiMessage.files };
 			},
 		};
 		require(`../slashCommands/${command}`).execute(p);
