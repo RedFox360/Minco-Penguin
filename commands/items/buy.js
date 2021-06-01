@@ -4,9 +4,9 @@ module.exports = {
 	description: "Buy items!",
 	usage: "!buy <item number>",
 	execute(message, args, _0, client, profileData) {
-		if (args[0] == "drawing") {
+		if (args[0] == "drawing" && message.guild.id == "785642761814671381") {
 			require("../../functions/request_drawing")(message, args, client, profileData);
-		} else if (args[0] == "meme") {
+		} else if (args[0] == "meme" && message.guild.id == "785642761814671381") {
 			require("../../functions/request_meme")(message, args, client, profileData);
 		} else if (args[0] == "01") {
 			buy(message, "Marriage Ring :ring:", 75, "01", profileData, true, client);

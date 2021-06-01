@@ -37,15 +37,6 @@ module.exports = {
 				["<:cardboard_box:843173235549667349> (10) | Lootbox", "50 Minco Dollars | Gives a random reward with !lootbox"],
 				[":egg: (11) | Egg", "8 Minco Dollars\nCan be eaten (!eat egg) raw or cooked using !cook egg <type> for a reward"],
 				[":banana: (12) | Banana", "1 Orb"],
-				[
-					":art: Drawing",
-
-					"!buy drawing <drawing>\nUse this to send a request to Claire for a personalized drawing! (price will be decided by her)",
-				],
-				[
-					"<:doge:797152138467082250> Meme",
-					"!buy meme <meme>\nUse this to send a request to Mason L for a custom meme! (price will be decided by him)",
-				],
 			],
 			[
 				["(01) <:blue_diamond:843178044894216202> | Blue Diamond", "100 MD"],
@@ -64,6 +55,19 @@ module.exports = {
 				["(14) <:jade:845834920903704587> | Jade", "75 MD"],
 			],
 		];
+		if (message.guild.id == "785642761814671381") {
+			fields[1].push(
+				[
+					":art: Drawing",
+
+					"!buy drawing <drawing>\nUse this to send a request to Claire for a personalized drawing! (price will be decided by her)",
+				],
+				[
+					"<:doge:797152138467082250> Meme",
+					"!buy meme <meme>\nUse this to send a request to Mason L for a custom meme! (price will be decided by him)",
+				]
+			);
+		}
 		const shopEmbed = new MessageEmbed()
 			.setAuthor(message.member.displayName, message.author.avatarURL())
 			.setTitle(titles[0])
