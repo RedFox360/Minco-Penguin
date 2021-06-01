@@ -1,4 +1,4 @@
-const { Client, APIMessage } = require("discord.js");
+const { Client, APIMessage, MessageEmbed } = require("discord.js");
 /** @param {Client} client */
 module.exports = (client) => {
 	require("../handlers/slash_handler")(client);
@@ -17,22 +17,14 @@ module.exports = (client) => {
 			getArg(name) {
 				return args.find((arg) => arg.name.toLowerCase() == name)?.value;
 			},
-			reply(message) {
+			async reply(message) {
+				let msg = message instanceof MessageEmbed ? await createAPIMessage(message) : message;
 				client.api.interactions(interaction.id, interaction.token).callback.post({
 					data: {
 						type: 4,
 						data: {
-							content: message,
+							content: msg,
 						},
-					},
-				});
-			},
-			replyEmbed(embed) {
-				const msg = await createAPIMessage(interaction, embed);
-				client.api.interactions(interaction.id, interaction.token).callback.post({
-					data: {
-						type: 4,
-						data: msg,
 					},
 				});
 			},

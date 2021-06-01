@@ -32,6 +32,6 @@ module.exports = {
 		const color = p.getArg("color") ?? "C782FE";
 
 		const embed = new MessageEmbed().setTitle(title).setDescription(desc).setColor(color);
-		p.replyEmbed(embed);
+		p.reply(embed);
 	},
 };
