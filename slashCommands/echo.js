@@ -11,16 +11,8 @@ module.exports = {
 			},
 		],
 	},
-	execute(client, args) {
-		const description = args.find((arg) => arg.name.toLowerCase() == "content").value;
-
-		client.api.interactions(interaction.id, interaction.token).callback.post({
-			data: {
-				type: 4,
-				data: {
-					content: description,
-				},
-			},
-		});
+	execute(p) {
+		const description = p.args.find((arg) => arg.name.toLowerCase() == "content").value;
+		p.reply(description);
 	},
 };
