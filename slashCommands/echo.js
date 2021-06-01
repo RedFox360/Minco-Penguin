@@ -18,6 +18,7 @@ module.exports = {
 		p.reply(
 			Util.cleanContent(description, {
 				channel: p.channel,
+				client: p.interaction.client,
 			})
 		);
 	},
