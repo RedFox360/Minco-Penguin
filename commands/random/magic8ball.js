@@ -59,6 +59,6 @@ module.exports = {
 			color = colors[0];
 			answer = yesAnswers[Math.floor(Math.random() * yesAnswers.length)];
 		}
-		message.channel.send(`:8ball: | ${color} **${answer}** | ${name}`);
+		message.channel.send(`:8ball: | ${color} **${answer}** | ${message.member.displayName}`);
 	},
 };
