@@ -7,7 +7,7 @@ module.exports = {
 	async execute(message, _0, _1, _2, profileData) {
 		const now = Date.now();
 		const lastUsedDaily = profileData.lastUsedDaily;
-		if (lastUsedDaily && lastUsedDaily + dayLength < Date.now()) {
+		if (lastUsedDaily && lastUsedDaily + dayLength > Date.now()) {
 			return "You have already used this command within the past 24 hours";
 		}
 
