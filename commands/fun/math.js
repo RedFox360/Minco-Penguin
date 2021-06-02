@@ -4,7 +4,7 @@ const randomInt = require("../../functions/random");
 module.exports = {
 	description: "Sends a math question for you to solve",
 	usage: "!math <operation>",
-	cooldown: "15m",
+	cooldown: "12m",
 	/** @param {Message} message */
 	async execute(message, args, _0, _1, profileData) {
 		var num1, num2, result;
