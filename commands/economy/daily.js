@@ -3,7 +3,7 @@ const randomInt = require("../../functions/random");
 const dayLength = ms("1 day");
 module.exports = {
 	description: "Collect your daily reward!",
-	execute(message, _0, _1, _2, profileData) {
+	async execute(message, _0, _1, _2, profileData) {
 		const now = Date.now();
 		const lastUsedDaily = profileData.lastUsedDaily ?? now;
 		if (lastUsedDaily + dayLength > Date.now()) {
