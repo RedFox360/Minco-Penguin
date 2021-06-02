@@ -35,6 +35,7 @@ const profileSchema = new mongoose.Schema({
 		health: { type: Number, default: 100 },
 	},
 	market: [marketSchema],
+	lastUsedDaily: Number,
 });
 
 const model = mongoose.model("ProfileModels", profileSchema);
