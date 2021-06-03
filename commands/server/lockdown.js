@@ -12,7 +12,7 @@ module.exports = {
 			message.guild.channels.cache.array().forEach((channel) => {
 				if (
 					channel.name.includes("announcements") ||
-					channel.parent.name.toLowerCase().includes("info") ||
+					channel.parent?.name.toLowerCase().includes("info") ||
 					channel.name.includes("broadcast") ||
 					channel.permissionsFor(message.guild.roles.everyone).has("VIEW_CHANNEL", false)
 				)
