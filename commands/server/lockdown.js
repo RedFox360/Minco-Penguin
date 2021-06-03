@@ -4,7 +4,7 @@ module.exports = {
 	description: "Put the server on lockdown",
 	aliases: ["end-lockdown"],
 	/** @param {Message} message */
-	execute(message) {
+	execute(message, _0, cmd) {
 		const SEND_MESSAGES = cmd === "lockdown" ? false : true;
 		let modRole = message.guild.roles.cache.find((role) => role.name === "Moderator");
 		let muteRole = message.guild.roles.cache.find((role) => role.name === "Muted");
