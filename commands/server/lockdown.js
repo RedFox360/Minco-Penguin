@@ -26,7 +26,7 @@ module.exports = {
 					});
 				if (muteRole)
 					channel.updateOverwrite(muteRole, {
-						SEND_MESSAGES,
+						SEND_MESSAGES: false,
 					});
 			});
 			if (cmd === "lockdown") {
