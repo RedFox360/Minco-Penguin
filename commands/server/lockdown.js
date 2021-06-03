@@ -6,11 +6,21 @@ module.exports = {
 	/** @param {Message} message */
 	execute(message) {
 		const SEND_MESSAGES = cmd === "lockdown" ? false : true;
+		let modRole = message.guild.roles.cache.find((role) => role.name === "Moderator");
+		let muteRole = message.guild.roles.cache.find((role) => role.name === "Muted");
 		for (const channel of message.guild.channels.cache.array()) {
 			if (channel.permissionsFor(message.guild.roles.everyone).has("SEND_MESSAGES", false)) {
 				channel.updateOverwrite(message.guild.roles.everyone, {
 					SEND_MESSAGES,
 				});
+				if (modRole)
+					channel.updateOverwrite(modRole, {
+						SEND_MESSAGES,
+					});
+				if (muteRole)
+					channel.updateOverwrite(muteRole, {
+						SEND_MESSAGES,
+					});
 			}
 		}
 		if (cmd === "lockdown") {
