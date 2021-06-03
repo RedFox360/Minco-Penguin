@@ -13,7 +13,8 @@ module.exports = {
 				if (
 					channel.name.includes("announcements") ||
 					channel.parent.name.toLowerCase().includes("info") ||
-					channel.name.includes("broadcast")
+					channel.name.includes("broadcast") ||
+					channel.permissionsFor(message.guild.roles.everyone).has("VIEW_CHANNEL", false)
 				)
 					return;
 				channel.updateOverwrite(message.guild.roles.everyone, {
