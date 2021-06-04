@@ -104,7 +104,7 @@ module.exports = async (client, message) => {
 		if (typeof t === "string") sendC(message, t, resetCooldown);
 		if (t instanceof Promise) {
 			t.then((toSend) => {
-				if (typeof toSend === "string") sendC(message, t, resetCooldown);
+				if (typeof toSend === "string") sendC(message, toSend, resetCooldown);
 			});
 		}
 	} catch (error) {
