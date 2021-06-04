@@ -36,7 +36,7 @@ module.exports = {
 
 			message.delete();
 
-			setTimeout(() => {
+			setTimeout(async () => {
 				surpriseMessage.delete();
 				await serverModel.findOneAndUpdate(
 					{
