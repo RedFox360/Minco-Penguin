@@ -1,6 +1,7 @@
 const ms = require("ms");
 const profileModel = require("../../models/profileSchema");
 const randomInt = require("../../functions/random");
+const prettyMs = require("pretty-ms");
 const dayLength = ms("1 day");
 module.exports = {
 	description: "Collect your daily reward!",
@@ -8,7 +9,7 @@ module.exports = {
 		const now = Date.now();
 		const lastUsedDaily = profileData.lastUsedDaily;
 		if (lastUsedDaily && lastUsedDaily + dayLength > Date.now()) {
-			return "You have already used this command within the past 24 hours";
+			return `Please wait ${prettyMs(now - lastUsedDaily)} before using !daily again.`;
 		}
 
 		if (Math.floor(Math.random() * 4) == 0 && !profileData.inventory.includes("05")) {
