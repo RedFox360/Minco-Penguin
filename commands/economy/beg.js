@@ -1,11 +1,11 @@
+const randomInt = require("../../functions/random");
 const profileModel = require("../../models/profileSchema");
 module.exports = {
 	cooldown: "4m",
 	aliases: ["gimmemoney"],
 	description: "Beg for Minco Dollars",
 	async execute(message, _0, cmd, _1, profileData) {
-		let money = cmd === "gimmemoney" ? 2 : 4;
-		let numberEcon = Math.floor(Math.random() * money) + 1;
+		let numberEcon = cmd === "gimmemoney" ? 1 : randomInt(1, 3);
 		if (profileData.inventory.includes("05")) {
 			if (profileData.candyAmount <= 0) {
 				await profileModel.findOneAndUpdate(
