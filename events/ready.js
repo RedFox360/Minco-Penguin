@@ -8,7 +8,6 @@ module.exports = (client) => {
 	});
 
 	client.ws.on("INTERACTION_CREATE", async (interaction) => {
-		console.log(interaction);
 		const command = interaction.data.name.toLowerCase();
 		const args = interaction.data.options;
 		const p = {
