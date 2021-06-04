@@ -3,6 +3,11 @@ const serverSchema = new mongoose.Schema({
 	serverID: { type: String, require: true, unique: true },
 	bannedPeople: [String],
 	blacklist: [String],
+	chest: {
+		hasChest: { type: Boolean, default: false },
+		mdAmount: Number,
+		userDropped: String,
+	},
 });
 
 const model = mongoose.model("SeverModels", serverSchema);
