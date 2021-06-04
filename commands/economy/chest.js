@@ -5,7 +5,6 @@ const profileModel = require("../../models/profileSchema");
 const randomInt = require("../../functions/random");
 module.exports = {
 	description: "Claim your surprise chest for the server",
-	cooldown: "1h",
 	async execute(message, args, _0, _1, profileData) {
 		const serverData = await serverModel.findOne({
 			serverID: message.guild.id,

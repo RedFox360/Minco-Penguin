@@ -95,13 +95,17 @@ module.exports = async (client, message) => {
 			return;
 		}
 	}
+	const resetCooldown = () => {
+		timeStamps.delete(message.author.id);
+	};
 	timeStamps.set(message.author.id, currentTime);
 	try {
 		const t = command.execute(message, args, cmd, client, profileData);
-		if (typeof t === "string") message.channel.send(t);
+		if (typeof t === "string") sendC(message, t, resetCooldown);
 		if (t instanceof Promise) {
-			const toSend = await t;
-			if (typeof toSend === "string") message.channel.send(toSend);
+			t.then((toSend) => {
+				if (typeof toSend === "string") sendC(message, t, resetCooldown);
+			});
 		}
 	} catch (error) {
 		message.react("❌");
@@ -109,3 +113,10 @@ module.exports = async (client, message) => {
 		console.error(error);
 	}
 };
+
+function sendC(message, info, resetCooldown) {
+	message.channel.send(t);
+	if (info.includes("valid") || info.includes("enter")) {
+		resetCooldown();
+	}
+}
