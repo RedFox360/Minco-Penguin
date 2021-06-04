@@ -30,7 +30,7 @@ module.exports = {
 					"Minco was feeling generous and has dropped a chest in this server. Use **!chest claim** to claim it! You only have 10 minutes to claim this chest."
 				)
 				.setColor("32E6C5")
-				.setImage("https://cdn.discordapp.com/attachments/848987165601693740/850469488418750544/825185_gold_512x512.png");
+				.setThumbnail("https://cdn.discordapp.com/attachments/848987165601693740/850469488418750544/825185_gold_512x512.png");
 
 			if (message.guild.id == "785642761814671381")
 				surpriseEmbed.addField(":bulb: Tip", tips[Math.floor(Math.random() * tips.length)]);
