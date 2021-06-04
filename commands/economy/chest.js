@@ -3,6 +3,7 @@ const tips = require("../../functions/tips.json");
 const serverModel = require("../../models/serverSchema");
 const profileModel = require("../../models/profileSchema");
 const randomInt = require("../../functions/random");
+const ms = require("ms");
 module.exports = {
 	description: "Claim your surprise chest for the server",
 	async execute(message, args, _0, _1, profileData) {
@@ -27,7 +28,9 @@ module.exports = {
 				.setTitle("Surprise Minco Chest Drop!")
 				.setDescription(
 					"Minco was feeling generous and has dropped a chest in this server. Use **!chest claim** to claim it! You only have 10 minutes to claim this chest."
-				);
+				)
+				.setColor("32E6C5")
+				.setImage("https://cdn.discordapp.com/attachments/848987165601693740/850469488418750544/825185_gold_512x512.png");
 
 			if (message.guild.id == "785642761814671381")
 				surpriseEmbed.addField(":bulb: Tip", tips[Math.floor(Math.random() * tips.length)]);
@@ -47,7 +50,7 @@ module.exports = {
 						},
 					}
 				);
-			}, 10000);
+			}, ms("10m"));
 		} else if (args[0] == "claim") {
 			if (message.author.id == serverData.chest?.userDropped) return "You can't claim this chest, you dropped it!";
 
