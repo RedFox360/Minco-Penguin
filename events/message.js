@@ -115,7 +115,7 @@ module.exports = async (client, message) => {
 };
 
 function sendC(message, info, resetCooldown) {
-	message.channel.send(t);
+	message.channel.send(info);
 	if (info.includes("valid") || info.includes("enter")) {
 		resetCooldown();
 	}
