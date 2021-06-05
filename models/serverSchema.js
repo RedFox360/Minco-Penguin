@@ -8,6 +8,7 @@ const serverSchema = new mongoose.Schema({
 		mdAmount: Number,
 		userDropped: String,
 	},
+	welcomeChannel: String,
 });
 
 const model = mongoose.model("SeverModels", serverSchema);

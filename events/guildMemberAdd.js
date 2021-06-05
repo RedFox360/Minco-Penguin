@@ -1,13 +1,15 @@
 const Discord = require("discord.js");
 
 const profileModel = require("../models/profileSchema");
+const serverModel = require("../models/serverSchema");
 
 const ordinal = require("ordinal");
 
 /** @param {Discord.GuildMember} member */
-module.exports = async (_, member) => {
+module.exports = async (client, member) => {
 	if (member.user.bot) return;
 	let profileData = await profileModel.findOne({ userID: member.id });
+	let serverData = await serverModel.findOne({ serverID: member.guild.id });
 	if (!profileData) {
 		let profile = await profileModel.create({
 			userID: member.id,
@@ -28,7 +30,7 @@ module.exports = async (_, member) => {
 		.setTitle("Welcome")
 		.setDescription(`Welcome to ${member.guild.name}, <@${member.id}>!\nYou are the ${memberCountOrdinal} member!`)
 		.setThumbnail(member.user.avatarURL());
-
-	member.guild.systemChannel.send(joinEmbed);
+	const channel = serverData.welcomeChannel ? client.channels.cache.get(serverData.welcomeChannel) : member.guild.systemChannel;
+	channel.send(joinEmbed);
 	member.send(`Welcome to ${member.guild.name}, <@${member.id}>! You are the ${memberCountOrdinal} member!`);
 };
