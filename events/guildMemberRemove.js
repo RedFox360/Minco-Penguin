@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const serverModel = require("../models/serverSchema");
 /** @param {Discord.GuildMember} member */
-module.exports = (client, member) => {
+module.exports = async (client, member) => {
 	var memberCount = member.guild.memberCount;
 	let serverData = await serverModel.findOne({ serverID: member.guild.id });
 	let leaveEmbed = new Discord.MessageEmbed()
