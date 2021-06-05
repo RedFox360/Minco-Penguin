@@ -56,7 +56,7 @@ module.exports = {
 
 			if (!serverData.chest?.hasChest) return "There currently isn't a chest dropped in this server";
 
-			const mdAmount = serverData.mdAmount;
+			const { mdAmount } = serverData.chest;
 			const amount = randomInt(mdAmount - 5, mdAmount + 8);
 			await profileModel.findOneAndUpdate(
 				{
