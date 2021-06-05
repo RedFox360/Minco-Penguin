@@ -9,7 +9,8 @@ module.exports = {
 		const now = Date.now();
 		const lastUsedDaily = profileData.lastUsedDaily;
 		if (lastUsedDaily && lastUsedDaily + dayLength > Date.now()) {
-			return `Please wait ${prettyMs(now - lastUsedDaily)} before using !daily again.`;
+			const waitTime = dayLength - (now - lastUsedDaily);
+			return `Please wait ${prettyMs(waitTime)} before using !daily again.`;
 		}
 
 		if (Math.floor(Math.random() * 4) == 0 && !profileData.inventory.includes("05")) {
