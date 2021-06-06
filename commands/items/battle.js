@@ -72,7 +72,7 @@ module.exports = {
 					? {
 							mincoDollars: 0,
 							$inc: {
-								bank: amount - md,
+								bank: -(amount - md),
 							},
 					  }
 					: {
