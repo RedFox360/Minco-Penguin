@@ -1,7 +1,7 @@
 module.exports = {
 	description: "[SAMEER ONLY] Eval command for testing",
 
-	execute(message, args) {
+	execute(message, args, cmd, client, profileData) {
 		if (message.author.id != "724786310711214118") return "This command can only be used by Sameer";
 		try {
 			eval(args.join(" "));
