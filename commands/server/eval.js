@@ -1,3 +1,9 @@
+const Discord = require("discord.js");
+const ms = require("ms");
+const prettyMs = require("pretty-ms");
+const profileModel = require("../../models/profileSchema");
+const serverModel = require("../../models/serverSchema");
+const randomInt = require("../../functions/random");
 module.exports = {
 	description: "[SAMEER ONLY] Eval command for testing",
 
