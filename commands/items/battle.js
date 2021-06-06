@@ -107,13 +107,9 @@ function calculateAmount(amount) {
 	const randomAmount = Math.floor(Math.random() * 10) - 5;
 	let divideAmount;
 	if (amount > 10000) {
-		divideAmount = 40;
-	} else if (amount > 5000) {
-		divideAmount = 30;
-	} else if (amount > 3000) {
-		divideAmount = 20;
+		divideAmount = 60;
 	} else if (amount > 1500) {
-		divideAmount = 15;
+		divideAmount = amount / 100;
 	} else if (amount > 850) {
 		divideAmount = 12;
 	} else if (amount > 600) {
