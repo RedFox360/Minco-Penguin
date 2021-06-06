@@ -3,10 +3,9 @@ const { Client, APIMessage, MessageEmbed } = require("discord.js");
 module.exports = (client) => {
 	require("../handlers/slash_handler")(client);
 	console.log(`${client.user.tag} is online!`);
-	client.user.setActivity("!help for help", {
-		type: "PLAYING",
+	client.user.setActivity(`!help | in ${client.guilds.cache.size} servers`, {
+		type: "LISTENING",
 	});
-
 	client.ws.on("INTERACTION_CREATE", async (interaction) => {
 		const command = interaction.data.name.toLowerCase();
 		const args = interaction.data.options;
