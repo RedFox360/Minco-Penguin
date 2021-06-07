@@ -8,7 +8,7 @@ module.exports = {
 	execute(message, args, cmd) {
 		if (!args.length) return "You didn't provide any arguments.";
 		const channel = message.mentions.channels.first();
-		if (channel) {
+		if (channel && channel.permissionsFor(message.member).has("SEND_MESSAGES")) {
 			args.shift();
 			let msg = Util.cleanContent(args.join(" "), message);
 			channel.send(msg);

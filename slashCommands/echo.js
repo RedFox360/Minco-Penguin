@@ -1,5 +1,3 @@
-const { Util } = require("discord.js");
-
 module.exports = {
 	data: {
 		description: "Echos what you say back",
