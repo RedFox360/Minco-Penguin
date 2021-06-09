@@ -8,7 +8,7 @@ module.exports = {
 			await profileModel.findOneAndUpdate(
 				{ userID: mention.id },
 				{
-					mincoDollars: 5,
+					mincoDollars: 50,
 					bank: 0,
 					orbs: 5,
 					gems: [],
@@ -16,7 +16,7 @@ module.exports = {
 					inventory: [],
 				}
 			);
-			if (args) message.channel.send(`Minco Dollars for <@${mention.id}> has been reset.`);
+			message.channel.send(`Minco Dollars for <@${mention.id}> has been reset.`);
 		}
 	},
 };
