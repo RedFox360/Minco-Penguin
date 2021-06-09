@@ -99,6 +99,10 @@ const blobfishRules = new MessageEmbed()
 		{
 			name: "Amendment 6",
 			value: "DO NOT SPAM PING anyone (mute after 3 pings in a row)",
+		},
+		{
+			name: "Amendment 7",
+			value: "Only speak English in this server",
 		}
 	);
 
@@ -131,6 +135,10 @@ const carrelRules = new MessageEmbed()
 		{
 			name: "Amendment 6",
 			value: "DO NOT SPAM PING anyone (mute after 3 pings in a row)",
+		},
+		{
+			name: "Amendment 7",
+			value: "Only speak English in this server",
 		}
 	)
 	.setFooter("You have the right to stand trial in a voice channel if you break any of these rules");
