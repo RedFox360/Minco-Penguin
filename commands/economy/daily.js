@@ -29,7 +29,7 @@ module.exports = {
 			message.channel.send("You won a Candy :candy:!");
 		}
 
-		const randomAmount = randomInt(50, 100);
+		const randomAmount = randomInt(25, 60);
 		await profileModel.findOneAndUpdate(
 			{
 				userID: message.author.id,

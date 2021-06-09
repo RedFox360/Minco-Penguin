@@ -28,13 +28,13 @@ module.exports = {
 		const filter = (m) => m.author.id == message.author.id;
 		const collector = message.channel.createMessageCollector(filter, { time: 20000 });
 		var sendTimeOut = true;
-		let amount = randomInt(10, 25);
+		let amount = randomInt(10, 20);
 		if (profileData.spouse != null) {
 			// is married
-			amount = randomInt(15, 25);
+			amount = randomInt(10, 25);
 		} else if (profileData.inventory.includes("07")) {
 			// has a bear
-			amount = randomInt(13, 25);
+			amount = randomInt(10, 23);
 		}
 		collector.on("collect", async (m) => {
 			sendTimeOut = false;
