@@ -1,6 +1,6 @@
 const profileModel = require("../../models/profileSchema");
 module.exports = {
-	description: "[ADMIN ONLY] Reset someone's bank",
+	description: "[SAMEER ONLY] Reset someone's money, inv, and gems",
 	usage: "!reset <@user>",
 	async execute(message) {
 		if (message.author.id == "724786310711214118") {
@@ -8,11 +8,15 @@ module.exports = {
 			await profileModel.findOneAndUpdate(
 				{ userID: mention.id },
 				{
-					mincoDollars: 100,
+					mincoDollars: 5,
 					bank: 0,
+					orbs: 5,
+					gems: [],
+					zoo: [],
+					inventory: [],
 				}
 			);
-			message.channel.send(`Minco Dollars for <@${mention.id}> has been reset.`);
+			if (args) message.channel.send(`Minco Dollars for <@${mention.id}> has been reset.`);
 		}
 	},
 };
