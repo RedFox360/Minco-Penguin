@@ -4,7 +4,7 @@ module.exports = {
 	description: "Play mafia! Chooses random people to become the sheriff, doctor, and mafia",
 	/** @param {Message} message */
 	execute(message) {
-		const members = message.guild.members.cache.array();
+		const members = message.guild.members.cache.array().filter((member) => !member.user.bot);
 		const mafia1 = members.splice(Math.floor(Math.random() * members.length), 1);
 		const mafia2 = members.splice(Math.floor(Math.random() * members.length), 1);
 		const sheriff = members.splice(Math.floor(Math.random() * members.length), 1);
