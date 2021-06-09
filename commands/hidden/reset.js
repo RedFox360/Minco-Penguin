@@ -11,7 +11,6 @@ module.exports = {
 					mincoDollars: 50,
 					bank: 0,
 					orbs: 5,
-					gems: [],
 					zoo: [],
 					inventory: [],
 				}
