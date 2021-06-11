@@ -10,7 +10,6 @@ created using tutorials by [CodeLyon](https://www.youtube.com/codelyon)
 - discord.js
 - ms
 - dotenv
-- express
 - fs
 - mongoose
 - pretty-ms

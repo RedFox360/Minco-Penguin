@@ -19,6 +19,4 @@ mongoose
 	})
 	.catch(console.error);
 
-require("./server")();
-
 client.login(process.env.TOKEN);
