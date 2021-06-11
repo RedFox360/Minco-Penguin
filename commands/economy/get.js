@@ -8,6 +8,7 @@ module.exports = {
 	async execute(message, args) {
 		const user = message.mentions.users.first();
 		if (!user) return "Mention a valid user";
+		if (user.bot) return "You can't get money from a bot!";
 		const am = args[1];
 		if (!am) return "Enter an amount of Minco Dollars";
 		let amount = parseInt(am);
