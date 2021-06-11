@@ -21,7 +21,7 @@ module.exports = {
 			name = message.guild.members.cache.get(mention.id).displayName;
 			author = mention;
 		}
-		if (message.author.id == "804575179158192128") {
+		if (message.author.id == "804575179158192128" || mention.id == "804575179158192128") {
 			bank += 10000;
 		}
 		let balanceEmbed = new MessageEmbed()
