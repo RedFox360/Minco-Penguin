@@ -9,8 +9,7 @@ module.exports = {
 	/** @param {Message} message */
 	async execute(message, _0, _1, _2, profileData) {
 		const mention = message.mentions.users.first();
-		let md = profileData.mincoDollars;
-		let { bank, orbs } = profileData;
+		let { bank, orbs, mincoDollars: md } = profileData;
 		let name = message.member.displayName;
 		let author = message.author;
 		if (mention) {

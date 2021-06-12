@@ -7,9 +7,10 @@ module.exports = {
 		if (!args.length) {
 			return "Valid usage: !setfav <animal/color/food> <favorite object>";
 		}
+		let first = args[0];
 		args.shift();
 		let favObj = args.join(" ");
-		if (args[0] == "animal") {
+		if (first == "animal") {
 			await profileModel.findOneAndUpdate(
 				{ userID: message.author.id },
 				{
@@ -20,7 +21,7 @@ module.exports = {
 					},
 				}
 			);
-		} else if (args[0] == "color") {
+		} else if (first == "color") {
 			await profileModel.findOneAndUpdate(
 				{ userID: message.author.id },
 				{
@@ -31,7 +32,7 @@ module.exports = {
 					},
 				}
 			);
-		} else if (args[0] == "food") {
+		} else if (first == "food") {
 			await profileModel.findOneAndUpdate(
 				{ userID: message.author.id },
 				{
