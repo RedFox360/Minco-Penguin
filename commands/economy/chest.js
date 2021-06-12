@@ -49,6 +49,7 @@ module.exports = {
 					{
 						chest: {
 							hasChest: false,
+							usersClaimed: [],
 						},
 					}
 				);
