@@ -6,7 +6,8 @@ module.exports = {
 	/** @param {Message} message */
 	execute(message, args, cmd) {
 		if (!args.length) return "Enter a question";
-		if (args.join(" ").replace(" ", "").toLowerCase().includes("crush")) return "Stop asking questions about crushes!";
+		if (args.join(" ").replace(" ", "").toLowerCase().includes("crush"))
+			return "Stop asking questions about crushes!";
 		let yesAnswers = [
 			"Yes",
 			"It is decidedly so",

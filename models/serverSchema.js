@@ -7,6 +7,7 @@ const serverSchema = new mongoose.Schema({
 		hasChest: { type: Boolean, default: false },
 		mdAmount: Number,
 		userDropped: String,
+		usersClaimed: [String],
 	},
 	welcomeChannel: String,
 });

@@ -30,9 +30,12 @@ module.exports = {
 					"Minco was feeling generous and has dropped a chest in this server. Use **!chest claim** to claim it! You only have 10 minutes to claim this chest."
 				)
 				.setColor("32E6C5")
-				.setThumbnail("https://cdn.discordapp.com/attachments/848987165601693740/850469488418750544/825185_gold_512x512.png");
+				.setThumbnail(
+					"https://cdn.discordapp.com/attachments/848987165601693740/850469488418750544/825185_gold_512x512.png"
+				);
 
-			if (message.guild.id == "785642761814671381") surpriseEmbed.addField(":bulb: Tip", tips.rand());
+			if (message.guild.id == "785642761814671381")
+				surpriseEmbed.addField(":bulb: Tip", tips.rand());
 			const surpriseMessage = await message.guild.systemChannel.send(surpriseEmbed);
 
 			message.delete();
@@ -51,12 +54,25 @@ module.exports = {
 				);
 			}, ms("10m"));
 		} else if (args[0] == "claim") {
-			if (message.author.id == serverData.chest?.userDropped) return "You can't claim this chest, you dropped it!";
-
-			if (!serverData.chest?.hasChest) return "There currently isn't a chest dropped in this server";
+			if (message.author.id == serverData.chest?.userDropped)
+				return "You can't claim this chest, you dropped it!";
+			if (serverData.chest.usersClaimed?.includes(message.author.id) === true)
+				return "You already claimed this chest!";
+			if (!serverData.chest?.hasChest)
+				return "There currently isn't a chest dropped in this server";
 
 			const { mdAmount } = serverData.chest;
 			const amount = randomInt(mdAmount - 5, mdAmount + 8);
+			await serverModel.findOneAndUpdate(
+				{ serverID: message.guild.id },
+				{
+					$push: {
+						chest: {
+							usersClaimed: message.author.id,
+						},
+					},
+				}
+			);
 			await profileModel.findOneAndUpdate(
 				{
 					userID: message.author.id,
