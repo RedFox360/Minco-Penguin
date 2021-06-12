@@ -53,15 +53,15 @@ module.exports = {
 		if (yesNoN == 0) {
 			// neutral
 			color = "🟡";
-			answer = neutralAnswers[Math.floor(Math.random() * neutralAnswers.length)];
+			answer = neutralAnswers.rand();
 		} else if (yesNoN <= 5) {
 			// no
 			color = "🔴";
-			answer = noAnswers[Math.floor(Math.random() * noAnswers.length)];
+			answer = noAnswers.rand();
 		} else {
 			// yes
 			color = "🟢";
-			answer = yesAnswers[Math.floor(Math.random() * yesAnswers.length)];
+			answer = yesAnswers.rand();
 		}
 		p.reply(`:8ball: | ${color} **${answer}**`);
 	},

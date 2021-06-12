@@ -1,8 +1,36 @@
-const facts = require("../../functions/penguin_facts.json");
 module.exports = {
 	description: "Sends a random fact about penguins",
-	execute() {
-		var random = Math.floor(Math.random() * facts.length);
-		return facts[random];
-	},
+	execute: () =>
+		[
+			"Penguins can drink seawater. They have a gland that removes the salt from their bloodstream. However, Penguins still have to drink freshwater to stay hydrated.",
+			"Emperor Penguins are the tallest species of penguins - reaching up to 3' 11\" feet tall!",
+			"Penguins spend half their time in water and the other half on land",
+			"Female emperor penguins lay a single egg and go to the sea so they can get food. For over two months, the male penguin takes care of the egg, and when it hatches, regurgitates food for it.",
+			"Many penguins live in New Zealand, Australia, Chile, Argentina, and South Africa, not just Antarctica",
+			"King Penguins have four layers of feathers to keep them warm on Antarctican islands",
+			"Little Blue Penguins are the smallest type of Penguin, averaging just over a foot tall",
+			"In Antarctica, penguins have no predators on land",
+			"Penguins cannot fly",
+			"The Galapagos Penguin lives on the Galapagos islands, which are right on the equator. They are the only species of penguin that ever go to the Northern Hemisphere.",
+			"Emperor penguins huddle together in giant groups to stay warm",
+			"A group of penguins in the water is called a raft but on land it's called a waddle!",
+			"All penguins are in the scientific order Sphenisciformes",
+			"The scientific name of the Emperor Penguin is  Aptenodytes forsteri",
+			"Magellanic Penguins, a penguin species that lives in the southern Argentina, can live up to 30 years!",
+			"Penguins' black and white coloring is an example of *countershading*. When they are swimming, their black backs hide them from predators from above because they blend in with the dark ocean. Their white bellies blend in to the bright ocean surface from below.",
+			"Penguins have a gland that produces waterproof oil, which they spread over their body. It protects their feathers while swimming",
+			"Penguins are able to walk very long distances. Their feet help them walk miles across sea ice to get to their breeding grounds",
+			"Adélie, Gentoo and Chinstrap penguins make nests with rocks. Sometimes, the males woo females with rock gifts.",
+			"Penguins are carnivores: they eat fish, squid, crabs, krill, and other seafoods",
+			"Once a year, Penguins experience a *catastrophic molt* (official term). Most birds lose feathers and regrow them a few at a time throughout the year, but penguins lose **ALL of them** every year. They have to fatten themselves up to survive the time it takes to replace them",
+			"The yellow-eyed penguin is very endangered, with only 4000 of them living in the wild.",
+			"The oldest penguin fossil was found in a 61.6 million year old Antarctic rock, about 4 million years after the dinosaurs went extinct!",
+			"World Penguin day is celebrated on April 25 every year!",
+			"There are 18 species of penguin in the world https://birdnationblog.files.wordpress.com/2018/04/31282854_10155602349484423_6948177107500759168_n.jpg?w=840",
+			"40 million penguins live on Earth! (including all species)",
+			"Climate change is melting penguins' breeding zones and decreasing their food supply",
+			"The fastest penguin is the Gentoo penguin, which can swim up to 22 miles per hour!",
+			"Penguins' most common predator under the sea is the Sea lion",
+			"Penguins don't have teeth! They have fleshy spines inside of their beaks.",
+		].rand(),
 };

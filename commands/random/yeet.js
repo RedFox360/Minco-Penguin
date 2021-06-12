@@ -1,7 +1,7 @@
 module.exports = {
 	description: "Sends a random yeet gif",
 	execute(message, args) {
-		let yeets = [
+		const yeets = [
 			"https://tenor.com/view/yeet-lion-king-simba-rafiki-throw-gif-16194362",
 			"https://tenor.com/view/see-ya-ya-yeet-ash-chucks-pikachu-im-sick-of-you-now-throw-gif-16987702",
 			"https://tenor.com/view/rainbow-yeet-gif-14521966",
@@ -11,8 +11,7 @@ module.exports = {
 		if (args[0] == "all") {
 			yeets.forEach((yeet) => message.channel.send(yeet));
 		} else {
-			let random = Math.floor(Math.random() * yeets.length);
-			message.channel.send(yeets[random]);
+			return yeets.rand();
 		}
 	},
 };

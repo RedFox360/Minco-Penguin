@@ -16,8 +16,7 @@ module.exports = {
 			];
 
 			if (args[1] == "all") return holidays.join("\n\n");
-			let random = Math.floor(Math.random() * holidays.length);
-			return holidays[random];
+			return holidays.rand();
 		}
 	},
 };

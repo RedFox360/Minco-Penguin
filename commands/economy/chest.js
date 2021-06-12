@@ -32,8 +32,7 @@ module.exports = {
 				.setColor("32E6C5")
 				.setThumbnail("https://cdn.discordapp.com/attachments/848987165601693740/850469488418750544/825185_gold_512x512.png");
 
-			if (message.guild.id == "785642761814671381")
-				surpriseEmbed.addField(":bulb: Tip", tips[Math.floor(Math.random() * tips.length)]);
+			if (message.guild.id == "785642761814671381") surpriseEmbed.addField(":bulb: Tip", tips.rand());
 			const surpriseMessage = await message.guild.systemChannel.send(surpriseEmbed);
 
 			message.delete();

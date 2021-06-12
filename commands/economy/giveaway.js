@@ -9,8 +9,8 @@ module.exports = {
 			var options = [1, 25, 50, 75, 100];
 			var users = message.mentions.users.array();
 			if (!users) return "Mention at least 1 user";
-			var randomUser = users[Math.floor(Math.random() * users.length)];
-			var randomAmount = options[Math.floor(Math.random() * options.length)];
+			var randomUser = users.rand();
+			var randomAmount = options.rand();
 			await profileModel.findOneAndUpdate(
 				{ userID: randomUser.id },
 				{

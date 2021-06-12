@@ -49,15 +49,15 @@ module.exports = {
 		if (yesNoN == 0) {
 			// neutral
 			color = colors[1];
-			answer = neutralAnswers[Math.floor(Math.random() * neutralAnswers.length)];
+			answer = neutralAnswers.rand();
 		} else if (yesNoN <= 5) {
 			// no
 			color = colors[2];
-			answer = noAnswers[Math.floor(Math.random() * noAnswers.length)];
+			answer = noAnswers.rand();
 		} else {
 			// yes
 			color = colors[0];
-			answer = yesAnswers[Math.floor(Math.random() * yesAnswers.length)];
+			answer = yesAnswers.rand();
 		}
 		message.channel.send(`:8ball: | ${color} **${answer}** | ${message.member.displayName}`);
 	},

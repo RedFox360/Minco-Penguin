@@ -2,11 +2,9 @@ module.exports = {
 	description: "Returns a random hello message.",
 	aliases: ["howdy", "hi"],
 	execute(message) {
-		var ping = message.author.toString();
 		const mention = message.mentions.users.first();
-		if (mention) ping = `<@${mention.id}>`;
-		let hellos = ["Hi :)", "Hai!", "Hello! :)", `Salutations, ${ping}`, "Bonjour!", `Greetings, ${ping}`, "Howdy! :cowboy:"];
-		let random = Math.floor(Math.random() * hellos.length);
-		return hellos[random];
+		const ping = mention ? `<@${mention.id}>` : message.author.toString();
+		const hellos = ["Hi :)", "Hai!", "Hello! :)", `Salutations, ${ping}`, "Bonjour!", `Greetings, ${ping}`, "Howdy! :cowboy:"];
+		return hellos.rand();
 	},
 };

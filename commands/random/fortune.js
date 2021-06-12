@@ -15,8 +15,7 @@ module.exports = {
 			"You will live on Mars when you grow up",
 		];
 
-		let random = Math.floor(Math.random() * fortunes.length);
-		if (!args[0]) return fortunes[random];
+		if (!args[0]) return fortunes.rand();
 		const number = parseInt(args[0]);
 		if (isNaN(number)) return "Enter a valid number";
 		if (number > fortunes.length || number < 1) return "Invalid fortune index";

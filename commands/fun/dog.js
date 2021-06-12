@@ -60,7 +60,7 @@ module.exports = {
 						}
 					)
 					.setColor("FF8B8B")
-					.setThumbnail(oreoPics[Math.floor(Math.random() * oreoPics.length)]);
+					.setThumbnail(oreoPics.rand());
 			} else if (args[1] == "archie" || args[1] == "Archie") {
 				embed
 					.setDescription(
@@ -84,7 +84,7 @@ module.exports = {
 						}
 					)
 					.setColor("3498DB") // blue
-					.setThumbnail(archiePics[Math.floor(Math.random() * archiePics.length)]);
+					.setThumbnail(archiePics.rand());
 			} else if (args[1] == "rocco" || args[1] == "Rocco") {
 				embed
 					.setDescription(
@@ -108,7 +108,7 @@ module.exports = {
 						}
 					)
 					.setColor("F7DC6F")
-					.setThumbnail(roccoPics[Math.floor(Math.random() * roccoPics.length)]);
+					.setThumbnail(roccoPics.rand());
 			} else {
 				message.channel.send("Enter a valid dog name (oreo, archie, or rocco)");
 				return;

@@ -12,9 +12,7 @@ module.exports = {
 			"https://tenor.com/view/calming-gelif-6112322",
 		];
 
-		let random = Math.floor(Math.random() * jellyGifs.length);
-
-		message.channel.send(jellyGifs[random]);
+		message.channel.send(jellyGifs.rand());
 		message.channel.send(`${message.author.toString()} stung <@${mention.id}> using their jellyfish!`);
 	},
 };

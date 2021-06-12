@@ -1,8 +1,8 @@
 // the chat has died
 module.exports = {
 	description: "Sends a random the chat has died message",
-	execute() {
-		let randomMessage = [
+	execute: () =>
+		[
 			"The chat has died :(",
 			"What happened to the chat?",
 			"WHAT??",
@@ -16,8 +16,5 @@ module.exports = {
 			":cricket:",
 			"Why why why?",
 			"Chat = :(",
-		];
-		let random = Math.floor(Math.random() * randomMessage.length);
-		return randomMessage[random];
-	},
+		].rand(),
 };
