@@ -59,7 +59,8 @@ module.exports = async (client, message) => {
 	}
 	const args = message.content.slice(currentPrefix.length).split(/ +/);
 	const cmd = args.shift().toLowerCase();
-	const command = client.commands.get(cmd) || client.commands.find((a) => a.aliases && a.aliases.includes(cmd));
+	const command =
+		client.commands.get(cmd) || client.commands.find((a) => a.aliases && a.aliases.includes(cmd));
 
 	if (!command) return;
 	if (guildData.bannedPeople) {
@@ -70,7 +71,8 @@ module.exports = async (client, message) => {
 			}
 		}
 	}
-	if (!cooldowns.has(command.description)) cooldowns.set(command.description, new Discord.Collection());
+	if (!cooldowns.has(command.description))
+		cooldowns.set(command.description, new Discord.Collection());
 	const currentTime = Date.now();
 	const timeStamps = cooldowns.get(command.description);
 	const cooldown = command.cooldown;
