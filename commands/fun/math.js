@@ -9,7 +9,7 @@ module.exports = {
 	async execute(message, args, _0, _1, profileData) {
 		var num1, num2, result;
 		if (!args.length)
-			return "Invalid usage. Correct usage: !math <operation>\n(Divions is not a permitted operation)";
+			return "Invalid usage. Correct usage: !math <operation>\n(Division is not a permitted operation)";
 		var oper;
 		if (args[0] == "add" || args[0] == "addition" || args[0] == "+") oper = "+";
 		else if (args[0] == "subtract" || args[0] == "minus" || args[0] == "-") oper = "-";
