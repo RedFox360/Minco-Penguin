@@ -2,6 +2,7 @@ const ms = require("ms");
 const profileModel = require("../../models/profileSchema");
 const randomInt = require("../../functions/random");
 const prettyMs = require("pretty-ms");
+const { MessageEmbed } = require("discord.js");
 const dayLength = ms("1 day");
 module.exports = {
 	description: "Collect your daily reward!",
@@ -13,6 +14,11 @@ module.exports = {
 			return `Please wait ${prettyMs(waitTime)} before using !daily again.`;
 		}
 
+		const dailyEmbed = new MessageEmbed()
+			.setColor("ffa845")
+			.setAuthor(message.member.displayName, message.author.avatarURL())
+			.setFooter(message.guild.name);
+		let description = "";
 		if (Math.floor(Math.random() * 4) == 0 && !profileData.inventory.includes("05")) {
 			await profileModel.findOneAndUpdate(
 				{
@@ -26,7 +32,7 @@ module.exports = {
 				}
 			);
 
-			message.channel.send("You won a Candy :candy:!");
+			description += "You won a Candy :candy:!";
 		}
 
 		const randomAmount = randomInt(25, 60);
@@ -42,6 +48,10 @@ module.exports = {
 			}
 		);
 
-		message.channel.send(`You earned ${randomAmount} Minco Dollars!`);
+		description += `You earned ${randomAmount} Minco Dollars!`;
+
+		dailyEmbed.setDescription(description);
+
+		message.channel.send(dailyEmbed);
 	},
 };
