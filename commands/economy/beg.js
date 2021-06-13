@@ -1,7 +1,7 @@
 const randomInt = require("../../functions/random");
 const profileModel = require("../../models/profileSchema");
 module.exports = {
-	cooldown: "4m",
+	cooldown: "3.5m",
 	aliases: ["gimmemoney"],
 	description: "Beg for Minco Dollars",
 	async execute(message, _0, cmd, _1, profileData) {
