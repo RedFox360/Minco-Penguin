@@ -4,10 +4,7 @@ module.exports = {
 	description: "View your gems!",
 	async execute(message) {
 		const mention = message.mentions.users.first();
-		let author = message.author;
-		if (mention) {
-			author = mention;
-		}
+		const author = mention ?? message.author;
 
 		const { gems } = await profileModel.findOne({ userID: author.id });
 		if (!gems.length) return "You don't have any gems!";

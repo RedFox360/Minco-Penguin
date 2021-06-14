@@ -9,16 +9,13 @@ module.exports = {
 	/** @param {Message} message */
 	async execute(message, _0, _1, _2, profileData) {
 		const mention = message.mentions.users.first();
-		let { bank, orbs, mincoDollars: md } = profileData;
-		let author = message.author;
-		if (mention) {
-			let profile = await profileModel.findOne({ userID: mention.id });
-			md = profile.mincoDollars;
-			bank = profile.bank;
-			orbs = profile.orbs;
-			author = mention;
-		}
-		let balanceEmbed = new MessageEmbed()
+		let {
+			bank,
+			orbs,
+			mincoDollars: md,
+		} = mention ? await profileModel.findOne({ userID: mention.id }) : profileData;
+		const author = mention ?? message.author;
+		const balanceEmbed = new MessageEmbed()
 			.setAuthor("Balance", author.avatarURL())
 			.setColor("7BFF70")
 			.setDescription(

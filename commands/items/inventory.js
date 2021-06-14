@@ -4,7 +4,7 @@ module.exports = {
 	description: "View your item inventory! (from shop)",
 	aliases: ["inv"],
 	async execute(message) {
-		let author = message.author;
+		const author = mention ?? message.author;
 		const mention = message.mentions.users.first();
 		if (mention) {
 			author = mention;
