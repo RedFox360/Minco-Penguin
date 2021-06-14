@@ -3,11 +3,9 @@ const profileModel = require("../../models/profileSchema");
 module.exports = {
 	description: "View your gems!",
 	async execute(message) {
-		let name = message.member.displayName;
 		const mention = message.mentions.users.first();
 		let author = message.author;
 		if (mention) {
-			name = message.guild.members.cache.get(mention.id).displayName;
 			author = mention;
 		}
 
@@ -36,8 +34,7 @@ module.exports = {
 		}
 		message.channel.send(
 			new MessageEmbed()
-				.setAuthor(name, author.avatarURL())
-				.setTitle("Gems")
+				.setAuthor("Gems", author.avatarURL())
 				.setDescription(g.join("\n"))
 				.setColor("#F8C471")
 				.setFooter(message.guild.name)

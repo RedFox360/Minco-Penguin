@@ -10,14 +10,12 @@ module.exports = {
 	async execute(message, _0, _1, _2, profileData) {
 		const mention = message.mentions.users.first();
 		let { bank, orbs, mincoDollars: md } = profileData;
-		let name = message.member.displayName;
 		let author = message.author;
 		if (mention) {
 			let profile = await profileModel.findOne({ userID: mention.id });
 			md = profile.mincoDollars;
 			bank = profile.bank;
 			orbs = profile.orbs;
-			name = message.guild.members.cache.get(mention.id).displayName;
 			author = mention;
 		}
 		let balanceEmbed = new MessageEmbed()

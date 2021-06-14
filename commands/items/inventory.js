@@ -4,11 +4,9 @@ module.exports = {
 	description: "View your item inventory! (from shop)",
 	aliases: ["inv"],
 	async execute(message) {
-		let name = message.member.displayName;
 		let author = message.author;
 		const mention = message.mentions.users.first();
 		if (mention) {
-			name = message.guild.members.cache.get(mention.id).displayName;
 			author = mention;
 		}
 
@@ -36,8 +34,7 @@ module.exports = {
 		}
 		message.channel.send(
 			new MessageEmbed()
-				.setAuthor(name, author.avatarURL())
-				.setTitle("Inventory")
+				.setAuthor("Inventory", author.avatarURL())
 				.setDescription(inv.join("\n"))
 				.setColor("#F8C471")
 				.setFooter(message.guild.name)
