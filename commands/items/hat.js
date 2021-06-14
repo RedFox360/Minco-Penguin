@@ -8,7 +8,9 @@ module.exports = {
 			sendNone = false;
 		}
 		if (profileData.inventory.includes("03")) {
-			message.channel.send("https://tenor.com/view/afistful-of-dollars-clint-eastwood-man-with-no-name-hat-tip-gif-4268634");
+			message.channel.send(
+				"https://tenor.com/view/afistful-of-dollars-clint-eastwood-man-with-no-name-hat-tip-gif-4268634"
+			);
 			message.channel.send("Wow! A cowboy hat");
 			sendNone = false;
 		}
