@@ -16,7 +16,7 @@ module.exports = {
 
 		const dailyEmbed = new MessageEmbed()
 			.setColor("ffa845")
-			.setAuthor(message.member.displayName, message.author.avatarURL())
+			.setAuthor("Daily Reward", message.author.avatarURL())
 			.setFooter(message.guild.name);
 		let description = "";
 		if (Math.floor(Math.random() * 4) == 0 && !profileData.inventory.includes("05")) {

@@ -21,8 +21,7 @@ module.exports = {
 			author = mention;
 		}
 		let balanceEmbed = new MessageEmbed()
-			.setAuthor(name, author.avatarURL())
-			.setTitle("Balance")
+			.setAuthor("Balance", author.avatarURL())
 			.setColor("7BFF70")
 			.setDescription(
 				`:coin: Wallet: **${md.toLocaleString()}** Minco Dollars
