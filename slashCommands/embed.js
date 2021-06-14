@@ -29,7 +29,7 @@ module.exports = {
 	async execute(p) {
 		const title = p.getArg("title");
 		const desc = p.getArg("description");
-		const color = p.getArg("color") ?? "C782FE";
+		const color = p.getArg("color")?.toUpperCase() ?? "C782FE";
 
 		const embed = new MessageEmbed().setTitle(title).setDescription(desc).setColor(color);
 		p.reply(embed);
