@@ -57,7 +57,9 @@ const mincoServerRules = new MessageEmbed()
 			value: "Do not post NSFW or other inappropriate content",
 		}
 	)
-	.setDescription("Follow these rules when talking in the server. If you break these rules multiple times, you will be muted.");
+	.setDescription(
+		"Follow these rules when talking in the server. If you break these rules multiple times, you will be muted."
+	);
 
 const importantRules = new MessageEmbed()
 	.setColor("#E74C3C")
@@ -74,7 +76,9 @@ const importantRules = new MessageEmbed()
 const blobfishRules = new MessageEmbed()
 	.setTitle("Blobfish Rules")
 	.setColor("F564CF")
-	.setDescription("Follow these rules when talking in the server. If you break these rules multiple times, you will be muted.")
+	.setDescription(
+		"Follow these rules when talking in the server. If you break these rules multiple times, you will be muted."
+	)
 	.addFields(
 		{
 			name: "Amendment 1",
@@ -109,7 +113,9 @@ const blobfishRules = new MessageEmbed()
 const carrelRules = new MessageEmbed()
 	.setColor("#80CED7")
 	.setTitle("Amendments to the Carrel Crew Discord Server")
-	.setDescription("Follow these rules when talking in the server. If you break these rules multiple times, you will be muted.")
+	.setDescription(
+		"Follow these rules when talking in the server. If you break these rules multiple times, you will be muted."
+	)
 	.addFields(
 		{
 			name: "Amendment 1",
@@ -141,7 +147,9 @@ const carrelRules = new MessageEmbed()
 			value: "Only speak English in this server",
 		}
 	)
-	.setFooter("You have the right to stand trial in a voice channel if you break any of these rules");
+	.setFooter(
+		"You have the right to stand trial in a voice channel if you break any of these rules"
+	);
 
 const roleplayRules = new MessageEmbed()
 	.setTitle("Roleplay Rules")

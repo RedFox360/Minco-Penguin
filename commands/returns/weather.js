@@ -16,7 +16,8 @@ module.exports = {
 					message.channel.send("An error occured");
 					return console.error(error);
 				}
-				if (result === undefined || result.length == 0) return message.channel.send("That place doesn't exist!");
+				if (result === undefined || result.length == 0)
+					return message.channel.send("That place doesn't exist!");
 				const { current, location } = result[0];
 				const forecast = result[0].forecast[1];
 				const embed = new MessageEmbed()
@@ -57,7 +58,9 @@ module.exports = {
 							inline: true,
 						}
 					)
-					.setFooter(`Time Zone: UTC${location.timezone} | Observation time: ${current.date} ${current.observationtime}`);
+					.setFooter(
+						`Time Zone: UTC${location.timezone} | Observation time: ${current.date} ${current.observationtime}`
+					);
 				message.channel.send(embed);
 			}
 		);

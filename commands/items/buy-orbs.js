@@ -7,7 +7,8 @@ module.exports = {
 		if (isNaN(amount)) return "Enter a valid number";
 		const price = amount * 10;
 		const pl = amount == 1 ? "Orb" : "Orbs";
-		if (profileData.mincoDollars < price) return `You need ${price} MD to buy this many ${pl.toLowerCase()}`;
+		if (profileData.mincoDollars < price)
+			return `You need ${price} MD to buy this many ${pl.toLowerCase()}`;
 		await profileModel.findOneAndUpdate(
 			{
 				userID: message.author.id,

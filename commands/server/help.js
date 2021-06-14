@@ -51,7 +51,9 @@ module.exports = {
 				message.channel.send(pageEmbed);
 				return;
 			}
-			const command = client.commands.get(args[0]) || client.commands.find((a) => a.aliases && a.aliases.includes(args[0]));
+			const command =
+				client.commands.get(args[0]) ||
+				client.commands.find((a) => a.aliases && a.aliases.includes(args[0]));
 			if (!command) return "Enter a valid command name";
 			let commandEmbed = new Discord.MessageEmbed()
 				.setAuthor(...author)
@@ -105,7 +107,9 @@ module.exports = {
 				helpMsg.edit(helpEmbed);
 			}
 
-			const userReactions = helpMsg.reactions.cache.filter((react) => react.users.cache.has(message.author.id));
+			const userReactions = helpMsg.reactions.cache.filter((react) =>
+				react.users.cache.has(message.author.id)
+			);
 			try {
 				for (const reaction of userReactions.values()) {
 					await reaction.users.remove(message.author.id);
@@ -122,7 +126,9 @@ function getFields() {
 	const categories = fs.readdirSync("./commands/").filter((file) => !file.endsWith(".DS_Store"));
 	for (const category of categories) {
 		if (category != "hidden") {
-			const commandFiles = fs.readdirSync(`./commands/${category}`).filter((File) => File.endsWith(".js"));
+			const commandFiles = fs
+				.readdirSync(`./commands/${category}`)
+				.filter((File) => File.endsWith(".js"));
 			for (const file of commandFiles) {
 				const command = require(`../../commands/${category}/${file}`);
 				let pos = 0;

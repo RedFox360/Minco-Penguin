@@ -45,7 +45,8 @@ module.exports = {
 			);
 			await msg.react("✅");
 			const filter = (reaction, user) =>
-				reaction.emoji.name === "✅" && (user.id == message.author.id || user.id == profileData.spouse);
+				reaction.emoji.name === "✅" &&
+				(user.id == message.author.id || user.id == profileData.spouse);
 			const collector = msg.createReactionCollector(filter, { time: ms("7m") });
 			const spouse = profileModel.findOne({ userID: profileData.spouse });
 			collector.on("collect", async (reaction, user) => {

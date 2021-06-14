@@ -9,7 +9,8 @@ module.exports = {
 		if (isNaN(amount)) return "Enter a valid number";
 		if (amount <= 0) return "Deposit amount must be a positive number";
 		try {
-			if (amount > profileData.mincoDollars) return "You don't have that amount of Minco Dollars to deposit.";
+			if (amount > profileData.mincoDollars)
+				return "You don't have that amount of Minco Dollars to deposit.";
 			await profileModel.findOneAndUpdate(
 				{
 					userID: message.author.id,

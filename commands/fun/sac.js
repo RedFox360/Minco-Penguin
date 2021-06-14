@@ -4,7 +4,9 @@ module.exports = {
 	aliases: ["states-and-capitals", "s-and-c", "state-cap", "states-capitals"],
 	usage: "!sac (west/midwest/south/northeast)",
 	execute(message, args) {
-		const embed = new MessageEmbed().setTitle(":flag_us: States & Capitals of the US").setColor("#43426B");
+		const embed = new MessageEmbed()
+			.setTitle(":flag_us: States & Capitals of the US")
+			.setColor("#43426B");
 
 		const west = `Olympia, Washington
 Salem, Oregon

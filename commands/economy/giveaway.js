@@ -19,7 +19,9 @@ module.exports = {
 					},
 				}
 			);
-			message.channel.send(`<@${randomUser.id}> won the giveaway! They won ${randomAmount} Minco Dollars`);
+			message.channel.send(
+				`<@${randomUser.id}> won the giveaway! They won ${randomAmount} Minco Dollars`
+			);
 		} else {
 			message.channel.send("This command can only be used by Angela and Sameer");
 		}

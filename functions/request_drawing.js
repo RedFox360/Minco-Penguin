@@ -18,7 +18,11 @@ module.exports =
 			.setColor("#70FFC2")
 			.setAuthor(message.author.username, message.author.avatarURL())
 			.setTitle("Drawing Request")
-			.setDescription(`${message.author.toString()} from ${message.guild.name} has requested a drawing:\n__${drawing}__`);
+			.setDescription(
+				`${message.author.toString()} from ${
+					message.guild.name
+				} has requested a drawing:\n__${drawing}__`
+			);
 		let returnEmbed = new Discord.MessageEmbed()
 			.setColor("#54ACFE")
 			.setAuthor("Claire")
@@ -93,7 +97,9 @@ module.exports =
 							.then(() => confirmPriceMsg.react("🚫"))
 							.catch(console.error);
 						const filter2 = (reaction, user) => user.id !== "725917919292162051";
-						const confirmCollector = confirmPriceMsg.createReactionCollector(filter2, { time: 10000 });
+						const confirmCollector = confirmPriceMsg.createReactionCollector(filter2, {
+							time: 10000,
+						});
 						confirmCollector.on("collect", async (reaction, user) => {
 							if (reaction.emoji.name == "✅") {
 								await profileModel.findOneAndUpdate(
@@ -112,7 +118,9 @@ module.exports =
 										},
 									}
 								);
-								claire.send(`${message.author.toString()} has confirmed the price. You have received ${price} Minco Dollars`);
+								claire.send(
+									`${message.author.toString()} has confirmed the price. You have received ${price} Minco Dollars`
+								);
 								message.author.send(
 									`You have accepted the price. ${price} Minco Dollars from your profile have been given to Claire.`
 								);
@@ -138,7 +146,9 @@ module.exports =
 					botMessage: botMsg,
 					user: "802668636795830292",
 				}).catch(console.error);
-				await message.author.send(`Message from <@${userMessage.author.id}>: ${userMessage.content}`);
+				await message.author.send(
+					`Message from <@${userMessage.author.id}>: ${userMessage.content}`
+				);
 				botMsg.delete();
 				claire.send("Message sent").then((msg) => {
 					setTimeout(() => {

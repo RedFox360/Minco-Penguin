@@ -2,7 +2,7 @@ module.exports = {
 	description: "checks if a number is prime or not",
 	aliases: ["composite", "isprime"],
 	usage: "!prime <number>",
-	/** @param {Array<String>} args */
+	/** @param {string[]} args */
 	execute(_, args, cmd) {
 		if (!args[0]) return "Please enter an argument (valid usage: !prime <Number>)";
 		let numberString = args[0].replace(/,/, "");
@@ -26,7 +26,8 @@ function isPrime(number, useComposite) {
 	if (number == 1) return "1 is neither prime nor composite";
 	if (number == 2) return `${number.toLocaleString()} ${isPrimeText}`;
 	for (let i = 2; i <= Math.ceil(Math.sqrt(number)); i++) {
-		if (number % i == 0) return `${number.toLocaleString()} ${isntPrimeText} because it is divisible by ${i}`;
+		if (number % i == 0)
+			return `${number.toLocaleString()} ${isntPrimeText} because it is divisible by ${i}`;
 	}
 	return `${number.toLocaleString()} ${isPrimeText}`;
 }

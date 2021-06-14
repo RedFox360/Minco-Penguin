@@ -83,7 +83,9 @@ module.exports = {
 				if (!zilches.includes(guess)) zilches.push(guess);
 			}
 			updateEmbed.setDescription(
-				`Guessed Digits: ${userDigits.join("")}\nZilches: ${zilches.join(", ")}\nFirmes: ${firmes.join(", ")}`
+				`Guessed Digits: ${userDigits.join("")}\nZilches: ${zilches.join(
+					", "
+				)}\nFirmes: ${firmes.join(", ")}`
 			);
 			gameMsg.edit(updateEmbed);
 			if (userDigits.every((user) => user !== "\\_")) {

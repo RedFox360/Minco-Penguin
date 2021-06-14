@@ -15,7 +15,9 @@ module.exports = {
 		if (mincoDollars + bank <= 0) return "You can't battle someone with no or negative money!";
 		const filter = (reaction, user) => reaction.emoji.name === "✅" && user.id === mention.id;
 		const msg = await message.channel.send(
-			`<@${mention.id}>, ${message.author.toString()} has challenged you to a battle! Accept by reacting with a ✅`
+			`<@${
+				mention.id
+			}>, ${message.author.toString()} has challenged you to a battle! Accept by reacting with a ✅`
 		);
 		msg.react("✅");
 		const reactionCollector = msg.createReactionCollector(filter, { time: ms("3m") });
@@ -30,7 +32,10 @@ module.exports = {
 					.setColor("#F5B041")
 					.setDescription(`Top: ${message.author.toString()}, Bottom: <@${mention.id}>`)
 					.setFooter(message.guild.name)
-					.addFields(...getDescription(attack, defense, health), ...getDescription(mattack, mdefense, mhealth))
+					.addFields(
+						...getDescription(attack, defense, health),
+						...getDescription(mattack, mdefense, mhealth)
+					)
 			);
 			let winner;
 			let turnAuthor = true;
@@ -82,7 +87,9 @@ module.exports = {
 					  };
 			await profileModel.findOneAndUpdate({ userID: loser }, inc);
 			await profileModel.findOneAndUpdate({ userID: winner }, { $inc: { mincoDollars: amount } });
-			message.channel.send(`The battle is over! The winner is <@${winner}>, they won ${amount} MD!`);
+			message.channel.send(
+				`The battle is over! The winner is <@${winner}>, they won ${amount} MD!`
+			);
 			if (Math.floor(Math.random() * 15) == 0) {
 				const winnerProfile = await profileModel.findOne({ userID: winner });
 				if (winnerProfile.inventory.includes("10")) return;
@@ -96,7 +103,9 @@ module.exports = {
 						},
 					}
 				);
-				message.channel.send(`<@${winner}> also won a lootbox <:cardboard_box:843173235549667349>!`);
+				message.channel.send(
+					`<@${winner}> also won a lootbox <:cardboard_box:843173235549667349>!`
+				);
 			}
 		});
 	},

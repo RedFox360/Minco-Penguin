@@ -8,7 +8,9 @@ module.exports = {
 			if (!profileData.inventory.includes("04")) return "You don't have a tomato!";
 			let numberEcon = randomInt(2, 6);
 			if (randomInt(0, 900) == 0) {
-				message.channel.send("Wow! The Minco Dice have decided you will win **100** Minco Dollars!");
+				message.channel.send(
+					"Wow! The Minco Dice have decided you will win **100** Minco Dollars!"
+				);
 				await profileModel.findOneAndUpdate(
 					{
 						userID: message.author.id,

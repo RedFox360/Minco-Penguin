@@ -18,7 +18,9 @@ module.exports =
 			.setColor("#70FFC2")
 			.setAuthor(message.author.username, message.author.avatarURL())
 			.setTitle("Meme Request")
-			.setDescription(`${message.author.toString()} from ${message.guild.name} has requested a meme:\n__${meme}__`);
+			.setDescription(
+				`${message.author.toString()} from ${message.guild.name} has requested a meme:\n__${meme}__`
+			);
 		let returnEmbed = new Discord.MessageEmbed()
 			.setColor("#54ACFE")
 			.setAuthor("Mason L")
@@ -93,7 +95,9 @@ module.exports =
 							.then(() => confirmPriceMsg.react("🚫"))
 							.catch(console.error);
 						const filter2 = (_, user) => user.id !== "725917919292162051";
-						const confirmCollector = confirmPriceMsg.createReactionCollector(filter2, { time: 10000 });
+						const confirmCollector = confirmPriceMsg.createReactionCollector(filter2, {
+							time: 10000,
+						});
 						confirmCollector.on("collect", async (reaction) => {
 							if (reaction.emoji.name == "✅") {
 								await profileModel.findOneAndUpdate(
@@ -112,7 +116,9 @@ module.exports =
 										},
 									}
 								);
-								mason.send(`${message.author.toString()} has confirmed the price. You have received ${price} Minco Dollars`);
+								mason.send(
+									`${message.author.toString()} has confirmed the price. You have received ${price} Minco Dollars`
+								);
 								message.author.send(
 									`You have accepted the price. ${price} Minco Dollars from your profile have been given to Mason L.`
 								);
@@ -138,7 +144,9 @@ module.exports =
 					botMessage: botMsg,
 					user: "769313131108237322",
 				}).catch(console.error);
-				await message.author.send(`Message from <@${userMessage.author.id}>: ${userMessage.content}`);
+				await message.author.send(
+					`Message from <@${userMessage.author.id}>: ${userMessage.content}`
+				);
 				botMsg.delete();
 				mason.send("Message sent").then((msg) => {
 					setTimeout(() => {
@@ -147,7 +155,9 @@ module.exports =
 				});
 			}
 
-			const userReactions = reactMsgMa.reactions.cache.filter((react) => react.users.cache.has("769313131108237322"));
+			const userReactions = reactMsgMa.reactions.cache.filter((react) =>
+				react.users.cache.has("769313131108237322")
+			);
 			try {
 				for (const reaction of userReactions.values()) {
 					await reaction.users.remove("769313131108237322");
@@ -186,7 +196,9 @@ module.exports =
 				reactMsgMa.delete();
 			}
 
-			const userReactions = reactMsgAu.reactions.cache.filter((react) => react.users.cache.has(message.author.id));
+			const userReactions = reactMsgAu.reactions.cache.filter((react) =>
+				react.users.cache.has(message.author.id)
+			);
 			try {
 				for (const reaction of userReactions.values()) {
 					await reaction.users.remove(message.author.id);

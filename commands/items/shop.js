@@ -34,8 +34,14 @@ module.exports = {
 			[
 				[":cactus: (08) | Cactus", "50 Minco Dollars | Gives a +8 defense bonus in battle."],
 				[":fire: (09) | Fire", "50 Minco Dollars | Gives +6 attack -3 health in battle."],
-				["<:cardboard_box:843173235549667349> (10) | Lootbox", "50 Minco Dollars | Gives a random reward with !lootbox"],
-				[":egg: (11) | Egg", "8 Minco Dollars\nCan be eaten (!eat egg) raw or cooked using !cook egg <type> for a reward"],
+				[
+					"<:cardboard_box:843173235549667349> (10) | Lootbox",
+					"50 Minco Dollars | Gives a random reward with !lootbox",
+				],
+				[
+					":egg: (11) | Egg",
+					"8 Minco Dollars\nCan be eaten (!eat egg) raw or cooked using !cook egg <type> for a reward",
+				],
 				[":banana: (12) | Banana", "1 Orb"],
 			],
 			[
@@ -119,7 +125,9 @@ module.exports = {
 				shopMsg.edit(shopEmbed);
 				shopMsg.edit(shopEmbed);
 			}
-			const userReactions = shopMsg.reactions.cache.filter((react) => react.users.cache.has(message.author.id));
+			const userReactions = shopMsg.reactions.cache.filter((react) =>
+				react.users.cache.has(message.author.id)
+			);
 			try {
 				for (const reaction of userReactions.values()) {
 					await reaction.users.remove(message.author.id);

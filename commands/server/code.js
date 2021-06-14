@@ -10,7 +10,8 @@ module.exports = {
 				{ name: "Discord.js Version", value: "v" + version },
 				{
 					name: "Server",
-					value: "Heroku free account, view the server [here](https://minco-penguin.herokuapp.com/)",
+					value:
+						"Heroku free account, view the server [here](https://minco-penguin.herokuapp.com/)",
 				},
 				{
 					name: "Packages used",

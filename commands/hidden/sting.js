@@ -13,6 +13,8 @@ module.exports = {
 		];
 
 		message.channel.send(jellyGifs.rand());
-		message.channel.send(`${message.author.toString()} stung <@${mention.id}> using their jellyfish!`);
+		message.channel.send(
+			`${message.author.toString()} stung <@${mention.id}> using their jellyfish!`
+		);
 	},
 };

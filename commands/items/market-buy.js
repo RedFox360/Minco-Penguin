@@ -11,18 +11,26 @@ module.exports = {
 		args.shift();
 		const item = args.join(" ");
 		const profile = await profileModel.findOne({ userID: mention.id });
-		if (!hasItem(item, profile)) return `<@${mention.id}> does not have that item! (remember capitalization)`;
+		if (!hasItem(item, profile))
+			return `<@${mention.id}> does not have that item! (remember capitalization)`;
 		const i = getItem(item, profile);
 		const oomStr = i.orbs ? "Orbs" : "MD";
 		const oom = i.orbs ? profileData.orbs : profileData.mincoDollars;
 		if (oom < i.price) return `You do not have ${i.price} ${oomStr} (price).`;
-		const msg = await message.channel.send(`Confirm by reacting to buy **${i.name}** for ${i.price} ${oomStr}.`);
+		const msg = await message.channel.send(
+			`Confirm by reacting to buy **${i.name}** for ${i.price} ${oomStr}.`
+		);
 		msg.react("✅");
-		const filter = (reaction, user) => reaction.emoji.name === "✅" && user.id === message.author.id;
+		const filter = (reaction, user) =>
+			reaction.emoji.name === "✅" && user.id === message.author.id;
 		const reactionCollector = msg.createReactionCollector(filter, { time: ms("30s") });
 		reactionCollector.on("collect", async () => {
-			const authorUpdate = i.orbs ? { $inc: { orbs: -i.price } } : { $inc: { mincoDollars: -i.price } };
-			const mentionUpdate = i.orbs ? { $inc: { orbs: i.price } } : { $inc: { mincoDollars: i.price } };
+			const authorUpdate = i.orbs
+				? { $inc: { orbs: -i.price } }
+				: { $inc: { mincoDollars: -i.price } };
+			const mentionUpdate = i.orbs
+				? { $inc: { orbs: i.price } }
+				: { $inc: { mincoDollars: i.price } };
 			await profileModel.findOneAndUpdate(
 				{
 					userID: mention.id,

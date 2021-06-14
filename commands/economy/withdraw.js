@@ -8,7 +8,8 @@ module.exports = {
 		if (isNaN(amount)) return "Enter a valid number";
 		if (amount % 1 != 0 || amount <= 0) return "Withdraw amount must be a whole number";
 		try {
-			if (amount > profileData.bank) return "You don't have that amount of Minco Dollars in your bank.";
+			if (amount > profileData.bank)
+				return "You don't have that amount of Minco Dollars in your bank.";
 			await profileModel.findOneAndUpdate(
 				{ userID: message.author.id },
 				{
