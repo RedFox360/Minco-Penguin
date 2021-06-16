@@ -1,7 +1,5 @@
 const { Message, MessageEmbed } = require("discord.js");
 const dayjs = require("dayjs");
-const utc = require("dayjs/plugin/utc");
-const timezone = require("dayjs/plugin/timezone");
 module.exports = {
 	/** @param {Message} message */
 	execute(message) {
@@ -31,14 +29,13 @@ module.exports = {
 					value: format(member.joinedAt),
 					inline: true,
 				}
-			);
+			)
+			.footer(`User ID: ${author.id}`);
 	},
 };
 
 function format(time) {
-	dayjs.extend(utc);
-	dayjs.extend(timezone);
-	const formatted = dayjs.tz(time, "PST").format("ddd MMM D, YYYY HH:mm");
+	const formatted = dayjs(time).format("ddd MMM D, YYYY HH:mm");
 
 	return formatted + " PST";
 }
