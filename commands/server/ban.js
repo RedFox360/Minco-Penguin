@@ -10,11 +10,8 @@ module.exports = {
 		if (!message.member.hasPermission("BAN_MEMBERS"))
 			return "You don't have the correct permissions to execute this command";
 		const days = parseInt(args[0]);
-		const mention = message.mentions.users.first();
-		if (!mention) return "Mention a valid user";
-
-		const member = message.guild.members.cache.get(mention.id);
-		if (!member) return "That member isn't in the server";
+		const member = message.mentions.members.first();
+		if (!member) return "Mention a valid user in the server";
 
 		args.shift();
 		if (!isNaN(days)) args.shift();

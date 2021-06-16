@@ -22,11 +22,10 @@ module.exports = {
 			message.member.hasPermission("MANAGE_ROLES") ||
 			message.author.id == "802668636795830292"
 		) {
-			const target = message.mentions.users.first();
-			if (!target) return "Mention a valid user";
+			let memberTarget = message.mentions.members.first();
+			if (!memberTarget) return "Mention a valid user";
 			let mainRole = message.guild.roles.cache.find((role) => role.name === roles[0]);
 			let muteRole = message.guild.roles.cache.find((role) => role.name === roles[1]);
-			let memberTarget = message.guild.members.cache.get(target.id);
 			if (memberTarget.user.bot) return "Bots cannot be muted";
 			if (
 				memberTarget.hasPermission("ADMINISTRATOR") ||
