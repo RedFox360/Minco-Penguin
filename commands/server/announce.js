@@ -16,6 +16,7 @@ module.exports = {
 					silenceJoins: silenced,
 				}
 			);
+			return "Join messages silenced";
 		} else if (args[0] == "bans") {
 			await serverModel.findOneAndUpdate(
 				{ serverID: message.guild.id },
@@ -23,6 +24,7 @@ module.exports = {
 					silenceBans: silenced,
 				}
 			);
+			return "Ban messages silenced";
 		} else {
 			return "Valid usage: !announce <joins/bans> <on/off>";
 		}

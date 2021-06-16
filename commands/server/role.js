@@ -15,6 +15,7 @@ module.exports = {
 					mainRole: role.id,
 				}
 			);
+			return `Main role set to <@&${role.id}>`;
 		} else if (args[0] == "mute") {
 			await serverModel.findOneAndUpdate(
 				{ serverID: message.guild.id },
@@ -22,6 +23,7 @@ module.exports = {
 					muteRole: role.id,
 				}
 			);
+			return `Mute role set to <@&${role.id}>`;
 		} else {
 			return "Valid usage: !role <mute/main> <@role>";
 		}
