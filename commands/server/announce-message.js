@@ -3,7 +3,7 @@ module.exports = {
 	description:
 		"[ADMIN ONLY] Set the welcome and leave messages for a server. Use !announce-message format for a formatting guide",
 	usage: "!announce-message <join/leave> <message>",
-	execute(message, args) {
+	async execute(message, args) {
 		const first = args[0];
 		if (!first)
 			return "Valid usage: !announce-message <join/leave> <message> or !announce-message format";
