@@ -17,7 +17,7 @@ module.exports = {
 		if (!member) return "That member isn't in the server";
 
 		args.shift();
-		args.shift();
+		if (!isNaN(days)) args.shift();
 		const options = {
 			reason: args.join(" "),
 		};
