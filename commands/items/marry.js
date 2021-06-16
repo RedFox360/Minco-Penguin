@@ -10,13 +10,11 @@ module.exports = {
 
 		const user = message.mentions.users.first();
 		if (!user) return "Mention a valid user!";
-
+		if (user.bot) return "You can't marry a bot!";
 		const userProfile = await profileModel.findOne({ userID: user.id });
 		if (userProfile.spouse != null) return `<@${user.id}> is already married!`;
 
 		if (user.id == message.author.id) return "You can't marry yourself, obviously";
-
-		if (user.bot) return "You can't marry a bot!";
 
 		if (!profileData.inventory.includes("01")) return "You need to buy a ring first!";
 
