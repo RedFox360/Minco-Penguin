@@ -25,24 +25,27 @@ module.exports = async (client, member) => {
 	}
 	let welcomeMessage =
 		serverData.welcomeMessage ??
-		"Welcome to {serverName}, {memberPing}!\nYou are the {memberCountOrdinal} member!";
-
-	welcomeMessage = welcomeMessage.replace(//)
-	var memberCount = member.guild.memberCount;
+		"Welcome to {server}, {mention}!\nYou are the {ord_member_count} member!";
+	var members = await member.guild.members.fetch();
+	var memberCount = members.filter((member) => !member.user.bot).size;
 	var memberCountOrdinal = ordinal(memberCount);
 
+	welcomeMessage = welcomeMessage
+		.replace(/\{server\}/g, message.guild.name)
+		.replace(/\{mention\}/g, `<@${member.id}>`)
+		.replace(/\{ord_member_count\}/g, memberCountOrdinal)
+		.replace(/\{member_count\}/g, memberCount)
+		.replace(/\{user\}/g, member.user.username)
+		.replace(/\{user_tag\}/g, member.user.tag)
+		.replace(/\{\}/g);
 	let joinEmbed = new Discord.MessageEmbed()
 		.setColor("58D68D") // green
 		.setTitle("Welcome")
-		.setDescription(
-			`Welcome to ${member.guild.name}, <@${member.id}>!\nYou are the ${memberCountOrdinal} member!`
-		)
+		.setDescription(welcomeMessage)
 		.setThumbnail(member.user.avatarURL());
 	const channel = serverData.welcomeChannel
 		? client.channels.cache.get(serverData.welcomeChannel)
 		: member.guild.systemChannel;
 	channel.send(joinEmbed);
-	member.send(
-		`Welcome to ${member.guild.name}, <@${member.id}>! You are the ${memberCountOrdinal} member!`
-	);
+	member.send(welcomeMessage);
 };

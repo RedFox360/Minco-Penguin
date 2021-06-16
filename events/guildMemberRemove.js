@@ -5,6 +5,22 @@ module.exports = async (client, member) => {
 	var memberCount = member.guild.memberCount;
 	let serverData = await serverModel.findOne({ serverID: member.guild.id });
 	if (serverData.silenceJoins) return;
+	let leaveMessage =
+		serverData.leaveMessage ??
+		"Welcome to {server}, {mention}!\nYou are the {ord_member_count} member!";
+
+	var members = await member.guild.members.fetch();
+	var memberCount = members.filter((member) => !member.user.bot).size;
+	var memberCountOrdinal = ordinal(memberCount);
+
+	leaveMessage = leaveMessage
+		.replace(/\{server\}/g, message.guild.name)
+		.replace(/\{mention\}/g, `<@${member.id}>`)
+		.replace(/\{ord_member_count\}/g, memberCountOrdinal)
+		.replace(/\{member_count\}/g, memberCount)
+		.replace(/\{user\}/g, member.user.username)
+		.replace(/\{user_tag\}/g, member.user.tag)
+		.replace(/\{\}/g);
 	let leaveEmbed = new Discord.MessageEmbed()
 		.setColor("EC7063") // red
 		.setTitle("Goodbye")
