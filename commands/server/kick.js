@@ -1,12 +1,12 @@
 const { Message, Client, MessageEmbed } = require("discord.js");
 module.exports = {
 	description: "Quickly kick a member from the server",
-	usage: "!kick <@user>",
+	usage: "!kick <@user> (reason)",
 	/**
 	 * @param {Message} message
 	 * @param {Client} client
 	 */
-	execute(message, args, _1, client) {
+	execute(message, args) {
 		if (!message.member.hasPermission("KICK_MEMBERS"))
 			return "You don't have the correct permissions to execute this command";
 
