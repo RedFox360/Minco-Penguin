@@ -9,7 +9,13 @@ module.exports = {
 			return "Valid usage: !announce-message <join/leave> <message> or !announce-message format";
 		args.shift();
 		if (first == "format") {
-			return "These texts will be converted to variables.\n{server} = the server name\n{mention} = mention the user who joined\n{member_count} = the new server member count\n{ord_member_count} ordinal member count\n{user} = the username of the user who joined\n{user_tag} = the username including tag";
+			return `These texts will be converted to variables.
+**{server}** = the server name
+**{mention}** = mention the user who joined
+**{member_count} = the new server member count
+**{ord_member_count}** = ordinal member count
+**{user}** = the username of the user who joined
+**{user_tag}** = the username including tag`;
 		}
 
 		if (!args.length) return "Valid usage: !announce-message <join/leave> <message>";
