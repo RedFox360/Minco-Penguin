@@ -21,8 +21,7 @@ module.exports = async (client, message) => {
 	let prefixes = ["!", "###", "minco "];
 	let count = 0;
 	let currentPrefix;
-	for (let i = 0; i < prefixes.length; i++) {
-		let prefix = prefixes[i];
+	for (const prefix of prefixes) {
 		if (message.content.startsWith(prefix)) {
 			currentPrefix = prefix;
 			break;
