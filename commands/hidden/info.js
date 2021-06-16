@@ -38,7 +38,7 @@ module.exports = {
 };
 
 function format(time) {
-	const formatted = dayjs(time).format("ddd MMM D, YYYY HH:mm");
+	const formatted = dayjs.tz(time, "PST").format("ddd MMM D, YYYY HH:mm");
 
 	return formatted + " PST";
 }
