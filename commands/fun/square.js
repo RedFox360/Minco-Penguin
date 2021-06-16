@@ -1,3 +1,4 @@
+const { isInteger } = require("mathjs");
 module.exports = {
 	description: "Check if a number is a perfect square",
 	usage: "!square <number>",
@@ -10,4 +11,3 @@ module.exports = {
 		else return `${number} is not a perfect square`;
 	},
 };
-const isInteger = (num) => Math.floor(num) == num;
