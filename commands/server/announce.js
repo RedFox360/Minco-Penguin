@@ -1,4 +1,3 @@
-const { MessageEmbed } = require("discord.js");
 const serverModel = require("../../models/serverSchema");
 module.exports = {
 	description: "[ADMIN ONLY] Silence or turn on join/ban messages",
