@@ -13,7 +13,7 @@ module.exports = {
 			SEND_MESSAGES,
 		});
 		let everyone = serverData.mainRole ?? message.guild.roles.everyone;
-		let modRole = message.guild.roles.cache.find((role) => role.name.includes("Moderator"));
+		let modRole = message.guild.roles.cache.get(serverData.modRole);
 		let muteRole = message.guild.roles.cache.get(serverData.muteRole);
 		let modMessages = true;
 		if (args[0] == "full" && cmd === "lock") modMessages = false;

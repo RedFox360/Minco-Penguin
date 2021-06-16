@@ -14,6 +14,7 @@ const serverSchema = new mongoose.Schema({
 	silenceBans: { type: Boolean, default: false },
 	muteRole: String,
 	mainRole: String,
+	modRole: String,
 });
 
 const model = mongoose.model("SeverModels", serverSchema);
