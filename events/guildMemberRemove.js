@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 const serverModel = require("../models/serverSchema");
+const ordinal = require("ordinal");
 /** @param {Discord.GuildMember} member */
 module.exports = async (client, member) => {
 	var memberCount = member.guild.memberCount;
