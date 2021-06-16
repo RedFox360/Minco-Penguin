@@ -3,7 +3,7 @@ module.exports = {
 	description: "[ADMIN ONLY] Set the mute role and main role of a server",
 	usage: "!role <mute/main> <@role>",
 
-	execute(message, args) {
+	async execute(message, args) {
 		if (!message.member.hasPermission("ADMINISTRATOR"))
 			return "You don't have the correct permissions to execute this command";
 		const role = message.mentions.roles.first();
