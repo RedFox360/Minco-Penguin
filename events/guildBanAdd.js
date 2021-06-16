@@ -1,4 +1,5 @@
 const Discord = require("discord.js");
+const serverModel = require("../models/serverSchema");
 /**
  * @param {Discord.Guild} guild
  * @param {Discord.User} user
