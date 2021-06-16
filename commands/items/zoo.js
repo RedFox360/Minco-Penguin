@@ -5,14 +5,8 @@ module.exports = {
 	async execute(message, args, _1, _2, profileData) {
 		const animals = [];
 		const mention = message.mentions.users.first();
-		let profile = profileData;
-		let name = message.member.displayName;
-		let avatarURL = message.author.avatarURL();
-		if (mention) {
-			profile = await profileModel.findOne({ userID: mention.id });
-			name = message.guild.members.cache.get(mention.id).displayName;
-			avatarURL = mention.avatarURL();
-		}
+		const profile = mention ? await profileModel.findOne({ userID: mention.id }) : profileData;
+		const avatarURL = mention?.avatarURL() ?? message.author.avatarURL();
 		for (let i = 1; i <= profile.zoo.length; i++) {
 			if (args[0] == "list") {
 				const { name, emoji } = profile.zoo[i - 1];
@@ -28,9 +22,8 @@ module.exports = {
 
 		if (profile.zoo.length == 0) return "You don't have any animals in your zoo.";
 		const zoo = new MessageEmbed()
-			.setAuthor(name, avatarURL)
+			.setAuthor("Minco Zoo", avatarURL)
 			.setColor("#F4D03F")
-			.setTitle("Minco Zoo")
 			.setDescription(animals.join(""))
 			.setFooter(message.guild.name);
 
