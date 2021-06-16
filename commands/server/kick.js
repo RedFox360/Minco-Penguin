@@ -6,7 +6,7 @@ module.exports = {
 	 * @param {Message} message
 	 * @param {Client} client
 	 */
-	execute(message, _0, _1, client) {
+	execute(message, args, _1, client) {
 		if (!message.member.hasPermission("KICK_MEMBERS"))
 			return "You don't have the correct permissions to execute this command";
 
