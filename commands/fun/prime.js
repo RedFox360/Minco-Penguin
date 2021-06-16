@@ -5,7 +5,7 @@ module.exports = {
 	/** @param {string[]} args */
 	execute(_, args, cmd) {
 		if (!args[0]) return "Please enter an argument (valid usage: !prime <Number>)";
-		let numberString = args[0].replace(/,/, "");
+		let numberString = args[0].replace(/,/g, "");
 		var primeNumber = parseInt(numberString);
 		if (isNaN(primeNumber)) return "Enter a valid number";
 		if (primeNumber <= 0) return "Please enter a positive number";

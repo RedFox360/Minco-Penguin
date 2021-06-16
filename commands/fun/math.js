@@ -41,7 +41,7 @@ module.exports = {
 		}
 		collector.on("collect", async (m) => {
 			sendTimeOut = false;
-			let guess = m.content.replace(/,/, "").replace(/ +/, "");
+			let guess = m.content.replace(/,/g, "").replace(/ +/, "");
 			if (isNaN(parseInt(guess))) sendTimeOut = true;
 			if (parseInt(guess) == result) {
 				message.channel.send("Correct!");

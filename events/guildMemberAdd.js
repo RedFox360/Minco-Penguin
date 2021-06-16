@@ -23,7 +23,11 @@ module.exports = async (client, member) => {
 		});
 		profile.save();
 	}
+	let welcomeMessage =
+		serverData.welcomeMessage ??
+		"Welcome to {serverName}, {memberPing}!\nYou are the {memberCountOrdinal} member!";
 
+	welcomeMessage = welcomeMessage.replace(//)
 	var memberCount = member.guild.memberCount;
 	var memberCountOrdinal = ordinal(memberCount);
 
