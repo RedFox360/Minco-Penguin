@@ -36,8 +36,7 @@ module.exports = async (client, member) => {
 		.replace(/\{ord_member_count\}/g, memberCountOrdinal)
 		.replace(/\{member_count\}/g, memberCount)
 		.replace(/\{user\}/g, member.user.username)
-		.replace(/\{user_tag\}/g, member.user.tag)
-		.replace(/\{\}/g);
+		.replace(/\{user_tag\}/g, member.user.tag);
 	let joinEmbed = new Discord.MessageEmbed()
 		.setColor("58D68D") // green
 		.setTitle("Welcome")
