@@ -15,7 +15,7 @@ module.exports = async (client, member) => {
 	var memberCountOrdinal = ordinal(memberCount);
 
 	leaveMessage = leaveMessage
-		.replace(/\{server\}/g, memberguild.name)
+		.replace(/\{server\}/g, member.guild.name)
 		.replace(/\{mention\}/g, `<@${member.id}>`)
 		.replace(/\{ord_member_count\}/g, memberCountOrdinal)
 		.replace(/\{member_count\}/g, memberCount)
