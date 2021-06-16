@@ -3,7 +3,7 @@ const { Client, APIMessage, MessageEmbed } = require("discord.js");
 module.exports = (client) => {
 	require("../handlers/slash_handler")(client);
 	console.log(`${client.user.tag} is online!`);
-	client.user.setActivity(`!help | out of beta!`, {
+	client.user.setActivity(`!help | in ${client.guilds.cache.size} servers!`, {
 		type: "LISTENING",
 	});
 	client.ws.on("INTERACTION_CREATE", async (interaction) => {
@@ -19,7 +19,10 @@ module.exports = (client) => {
 				return args.find((arg) => arg.name.toLowerCase() == name)?.value;
 			},
 			async reply(message) {
-				let msg = message instanceof MessageEmbed ? await createAPIMessage(interaction, client, message) : { content: message };
+				let msg =
+					message instanceof MessageEmbed
+						? await createAPIMessage(interaction, client, message)
+						: { content: message };
 				client.api.interactions(interaction.id, interaction.token).callback.post({
 					data: {
 						type: 4,
@@ -32,7 +35,10 @@ module.exports = (client) => {
 	});
 };
 async function createAPIMessage(interaction, client, content) {
-	const apiMessage = await APIMessage.create(client.channels.resolve(interaction.channel_id), content)
+	const apiMessage = await APIMessage.create(
+		client.channels.resolve(interaction.channel_id),
+		content
+	)
 		.resolveData()
 		.resolveFiles();
 
