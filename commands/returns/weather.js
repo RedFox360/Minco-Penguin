@@ -101,6 +101,9 @@ module.exports = {
 						forecastEmbed.setTimestamp();
 						msg.edit(forecastEmbed);
 					}
+					const userReactions = msg.reactions.cache.filter((react) =>
+						react.users.cache.has(message.author.id)
+					);
 					try {
 						for (const reaction of userReactions.values()) {
 							await reaction.users.remove(message.author.id);
