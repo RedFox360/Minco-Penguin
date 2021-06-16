@@ -45,7 +45,7 @@ module.exports = {
 					.setAuthor(...author)
 					.setTitle(titles[pos])
 					.setColor(color);
-				getFields()[pos].forEach((field) => {
+				getFields(message)[pos].forEach((field) => {
 					pageEmbed.addField(field[0], field[1]);
 				});
 				message.channel.send(pageEmbed);
@@ -71,7 +71,7 @@ module.exports = {
 			.setFooter(message.guild.name);
 
 		const helpMsg = await message.channel.send(helpEmbed);
-		const fields = getFields();
+		const fields = getFields(message);
 
 		try {
 			await helpMsg.react("⬅️");
@@ -121,7 +121,7 @@ module.exports = {
 	},
 };
 
-function getFields() {
+function getFields(message) {
 	const fields = [0, [], [], [], [], [], []];
 	const categories = fs.readdirSync("./commands/").filter((file) => !file.endsWith(".DS_Store"));
 	for (const category of categories) {
@@ -138,6 +138,7 @@ function getFields() {
 				else if (category == "random") pos = 4;
 				else if (category == "economy") pos = 5;
 				else if (category == "items") pos = 6;
+				if (command.servers?.includes(message.guild.id) === false) return;
 				if (command.usage) fields[pos].push([command.usage, command.description]);
 				else fields[pos].push([`!${file.split(".")[0]}`, command.description]);
 			}

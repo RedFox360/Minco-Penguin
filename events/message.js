@@ -60,7 +60,9 @@ module.exports = async (client, message) => {
 	const cmd = args.shift().toLowerCase();
 	const command =
 		client.commands.get(cmd) || client.commands.find((a) => a.aliases && a.aliases.includes(cmd));
-
+	if (command.servers?.includes(message.guild.id) === false) {
+		return;
+	}
 	if (!command) return;
 	if (guildData.bannedPeople) {
 		for (let i = 0; i < guildData.bannedPeople.length; i++) {

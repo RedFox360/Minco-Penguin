@@ -3,6 +3,7 @@ const { MessageEmbed } = require("discord.js");
 module.exports = {
 	description: "Sends a random dog picture (oreo, archie, or rocco) or a nice looking embed",
 	usage: "!dog (info) oreo/archie/rocco",
+	servers: ["785642761814671381", "843951306745577524"],
 	execute(message, args) {
 		let pics;
 		const oreoPics = [
