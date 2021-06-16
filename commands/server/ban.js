@@ -9,7 +9,7 @@ module.exports = {
 	execute(message, args) {
 		if (!message.member.hasPermission("BAN_MEMBERS"))
 			return "You don't have the correct permissions to execute this command";
-		const days = args[0];
+		const days = parseInt(args[0]);
 		const mention = message.mentions.users.first();
 		if (!mention) return "Mention a valid user";
 
@@ -21,7 +21,7 @@ module.exports = {
 		const options = {
 			reason: args.join(" "),
 		};
-		if (days) options[days] = days;
+		if (!isNaN(days)) options[days] = days;
 		member.ban(options).then((kicked) => {
 			message.channel.send(
 				new MessageEmbed()
