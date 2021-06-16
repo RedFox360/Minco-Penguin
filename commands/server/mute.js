@@ -1,3 +1,4 @@
+const serverModel = require("../../models/serverSchema");
 const Discord = require("discord.js");
 const ms = require("ms");
 module.exports = {
@@ -8,14 +9,11 @@ module.exports = {
 	 * @param {Discord.Message} message
 	 * @param {Discord.Client} client
 	 */
-	execute(message, args, cmd) {
+	async execute(message, args, cmd) {
 		let roles;
-		if (message.guild.id == "785642761814671381") roles = ["Student", "Muted"];
-		else if (message.guild.id == "843951306745577524") roles = ["Member", "Muted"];
-		else if (message.guild.id == "818509629842522112") roles = ["Blob", "Muted"];
-		else if (message.guild.id == "835983158208888852") roles = ["People", "Muted"];
-		else if (message.guild.id == "848987165601693737") roles = ["Minco Member", "Muted"];
-		else return "The mute command is invalid in this server";
+		const { muteRole, mainRole } = await serverModel.findOne({ serverID: message.guild.id });
+		if (!muteRole) return "This server doesn't have a mute role";
+		if (!mainRole) return "This server doesn't have a main role";
 		if (
 			message.member.hasPermission("MANAGE_CHANNELS") ||
 			message.member.roles.cache.find((r) => r.name === "Moderator") ||
@@ -24,8 +22,6 @@ module.exports = {
 		) {
 			let memberTarget = message.mentions.members.first();
 			if (!memberTarget) return "Mention a valid user";
-			let mainRole = message.guild.roles.cache.find((role) => role.name === roles[0]);
-			let muteRole = message.guild.roles.cache.find((role) => role.name === roles[1]);
 			if (memberTarget.user.bot) return "Bots cannot be muted";
 			if (
 				memberTarget.hasPermission("ADMINISTRATOR") ||
@@ -43,18 +39,18 @@ module.exports = {
 				.setFooter(message.guild.name)
 				.setAuthor(memberTarget.user.username, memberTarget.user.avatarURL());
 			if (cmd === "mute") {
-				memberTarget.roles.remove(mainRole.id);
-				memberTarget.roles.add(muteRole.id);
+				memberTarget.roles.remove(mainRole);
+				memberTarget.roles.add(muteRole);
 				message.channel.send(muteEmbed);
 				if (!args[1]) return;
 				setTimeout(() => {
-					memberTarget.roles.remove(muteRole.id);
-					memberTarget.roles.add(mainRole.id);
+					memberTarget.roles.remove(muteRole);
+					memberTarget.roles.add(mainRole);
 					message.channel.send(`<@${memberTarget.user.id}> has been unmuted.`);
 				}, ms(args[1]));
 			} else if (cmd === "unmute") {
-				memberTarget.roles.remove(muteRole.id);
-				memberTarget.roles.add(mainRole.id);
+				memberTarget.roles.remove(muteRole);
+				memberTarget.roles.add(mainRole);
 				return `<@${memberTarget.user.id}> has been unmuted.`;
 			}
 		} else return "You don't have the right permissions to execute this command.";

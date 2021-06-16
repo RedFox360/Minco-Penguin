@@ -12,6 +12,8 @@ const serverSchema = new mongoose.Schema({
 	welcomeChannel: String,
 	silenceJoins: { type: Boolean, default: false },
 	silenceBans: { type: Boolean, default: false },
+	muteRole: String,
+	mainRole: String,
 });
 
 const model = mongoose.model("SeverModels", serverSchema);
