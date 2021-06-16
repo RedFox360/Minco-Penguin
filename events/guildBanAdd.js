@@ -5,7 +5,8 @@ const serverModel = require("../models/serverSchema");
  * @param {Discord.User} user
  */
 module.exports = async (_, guild, user) => {
-	let serverData = await serverModel.findOne({ serverID: member.guild.id });
+	let serverData = await serverModel.findOne({ serverID: guild.id });
+	if (serverData.silenceBans) return;
 	let unbanEmbed = new Discord.MessageEmbed()
 		.setColor("F75853") // red
 		.setTitle("Banned")

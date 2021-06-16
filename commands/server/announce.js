@@ -1,20 +1,31 @@
 const { MessageEmbed } = require("discord.js");
+const serverModel = require("../../models/serverSchema");
 module.exports = {
-	description: "[ADMIN ONLY] Sends a message in the announcement channel",
-	usage: "!announce <message>",
+	description: "[ADMIN ONLY] Silence or turn on join/ban messages",
+	usage: "!announce <joins/bans> <on/off>",
 	execute(message, args) {
-		if (
-			message.member.hasPermission("ADMINISTRATOR") ||
-			message.member.roles.cache.find((r) => r.name === "Moderator") ||
-			message.author.id == "724786310711214118"
-		) {
-			let announcementEmbed = new MessageEmbed()
-				.setTitle("Announcement")
-				.setDescription(args.join(" "))
-				.setColor("32E6C5");
-			message.guild.systemChannel.send(announcementEmbed);
+		if (!message.member.hasPermission("ADMINISTRATOR"))
+			return "This command can only be used by admins";
+
+		if (args.length < 2) return "Valid usage: !announce <joins/bans> <on/off>";
+		if (args[1] != "off" && args[1] != "on") return "Valid usage: !announce <joins/bans> <on/off>";
+		const silenced = args[1] == "off";
+		if (args[0] == "joins") {
+			await serverModel.findOneAndUpdate(
+				{ serverID: message.guild.id },
+				{
+					silenceJoins: silenced,
+				}
+			);
+		} else if (args[0] == "bans") {
+			await serverModel.findOneAndUpdate(
+				{ serverID: message.guild.id },
+				{
+					silenceBans: silenced,
+				}
+			);
 		} else {
-			message.reply("This command can only be used by Admins");
+			return "Valid usage: !announce <joins/bans> <on/off>";
 		}
 	},
 };

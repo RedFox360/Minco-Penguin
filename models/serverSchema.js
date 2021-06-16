@@ -10,6 +10,8 @@ const serverSchema = new mongoose.Schema({
 		usersClaimed: [String],
 	},
 	welcomeChannel: String,
+	silenceJoins: { type: Boolean, default: false },
+	silenceBans: { type: Boolean, default: false },
 });
 
 const model = mongoose.model("SeverModels", serverSchema);

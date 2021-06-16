@@ -10,6 +10,7 @@ module.exports = async (client, member) => {
 	if (member.user.bot) return;
 	let profileData = await profileModel.findOne({ userID: member.id });
 	let serverData = await serverModel.findOne({ serverID: member.guild.id });
+	if (serverData.silenceJoins) return;
 	if (!profileData) {
 		let profile = await profileModel.create({
 			userID: member.id,
@@ -28,9 +29,15 @@ module.exports = async (client, member) => {
 	let joinEmbed = new Discord.MessageEmbed()
 		.setColor("58D68D") // green
 		.setTitle("Welcome")
-		.setDescription(`Welcome to ${member.guild.name}, <@${member.id}>!\nYou are the ${memberCountOrdinal} member!`)
+		.setDescription(
+			`Welcome to ${member.guild.name}, <@${member.id}>!\nYou are the ${memberCountOrdinal} member!`
+		)
 		.setThumbnail(member.user.avatarURL());
-	const channel = serverData.welcomeChannel ? client.channels.cache.get(serverData.welcomeChannel) : member.guild.systemChannel;
+	const channel = serverData.welcomeChannel
+		? client.channels.cache.get(serverData.welcomeChannel)
+		: member.guild.systemChannel;
 	channel.send(joinEmbed);
-	member.send(`Welcome to ${member.guild.name}, <@${member.id}>! You are the ${memberCountOrdinal} member!`);
+	member.send(
+		`Welcome to ${member.guild.name}, <@${member.id}>! You are the ${memberCountOrdinal} member!`
+	);
 };
