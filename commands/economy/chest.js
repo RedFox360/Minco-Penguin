@@ -6,10 +6,7 @@ const randomInt = require("../../functions/random");
 const ms = require("ms");
 module.exports = {
 	description: "Claim your surprise chest for the server",
-	async execute(message, args, _0, _1, profileData) {
-		const serverData = await serverModel.findOne({
-			serverID: message.guild.id,
-		});
+	async execute(message, args, _0, _1, profileData, serverData) {
 		if (args[0] == "drop" && message.member.hasPermission("ADMINISTRATOR")) {
 			if (serverData.chest?.hasChest) return "There is already a chest dropped in this server!";
 			const mdAmount = parseInt(args[1]);

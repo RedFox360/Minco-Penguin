@@ -5,17 +5,18 @@ module.exports = {
 	usage: "!lock/unlock (ms)",
 	aliases: ["unlock"],
 	/** @param {Message} message */
-	execute(message, args, cmd) {
+	execute(message, args, cmd, _0, _1, serverData) {
 		if (!message.member.hasPermission("MANAGE_CHANNELS"))
 			return "You don't have the correct permissions to execute this command";
 		var SEND_MESSAGES = cmd === "unlock";
 		message.channel.updateOverwrite(message.guild.roles.everyone, {
 			SEND_MESSAGES,
 		});
-		let modRole = message.guild.roles.cache.find((role) => role.name === "Moderator");
-		let muteRole = message.guild.roles.cache.find((role) => role.name === "Muted");
+		let everyone = serverData.mainRole ?? message.guild.roles.everyone;
+		let modRole = message.guild.roles.cache.find((role) => role.name.includes("Moderator"));
+		let muteRole = message.guild.roles.cache.get(serverData.muteRole);
 		let modMessages = true;
-		if (args[1] == "full" && cmd === "lock") modMessages = false;
+		if (args[0] == "full" && cmd === "lock") modMessages = false;
 		if (modRole) {
 			message.channel.updateOverwrite(modRole, {
 				SEND_MESSAGES: modMessages,
@@ -30,10 +31,11 @@ module.exports = {
 		const lockMessage = `🔒 <#${message.channel.id}> has been locked`;
 		message.channel.send(cmd === "unlock" ? unlockMessage : lockMessage);
 		if (args[0] && cmd === "lock") {
-			const time = ms(args[0]);
-			if (!time) return "Enter a valid time";
+			let time = ms(args[0]);
+			if (!time) time = ms(args[1]);
+			if (!time) return;
 			setTimeout(() => {
-				message.channel.updateOverwrite(message.guild.roles.everyone, {
+				message.channel.updateOverwrite(everyone, {
 					SEND_MESSAGES: true,
 				});
 				message.channel.send(unlockMessage);

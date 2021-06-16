@@ -15,7 +15,7 @@ module.exports = {
 		if (!mainRole) return "This server doesn't have a main role";
 		if (
 			message.member.hasPermission("MANAGE_CHANNELS") ||
-			message.member.roles.cache.find((r) => r.name === "Moderator") ||
+			message.member.roles.cache.find((r) => r.name.includes("Moderator")) ||
 			message.member.hasPermission("MANAGE_ROLES") ||
 			message.author.id == "802668636795830292"
 		) {

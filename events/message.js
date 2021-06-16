@@ -28,7 +28,7 @@ module.exports = async (client, message) => {
 		} else count++;
 		if (count == prefixes.length) return;
 	}
-	let profileData, guildData;
+	let profileData, serverData;
 	try {
 		if (message.guild) {
 			profileData = await profileModel.findOne({ userID: message.author.id });
@@ -43,8 +43,8 @@ module.exports = async (client, message) => {
 				});
 				profile.save();
 			}
-			guildData = await serverModel.findOne({ serverID: message.guild.id });
-			if (!guildData) {
+			serverData = await serverModel.findOne({ serverID: message.guild.id });
+			if (!serverData) {
 				let serverProfile = await serverModel.create({
 					serverID: message.guild.id,
 					bannedPeople: [],
@@ -65,9 +65,9 @@ module.exports = async (client, message) => {
 	if (command.servers?.includes(message.guild.id) === false) {
 		return;
 	}
-	if (guildData.bannedPeople) {
-		for (let i = 0; i < guildData.bannedPeople.length; i++) {
-			let person = guildData.bannedPeople[i];
+	if (serverData.bannedPeople) {
+		for (let i = 0; i < serverData.bannedPeople.length; i++) {
+			let person = serverData.bannedPeople[i];
 			if (message.author.id == person) {
 				return message.channel.send("You were banned from using Minco Penguin.");
 			}
@@ -104,7 +104,7 @@ module.exports = async (client, message) => {
 	};
 	timeStamps.set(message.author.id, currentTime);
 	try {
-		const t = command.execute(message, args, cmd, client, profileData);
+		const t = command.execute(message, args, cmd, client, profileData, serverData);
 		if (typeof t === "string") sendC(message, t, resetCooldown);
 		if (t instanceof Promise) {
 			t.then((toSend) => {

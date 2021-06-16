@@ -10,6 +10,7 @@ module.exports = async (client, member) => {
 	if (member.user.bot) return;
 	let profileData = await profileModel.findOne({ userID: member.id });
 	let serverData = await serverModel.findOne({ serverID: member.guild.id });
+	if (serverData.mainRole) member.roles.add(serverData.mainRole.id);
 	if (serverData.silenceJoins) return;
 	if (!profileData) {
 		let profile = await profileModel.create({
