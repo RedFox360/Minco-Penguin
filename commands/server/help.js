@@ -138,7 +138,7 @@ function getFields(message) {
 				else if (category == "random") pos = 4;
 				else if (category == "economy") pos = 5;
 				else if (category == "items") pos = 6;
-				if (command.servers?.includes(message.guild.id) === false) return;
+				if (command.servers?.includes(message.guild.id) === false) continue;
 				if (command.usage) fields[pos].push([command.usage, command.description]);
 				else fields[pos].push([`!${file.split(".")[0]}`, command.description]);
 			}
