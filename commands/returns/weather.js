@@ -1,3 +1,4 @@
+const ms = require("ms");
 const weather = require("weather-js");
 const { MessageEmbed } = require("discord.js");
 module.exports = {
@@ -11,7 +12,7 @@ module.exports = {
 				search,
 				degreeType: "F",
 			},
-			(error, result) => {
+			async (error, result) => {
 				if (error) {
 					message.channel.send("An error occured");
 					return console.error(error);
@@ -20,11 +21,14 @@ module.exports = {
 					return message.channel.send("That place doesn't exist!");
 				const { current, location } = result[0];
 				const forecast = result[0].forecast[1];
-				const embed = new MessageEmbed()
+				const fullForecast = result[0].forecast;
+				const footer = `Time Zone: UTC${location.timezone} | Observation time: ${current.date} ${current.observationtime}`;
+				const color = "#A6D4FF";
+				const firstEmbed = new MessageEmbed()
 					.setTitle(`Weather: ${location.name}`)
 					.setDescription(`${current.day} | ${current.skytext}`)
 					.setThumbnail(current.imageUrl)
-					.setColor("#A6D4FF")
+					.setColor(color)
 					.setTimestamp()
 					.addFields(
 						{
@@ -58,10 +62,40 @@ module.exports = {
 							inline: true,
 						}
 					)
-					.setFooter(
-						`Time Zone: UTC${location.timezone} | Observation time: ${current.date} ${current.observationtime}`
-					);
-				message.channel.send(embed);
+					.setFooter(footer);
+
+				const forecastEmbed = new MessageEmbed()
+					.setTitle(`Forecast: ${location.name}`)
+					.setColor(color);
+
+				for (const dailyForecast of fullForecast) {
+					let description = `High: ${dailyForecast.high}\nLow: ${dailyForecast.low}`;
+
+					if (dailyForecast.precip != "") {
+						description += `\nPrecipitation: ${dailyForecast.precip}%`;
+					}
+					forecastEmbed.addField(`${dailyForecast.shortday} : ${dailyForecast.skytextday}`, true);
+				}
+
+				const msg = await message.channel.send(firstEmbed);
+				try {
+					await msg.react("⬅️");
+					await msg.react("➡️");
+				} catch (err) {
+					console.error(err);
+				}
+
+				const filter = (_, user) => user.id === message.author.id;
+				const collector = msg.createReactionCollector(filter, { time: ms("4m") });
+				collector.on("collect", async (reaction) => {
+					if (reaction.emoji.name == "⬅️") {
+						firstEmbed.setTimestamp();
+						msg.edit(firstEmbed);
+					} else if (reaction.emoji.name == "➡️") {
+						forecastEmbed.setTimestamp();
+						msg.edit(forecastEmbed);
+					}
+				});
 			}
 		);
 	},
