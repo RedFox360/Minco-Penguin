@@ -1,3 +1,4 @@
+const { evaluate } = require("mathjs");
 module.exports = {
 	description: "Solve any math equation",
 	usage: "!evaluate/solve/math <equation>",
@@ -6,7 +7,7 @@ module.exports = {
 		if (!args.length) return "Enter a math equation";
 		const equation = args.join(" ");
 		try {
-			const result = math.evaluate(equation);
+			const result = evaluate(equation);
 
 			message.channel.send(`${equation} = **${result}**`);
 		} catch (err) {
