@@ -4,37 +4,38 @@ module.exports = {
 	description: "Sends a random dog picture (oreo, archie, or rocco) or a nice looking embed",
 	usage: "!dog (info) oreo/archie/rocco",
 	execute(message, args) {
-		var pics;
-		var oreoPics = [
-			"https://cdn.discordapp.com/attachments/808089047318134794/826527871542493184/63669166328__718717DF-7C6F-4F66-872E-A54799AC53D3.jpg",
-			"https://cdn.discordapp.com/attachments/808089047318134794/826527963125514290/IMG_0828.jpg",
-			"https://cdn.discordapp.com/attachments/808089047318134794/826528009808248912/IMG_0402.jpg",
-			"https://cdn.discordapp.com/attachments/808089047318134794/826528062883495956/IMG_0133.jpg",
-			"https://cdn.discordapp.com/attachments/808089047318134794/826528464105898024/IMG_2558.JPG",
-			"https://cdn.discordapp.com/attachments/808089047318134794/826529101879574558/IMG_1977.JPG",
-			"https://cdn.discordapp.com/attachments/808089047318134794/826529242711851059/IMG_0231.jpg",
-			"https://cdn.discordapp.com/attachments/808089047318134794/826529313272758322/IMG_2389.JPG",
-			"https://cdn.discordapp.com/attachments/808089047318134794/826529408881655829/IMG_0615.JPG",
-			"https://cdn.discordapp.com/attachments/808089047318134794/826529520945201182/IMG_0716.JPG",
-		];
-		var archiePics = [
-			"https://cdn.discordapp.com/attachments/786296784136699915/826530278095847514/Screen_Shot_2021-03-10_at_7.20.01_AM.png",
-			"https://cdn.discordapp.com/attachments/786296784136699915/826530295133503508/Screen_Shot_2021-03-10_at_8.57.03_AM.png",
-			"https://cdn.discordapp.com/attachments/786296784136699915/826530393901629470/Screen_Shot_2021-03-10_at_8.58.27_AM.png",
-			"https://cdn.discordapp.com/attachments/786296784136699915/826530415102787714/Screen_Shot_2021-03-13_at_10.34.25_AM.png",
-			"https://cdn.discordapp.com/attachments/786296784136699915/826530440814919720/Screen_Shot_2021-02-18_at_10.39.46_AM.png",
-		];
-		var roccoPics = [
-			"https://cdn.discordapp.com/attachments/774431427222569031/826542646406283356/IMG_1768.jpg",
-			"https://cdn.discordapp.com/attachments/774431427222569031/826542695132037140/20201221_113344.jpg",
-			"https://cdn.discordapp.com/attachments/774431427222569031/826542708683571260/20200823_152604_2.jpg",
-			"https://cdn.discordapp.com/attachments/774431427222569031/826542728833663048/20201225_073404.jpg",
-			"https://cdn.discordapp.com/attachments/774431427222569031/0826542744063180800/20201221_113344.jpg",
-			"https://cdn.discordapp.com/attachments/774431427222569031/826542751755272233/20200823_152604_2.jpg",
-			"https://cdn.discordapp.com/attachments/774431427222569031/826542782977540146/20201221_112140.jpg",
-			"https://cdn.discordapp.com/attachments/774431427222569031/826542789331386438/20200813_134212.jpg",
-			"https://cdn.discordapp.com/attachments/774431427222569031/826542790237880330/20201221_113400.jpg",
-		];
+		let pics;
+		const oreoPics = [
+			"826527871542493184/63669166328__718717DF-7C6F-4F66-872E-A54799AC53D3.jpg",
+			"826527963125514290/IMG_0828.jpg",
+			"826528009808248912/IMG_0402.jpg",
+			"826528062883495956/IMG_0133.jpg",
+			"826528464105898024/IMG_2558.JPG",
+			"826529101879574558/IMG_1977.JPG",
+			"826529242711851059/IMG_0231.jpg",
+			"826529313272758322/IMG_2389.JPG",
+			"826529408881655829/IMG_0615.JPG",
+			"826529520945201182/IMG_0716.JPG",
+		].map((pic) => `https://cdn.discordapp.com/attachments/808089047318134794/${pic}`);
+
+		const archiePics = [
+			"826530278095847514/Screen_Shot_2021-03-10_at_7.20.01_AM.png",
+			"826530295133503508/Screen_Shot_2021-03-10_at_8.57.03_AM.png",
+			"826530393901629470/Screen_Shot_2021-03-10_at_8.58.27_AM.png",
+			"826530415102787714/Screen_Shot_2021-03-13_at_10.34.25_AM.png",
+			"826530440814919720/Screen_Shot_2021-02-18_at_10.39.46_AM.png",
+		].map((pic) => `https://cdn.discordapp.com/attachments/786296784136699915/${pic}`);
+		const roccoPics = [
+			"826542646406283356/IMG_1768.jpg",
+			"826542695132037140/20201221_113344.jpg",
+			"826542708683571260/20200823_152604_2.jpg",
+			"826542728833663048/20201225_073404.jpg",
+			"0826542744063180800/20201221_113344.jpg",
+			"826542751755272233/20200823_152604_2.jpg",
+			"826542782977540146/20201221_112140.jpg",
+			"826542789331386438/20200813_134212.jpg",
+			"826542790237880330/20201221_113400.jpg",
+		].map((pic) => `https://cdn.discordapp.com/attachments/774431427222569031/${pic}`);
 		if (args[0] == "info") {
 			let embed = new MessageEmbed().setTitle("Dog Info");
 			if (args[1] == "oreo" || args[1] == "Oreo") {
@@ -126,11 +127,10 @@ module.exports = {
 			return "Enter a valid dog (oreo/archie/rocco)";
 		}
 
-		let random = Math.floor(Math.random() * pics.length);
 		if (args[1] == "all") {
 			pics.forEach((pic) => message.channel.send(pic));
 		} else {
-			message.channel.send(pics[random]);
+			message.channel.send(pics.rand());
 		}
 	},
 };
