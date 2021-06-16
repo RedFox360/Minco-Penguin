@@ -74,7 +74,11 @@ module.exports = {
 					if (dailyForecast.precip != "") {
 						description += `\nPrecipitation: ${dailyForecast.precip}%`;
 					}
-					forecastEmbed.addField(`${dailyForecast.shortday} : ${dailyForecast.skytextday}`, true);
+					forecastEmbed.addField(
+						`${dailyForecast.shortday} : ${dailyForecast.skytextday}`,
+						description,
+						true
+					);
 				}
 
 				const msg = await message.channel.send(firstEmbed);
