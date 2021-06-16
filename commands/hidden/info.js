@@ -17,7 +17,7 @@ module.exports = {
 						name: "Roles",
 						value: member.roles.cache
 							.array()
-							.filter((role) => role.id != "785642761814671381")
+							.filter((role) => !role.name.includes("everyone"))
 							.map((role) => `<@&${role.id}>`)
 							.join(" "),
 
