@@ -10,6 +10,7 @@
 	"author": "Sameer Prakash",
 	"license": "ISC",
 	"dependencies": {
+		"dayjs": "^1.10.5",
 		"discord.js": "^12.5.1",
 		"discord.js-collector": "^1.8.9",
 		"mathjs": "^9.3.0",
