@@ -10,7 +10,6 @@ module.exports = {
 	 * @param {Discord.Client} client
 	 */
 	async execute(message, args, cmd) {
-		let roles;
 		const { muteRole, mainRole } = await serverModel.findOne({ serverID: message.guild.id });
 		if (!muteRole) return "This server doesn't have a mute role";
 		if (!mainRole) return "This server doesn't have a main role";

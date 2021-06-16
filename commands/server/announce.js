@@ -3,7 +3,7 @@ const serverModel = require("../../models/serverSchema");
 module.exports = {
 	description: "[ADMIN ONLY] Silence or turn on join/ban messages",
 	usage: "!announce <joins/bans> <on/off>",
-	execute(message, args) {
+	async execute(message, args) {
 		if (!message.member.hasPermission("ADMINISTRATOR"))
 			return "This command can only be used by admins";
 
