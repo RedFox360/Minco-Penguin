@@ -2,7 +2,7 @@ const profileModel = require("../../models/profileSchema");
 
 module.exports = {
 	aliases: ["dep"],
-	description: "Deposit coins into your bank",
+	description: "Deposit Minco Dollars into your bank",
 	usage: "!deposit <number>",
 	async execute(message, args, _0, _1, profileData) {
 		const amount = parseInt(args[0]);

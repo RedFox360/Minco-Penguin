@@ -1,7 +1,7 @@
 const profileModel = require("../../models/profileSchema");
 const { Message } = require("discord.js");
 module.exports = {
-	description: "Bet a number of your coins on a random outcome",
+	description: "Bet a number of your Minco Dollars on a random outcome",
 	cooldown: 10,
 	usage: "!bet <number>",
 	/** @param {Message} message */
