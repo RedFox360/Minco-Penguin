@@ -66,13 +66,15 @@ module.exports = {
 
 				const forecastEmbed = new MessageEmbed()
 					.setTitle(`Forecast: ${location.name}`)
-					.setColor(color);
+					.setColor(color)
+					.setFooter(footer)
+					.setThumbnail(current.imageUrl);
 
 				for (const dailyForecast of fullForecast) {
-					let description = `High: ${dailyForecast.high}\nLow: ${dailyForecast.low}`;
+					let description = `*High*: ${dailyForecast.high}°F\n*Low*: ${dailyForecast.low}°F`;
 
-					if (dailyForecast.precip != "") {
-						description += `\nPrecipitation: ${dailyForecast.precip}%`;
+					if (dailyForecast.precip != "" && dailyForecast.precip != "0") {
+						description += `\n*Precipitation*: ${dailyForecast.precip}%`;
 					}
 					forecastEmbed.addField(
 						`${dailyForecast.shortday} : ${dailyForecast.skytextday}`,
@@ -98,6 +100,13 @@ module.exports = {
 					} else if (reaction.emoji.name == "➡️") {
 						forecastEmbed.setTimestamp();
 						msg.edit(forecastEmbed);
+					}
+					try {
+						for (const reaction of userReactions.values()) {
+							await reaction.users.remove(message.author.id);
+						}
+					} catch (error) {
+						console.error("Failed to remove reactions.");
 					}
 				});
 			}
