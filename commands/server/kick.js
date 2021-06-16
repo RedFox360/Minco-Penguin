@@ -14,6 +14,7 @@ module.exports = {
 		if (!mention) return "Mention a valid user";
 
 		const member = message.guild.members.cache.get(mention.id);
+		if (!member) return "That member isn't in the server";
 		member.kick(args.join(" ")).then((kicked) => {
 			message.channel.send(
 				new MessageEmbed()
