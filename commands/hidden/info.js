@@ -42,5 +42,5 @@ module.exports = {
 const format = (time) => {
 	dayjs.extend(utc);
 	dayjs.extend(timezone);
-	return dayjs.tz(time, "PST").format("ddd [**]MMM D, YYYY[**] HH:mm [PST]");
+	return dayjs.tz(time, "America/Los_Angeles").format("ddd [**]MMM D, YYYY[**] HH:mm [PST]");
 };
