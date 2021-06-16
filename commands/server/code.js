@@ -15,7 +15,7 @@ module.exports = {
 				},
 				{
 					name: "Packages used",
-					value: "discord.js, ms, fs, mongoose, discord.js-collector, ordinal, pretty-ms",
+					value: "discord.js, ms, fs, mongoose, discord.js-collector, ordinal, pretty-ms, mathjs",
 				}
 			);
 		message.channel.send(pingEmbed);
