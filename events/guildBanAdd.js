@@ -13,5 +13,5 @@ module.exports = async (_, guild, user) => {
 		? client.channels.cache.get(serverData.welcomeChannel)
 		: member.guild.systemChannel;
 	guild.systemChannel.send(unbanEmbed);
-	user.send(`${user.tag}, you were unbanned from ${guild.name}.`);
+	user.send(`${user.tag}, you were banned from ${guild.name}.`);
 };
