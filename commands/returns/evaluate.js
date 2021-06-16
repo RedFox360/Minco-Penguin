@@ -1,8 +1,8 @@
 const { evaluate } = require("mathjs");
 module.exports = {
 	description: "Solve any math equation",
-	usage: "!evaluate/solve/math <equation>",
-	aliases: ["solve", "math"],
+	usage: "!evaluate/solve <equation>",
+	aliases: ["solve"],
 	execute(message, args) {
 		if (!args.length) return "Enter a math equation";
 		const equation = args.join(" ");
