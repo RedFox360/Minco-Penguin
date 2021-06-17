@@ -2,7 +2,7 @@ const serverModel = require("../../models/serverSchema");
 module.exports = {
 	description:
 		"[ADMIN ONLY] Set the welcome and leave messages for a server. Use !announce-message format for a formatting guide",
-	usage: "!announce-message <join/leave> <message>",
+	usage: "!announce-message <join/leave> <message/'default'>",
 	async execute(message, args) {
 		const first = args[0];
 		if (!first)
@@ -19,11 +19,15 @@ module.exports = {
 		}
 
 		if (!args.length) return "Valid usage: !announce-message <join/leave> <message>";
-		const msg = args.join(" ");
+		let msg = args.join(" ");
 		if (first == "join") {
+			if (args[0] == "default")
+				msg = "Welcome to {server}, {mention}!\nYou are the {ord_member_count} member!";
 			await serverModel.findOneAndUpdate({ serverID: message.guild.id }, { welcomeMessage: msg });
 			return "Welcome message sent";
 		} else if (first == "leave") {
+			if (args[0] == "default")
+				msg = "It seems {user_tag} has left us. We now have {member_count} members.";
 			await serverModel.findOneAndUpdate({ serverID: message.guild.id }, { leaveMessage: msg });
 		} else {
 			return "Valid usage: !announce-message <join/leave> <message>";

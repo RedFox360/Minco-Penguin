@@ -8,7 +8,7 @@ module.exports = async (client, member) => {
 	if (serverData.silenceJoins) return;
 	let leaveMessage =
 		serverData.leaveMessage ??
-		"Welcome to {server}, {mention}!\nYou are the {ord_member_count} member!";
+		"It seems {user_tag} has left us. We now have {member_count} members.";
 
 	var members = await member.guild.members.fetch();
 	var memberCount = members.filter((member) => !member.user.bot).size;
@@ -25,7 +25,7 @@ module.exports = async (client, member) => {
 	let leaveEmbed = new Discord.MessageEmbed()
 		.setColor("EC7063") // red
 		.setTitle("Goodbye")
-		.setDescription(`It seems ${member.user.tag} has left us. We now have ${memberCount} members.`);
+		.setDescription();
 	const channel = serverData.welcomeChannel
 		? client.channels.cache.get(serverData.welcomeChannel)
 		: member.guild.systemChannel;
