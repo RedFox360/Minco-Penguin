@@ -1,3 +1,4 @@
+const ordinal = require("ordinal");
 const serverModel = require("../../models/serverSchema");
 module.exports = {
 	description:
@@ -31,6 +32,9 @@ module.exports = {
 		} else {
 			return "Valid usage: !announce-message <join/leave> <message>";
 		}
+		var members = await member.guild.members.fetch();
+		var memberCount = members.filter((member) => !member.user.bot).size;
+		var memberCountOrdinal = ordinal(memberCount);
 		const member = message.member;
 		message.channel.send(
 			"Message updated, example:\n" +
