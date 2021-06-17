@@ -32,19 +32,18 @@ module.exports = {
 		} else {
 			return "Valid usage: !announce-message <join/leave> <message>";
 		}
-		var members = await member.guild.members.fetch();
-		var memberCount = members.filter((member) => !member.user.bot).size;
-		var memberCountOrdinal = ordinal(memberCount);
-		const member = message.member;
+		const members = await message.guild.members.fetch();
+		const memberCount = members.filter((member) => !member.user.bot).size;
+		const memberCountOrdinal = ordinal(memberCount);
 		message.channel.send(
 			"Message updated, example:\n" +
 				msg
-					.replace(/\{server\}/g, member.guild.name)
-					.replace(/\{mention\}/g, `<@${member.id}>`)
+					.replace(/\{server\}/g, message.guild.name)
+					.replace(/\{mention\}/g, message.author.toString())
 					.replace(/\{ord_member_count\}/g, memberCountOrdinal)
 					.replace(/\{member_count\}/g, memberCount)
-					.replace(/\{user\}/g, member.user.username)
-					.replace(/\{user_tag\}/g, member.user.tag)
+					.replace(/\{user\}/g, message.author.username)
+					.replace(/\{user_tag\}/g, message.author.tag)
 		);
 	},
 };

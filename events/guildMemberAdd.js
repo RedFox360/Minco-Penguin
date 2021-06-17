@@ -26,9 +26,9 @@ module.exports = async (client, member) => {
 	let welcomeMessage =
 		serverData.welcomeMessage ??
 		"Welcome to {server}, {mention}!\nYou are the {ord_member_count} member!";
-	var members = await member.guild.members.fetch();
-	var memberCount = members.filter((member) => !member.user.bot).size;
-	var memberCountOrdinal = ordinal(memberCount);
+	const members = await member.guild.members.fetch();
+	const memberCount = members.filter((member) => !member.user.bot).size;
+	const memberCountOrdinal = ordinal(memberCount);
 
 	welcomeMessage = welcomeMessage
 		.replace(/\{server\}/g, member.guild.name)
