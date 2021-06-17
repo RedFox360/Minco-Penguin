@@ -24,7 +24,6 @@ module.exports = {
 			if (args[0] == "default")
 				msg = "Welcome to {server}, {mention}!\nYou are the {ord_member_count} member!";
 			await serverModel.findOneAndUpdate({ serverID: message.guild.id }, { welcomeMessage: msg });
-			return "Welcome message sent";
 		} else if (first == "leave") {
 			if (args[0] == "default")
 				msg = "It seems {user_tag} has left us. We now have {member_count} members.";
@@ -32,5 +31,16 @@ module.exports = {
 		} else {
 			return "Valid usage: !announce-message <join/leave> <message>";
 		}
+		const member = message.member;
+		message.channel.send(
+			"Message updated, example:\n" +
+				msg
+					.replace(/\{server\}/g, member.guild.name)
+					.replace(/\{mention\}/g, `<@${member.id}>`)
+					.replace(/\{ord_member_count\}/g, memberCountOrdinal)
+					.replace(/\{member_count\}/g, memberCount)
+					.replace(/\{user\}/g, member.user.username)
+					.replace(/\{user_tag\}/g, member.user.tag)
+		);
 	},
 };

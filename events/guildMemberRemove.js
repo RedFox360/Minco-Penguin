@@ -20,12 +20,11 @@ module.exports = async (client, member) => {
 		.replace(/\{ord_member_count\}/g, memberCountOrdinal)
 		.replace(/\{member_count\}/g, memberCount)
 		.replace(/\{user\}/g, member.user.username)
-		.replace(/\{user_tag\}/g, member.user.tag)
-		.replace(/\{\}/g);
+		.replace(/\{user_tag\}/g, member.user.tag);
 	let leaveEmbed = new Discord.MessageEmbed()
 		.setColor("EC7063") // red
 		.setTitle("Goodbye")
-		.setDescription();
+		.setDescription(leaveMessage);
 	const channel = serverData.welcomeChannel
 		? client.channels.cache.get(serverData.welcomeChannel)
 		: member.guild.systemChannel;
