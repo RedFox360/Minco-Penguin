@@ -5,8 +5,8 @@ const timezone = require("dayjs/plugin/timezone");
 module.exports = {
 	/** @param {Message} message */
 	execute(message) {
-		const member = message.mentions.member.first() ?? message.member;
-		const author = mention.user ?? message.author;
+		const member = message.mentions.member?.first() ?? message.member;
+		const author = mention?.user ?? message.author;
 		message.channel.send(
 			new MessageEmbed()
 				.setAuthor(author.tag, author.avatarURL(), author.avatarURL())
