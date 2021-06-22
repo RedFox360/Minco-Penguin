@@ -6,7 +6,7 @@ const timezone = require("dayjs/plugin/timezone");
 module.exports = {
 	/** @param {Message} message */
 	execute(message) {
-		const member = message.mentions.member?.first() ?? message.member;
+		const member = message.mentions.members.first() ?? message.member;
 		const author = member?.user ?? message.author;
 		message.channel.send(
 			new MessageEmbed()
