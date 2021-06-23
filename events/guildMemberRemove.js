@@ -7,8 +7,7 @@ module.exports = async (client, member) => {
 	let serverData = await serverModel.findOne({ serverID: member.guild.id });
 	if (serverData.silenceJoins) return;
 	let leaveMessage =
-		serverData.leaveMessage ??
-		"It seems {user_tag} has left us. We now have {member_count} members.";
+		serverData.leaveMessage;
 
 	var members = await member.guild.members.fetch();
 	var memberCount = members.filter((member) => !member.user.bot).size;
