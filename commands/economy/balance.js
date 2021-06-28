@@ -11,7 +11,6 @@ module.exports = {
 		const mention = message.mentions.users.first();
 		let {
 			bank,
-			orbs,
 			mincoDollars: md,
 		} = mention ? await profileModel.findOne({ userID: mention.id }) : profileData;
 		const author = mention ?? message.author;
@@ -20,9 +19,7 @@ module.exports = {
 			.setColor("7BFF70")
 			.setDescription(
 				`:coin: Wallet: **${md.toLocaleString()}** Minco Dollars
-:dollar: Bank: **${bank.toLocaleString()}** Minco Dollars
-:crystal_ball: Orbs: **${orbs.toLocaleString()}** Minco Orbs`
-			);
+:dollar: Bank: **${bank.toLocaleString()}** Minco Dollars`			);
 		message.channel.send(balanceEmbed);
 	},
 };

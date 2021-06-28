@@ -14,13 +14,13 @@ module.exports = {
 		const fields = [
 			[
 				[":ring: (01) | Marriage Ring", "75 Minco Dollars\nCan be used to propose to someone"],
-				[":diamond_shape_with_a_dot_inside: (02) | Diamond Crown", "90 Orbs"],
+				[":diamond_shape_with_a_dot_inside: (02) | Diamond Crown", "900 Minco Dollars"],
 				[":cowboy: (03) | Cowboy Hat", "25 Minco Dollars"],
 				[
 					":tomato: (04) | Tomato",
 					"4 Minco Dollars\nA fresh ripe tomato, can be eaten for between 2 and 6 Minco Dollars (use !eat tomato)",
 				],
-				[":candy: (05) | Candy", "1 Orb\nDoubles beg reward for the next 3 begs"],
+				[":candy: (05) | Candy", "10 Minco Dollars\nDoubles beg reward for the next 3 begs"],
 				[
 					"<:transparent_jellybot:833491227995013130> (06) | Jellyfish",
 					"75 Minco Dollars\nAllows you to sting people using the !sting command. Gives a +12 attack bonus in battle.",
@@ -28,7 +28,7 @@ module.exports = {
 				[
 					":bear: (07) | Pet Bear",
 
-					"50 Orbs\nIf you don't want to marry someone: (lower reward)\n5% chance of doubling beg reward, 33 Minco Dollar math reward",
+					"400 Minco Dollars\nIf you don't want to marry someone: (lower reward)\n5% chance of doubling beg reward, 33 Minco Dollar math reward",
 				],
 			],
 			[
@@ -42,7 +42,7 @@ module.exports = {
 					":egg: (11) | Egg",
 					"8 Minco Dollars\nCan be eaten (!eat egg) raw or cooked using !cook egg <type> for a reward",
 				],
-				[":banana: (12) | Banana", "1 Orb"],
+				[":banana: (12) | Banana", "10 Minco Dollars"],
 			],
 			[
 				["(01) <:blue_diamond:843178044894216202> | Blue Diamond", "100 MD"],

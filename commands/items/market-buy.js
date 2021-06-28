@@ -14,38 +14,30 @@ module.exports = {
 		if (!hasItem(item, profile))
 			return `<@${mention.id}> does not have that item! (remember capitalization)`;
 		const i = getItem(item, profile);
-		const oomStr = i.orbs ? "Orbs" : "MD";
-		const oom = i.orbs ? profileData.orbs : profileData.mincoDollars;
-		if (oom < i.price) return `You do not have ${i.price} ${oomStr} (price).`;
+		if (profileData.mincoDollars < i.price) return `You do not have ${i.price} MD (price).`;
 		const msg = await message.channel.send(
-			`Confirm by reacting to buy **${i.name}** for ${i.price} ${oomStr}.`
+			`Confirm by reacting to buy **${i.name}** for ${i.price} MD.`
 		);
 		msg.react("✅");
 		const filter = (reaction, user) =>
 			reaction.emoji.name === "✅" && user.id === message.author.id;
 		const reactionCollector = msg.createReactionCollector(filter, { time: ms("30s") });
 		reactionCollector.on("collect", async () => {
-			const authorUpdate = i.orbs
-				? { $inc: { orbs: -i.price } }
-				: { $inc: { mincoDollars: -i.price } };
-			const mentionUpdate = i.orbs
-				? { $inc: { orbs: i.price } }
-				: { $inc: { mincoDollars: i.price } };
 			await profileModel.findOneAndUpdate(
 				{
 					userID: mention.id,
 				},
-				mentionUpdate
+				{ $inc: { mincoDollars: i.price } }
 			);
 			await profileModel.findOneAndUpdate(
 				{
 					userID: message.author.id,
 				},
-				authorUpdate
+				{ $inc: { mincoDollars: -i.price } }
 			);
 			mention.send(`${message.author.toString()} has bought your **${i.name}**!`);
 			message.channel.send(
-				`You bought **${i.name}** for **${i.price}** ${oomStr}! <@${mention.id}> will be DMed notifying your purchase.`
+				`You bought **${i.name}** for **${i.price}** MD! <@${mention.id}> will be DMed notifying your purchase.`
 			);
 		});
 	},

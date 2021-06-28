@@ -8,9 +8,8 @@ module.exports = {
 			await profileModel.findOneAndUpdate(
 				{ userID: mention.id },
 				{
-					mincoDollars: 50,
+					mincoDollars: 100,
 					bank: 0,
-					orbs: 5,
 					zoo: [],
 					inventory: [],
 				}

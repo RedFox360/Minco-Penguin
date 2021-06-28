@@ -1,17 +1,11 @@
 const profileModel = require("../../models/profileSchema");
 module.exports = {
-	description: "Add an item to your market! Add an 'o' after your price to make it orbs.",
+	description: "Add an item to your market!",
 	aliases: ["ma"],
 	usage: "!market-add <price> <item name> | <item description>",
 	async execute(message, args, _0, _1, profileData) {
 		if (args.length < 1) return "Valid usage: !market-add <price> <item name>";
-		const p = args[0];
-		let orbs = false;
-		let price = parseInt(p);
-		if (p.endsWith("o")) {
-			orbs = true;
-			price = parseInt(p.slice(0, -1));
-		}
+		const price = parseInt(args[0]);
 		if (isNaN(price)) return "Enter a valid price";
 		if (price > 1000) return "Your price cannot be greater than 1000";
 		args.shift();
@@ -31,18 +25,16 @@ module.exports = {
 						name: title,
 						desc,
 						price,
-						orbs,
 					},
 				},
 			}
 		);
-		const oomStr = orbs ? "Orbs" : "MD";
 		if (desc) {
 			message.channel.send(
-				`**${title}** | ${desc} for ${price} ${oomStr} has been added to your market.`
+				`**${title}** | ${desc} for ${price} MD has been added to your market.`
 			);
 		} else {
-			message.channel.send(`**${title}** for ${price} ${oomStr} has been added to your market.`);
+			message.channel.send(`**${title}** for ${price} MD has been added to your market.`);
 		}
 	},
 };
