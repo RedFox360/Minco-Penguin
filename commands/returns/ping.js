@@ -10,14 +10,13 @@ module.exports = {
 	async execute(message, args, _1, client) {
 		const msg = await message.channel.send('pong!');
 		const latency = Math.round(client.ws.ping);
-		const _exec = msg.createdTimestamp - message.createdTimestamp;
-		const exec = _exec - latency;
-		const total = _exec + latency;
+		const ping = msg.createdTimestamp - message.createdTimestamp;
+		const exec = ping - latency;
 
 		const [status, color] = (() => {
-			if (total <= 400) return ["online", "#48C9B0"];
-			else if (total <= 1000) return ["slightly lagging", "#F7DC6F"];
-			else if (total <= 2500) return ["lagging", "FF9433"];
+			if (ping <= 400) return ["online", "#48C9B0"];
+			else if (ping <= 1000) return ["slightly lagging", "#F7DC6F"];
+			else if (ping <= 2500) return ["lagging", "FF9433"];
 			else return ["severely lagging", "#E74C3C"];
 		})();
 		let pingEmbed = new Discord.MessageEmbed()
