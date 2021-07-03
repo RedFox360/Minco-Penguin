@@ -37,14 +37,5 @@ module.exports = {
 			.setTimestamp();
 		msg.delete();
 		message.channel.send(pingEmbed);
-		if (args[0] == "all") {
-			let pings = [];
-			pings.push(await message.channel.send(">ping"));
-			pings.push(await message.channel.send("+ping"));
-			pings.push(await message.channel.send("=ping"));
-			pings.push(await message.channel.send("mo ping"));
-
-			pings.forEach((ping) => ping.delete());
-		}
 	},
 };
