@@ -9,9 +9,10 @@ module.exports = {
 	 */
 	async execute(message, args, _1, client) {
 		const msg = await message.channel.send('pong!');
-		const exec = msg.createdTimestamp - message.createdTimestamp;
 		const latency = Math.round(client.ws.ping);
-		const total = exec+latency;
+		const _exec = msg.createdTimestamp - message.createdTimestamp;
+		const exec = _exec - latency;
+		const total = _exec + latency;
 
 		const [status, color] = (() => {
 			if (total <= 400) return ["online", "#48C9B0"];
@@ -30,7 +31,8 @@ module.exports = {
 					value: prettyMs(exec),
 				},
 				{ name: "Client Latency", value: prettyMs(latency) },
-				{ name: "Total", value: prettyMs(total) }
+				{ name: "Total", value: prettyMs(total) },
+				{ name: "Client Uptime", value: prettyMs(client.uptime) }
 			)
 			.setFooter(message.guild.name)
 			.setTimestamp();
