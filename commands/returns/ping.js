@@ -17,7 +17,7 @@ module.exports = {
 		const total = exec+latency;
 		let pingEmbed = new Discord.MessageEmbed()
 			.setTitle(":robot_face: Pong!")
-			.setColor(rgbToHex(total < 250 ? 0 : ping), 455 - ping, 0)
+			.setColor(rgbToHex(total < 250 ? 0 : total), 455 - total, 0)
 			.setAuthor(message.member.displayName, message.author.avatarURL())
 			.addFields(
 				{ name: "Status:", value: status },
