@@ -10,6 +10,10 @@ module.exports = {
 	async execute(message, args, _1, client) {
 		var status = Math.round(client.ws.ping) > 400 ? "lagging" : "online";
 		var color = status == "lagging" ? "E74C3C" : "32E6C5";
+		
+		const msg=message.channel.send('pong!');
+		const exec = prettyMs(msg.createdTimestamp - message.createdTimestamp);
+		const latency = prettyMs(Math.round(client.ws.ping));
 		let pingEmbed = new Discord.MessageEmbed()
 			.setTitle(":robot_face: Pong!")
 			.setColor(color)
@@ -18,14 +22,14 @@ module.exports = {
 				{ name: "Status:", value: status },
 				{
 					name: "Execution Time",
-					value: prettyMs(Date.now() - message.createdTimestamp),
+					value: exec,
 				},
-				{ name: "Client Latency", value: prettyMs(Math.round(client.ws.ping)) },
-				{ name: "Client Uptime", value: prettyMs(client.uptime) }
+				{ name: "Client Latency", value: latency},
+				{ name: "Total", value: exec+latency }
 			)
 			.setFooter(message.guild.name)
 			.setTimestamp();
-		message.channel.send(pingEmbed);
+		msg.edit(pingEmbed);
 		if (args[0] == "all") {
 			let pings = [];
 			pings.push(await message.channel.send(">ping"));
