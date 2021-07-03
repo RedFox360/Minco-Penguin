@@ -11,7 +11,7 @@ module.exports = {
 		var status = Math.round(client.ws.ping) > 400 ? "lagging" : "online";
 		var color = status == "lagging" ? "E74C3C" : "32E6C5";
 		
-		const msg=message.channel.send('pong!');
+		const msg = await message.channel.send('pong!');
 		const exec = prettyMs(msg.createdTimestamp - message.createdTimestamp);
 		const latency = prettyMs(Math.round(client.ws.ping));
 		let pingEmbed = new Discord.MessageEmbed()
