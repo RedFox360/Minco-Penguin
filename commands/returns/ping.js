@@ -30,7 +30,7 @@ module.exports = {
 					value: prettyMs(exec),
 				},
 				{ name: "Client Latency", value: prettyMs(latency) },
-				{ name: "Total", value: prettyMs(total) },
+				{ name: "Total", value: prettyMs(ping) },
 				{ name: "Client Uptime", value: prettyMs(client.uptime) }
 			)
 			.setFooter(message.guild.name)
