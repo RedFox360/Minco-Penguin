@@ -14,9 +14,9 @@ module.exports = {
 		const total = exec+latency;
 
 		const [status, color] = (() => {
-			if (total <= 200) return ["online", "#48C9B0"];
-			else if (total <= 500) return ["slightly lagging", "#F7DC6F"];
-			else if (total <= 1750) return ["lagging", "FF9433"];
+			if (total <= 400) return ["online", "#48C9B0"];
+			else if (total <= 1000) return ["slightly lagging", "#F7DC6F"];
+			else if (total <= 2500) return ["lagging", "FF9433"];
 			else return ["severely lagging", "#E74C3C"];
 		})();
 		let pingEmbed = new Discord.MessageEmbed()
