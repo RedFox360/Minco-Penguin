@@ -10,13 +10,14 @@ module.exports = {
 	async execute(message, args, _1, client) {
 		var status = Math.round(client.ws.ping) > 400 ? "lagging" : "online";
 		var color = status == "lagging" ? "E74C3C" : "32E6C5";
-		
+
 		const msg = await message.channel.send('pong!');
 		const exec = msg.createdTimestamp - message.createdTimestamp;
 		const latency = Math.round(client.ws.ping);
+		const total = exec+latency;
 		let pingEmbed = new Discord.MessageEmbed()
 			.setTitle(":robot_face: Pong!")
-			.setColor(color)
+			.setColor(rgbToHex(total < 250 ? 0 : ping), 455 - ping, 0)
 			.setAuthor(message.member.displayName, message.author.avatarURL())
 			.addFields(
 				{ name: "Status:", value: status },
@@ -24,8 +25,8 @@ module.exports = {
 					name: "Execution Time",
 					value: prettyMs(exec),
 				},
-				{ name: "Client Latency", value: prettyMs(latency)},
-				{ name: "Total", value: prettyMs(exec+latency) }
+				{ name: "Client Latency", value: prettyMs(latency) },
+				{ name: "Total", value: prettyMs(total) }
 			)
 			.setFooter(message.guild.name)
 			.setTimestamp();
@@ -42,3 +43,11 @@ module.exports = {
 		}
 	},
 };
+function componentToHex(c) {
+	var hex = c.toString(16);
+	return hex.length == 1 ? "0" + hex : hex;
+}
+
+function rgbToHex(r, g, b) {
+	return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
