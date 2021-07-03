@@ -12,8 +12,8 @@ module.exports = {
 		var color = status == "lagging" ? "E74C3C" : "32E6C5";
 		
 		const msg = await message.channel.send('pong!');
-		const exec = prettyMs(msg.createdTimestamp - message.createdTimestamp);
-		const latency = prettyMs(Math.round(client.ws.ping));
+		const exec = msg.createdTimestamp - message.createdTimestamp;
+		const latency = Math.round(client.ws.ping);
 		let pingEmbed = new Discord.MessageEmbed()
 			.setTitle(":robot_face: Pong!")
 			.setColor(color)
@@ -22,10 +22,10 @@ module.exports = {
 				{ name: "Status:", value: status },
 				{
 					name: "Execution Time",
-					value: exec,
+					value: prettyMs(exec),
 				},
-				{ name: "Client Latency", value: latency},
-				{ name: "Total", value: exec+latency }
+				{ name: "Client Latency", value: prettyMs(latency)},
+				{ name: "Total", value: prettyMs(exec+latency) }
 			)
 			.setFooter(message.guild.name)
 			.setTimestamp();
