@@ -29,7 +29,8 @@ module.exports = {
 			)
 			.setFooter(message.guild.name)
 			.setTimestamp();
-		msg.edit(pingEmbed);
+		msg.delete();
+		message.channel.send(pingEmbed);
 		if (args[0] == "all") {
 			let pings = [];
 			pings.push(await message.channel.send(">ping"));
