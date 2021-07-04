@@ -19,21 +19,6 @@ module.exports = {
 			.setAuthor("Daily Reward", message.author.avatarURL())
 			.setFooter(message.guild.name);
 		let description = "";
-		if (Math.floor(Math.random() * 4) == 0 && !profileData.inventory.includes("05")) {
-			await profileModel.findOneAndUpdate(
-				{
-					userID: message.author.id,
-				},
-				{
-					$push: {
-						inventory: "05",
-					},
-					candyAmount: 3,
-				}
-			);
-
-			description += "You won a Candy :candy:!";
-		}
 
 		const randomAmount = randomInt(25, 60);
 		await profileModel.findOneAndUpdate(
@@ -49,6 +34,22 @@ module.exports = {
 		);
 
 		description += `You earned ${randomAmount} Minco Dollars!`;
+
+		if (Math.floor(Math.random() * 4) == 0 && !profileData.inventory.includes("05")) {
+			await profileModel.findOneAndUpdate(
+				{
+					userID: message.author.id,
+				},
+				{
+					$push: {
+						inventory: "05",
+					},
+					candyAmount: 3,
+				}
+			);
+
+			description += "\nYou also won a Candy :candy:!";
+		}
 
 		dailyEmbed.setDescription(description);
 
