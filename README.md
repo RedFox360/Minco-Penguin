@@ -5,15 +5,4 @@ Created by: RedFox360
 
 created using tutorials by [CodeLyon](https://www.youtube.com/codelyon)
 
-## Packages used:
-
-- discord.js
-- ms
-- dotenv
-- fs
-- mongoose
-- pretty-ms
-- ordinal
-- discord.js-collector
-- discordjs-colors
-- leo-profanity
+Minco Penguin invite will be released soon once slash commands are supported! Meanwhile, I am working on more admin features.
