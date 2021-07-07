@@ -30,9 +30,7 @@ module.exports = {
 			}
 		);
 		if (desc) {
-			message.channel.send(
-				`**${title}** | ${desc} for ${price} MD has been added to your market.`
-			);
+			message.channel.send(`**${title}** | ${desc} for ${price} MD has been added to your market.`);
 		} else {
 			message.channel.send(`**${title}** for ${price} MD has been added to your market.`);
 		}

@@ -23,8 +23,7 @@ module.exports = async (client, member) => {
 		});
 		profile.save();
 	}
-	let welcomeMessage =
-		serverData.welcomeMessage;
+	let welcomeMessage = serverData.welcomeMessage;
 	const members = await member.guild.members.fetch();
 	const memberCount = members.filter((member) => !member.user.bot).size;
 	const memberCountOrdinal = ordinal(memberCount);

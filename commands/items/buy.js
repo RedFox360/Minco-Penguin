@@ -85,7 +85,7 @@ async function buy(message, item, price, itemNumber, profileData, showReaction, 
 			);
 			if (itemNumber == "02") {
 				if (message.guild.id == "785642761814671381") {
-					message.member.roles.add("842053621402173501")
+					message.member.roles.add("842053621402173501");
 				}
 			}
 			message.channel.send(`You succesfully bought a ${item}!`);
@@ -106,10 +106,12 @@ async function buy(message, item, price, itemNumber, profileData, showReaction, 
 		if (itemNumber == "05") {
 			await profileModel.findOneAndUpdate(
 				{
-				userID: message.author.id,
-			}, {
-				candyAmount: 3
-			})
+					userID: message.author.id,
+				},
+				{
+					candyAmount: 3,
+				}
+			);
 		}
 		message.channel.send(`You bought a ${item} for ${price} MD`);
 	}

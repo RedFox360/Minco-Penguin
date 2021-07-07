@@ -10,8 +10,14 @@ const serverSchema = new mongoose.Schema({
 		usersClaimed: [String],
 	},
 	welcomeChannel: String,
-	welcomeMessage: { type: String, default: "Welcome to {server}, {mention}!\nYou are the {ord_member_count} member!" },
-	leaveMessage: { type: String, default: "It seems {user_tag} has left us. We now have {member_count} members."} ,
+	welcomeMessage: {
+		type: String,
+		default: "Welcome to {server}, {mention}!\nYou are the {ord_member_count} member!",
+	},
+	leaveMessage: {
+		type: String,
+		default: "It seems {user_tag} has left us. We now have {member_count} members.",
+	},
 	silenceJoins: { type: Boolean, default: false },
 	silenceBans: { type: Boolean, default: false },
 	muteRole: String,
