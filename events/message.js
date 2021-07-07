@@ -32,7 +32,7 @@ module.exports = async (client, message) => {
 		}
 	}
 	if (message.author.bot) return;
-	if (message.content.startsWith("<@!725917919292162051>")) {
+	if (message.content == "<@!725917919292162051>") {
 		let infoEmbed = new Discord.MessageEmbed()
 			.setColor("32E6C5")
 			.setTitle("Minco Penguin")
@@ -40,16 +40,10 @@ module.exports = async (client, message) => {
 		message.channel.send(infoEmbed);
 		return;
 	}
-	let prefixes = ["!", "###", "minco "];
-	let count = 0;
-	let currentPrefix;
-	for (const prefix of prefixes) {
-		if (message.content.startsWith(prefix)) {
-			currentPrefix = prefix;
-			break;
-		} else count++;
-		if (count == prefixes.length) return;
-	}
+	const prefixes = serverData.prefixes ?? ["!"];
+	prefixes.push("<@!725917919292162051> ");
+	const prefix = prefixes.find((p) => message.content.startsWith(p));
+	if (!prefix) return;
 	let profileData;
 	try {
 		if (message.guild) {
@@ -69,7 +63,7 @@ module.exports = async (client, message) => {
 	} catch (err) {
 		console.error(err);
 	}
-	const args = message.content.slice(currentPrefix.length).split(/ +/);
+	const args = message.content.slice(prefix.length).split(/ +/);
 	const cmd = args.shift().toLowerCase();
 	const command =
 		client.commands.get(cmd) || client.commands.find((a) => a.aliases && a.aliases.includes(cmd));
@@ -86,7 +80,7 @@ module.exports = async (client, message) => {
 			}
 		}
 	}
-	if (command.permissions.length) {
+	if (command.permissions) {
 		let invalidPerms = [];
 		let botInvalidPerms = [];
 		for (const perm of command.permissions) {
