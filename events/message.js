@@ -32,16 +32,17 @@ module.exports = async (client, message) => {
 		}
 	}
 	if (message.author.bot) return;
+	const prefixes = serverData.prefixes ?? ["!"];
+	prefixes.push("<@!725917919292162051> ");
+
 	if (message.content == "<@!725917919292162051>") {
 		let infoEmbed = new Discord.MessageEmbed()
 			.setColor("32E6C5")
 			.setTitle("Minco Penguin")
-			.setDescription("Hello, I'm Minco Penguin! My prefixes are '!' and 'minco '");
+			.setDescription(`Prefixes: ${prefixes.map((prefix) => `\`${prefix}\``).join(", ")}`);
 		message.channel.send(infoEmbed);
 		return;
 	}
-	const prefixes = serverData.prefixes ?? ["!"];
-	prefixes.push("<@!725917919292162051> ");
 	const prefix = prefixes.find((p) => message.content.startsWith(p));
 	if (!prefix) return;
 	let profileData;
