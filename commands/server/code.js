@@ -1,4 +1,5 @@
 const { MessageEmbed, version } = require("discord.js");
+const { dependencies } = require("../../package.json");
 module.exports = {
 	description: "sends info about the code",
 	execute(message) {
@@ -15,8 +16,7 @@ module.exports = {
 				},
 				{
 					name: "Packages used",
-					value:
-						"discord.js, ms, fs, mongoose, discord.js-collector, ordinal, pretty-ms, mathjs, leo-profanity",
+					value: Object.keys(dependencies).join(", "),
 				}
 			);
 		message.channel.send(pingEmbed);
