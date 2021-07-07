@@ -12,6 +12,7 @@ const ms = require("ms");
  * @param {Discord.Client} client
  */
 module.exports = async (client, message) => {
+	let serverData;
 	try {
 		serverData = await serverModel.findOne({ serverID: message.guild.id });
 		if (!serverData) {
@@ -49,7 +50,7 @@ module.exports = async (client, message) => {
 		} else count++;
 		if (count == prefixes.length) return;
 	}
-	let profileData, serverData;
+	let profileData;
 	try {
 		if (message.guild) {
 			profileData = await profileModel.findOne({ userID: message.author.id });
