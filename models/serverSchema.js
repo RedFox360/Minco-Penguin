@@ -23,6 +23,7 @@ const serverSchema = new mongoose.Schema({
 	muteRole: String,
 	mainRole: String,
 	modRole: String,
+	clean: { type: Boolean, default: true },
 });
 
 const model = mongoose.model("SeverModels", serverSchema);

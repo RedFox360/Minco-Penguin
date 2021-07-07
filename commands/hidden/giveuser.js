@@ -1,7 +1,7 @@
 const profileModel = require("../../models/profileSchema");
 
 module.exports = {
-	description: "[ADMIN ONLY] give a user an amount of Minco Dollars",
+	description: "[OWNER ONLY] give a user an amount of Minco Dollars",
 	usage: "!giveuser <@user> <number>",
 	async execute(message, args) {
 		if (message.author.id == "724786310711214118") {

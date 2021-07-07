@@ -1,6 +1,6 @@
 const serverModel = require("../../models/serverSchema");
 module.exports = {
-	description: "[ADMIN ONLY] Silence or turn on join/ban messages",
+	description: "[MANAGE SERVER] Silence or turn on join/ban messages",
 	usage: "!announce <joins/bans> <on/off>",
 	permissions: ["MANAGE_GUILD"],
 	async execute(message, args) {

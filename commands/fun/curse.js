@@ -3,7 +3,7 @@ module.exports = {
 	usage: "!curse <person> <Harry Potter curse>",
 	/** @param {Message} message */
 	execute(message, args) {
-		if (!args[1]) return "Valid usage: !curse <person> <Harry Potter curse>";
+		if (!args[1]) return `Valid usage: ${this.usage}`;
 		var person = args[0];
 		args.shift();
 		var curse = args.join(" ");

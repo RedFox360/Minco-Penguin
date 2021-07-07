@@ -1,3 +1,5 @@
+const filter = require("leo-profanity");
+filter.remove(["suck", "sucks"]);
 const cooldowns = new Map();
 const validPermissions = require("../functions/permissions.json");
 const profileModel = require("../models/profileSchema");
@@ -10,6 +12,24 @@ const ms = require("ms");
  * @param {Discord.Client} client
  */
 module.exports = async (client, message) => {
+	try {
+		serverData = await serverModel.findOne({ serverID: message.guild.id });
+		if (!serverData) {
+			let serverProfile = await serverModel.create({
+				serverID: message.guild.id,
+				bannedPeople: [],
+				blacklist: [],
+			});
+			serverProfile.save();
+		}
+	} catch (err) {
+		console.error(err);
+	}
+	if (serverData.clean && message.guild.me.hasPermission("MANAGE_MESSAGES")) {
+		if (filter.check(message.content)) {
+			message.delete();
+		}
+	}
 	if (message.author.bot) return;
 	if (message.content.startsWith("<@!725917919292162051>")) {
 		let infoEmbed = new Discord.MessageEmbed()
@@ -44,15 +64,6 @@ module.exports = async (client, message) => {
 				});
 				profile.save();
 			}
-			serverData = await serverModel.findOne({ serverID: message.guild.id });
-			if (!serverData) {
-				let serverProfile = await serverModel.create({
-					serverID: message.guild.id,
-					bannedPeople: [],
-					blacklist: [],
-				});
-				serverProfile.save();
-			}
 		}
 	} catch (err) {
 		console.error(err);
@@ -82,7 +93,10 @@ module.exports = async (client, message) => {
 				return console.log(`Invalid Permissions ${perm}`);
 			}
 			if (perm == "MOD") {
-				if (!message.member.roles.cache.has(serverData.modRole)) {
+				if (
+					!message.member.roles.cache.has(serverData.modRole) &&
+					!message.member.hasPermission("MANAGE_SERVER")
+				) {
 					invalidPerms.push("MOD ROLE");
 				}
 			} else {

@@ -2,7 +2,7 @@ const ordinal = require("ordinal");
 const serverModel = require("../../models/serverSchema");
 module.exports = {
 	description:
-		"[ADMIN ONLY] Set the welcome and leave messages for a server. Use !announce-message format for a formatting guide",
+		"[MANAGE SERVER] Set the welcome and leave messages for a server. Use !announce-message format for a formatting guide",
 	usage: "!announce-message <join/leave> <message/'default'>",
 	permissions: ["MANAGE_GUILD"],
 	async execute(message, args) {
