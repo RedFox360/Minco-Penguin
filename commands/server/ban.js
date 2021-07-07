@@ -2,13 +2,12 @@ const { Message, Client, MessageEmbed } = require("discord.js");
 module.exports = {
 	description: "Quickly ban a member from the server",
 	usage: "!ban (days) <@user> (reason)",
+	permission: ["BAN_MEMBERS"],
 	/**
 	 * @param {Message} message
 	 * @param {Client} client
 	 */
 	execute(message, args) {
-		if (!message.member.hasPermission("BAN_MEMBERS"))
-			return "You don't have the correct permissions to execute this command";
 		const days = parseInt(args[0]);
 		const member = message.mentions.members.first();
 		if (!member) return "Mention a valid user in the server";

@@ -2,10 +2,8 @@ const serverModel = require("../../models/serverSchema");
 module.exports = {
 	description: "[ADMIN ONLY] Set the mute role, main role, or mod role of the server",
 	usage: "!role <mute/main> <@role>",
-
+	permissions: ["ADMINISTRATOR"],
 	async execute(message, args) {
-		if (!message.member.hasPermission("ADMINISTRATOR"))
-			return "You don't have the correct permissions to execute this command";
 		const role = message.mentions.roles.first();
 		if (!role) return "Mention a valid role";
 		if (args[0] == "main") {

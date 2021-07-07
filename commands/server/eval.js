@@ -5,7 +5,7 @@ const profileModel = require("../../models/profileSchema");
 const serverModel = require("../../models/serverSchema");
 const randomInt = require("../../functions/random");
 module.exports = {
-	description: "[SAMEER ONLY] Eval command for testing",
+	description: "[OWNER ONLY] Eval command for testing",
 
 	async execute(message, args, cmd, client, profileData) {
 		if (message.author.id != "724786310711214118") return "This command can only be used by Sameer";

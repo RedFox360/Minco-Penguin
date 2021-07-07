@@ -1,4 +1,5 @@
 const cooldowns = new Map();
+const validPermissions = require("../functions/permissions.json");
 const profileModel = require("../models/profileSchema");
 const serverModel = require("../models/serverSchema");
 const Discord = require("discord.js");
@@ -71,6 +72,31 @@ module.exports = async (client, message) => {
 			if (message.author.id == person) {
 				return message.channel.send("You were banned from using Minco Penguin.");
 			}
+		}
+	}
+	if (command.permissions.length) {
+		let invalidPerms = [];
+		let botInvalidPerms = [];
+		for (const perm of command.permissions) {
+			if (!validPermissions.includes(perm)) {
+				return console.log(`Invalid Permissions ${perm}`);
+			}
+			if (!message.member.hasPermission(perm)) {
+				invalidPerms.push(perm);
+			}
+			if (!message.guild.me.hasPermission(perm)) {
+				botInvalidPerms.push(perm);
+			}
+		}
+		if (invalidPerms.length) {
+			return message.channel.send(
+				`You need these permissions to execute this command: \`${invalidPerms}\``
+			);
+		}
+		if (botInvalidPerms.length) {
+			return message.channel.send(
+				`The bot needs these permissions to execute this command: \`${botInvalidPerms}\``
+			);
 		}
 	}
 	if (!cooldowns.has(command.description))

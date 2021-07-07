@@ -4,10 +4,9 @@ module.exports = {
 	description: "Locks/unlocks the current channel",
 	usage: "!lock/unlock (ms)",
 	aliases: ["unlock"],
+	permissions: ["MANAGE_CHANNELS", "MANAGE_MESSAGES"],
 	/** @param {Message} message */
 	execute(message, args, cmd, _0, _1, serverData) {
-		if (!message.member.hasPermission("MANAGE_CHANNELS"))
-			return "You don't have the correct permissions to execute this command";
 		var SEND_MESSAGES = cmd === "unlock";
 		message.channel.updateOverwrite(message.guild.roles.everyone, {
 			SEND_MESSAGES,

@@ -4,6 +4,7 @@ module.exports = {
 	description:
 		"[ADMIN ONLY] Set the welcome and leave messages for a server. Use !announce-message format for a formatting guide",
 	usage: "!announce-message <join/leave> <message/'default'>",
+	permissions: ["MANAGE_SERVER"],
 	async execute(message, args) {
 		const first = args[0];
 		if (!first)
