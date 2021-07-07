@@ -81,8 +81,14 @@ module.exports = async (client, message) => {
 			if (!validPermissions.includes(perm)) {
 				return console.log(`Invalid Permissions ${perm}`);
 			}
-			if (!message.member.hasPermission(perm)) {
-				invalidPerms.push(perm);
+			if (perm == "MOD") {
+				if (!message.member.roles.cache.has(serverData.modRole)) {
+					invalidPerms.push("MOD ROLE");
+				}
+			} else {
+				if (!message.member.hasPermission(perm)) {
+					invalidPerms.push(perm);
+				}
 			}
 			if (!message.guild.me.hasPermission(perm)) {
 				botInvalidPerms.push(perm);
