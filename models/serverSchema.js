@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const serverSchema = new mongoose.Schema({
 	serverID: { type: String, require: true, unique: true },
+	prefixes: [String],
 	bannedPeople: [String],
 	blacklist: [String],
 	chest: {

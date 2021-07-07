@@ -3,7 +3,6 @@ const serverModel = require("../models/serverSchema");
 const ordinal = require("ordinal");
 /** @param {Discord.GuildMember} member */
 module.exports = async (client, member) => {
-	var memberCount = member.guild.memberCount;
 	let serverData = await serverModel.findOne({ serverID: member.guild.id });
 	if (serverData.silenceJoins) return;
 	let leaveMessage = serverData.leaveMessage;
