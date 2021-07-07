@@ -6,14 +6,17 @@ module.exports = {
 	async execute(message, args) {
 		if (args[0] == "add") {
 			if (!args[1]) return "Enter a prefix";
+			args.shift();
+			const newPrefix = args.join(" ");
 			await serverModel.findOneAndUpdate(
 				{ serverID: message.guild.id },
 				{
 					$push: {
-						prefixes: args[1],
+						prefixes: newPrefix,
 					},
 				}
 			);
+			message.channel.send(`Prefix **${newPrefix}** added`);
 		} else if (args[0] == "reset") {
 			await serverModel.findOneAndUpdate(
 				{
@@ -23,6 +26,7 @@ module.exports = {
 					prefixes: [],
 				}
 			);
+			message.channel.send("Prefixes reset");
 		} else return `Valid usage: ${this.usage}`;
 	},
 };
