@@ -2,8 +2,8 @@ const ordinal = require("ordinal");
 const serverModel = require("../../models/serverSchema");
 module.exports = {
 	description:
-		"[MANAGE SERVER] Set the welcome and leave messages for a server. Use !announce-message format for a formatting guide",
-	usage: "!announce-message <join/leave> <message/'default'>",
+		"[MANAGE SERVER] Set the welcome and leave messages for a server. Use !announce-message format for a formatting guide.",
+	usage: "!announce-message <join/joindm/leave> <message/'default'>",
 	permissions: ["MANAGE_GUILD"],
 	async execute(message, args) {
 		const first = args[0];
@@ -30,6 +30,15 @@ module.exports = {
 			if (args[0] == "default")
 				msg = "It seems {user_tag} has left us. We now have {member_count} members.";
 			await serverModel.findOneAndUpdate({ serverID: message.guild.id }, { leaveMessage: msg });
+		} else if (first == "joindm") {
+			if (args[0] == "default") {
+				await serverModel.findOneAndUpdate(
+					{ serverID: message.guild.id },
+					{ welcomeDM: undefined }
+				);
+				return "Welcome DM turned off";
+			}
+			await serverModel.findOneAndUpdate({ serverID: message.guild.id }, { welcomeDM: msg });
 		} else {
 			return "Valid usage: !announce-message <join/leave> <message>";
 		}

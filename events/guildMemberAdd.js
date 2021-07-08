@@ -26,26 +26,36 @@ module.exports = async (client, member) => {
 		});
 		profile.save();
 	}
-	let welcomeMessage = serverData.welcomeMessage;
+	let { welcomeMessage, welcomeDM } = serverData;
 	const members = await member.guild.members.fetch();
 	const memberCount = members.filter((member) => !member.user.bot).size;
 	const memberCountOrdinal = ordinal(memberCount);
 
-	welcomeMessage = welcomeMessage
-		.replace(/\{server\}/g, member.guild.name)
-		.replace(/\{mention\}/g, `<@${member.id}>`)
-		.replace(/\{ord_member_count\}/g, memberCountOrdinal)
-		.replace(/\{member_count\}/g, memberCount)
-		.replace(/\{user\}/g, member.user.username)
-		.replace(/\{user_tag\}/g, member.user.tag);
 	let joinEmbed = new Discord.MessageEmbed()
 		.setColor("58D68D") // green
 		.setTitle("Welcome")
-		.setDescription(welcomeMessage)
+		.setDescription(
+			welcomeMessage
+				.replace(/\{server\}/g, member.guild.name)
+				.replace(/\{mention\}/g, `<@${member.id}>`)
+				.replace(/\{ord_member_count\}/g, memberCountOrdinal)
+				.replace(/\{member_count\}/g, memberCount)
+				.replace(/\{user\}/g, member.user.username)
+				.replace(/\{user_tag\}/g, member.user.tag)
+		)
 		.setThumbnail(member.user.avatarURL());
 	const channel = serverData.welcomeChannel
 		? client.channels.cache.get(serverData.welcomeChannel)
 		: member.guild.systemChannel;
 	channel.send(joinEmbed);
-	member.send(welcomeMessage);
+	if (welcomeDM)
+		member.send(
+			welcomeDM
+				.replace(/\{server\}/g, member.guild.name)
+				.replace(/\{mention\}/g, `<@${member.id}>`)
+				.replace(/\{ord_member_count\}/g, memberCountOrdinal)
+				.replace(/\{member_count\}/g, memberCount)
+				.replace(/\{user\}/g, member.user.username)
+				.replace(/\{user_tag\}/g, member.user.tag)
+		);
 };
