@@ -1,5 +1,8 @@
 const filter = require("leo-profanity");
 filter.remove(["suck", "sucks"]);
+
+const removeComments = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/gm;
+const argumentNames = /([^\s,]+)/g;
 const cooldowns = new Map();
 const validPermissions = require("../functions/permissions.json");
 const profileModel = require("../models/profileSchema");
@@ -36,7 +39,7 @@ module.exports = async (client, message) => {
 		// error occured in DM
 	}
 	if (message.author.bot) return;
-	const prefixes = serverData.prefixes ?? ["!"];
+	const prefixes = serverData?.prefixes ?? ["!"];
 
 	if (message.content == "<@!725917919292162051>") {
 		let showPrefixes = prefixes.map((prefix) => "`" + prefix + "`");
@@ -156,6 +159,8 @@ module.exports = async (client, message) => {
 	};
 	timeStamps.set(message.author.id, currentTime);
 	try {
+		if (getParamNames(command.execute).includes("serverData"))
+			return "This command cannot be used in DMs";
 		const t = command.execute(message, args, cmd, client, profileData, serverData);
 		if (typeof t === "string") sendC(message, t, resetCooldown);
 		if (t instanceof Promise) {
@@ -175,4 +180,10 @@ function sendC(message, info, resetCooldown) {
 	if (info.includes("valid") || info.includes("enter")) {
 		resetCooldown();
 	}
+}
+function getParamNames(func) {
+	var fnStr = func.toString().replace(removeComments, "");
+	var result = fnStr.slice(fnStr.indexOf("(") + 1, fnStr.indexOf(")")).match(argumentNames);
+	if (result === null) result = [];
+	return result;
 }
