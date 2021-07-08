@@ -5,10 +5,13 @@ const serverModel = require("../models/serverSchema");
  * @param {Client} client
  */
 module.exports = async (client, guild) => {
+	let members = await guild.members.fetch();
+	let memberCount = members.filter((member) => !member.user.bot).size;
 	let serverProfile = await serverModel.create({
 		serverID: guild.id,
 		bannedPeople: [],
 		prefixes: ["!", "###", "minco "],
+		memberCount,
 	});
 	serverProfile.save();
 	const fetchedLogs = await guild.fetchAuditLogs({

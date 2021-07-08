@@ -35,4 +35,3 @@ module.exports = async (client, member) => {
 		: member.guild.systemChannel;
 	channel.send(leaveEmbed);
 };
-m;
