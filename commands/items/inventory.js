@@ -6,9 +6,6 @@ module.exports = {
 	async execute(message) {
 		const mention = message.mentions.users.first();
 		const author = mention ?? message.author;
-		if (mention) {
-			author = mention;
-		}
 
 		const { inventory } = await profileModel.findOne({ userID: author.id });
 		if (!inventory.length) return "You don't have any items in your inventory.";
@@ -32,12 +29,11 @@ module.exports = {
 		for (let i = 0; i < inv.length; i++) {
 			inv[i] = `${i + 1}. ${inv[i]}`;
 		}
-		message.channel.send(
-			new MessageEmbed()
-				.setAuthor("Inventory", author.avatarURL())
-				.setDescription(inv.join("\n"))
-				.setColor("#F8C471")
-				.setFooter(message.guild.name)
-		);
+		const invEmbed = new MessageEmbed()
+			.setAuthor("Inventory", author.avatarURL())
+			.setDescription(inv.join("\n"))
+			.setColor("#F8C471");
+		if (message.guild) invEmbed.setFooter(message.guild.name);
+		message.channel.send();
 	},
 };

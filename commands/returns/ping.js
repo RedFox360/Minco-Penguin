@@ -33,8 +33,8 @@ module.exports = {
 				{ name: "Total", value: prettyMs(ping) },
 				{ name: "Client Uptime", value: prettyMs(client.uptime) }
 			)
-			.setFooter(message.guild.name)
 			.setTimestamp();
+		if (message.guild) pingEmbed.setFooter(message.guild.name);
 		msg.delete().catch();
 		message.channel.send(pingEmbed);
 	},

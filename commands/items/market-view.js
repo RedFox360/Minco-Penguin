@@ -26,8 +26,8 @@ module.exports = {
 		const marketEmbed = new MessageEmbed()
 			.setColor("#D1F2EB")
 			.setTitle("Market")
-			.setDescription(`User: <@${id}>`)
-			.setFooter(message.guild.name);
+			.setDescription(`User: <@${id}>`);
+		if (message.guild) marketEmbed.setFooter(message.guild.name);
 		for (const { name, price, desc, orbs } of market) {
 			const orbsOrMd = orbs ? "Orbs" : "MD";
 			let value = `Price: ${price} ${orbsOrMd}`;

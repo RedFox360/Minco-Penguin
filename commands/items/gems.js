@@ -29,12 +29,11 @@ module.exports = {
 		for (let i = 0; i < g.length; i++) {
 			g[i] = `${i + 1}. ${g[i]}`;
 		}
-		message.channel.send(
-			new MessageEmbed()
-				.setAuthor("Gems", author.avatarURL())
-				.setDescription(g.join("\n"))
-				.setColor("#F8C471")
-				.setFooter(message.guild.name)
-		);
+		const gemEmbed = new MessageEmbed()
+			.setAuthor("Gems", author.avatarURL())
+			.setDescription(g.join("\n"))
+			.setColor("#F8C471");
+		if (message.guild) gemEmbed.setFooter(message.guild.name);
+		message.channel.send(gemEmbed);
 	},
 };

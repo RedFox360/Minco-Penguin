@@ -78,8 +78,9 @@ module.exports = {
 			.setAuthor(message.member.displayName, message.author.avatarURL())
 			.setTitle(titles[0])
 			.setDescription(descriptions[0])
-			.setColor("BEDFFF")
-			.setFooter(message.guild.name);
+			.setColor("BEDFFF");
+
+		if (message.guild) shopEmbed.setFooter(message.guild.name);
 		if (args[0] == "gems") {
 			shopEmbed.setTitle(titles[2]).setDescription(descriptions[2]);
 			fields[2].forEach((field) => {

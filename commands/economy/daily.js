@@ -16,8 +16,8 @@ module.exports = {
 
 		const dailyEmbed = new MessageEmbed()
 			.setColor("ffa845")
-			.setAuthor("Daily Reward", message.author.avatarURL())
-			.setFooter(message.guild.name);
+			.setAuthor("Daily Reward", message.author.avatarURL());
+		if (message.guild) dailyEmbed.setFooter(message.guild.name);
 		let description = "";
 
 		const randomAmount = randomInt(25, 60);

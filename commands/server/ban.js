@@ -8,6 +8,7 @@ module.exports = {
 	 * @param {Client} client
 	 */
 	execute(message, args) {
+		if (!message.guild) return;
 		const days = parseInt(args[0]);
 		const member = message.mentions.members.first();
 		if (!member) return "Mention a valid user in the server";
