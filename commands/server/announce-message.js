@@ -5,7 +5,7 @@ module.exports = {
 		"[MANAGE SERVER] Set the welcome and leave messages for a server. Use !announce-message format for a formatting guide.",
 	usage: "!announce-message <join/joindm/leave> <message>/default",
 	permissions: ["MANAGE_GUILD"],
-	async execute(message, args) {
+	async execute(message, args, _0, _1, _2, serverData) {
 		const first = args[0];
 		if (!first)
 			return "Valid usage: !announce-message <join/leave> <message> or !announce-message format";
@@ -42,8 +42,7 @@ module.exports = {
 		} else {
 			return "Valid usage: !announce-message <join/leave> <message>";
 		}
-		const members = await message.guild.members.fetch();
-		const memberCount = members.filter((member) => !member.user.bot).size;
+		const memberCount = serverData.memberCount;
 		const memberCountOrdinal = ordinal(memberCount);
 		message.channel.send(
 			"Message updated, example:\n" +

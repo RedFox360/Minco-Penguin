@@ -20,6 +20,7 @@ const serverSchema = new mongoose.Schema({
 		default: "It seems {user_tag} has left us. We now have {member_count} members.",
 	},
 	welcomeDM: String,
+	memberCount: Number,
 	silenceJoins: { type: Boolean, default: false },
 	silenceBans: { type: Boolean, default: false },
 	muteRole: String,

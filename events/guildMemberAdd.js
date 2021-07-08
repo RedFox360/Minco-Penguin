@@ -8,7 +8,17 @@ const ordinal = require("ordinal");
 /** @param {Discord.GuildMember} member */
 module.exports = async (client, member) => {
 	let profileData = await profileModel.findOne({ userID: member.id });
-	let serverData = await serverModel.findOne({ serverID: member.guild.id });
+	let serverData = await serverModel.findOneAndUpdate(
+		{ serverID: member.guild.id },
+		{
+			$inc: {
+				memberCount: +member.user.bot,
+			},
+		},
+		{
+			new: true,
+		}
+	);
 	if (member.user.bot) {
 		if (serverData.botRole) member.roles.add(serverData.botRole);
 		return;
@@ -26,9 +36,7 @@ module.exports = async (client, member) => {
 		});
 		profile.save();
 	}
-	let { welcomeMessage, welcomeDM } = serverData;
-	const members = await member.guild.members.fetch();
-	const memberCount = members.filter((member) => !member.user.bot).size;
+	const { welcomeMessage, welcomeDM, memberCount } = serverData;
 	const memberCountOrdinal = ordinal(memberCount);
 
 	let joinEmbed = new Discord.MessageEmbed()
