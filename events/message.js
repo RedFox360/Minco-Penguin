@@ -56,18 +56,16 @@ module.exports = async (client, message) => {
 	if (!prefix) return;
 	let profileData;
 	try {
-		if (message.guild) {
-			profileData = await profileModel.findOne({ userID: message.author.id });
-			if (!profileData) {
-				let profile = await profileModel.create({
-					userID: message.author.id,
-					mincoDollars: 100,
-					bank: 0,
-					orbs: 0,
-					birthday: "This user's birthday has not been added to the database",
-				});
-				profile.save();
-			}
+		profileData = await profileModel.findOne({ userID: message.author.id });
+		if (!profileData) {
+			let profile = await profileModel.create({
+				userID: message.author.id,
+				mincoDollars: 100,
+				bank: 0,
+				orbs: 0,
+				birthday: "This user's birthday has not been added to the database",
+			});
+			profile.save();
 		}
 	} catch (err) {
 		console.error(err);
