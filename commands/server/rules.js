@@ -4,17 +4,17 @@ module.exports = {
 	description: "sends the rules for the server in an Embed",
 	/**@param {Message} message*/
 	execute(message, args) {
-		if (message.guild.id == "785642761814671381") {
+		if (message.guild?.id == "785642761814671381") {
 			if (!args.length) {
 				message.channel.send(carrelRules);
 			} else if (args[0] == "im" || args[0] == "important") {
 				message.channel.send(importantRules);
 			}
-		} else if (message.guild.id == "818509629842522112") {
+		} else if (message.guild?.id == "818509629842522112") {
 			message.channel.send(blobfishRules);
-		} else if (message.guild.id == "848987165601693737") {
+		} else if (message.guild?.id == "848987165601693737") {
 			message.channel.send(mincoServerRules);
-		} else if (message.guild.id == "840339755350884402") {
+		} else if (message.guild?.id == "840339755350884402") {
 			message.channel.send(roleplayRules);
 		}
 	},

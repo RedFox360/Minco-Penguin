@@ -70,8 +70,8 @@ module.exports = {
 			.setAuthor(...author)
 			.setTitle(titles[currentPage])
 			.setDescription(description)
-			.setColor(color)
-			.setFooter(message.guild.name);
+			.setColor(color);
+		if (message.guild) helpEmbed.setFooter(message.guild.name);
 
 		const helpMsg = await message.channel.send(helpEmbed);
 		const fields = getFields(message);

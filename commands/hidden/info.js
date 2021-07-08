@@ -8,34 +8,33 @@ module.exports = {
 	execute(message) {
 		const member = message.mentions.members.first() ?? message.member;
 		const author = member?.user ?? message.author;
-		message.channel.send(
-			new MessageEmbed()
-				.setAuthor(author.tag, author.avatarURL(), author.avatarURL())
-				.setColor("16A085") // darkish green
-				.addFields(
-					{
-						name: "Roles",
-						value: member.roles.cache
-							.array()
-							.filter((role) => !role.name.includes("everyone"))
-							.map((role) => `<@&${role.id}>`)
-							.join(" "),
+		const infoEmbed = new MessageEmbed()
+			.setAuthor(author.tag, author.avatarURL(), author.avatarURL())
+			.setColor("16A085") // darkish green
+			.addFields(
+				{
+					name: "Roles",
+					value: member.roles.cache
+						.array()
+						.filter((role) => !role.name.includes("everyone"))
+						.map((role) => `<@&${role.id}>`)
+						.join(" "),
 
-						inline: true,
-					},
-					{
-						name: "Created at",
-						value: format(author.createdAt),
-						inline: true,
-					},
-					{
-						name: "Joined at",
-						value: format(member.joinedAt),
-						inline: true,
-					}
-				)
-				.setFooter(`User ID: ${author.id}`)
-		);
+					inline: true,
+				},
+				{
+					name: "Created at",
+					value: format(author.createdAt),
+					inline: true,
+				},
+				{
+					name: "Joined at",
+					value: format(member.joinedAt),
+					inline: true,
+				}
+			);
+		if (message.guild) infoEmbed.setFooter(`User ID: ${author.id}`);
+		message.channel.send();
 	},
 };
 
