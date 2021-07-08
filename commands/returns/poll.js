@@ -11,7 +11,7 @@ module.exports = {
 		var msgArgs = args.join(" ");
 		let pollEmbed = new MessageEmbed()
 			.setColor("BLUE")
-			.setAuthor(message.member.displayName, message.author.avatarURL())
+			.setAuthor(message.member?.displayName ?? message.author.username, message.author.avatarURL())
 			.setTitle("Poll")
 			.setDescription(msgArgs);
 		message.delete().catch();

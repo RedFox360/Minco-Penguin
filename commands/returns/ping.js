@@ -22,7 +22,7 @@ module.exports = {
 		let pingEmbed = new Discord.MessageEmbed()
 			.setTitle(":robot_face: Pong!")
 			.setColor(color)
-			.setAuthor(message.member.displayName, message.author.avatarURL())
+			.setAuthor(message.member?.displayName ?? message.author.username, message.author.avatarURL())
 			.addFields(
 				{ name: "Status:", value: status },
 				{
