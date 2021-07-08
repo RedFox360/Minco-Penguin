@@ -16,6 +16,6 @@ module.exports = {
 		} else {
 			message.channel.send(Util.cleanContent(args.join(" "), message));
 		}
-		if (cmd === "sayd") message.delete();
+		if (cmd === "sayd") message.delete().catch();
 	},
 };

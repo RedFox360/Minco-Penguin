@@ -14,7 +14,7 @@ module.exports = {
 			.setAuthor(message.member.displayName, message.author.avatarURL())
 			.setTitle("Poll")
 			.setDescription(msgArgs);
-		message.delete();
+		message.delete().catch();
 		const pollMessage = await message.channel.send(pollEmbed);
 		react.forEach(async (reaction) => {
 			try {

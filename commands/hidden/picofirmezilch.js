@@ -41,13 +41,13 @@ module.exports = {
 			if (isNaN(parseInt(response.content))) {
 				channel.send("Terminating...");
 				channel.send("Deleting channel in 5 seconds...");
-				setTimeout(() => channel.delete(), 5000);
+				setTimeout(() => channel.delete().catch(), 5000);
 				break;
 			}
 			place = parseInt(response.content);
 			setTimeout(() => {
-				placeMessage.delete();
-				response.delete();
+				placeMessage.delete().catch();
+				response.delete().catch();
 			}, 2200);
 			let number_at_place = digits[place - 1];
 			const digitMessage = await channel.send("Guess the digit: ");
@@ -59,26 +59,26 @@ module.exports = {
 			if (isNaN(parseInt(guess))) {
 				channel.send("Terminating...");
 				channel.send("Deleting channel in 5 seconds...");
-				setTimeout(() => channel.delete(), 5000);
+				setTimeout(() => channel.delete().catch(), 5000);
 				break;
 			}
 			setTimeout(() => {
-				digitMessage.delete();
-				response2.delete();
+				digitMessage.delete().catch();
+				response2.delete().catch();
 			}, 2200);
 			if (number_at_place == guess) {
 				channel.send("Pico").then((m) => {
-					setTimeout(() => m.delete(), 2200);
+					setTimeout(() => m.delete().catch(), 2200);
 				});
 				userDigits[place - 1] = number_at_place;
 			} else if (digits.includes(guess) && !userDigits.includes(guess)) {
 				channel.send("Firme").then((m) => {
-					setTimeout(() => m.delete(), 2200);
+					setTimeout(() => m.delete().catch(), 2200);
 				});
 				firmes.push(guess + " not at " + place);
 			} else {
 				channel.send("Zilch").then((m) => {
-					setTimeout(() => m.delete(), 2200);
+					setTimeout(() => m.delete().catch(), 2200);
 				});
 				if (!zilches.includes(guess)) zilches.push(guess);
 			}
@@ -91,7 +91,7 @@ module.exports = {
 			if (userDigits.every((user) => user !== "\\_")) {
 				channel.send("You won!");
 				channel.send("Deleting channel in 10 seconds...");
-				setTimeout(() => channel.delete(), 10000);
+				setTimeout(() => channel.delete().catch(), 10000);
 				break;
 			}
 		}

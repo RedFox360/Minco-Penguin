@@ -57,8 +57,8 @@ module.exports =
 				mason.send(`You have declined the meme request from ${message.author.toString()}.`);
 				collector.stop();
 				authorCollector.stop();
-				reactMsgMa.delete();
-				reactMsgAu.delete();
+				reactMsgMa.delete().catch();
+				reactMsgAu.delete().catch();
 			} else if (reaction.emoji.name == "✅") {
 				message.author.send("Mason L has accepted your request");
 				accepted = true;
@@ -66,7 +66,7 @@ module.exports =
 				if (!accepted)
 					mason.send("Accept the request first before choosing a price.").then((msg) => {
 						setTimeout(() => {
-							msg.delete();
+							msg.delete().catch();
 						}, 5000);
 					});
 				else {
@@ -75,7 +75,7 @@ module.exports =
 						botMessage: botMsg,
 						user: "769313131108237322",
 					}).catch(console.error);
-					botMsg.delete();
+					botMsg.delete().catch();
 					let price = parseInt(userMessage);
 					if (isNaN(price)) mason.send("Enter a valid number");
 					else {
@@ -128,12 +128,12 @@ module.exports =
 								);
 								message.author.send("You have declined the price.");
 							}
-							confirmPriceMsg.delete();
+							confirmPriceMsg.delete().catch();
 							confirmCollector.stop();
 						});
 						mason.send(`Price set to ${price} Minco Dollars`).then((msg) => {
 							setTimeout(() => {
-								msg.delete();
+								msg.delete().catch();
 							}, 10000);
 						});
 					}
@@ -147,10 +147,10 @@ module.exports =
 				await message.author.send(
 					`Message from <@${userMessage.author.id}>: ${userMessage.content}`
 				);
-				botMsg.delete();
+				botMsg.delete().catch();
 				mason.send("Message sent").then((msg) => {
 					setTimeout(() => {
-						msg.delete();
+						msg.delete().catch();
 					}, 2000);
 				});
 			}
@@ -181,10 +181,10 @@ module.exports =
 					user: message.author.id,
 				});
 				await mason.send(`Message from ${message.author.toString()}: ${userMessage.content}`);
-				botMsg.delete();
+				botMsg.delete().catch();
 				message.author.send("Message Sent").then((msg) => {
 					setTimeout(() => {
-						msg.delete();
+						msg.delete().catch();
 					}, 2000);
 				});
 			} else if (reaction.emoji.name == "⛔") {
@@ -192,8 +192,8 @@ module.exports =
 				message.author.send("You have canceled the request");
 				collector.stop();
 				authorCollector.stop();
-				reactMsgAu.delete();
-				reactMsgMa.delete();
+				reactMsgAu.delete().catch();
+				reactMsgMa.delete().catch();
 			}
 
 			const userReactions = reactMsgAu.reactions.cache.filter((react) =>

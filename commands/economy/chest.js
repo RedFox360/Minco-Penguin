@@ -35,10 +35,10 @@ module.exports = {
 				surpriseEmbed.addField(":bulb: Tip", tips.rand());
 			const surpriseMessage = await message.guild.systemChannel.send(surpriseEmbed);
 
-			message.delete();
+			message.delete().catch();
 
 			setTimeout(async () => {
-				surpriseMessage.delete();
+				surpriseMessage.delete().catch();
 				await serverModel.findOneAndUpdate(
 					{
 						serverID: message.guild.id,

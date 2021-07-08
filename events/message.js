@@ -32,7 +32,7 @@ module.exports = async (client, message) => {
 	try {
 		if (serverData.clean && message.guild.me.hasPermission("MANAGE_MESSAGES")) {
 			if (filter.check(message.content)) {
-				message.delete();
+				message.delete().catch();
 			}
 		}
 	} catch (err) {
@@ -145,11 +145,11 @@ module.exports = async (client, message) => {
 				.setDescription(`Please wait ${prettyMs(timeLeft)} before using command ${cmd}`);
 			message.channel.send(timeEmbed).then((msg) => {
 				setTimeout(() => {
-					msg.delete();
+					msg.delete().catch();
 				}, timeLeft);
 			});
 			setTimeout(() => {
-				message.delete();
+				message.delete().catch();
 			}, timeLeft + 15000);
 			return;
 		}

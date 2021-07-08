@@ -35,7 +35,7 @@ module.exports = {
 			)
 			.setFooter(message.guild.name)
 			.setTimestamp();
-		msg.delete();
+		msg.delete().catch();
 		message.channel.send(pingEmbed);
 	},
 };
