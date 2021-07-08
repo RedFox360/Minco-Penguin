@@ -7,12 +7,12 @@ const ordinal = require("ordinal");
 
 /** @param {Discord.GuildMember} member */
 module.exports = async (client, member) => {
+	let profileData = await profileModel.findOne({ userID: member.id });
+	let serverData = await serverModel.findOne({ serverID: member.guild.id });
 	if (member.user.bot) {
 		if (serverData.botRole) member.roles.add(serverData.botRole);
 		return;
 	}
-	let profileData = await profileModel.findOne({ userID: member.id });
-	let serverData = await serverModel.findOne({ serverID: member.guild.id });
 	if (serverData.mainRole) member.roles.add(serverData.mainRole);
 	if (serverData.silenceJoins) return;
 	if (!profileData) {
