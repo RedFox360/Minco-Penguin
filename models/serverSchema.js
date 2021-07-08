@@ -24,6 +24,7 @@ const serverSchema = new mongoose.Schema({
 	muteRole: String,
 	mainRole: String,
 	modRole: String,
+	botRole: String,
 	clean: { type: Boolean, default: true },
 });
 

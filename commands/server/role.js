@@ -1,7 +1,8 @@
 const serverModel = require("../../models/serverSchema");
 module.exports = {
-	description: "[ADMIN ONLY] Set the mute role, main role, or mod role of the server",
-	usage: "!role <mute/main> <@role>",
+	description:
+		"[ADMIN ONLY] The main role will be given to members who join the server. Mute role allows muting to work. The bot role will be given to bots who join the server.",
+	usage: "!role <mute/main/mod/bot> <@role>",
 	permissions: ["ADMINISTRATOR"],
 	async execute(message, args) {
 		const role = message.mentions.roles.first();
@@ -30,6 +31,14 @@ module.exports = {
 				}
 			);
 			return `Moderator role set to <@&${role.id}>`;
+		} else if (args[0] == "bot") {
+			await serverModel.findOneAndUpdate(
+				{ serverID: message.guild.id },
+				{
+					botRole: role.id,
+				}
+			);
+			return `Bot role set to <@&${role.id}>`;
 		} else {
 			return "Valid usage: !role <mute/main> <@role>";
 		}
