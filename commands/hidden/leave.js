@@ -1,5 +1,5 @@
 module.exports = {
-	description: "[SAMEER ONLY] Makes Minco penguin leave the server",
+	description: "[OWNER ONLY] Makes Minco penguin leave the server",
 	async execute(message) {
 		if (message.author.id == "724786310711214118") {
 			let msg = await message.channel.send(
