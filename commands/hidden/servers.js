@@ -8,7 +8,7 @@ module.exports = {
 				.array()
 				.map((guild, index) => `${index + 1}. ${guild.name}`)
 				.join("\n");
-			message.channel.send(`\`\`\
+			message.channel.send(`\`\`\`md
 # Minco Penguin Servers
 
 ${servers}
