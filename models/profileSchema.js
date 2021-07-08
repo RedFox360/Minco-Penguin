@@ -13,7 +13,6 @@ const marketSchema = new mongoose.Schema({
 
 const profileSchema = new mongoose.Schema({
 	userID: { type: String, require: true, unique: true },
-	serverID: { type: String, require: true },
 	mincoDollars: { type: Number, default: 100 },
 	bank: Number,
 	birthday: String,

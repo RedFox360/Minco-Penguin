@@ -28,7 +28,6 @@ module.exports = async (client, member) => {
 	if (!profileData) {
 		let profile = await profileModel.create({
 			userID: member.id,
-			serverID: member.guild.id,
 			mincoDollars: 100,
 			bank: 0,
 			orbs: 0,

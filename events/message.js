@@ -61,7 +61,6 @@ module.exports = async (client, message) => {
 			if (!profileData) {
 				let profile = await profileModel.create({
 					userID: message.author.id,
-					serverID: message.guild.id,
 					mincoDollars: 100,
 					bank: 0,
 					orbs: 0,
