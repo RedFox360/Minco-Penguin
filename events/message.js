@@ -26,10 +26,14 @@ module.exports = async (client, message) => {
 	} catch (err) {
 		console.error(err);
 	}
-	if (serverData.clean && message.guild.me.hasPermission("MANAGE_MESSAGES")) {
-		if (filter.check(message.content)) {
-			message.delete();
+	try {
+		if (serverData.clean && message.guild.me.hasPermission("MANAGE_MESSAGES")) {
+			if (filter.check(message.content)) {
+				message.delete();
+			}
 		}
+	} catch (err) {
+		// error occured in DM
 	}
 	if (message.author.bot) return;
 	const prefixes = serverData.prefixes ?? ["!"];
@@ -75,13 +79,17 @@ module.exports = async (client, message) => {
 	if (command.servers?.includes(message.guild.id) === false) {
 		return;
 	}
-	if (serverData.bannedPeople) {
-		for (let i = 0; i < serverData.bannedPeople.length; i++) {
-			let person = serverData.bannedPeople[i];
-			if (message.author.id == person) {
-				return message.channel.send("You were banned from using Minco Penguin.");
+	try {
+		if (serverData.bannedPeople) {
+			for (let i = 0; i < serverData.bannedPeople.length; i++) {
+				let person = serverData.bannedPeople[i];
+				if (message.author.id == person) {
+					return message.channel.send("You were banned from using Minco Penguin.");
+				}
 			}
 		}
+	} catch (err) {
+		// error occured in DM
 	}
 	if (command.permissions) {
 		let invalidPerms = [];
