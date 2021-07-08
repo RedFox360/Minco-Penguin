@@ -24,7 +24,7 @@ module.exports = async (client, message) => {
 			serverProfile.save();
 		}
 	} catch (err) {
-		console.error(err);
+		// error occured in DM
 	}
 	try {
 		if (serverData.clean && message.guild.me.hasPermission("MANAGE_MESSAGES")) {
