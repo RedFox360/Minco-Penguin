@@ -14,7 +14,7 @@ module.exports = {
 			return `These texts will be converted to variables.
 **{server}** = the server name
 **{mention}** = mention the user who joined
-**{member_count} = the new server member count
+**{member_count}** = the new server member count
 **{ord_member_count}** = ordinal member count
 **{user}** = the username of the user who joined
 **{user_tag}** = the username including tag`;
