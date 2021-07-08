@@ -3,7 +3,7 @@ const serverModel = require("../../models/serverSchema");
 module.exports = {
 	description:
 		"[MANAGE SERVER] Set the welcome and leave messages for a server. Use !announce-message format for a formatting guide.",
-	usage: "!announce-message <join/joindm/leave> <message/'default'>",
+	usage: "!announce-message <join/joindm/leave> <message>/default",
 	permissions: ["MANAGE_GUILD"],
 	async execute(message, args) {
 		const first = args[0];
