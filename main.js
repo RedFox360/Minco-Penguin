@@ -14,6 +14,9 @@ Array.prototype.rand = function () {
 
 	return val;
 };
+Discord.Message.prototype.authorName = function () {
+	return this.member?.displayName ?? this.author.username;
+};
 
 mongoose
 	.connect(process.env.SRV, {

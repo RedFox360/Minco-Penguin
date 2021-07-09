@@ -25,7 +25,7 @@ module.exports = {
 		reactionCollector.on("collect", async () => {
 			let [attack, defense, health] = await calculatePower(message.author.id);
 			let [mattack, mdefense, mhealth] = await calculatePower(mention.id);
-			const name = message.member.displayName;
+			const name = message.authorName;
 			message.channel.send(
 				new MessageEmbed()
 					.setAuthor(name, message.author.avatarURL())

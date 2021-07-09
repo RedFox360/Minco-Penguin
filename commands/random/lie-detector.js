@@ -6,7 +6,7 @@ module.exports = {
 	/** @param {Message} message */
 	execute(message, args) {
 		if (!args.length) return "Enter a question";
-		let name = message.member?.displayName ?? message.author.username;
+		let name = message.authorName;
 		let randomL = [
 			`${name} is lying!`,
 			`${name} is telling the truth!`,
