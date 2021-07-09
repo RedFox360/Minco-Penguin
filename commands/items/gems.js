@@ -32,8 +32,8 @@ module.exports = {
 		const gemEmbed = new MessageEmbed()
 			.setAuthor("Gems", author.avatarURL())
 			.setDescription(g.join("\n"))
-			.setColor("#F8C471")
-			.guildFooter(message);
+			.setColor("#F8C471");
+		if (message.guild) gemEmbed.setFooter(message.guild.name);
 		message.channel.send(gemEmbed);
 	},
 };

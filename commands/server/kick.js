@@ -21,7 +21,7 @@ module.exports = {
 					.setDescription(
 						`${kicked.user.tag} was kicked from the server.\nReason: ${args.join(" ")}`
 					)
-					.guildFooter(message)
+					.setFooter(message.guild.name)
 			);
 		});
 	},

@@ -17,9 +17,7 @@ Array.prototype.rand = function () {
 Discord.Message.prototype.authorName = function () {
 	return this.member?.displayName ?? this.author.username;
 };
-Discord.MessageEmbed.prototype.guildFooter = function (message) {
-	if (message.guild) this.setFooter(message.guild.name);
-};
+
 mongoose
 	.connect(process.env.SRV, {
 		useNewUrlParser: true,

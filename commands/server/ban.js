@@ -27,7 +27,7 @@ module.exports = {
 					.setDescription(
 						`${kicked.user.tag} was banned from the server.\nReason: ${args.join(" ")}`
 					)
-					.guildFooter(message)
+					.setFooter(message.guild.name)
 			);
 		});
 	},

@@ -25,8 +25,9 @@ module.exports = {
 					value: health,
 					inline: true,
 				}
-			)
-			.guildFooter(message);
+			);
+
+		if (message.guild) statsEmbed.setFooter(message.guild.name);
 		message.channel.send(statsEmbed);
 	},
 };
