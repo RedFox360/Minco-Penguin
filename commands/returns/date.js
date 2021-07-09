@@ -9,13 +9,13 @@ module.exports = {
 	usage: "!date (timezone) (dayjs/momentjs format)",
 	execute(message, args) {
 		if (!args.length) return `Valid usage: ${this.usage}`;
-
-		let timezone = stringToTime(args[0]);
+		const first = args[0];
+		let timezone = stringToTime(first);
 		if (timezone === null) return "Enter a valid timezone";
 
 		const date = dayjs.tz(Date.now(), timezone);
 		args.shift();
-		const format = args.join(" ") || `ddd [**]MMM D, YYYY[**] HH:mm [**${args[0]}**]`;
+		const format = args.join(" ") || `ddd [**]MMM D, YYYY[**] HH:mm [${first}]`;
 		message.channel.send(date.format(format));
 	},
 };
