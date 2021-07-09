@@ -4,8 +4,6 @@ module.exports = {
 	execute: () =>
 		[
 			"The chat has died :(",
-			"What happened to the chat?",
-			"WHAT??",
 			"Silence...",
 			"Quiet...",
 			"Dead chat",
@@ -14,6 +12,9 @@ module.exports = {
 			"That's not very nice of you to kill the chat",
 			"**DEAD SILENCE**",
 			":cricket:",
+			"*crickets*",
+			"...silence... more silence",
+			"🪦⚰️💬",
 			"Why why why?",
 			"Chat = :(",
 		].rand(),
