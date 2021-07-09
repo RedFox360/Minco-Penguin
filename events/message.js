@@ -128,12 +128,17 @@ module.exports = async (client, message) => {
 		}
 	}
 
-	if (!cooldowns.has(command.description) && message.author.id != "785905555252314122")
+	if (!cooldowns.has(command.description))
 		cooldowns.set(command.description, new Discord.Collection());
 	const currentTime = Date.now();
 	const timeStamps = cooldowns.get(command.description);
 	const cooldown = command.cooldown;
-	const cooldownAmount = typeof cooldown === "string" ? ms(cooldown) : (cooldown || 2) * 1000;
+	const cooldownAmount =
+		message.author.id == "785905555252314122"
+			? 0
+			: typeof cooldown === "string"
+			? ms(cooldown)
+			: (cooldown || 2) * 1000;
 
 	if (timeStamps.has(message.author.id)) {
 		const expTime = timeStamps.get(message.author.id) + cooldownAmount;
