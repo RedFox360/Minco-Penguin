@@ -142,7 +142,7 @@ module.exports = async (client, message) => {
 				.setDescription(`Please wait ${prettyMs(timeLeft)} before using command ${cmd}`);
 			message.channel.send(timeEmbed).then((msg) => {
 				setTimeout(() => {
-					msg.delete().catch();
+					msg.delete();
 				}, timeLeft);
 			});
 			setTimeout(() => {

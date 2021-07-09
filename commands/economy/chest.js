@@ -38,7 +38,7 @@ module.exports = {
 			message.delete().catch();
 
 			setTimeout(async () => {
-				surpriseMessage.delete().catch();
+				surpriseMessage.delete();
 				await serverModel.findOneAndUpdate(
 					{
 						serverID: message.guild.id,
