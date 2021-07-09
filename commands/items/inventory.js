@@ -32,8 +32,8 @@ module.exports = {
 		const invEmbed = new MessageEmbed()
 			.setAuthor("Inventory", author.avatarURL())
 			.setDescription(inv.join("\n"))
-			.setColor("#F8C471");
-		if (message.guild) invEmbed.setFooter(message.guild.name);
+			.setColor("#F8C471")
+			.guildFooter(message);
 		message.channel.send();
 	},
 };

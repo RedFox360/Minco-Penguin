@@ -24,8 +24,8 @@ module.exports = {
 		const zoo = new MessageEmbed()
 			.setAuthor("Minco Zoo", avatarURL)
 			.setColor("#F4D03F")
-			.setDescription(animals.join(""));
-		if (message.guild) zoo.setFooter(message.guild.name);
+			.setDescription(animals.join(""))
+			.guildFooter(message);
 
 		message.channel.send(zoo);
 	},

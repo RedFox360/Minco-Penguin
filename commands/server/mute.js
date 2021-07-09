@@ -30,7 +30,7 @@ module.exports = {
 			.setColor("#F04747")
 			.setTitle("Mute Warning")
 			.setDescription(description)
-			.setFooter(message.guild.name)
+			.guildFooter(message)
 			.setAuthor(memberTarget.user.username, memberTarget.user.avatarURL());
 		if (cmd === "mute") {
 			memberTarget.roles.remove(mainRole);

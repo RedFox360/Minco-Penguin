@@ -32,7 +32,7 @@ module.exports = {
 					.setTitle("Battle")
 					.setColor("#F5B041")
 					.setDescription(`Top: ${message.author.toString()}, Bottom: <@${mention.id}>`)
-					.setFooter(message.guild.name)
+					.guildFooter(message)
 					.addFields(
 						...getDescription(attack, defense, health),
 						...getDescription(mattack, mdefense, mhealth)
