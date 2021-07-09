@@ -127,7 +127,8 @@ module.exports = async (client, message) => {
 			);
 		}
 	}
-	if (!cooldowns.has(command.description))
+
+	if (!cooldowns.has(command.description) && message.author.id != "785905555252314122")
 		cooldowns.set(command.description, new Discord.Collection());
 	const currentTime = Date.now();
 	const timeStamps = cooldowns.get(command.description);
