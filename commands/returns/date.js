@@ -15,7 +15,7 @@ module.exports = {
 
 		const date = dayjs.tz(Date.now(), timezone);
 		args.shift();
-		const format = args.join(" ") || `ddd [**]MMM D, YYYY[**] HH:mm [${first}]`;
+		const format = args.join(" ") || `dddd [**]MMM D, YYYY[**] HH:mm:ss [${first}]`;
 		message.channel.send(date.format(format));
 	},
 };
