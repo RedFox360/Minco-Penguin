@@ -62,17 +62,11 @@ module.exports = {
 			],
 		];
 		if (message.guild.id == "785642761814671381") {
-			fields[1].push(
-				[
-					":art: Drawing",
+			fields[1].push([
+				":art: Drawing",
 
-					"!buy drawing <drawing>\nUse this to send a request to Claire for a personalized drawing! (price will be decided by her)",
-				],
-				[
-					"<:doge:797152138467082250> Meme",
-					"!buy meme <meme>\nUse this to send a request to Mason L for a custom meme! (price will be decided by him)",
-				]
-			);
+				"!buy drawing <drawing>\nUse this to send a request to Claire for a personalized drawing! (price will be decided by her)",
+			]);
 		}
 		const shopEmbed = new MessageEmbed()
 			.setAuthor(message.member.displayName, message.author.avatarURL())
