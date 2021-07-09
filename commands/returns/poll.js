@@ -6,23 +6,15 @@ module.exports = {
 	usage: "!poll/spoll <Question>",
 	/** @param {Message} message */
 	async execute(message, args, cmd) {
-		var react = ["👍", "👎"];
-		if (cmd === "spoll") react.push("🤷");
-		var msgArgs = args.join(" ");
 		let pollEmbed = new MessageEmbed()
 			.setColor("BLUE")
 			.setAuthor(message.member?.displayName ?? message.author.username, message.author.avatarURL())
 			.setTitle("Poll")
-			.setDescription(msgArgs);
+			.setDescription(args.join(" "));
 		message.delete().catch();
 		const pollMessage = await message.channel.send(pollEmbed);
-		react.forEach(async (reaction) => {
-			try {
-				await pollMessage.react(reaction);
-			} catch (err) {
-				console.error(err);
-				return;
-			}
-		});
+		await pollMessage.react("👍");
+		await pollMessage.react("👎");
+		if (cmd === "spoll") pollMessage.react("🤷");
 	},
 };
