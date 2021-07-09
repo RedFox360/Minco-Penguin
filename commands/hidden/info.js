@@ -36,7 +36,7 @@ module.exports = {
 				}
 			);
 		if (message.guild) infoEmbed.setFooter(`User ID: ${author.id}`);
-		message.channel.send();
+		message.channel.send(infoEmbed);
 	},
 };
 
