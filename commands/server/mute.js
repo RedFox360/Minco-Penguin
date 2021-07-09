@@ -5,7 +5,7 @@ module.exports = {
 	aliases: ["unmute"],
 	description: "[MOD ONLY] Mutes a member",
 	usage: "!mute <@user> <ms> <reason>",
-	permissions: ["MOD"],
+	permissions: ["MANAGE_MESSAGES", "MANAGE_CHANNELS"],
 	/**
 	 * @param {Discord.Message} message
 	 * @param {Discord.Client} client
