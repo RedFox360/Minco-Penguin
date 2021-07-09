@@ -11,7 +11,9 @@ module.exports = {
 			.setAuthor(message.member?.displayName ?? message.author.username, message.author.avatarURL())
 			.setTitle("Poll")
 			.setDescription(args.join(" "));
-		message.delete().catch();
+		message.delete().catch(() => {
+			// cmd executed in dm
+		});
 		const pollMessage = await message.channel.send(pollEmbed);
 		await pollMessage.react("👍");
 		await pollMessage.react("👎");

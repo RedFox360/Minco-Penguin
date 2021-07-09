@@ -35,7 +35,9 @@ module.exports = {
 				surpriseEmbed.addField(":bulb: Tip", tips.rand());
 			const surpriseMessage = await message.guild.systemChannel.send(surpriseEmbed);
 
-			message.delete().catch();
+			message.delete().catch(() => {
+				// cmd executed in dm
+			});
 
 			setTimeout(async () => {
 				surpriseMessage.delete();

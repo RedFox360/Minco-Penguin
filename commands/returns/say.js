@@ -16,6 +16,9 @@ module.exports = {
 		} else {
 			message.channel.send(Util.cleanContent(args.join(" "), message));
 		}
-		if (cmd === "sayd") message.delete().catch();
+		if (cmd === "sayd")
+			message.delete().catch(() => {
+				// cmd executed in dm
+			});
 	},
 };

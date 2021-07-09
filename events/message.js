@@ -32,7 +32,9 @@ module.exports = async (client, message) => {
 	try {
 		if (serverData.clean && message.guild.me.hasPermission("MANAGE_MESSAGES")) {
 			if (filter.check(message.content)) {
-				message.delete().catch();
+				message.delete().catch(() => {
+					// cmd executed in dm
+				});
 			}
 		}
 	} catch (err) {
@@ -146,7 +148,9 @@ module.exports = async (client, message) => {
 				}, timeLeft);
 			});
 			setTimeout(() => {
-				message.delete().catch();
+				message.delete().catch(() => {
+					// cmd executed in dm
+				});
 			}, timeLeft + 15000);
 			return;
 		}
