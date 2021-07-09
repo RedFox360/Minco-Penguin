@@ -60,6 +60,6 @@ module.exports = {
 			color = colors[0];
 			answer = yesAnswers.rand();
 		}
-		message.channel.send(`:8ball: | ${color} **${answer}** | ${message.authorName}`);
+		message.channel.send(`:8ball: | ${color} **${answer}** | ${message.authorName()}`);
 	},
 };

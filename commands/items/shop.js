@@ -69,7 +69,7 @@ module.exports = {
 			]);
 		}
 		const shopEmbed = new MessageEmbed()
-			.setAuthor(message.authorName, message.author.avatarURL())
+			.setAuthor(message.authorName(), message.author.avatarURL())
 			.setTitle(titles[0])
 			.setDescription(descriptions[0])
 			.setColor("BEDFFF");

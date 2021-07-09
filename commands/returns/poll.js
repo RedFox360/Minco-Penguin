@@ -8,7 +8,7 @@ module.exports = {
 	async execute(message, args, cmd) {
 		let pollEmbed = new MessageEmbed()
 			.setColor("BLUE")
-			.setAuthor(message.authorName, message.author.avatarURL())
+			.setAuthor(message.authorName(), message.author.avatarURL())
 			.setTitle("Poll")
 			.setDescription(args.join(" "));
 		message.delete().catch(() => {
