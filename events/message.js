@@ -78,7 +78,7 @@ module.exports = async (client, message) => {
 		client.commands.get(cmd) || client.commands.find((a) => a.aliases && a.aliases.includes(cmd));
 
 	if (!command) return;
-	if (command.servers?.includes(message.guild.id) === false) {
+	if (command.servers?.includes(message.guild?.id) === false) {
 		return;
 	}
 	try {
