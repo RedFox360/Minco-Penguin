@@ -30,10 +30,10 @@ module.exports = async (client, message) => {
 		// error occured in DM
 	}
 	try {
-		if (serverData.clean && message.guild.me.hasPermission("MANAGE_MESSAGES")) {
+		if (serverData.clean) {
 			if (filter.check(message.content)) {
 				message.delete().catch(() => {
-					// cmd executed in dm
+					// error occured in DM
 				});
 			}
 		}
@@ -133,12 +133,7 @@ module.exports = async (client, message) => {
 	const currentTime = Date.now();
 	const timeStamps = cooldowns.get(command.description);
 	const cooldown = command.cooldown;
-	const cooldownAmount =
-		message.author.id == "785905555252314122"
-			? 0
-			: typeof cooldown === "string"
-			? ms(cooldown)
-			: (cooldown || 2) * 1000;
+	const cooldownAmount = typeof cooldown === "string" ? ms(cooldown) : (cooldown || 2) * 1000;
 
 	if (timeStamps.has(message.author.id)) {
 		const expTime = timeStamps.get(message.author.id) + cooldownAmount;
