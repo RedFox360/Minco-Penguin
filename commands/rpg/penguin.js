@@ -18,7 +18,10 @@ Use !adopt <type> to adopt a penguin
 :dart:\`   25   |   30   |   20   |   50   \`
 `
 				)
-				.setColor("#9afffc");
+				.setColor("#9afffc")
+				.setThumbnail(
+					"https://cdn.discordapp.com/attachments/822253817600016454/866414690896445470/pixil-frame-0_5.png"
+				);
 			message.channel.send(adoptEmbed);
 		}
 	},
