@@ -31,6 +31,7 @@ const profileSchema = new mongoose.Schema({
 		defense: Number,
 		health: { type: Number, default: 100 },
 	},
+	penguin: String,
 	market: [marketSchema],
 	lastUsedDaily: Number,
 });

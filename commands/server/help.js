@@ -32,6 +32,7 @@ module.exports = {
 				args[0] == "useful" ||
 				args[0] == "server" ||
 				args[0] == "fun" ||
+				args[0] == "rpg" ||
 				args[0] == "random" ||
 				args[0] == "info"
 			) {
@@ -39,8 +40,9 @@ module.exports = {
 				else if (args[0] == "fun") pos = 2;
 				else if (args[0] == "server") pos = 3;
 				else if (args[0] == "random") pos = 4;
-				else if (args[0] == "economy") pos = 5;
-				else if (args[0] == "items") pos = 6;
+				else if (args[0] == "rpg") pos = 5;
+				else if (args[0] == "economy") pos = 6;
+				else if (args[0] == "items") pos = 7;
 				let pageEmbed = new Discord.MessageEmbed()
 					.setAuthor(...author)
 					.setTitle(titles[pos])
@@ -67,8 +69,8 @@ module.exports = {
 			.setAuthor(...author)
 			.setTitle(titles[currentPage])
 			.setDescription(description)
-			.setColor(color);
-		if (message.guild) helpEmbed.setFooter(message.guild.name);
+			.setColor(color)
+			.setFooter(`Page ${currentPage + 1}/${titles.length}`);
 
 		const helpMsg = await message.channel.send(helpEmbed);
 		const fields = getFields(message);
@@ -86,11 +88,17 @@ module.exports = {
 			if (reaction.emoji.name == "⬅️") {
 				if (currentPage != 0) currentPage--;
 				if (currentPage == 0) {
-					helpEmbed.setTitle(titles[0]).setDescription(description);
+					helpEmbed
+						.setTitle(titles[0])
+						.setDescription(description)
+						.setFooter(`Page ${currentPage + 1}/${titles.length}`);
 					helpEmbed.fields = [];
 					helpMsg.edit(helpEmbed);
 				} else {
-					helpEmbed.setTitle(titles[currentPage]).setDescription("");
+					helpEmbed
+						.setTitle(titles[currentPage])
+						.setDescription("")
+						.setFooter(`Page ${currentPage + 1}/${titles.length}`);
 					helpEmbed.fields = [];
 					fields[currentPage].forEach((field) => {
 						helpEmbed.addField(field[0], field[1]);
@@ -99,7 +107,10 @@ module.exports = {
 				}
 			} else if (reaction.emoji.name == "➡️") {
 				if (currentPage != titles.length - 1) currentPage++;
-				helpEmbed.setTitle(titles[currentPage]).setDescription("");
+				helpEmbed
+					.setTitle(titles[currentPage])
+					.setDescription("")
+					.setFooter(`Page ${currentPage + 1}/${titles.length}`);
 				helpEmbed.fields = [];
 				fields[currentPage].forEach((field) => {
 					helpEmbed.addField(field[0], field[1]);
@@ -136,8 +147,9 @@ function getFields(message) {
 				else if (category == "fun") pos = 2;
 				else if (category == "server") pos = 3;
 				else if (category == "random") pos = 4;
-				else if (category == "economy") pos = 5;
-				else if (category == "items") pos = 6;
+				else if (category == "rpg") pos = 5;
+				else if (category == "economy") pos = 6;
+				else if (category == "items") pos = 7;
 				if (!message.guild && command.servers) continue;
 				if (command.servers?.includes(message.guild.id) === false) continue;
 				if (command.usage) fields[pos].push([command.usage, command.description]);

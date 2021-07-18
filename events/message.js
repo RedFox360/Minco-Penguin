@@ -1,6 +1,5 @@
 const filter = require("leo-profanity");
 filter.remove(["suck", "sucks"]);
-
 const removeComments = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/gm;
 const argumentNames = /([^\s,]+)/g;
 const cooldowns = new Map();
@@ -134,7 +133,6 @@ module.exports = async (client, message) => {
 	const timeStamps = cooldowns.get(command.description);
 	const cooldown = command.cooldown;
 	const cooldownAmount = typeof cooldown === "string" ? ms(cooldown) : (cooldown || 2) * 1000;
-
 	if (timeStamps.has(message.author.id)) {
 		const expTime = timeStamps.get(message.author.id) + cooldownAmount;
 		if (currentTime < expTime) {
