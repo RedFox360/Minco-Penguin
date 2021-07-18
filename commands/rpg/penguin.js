@@ -9,11 +9,19 @@ module.exports = {
 
 Use !adopt <type> to adopt a penguin
 
-** ** ** ** ** ** \`Warrior | Magician | Healer | Archer \`
-:fire:      \`50\`              \`35\`              \`30\`              \`40\`
-:crossed_swords:      \`30\`              \`50\`              \`30\`              \`25\`
-:heart:      \`45\`              \`35\`              \`70\`              \`35\`
-:skull_crossbones:      \`25\`              \`30\`              \`20\`              \`50\`
+\`Warrior | Magician | Healer | Archer \`
+:fire:${"\u200B".repeat(6)}\`50\`${"\u200B".repeat(14)}\`35\`${"\u200B".repeat(
+					14
+				)}\`30\`${"\u200B".repeat(14)}\`40\`
+:crossed_swords:      \`30\`${"\u200B".repeat(14)}\`50\`${"\u200B".repeat(
+					14
+				)}\`30\`${"\u200B".repeat(14)}\`25\`
+:heart:      \`45\`${"\u200B".repeat(14)}\`35\`${"\u200B".repeat(14)}\`70\`${"\u200B".repeat(
+					14
+				)}\`35\`
+:skull_crossbones:      \`25\`${"\u200B".repeat(14)}\`30\`${"\u200B".repeat(
+					14
+				)}\`20\`${"\u200B".repeat(14)}\`50\`
 `
 			);
 			message.channel.send(adoptEmbed);
