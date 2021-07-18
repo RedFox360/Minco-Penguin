@@ -10,10 +10,10 @@ module.exports = {
 Use !adopt <type> to adopt a penguin
 
 ** ** ** ** ** ** \`Warrior | Magician | Healer | Archer \`
-:crossed_swords:      \`50\`              \`35\`              \`30\`              \`40\`
-:shield:\`      30              50              30              25\`
-:heart:\`      45              35              70              35\`
-:dart:\`      25              30              20              50\`
+:crossed_swords:      \`50\`       |       \`35\`       |       \`30\`       |       \`40\`
+:shield:\`      30       |       50       |       30       |       25\`
+:heart:\`      45       |       35       |       70       |       35\`
+:dart:\`      25       |       30       |       20       |       50\`
 `
 			);
 			message.channel.send(adoptEmbed);
