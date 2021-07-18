@@ -18,8 +18,8 @@ module.exports = {
 			"FUN Commands",
 			"SERVER Commands",
 			"RANDOM RETURN Commands",
-			"ECONOMY Commands",
 			"RPG Commands",
+			"ECONOMY Commands",
 			"ITEM Commands",
 		];
 		var description = `Use the :arrow_left: and :arrow_right: reactions to switch between pages.
@@ -32,8 +32,8 @@ Don't put **< >** in the actual commands.
 \`FUN Commands\`
 \`SERVER Commands\`
 \`RANDOM RETURN Commands\`
-\`ECONOMY Commands\`
 \`RPG Commands\`
+\`ECONOMY Commands\`
 \`ITEM Commands\``;
 
 		if (args.length) {
