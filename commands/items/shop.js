@@ -72,7 +72,8 @@ module.exports = {
 			.setAuthor(message.authorName(), message.author.avatarURL())
 			.setTitle(titles[0])
 			.setDescription(descriptions[0])
-			.setColor("BEDFFF");
+			.setColor("BEDFFF")
+			.setFooter(`Page ${currentPage + 1}/${fields.length}`);
 
 		if (message.guild) shopEmbed.setFooter(message.guild.name);
 		if (args[0] == "gems") {
@@ -104,7 +105,10 @@ module.exports = {
 		collector.on("collect", async (reaction) => {
 			if (reaction.emoji.name == "⬅️") {
 				if (currentPage != 0) currentPage--;
-				shopEmbed.setTitle(titles[currentPage]).setDescription(descriptions[currentPage]);
+				shopEmbed
+					.setTitle(titles[currentPage])
+					.setDescription(descriptions[currentPage])
+					.setFooter(`Page ${currentPage + 1}/${fields.length}`);
 				shopEmbed.fields = [];
 				fields[currentPage].forEach((field) => {
 					shopEmbed.addField(field[0], field[1]);
@@ -112,7 +116,10 @@ module.exports = {
 				shopMsg.edit(shopEmbed);
 			} else if (reaction.emoji.name == "➡️") {
 				if (currentPage != titles.length - 1) currentPage++;
-				shopEmbed.setTitle(titles[currentPage]).setDescription(descriptions[currentPage]);
+				shopEmbed
+					.setTitle(titles[currentPage])
+					.setDescription(descriptions[currentPage])
+					.setFooter(`Page ${currentPage + 1}/${fields.length}`);
 				shopEmbed.fields = [];
 				fields[currentPage].forEach((field) => {
 					shopEmbed.addField(field[0], field[1]);

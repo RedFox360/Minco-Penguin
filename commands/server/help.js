@@ -133,7 +133,7 @@ module.exports = {
 };
 
 function getFields(message) {
-	const fields = [0, [], [], [], [], [], []];
+	const fields = [0, [], [], [], [], [], [], []];
 	const categories = fs.readdirSync("./commands/").filter((file) => !file.endsWith(".DS_Store"));
 	for (const category of categories) {
 		if (category != "hidden") {
