@@ -14,7 +14,12 @@ module.exports = {
 				}
 			);
 
-			adoptionEmbed.setDescription("You adopted a warrior penguin!");
+			adoptionEmbed
+				.setDescription("You adopted a warrior penguin!")
+				.setImage(
+					"https://cdn.discordapp.com/attachments/866741907702546462/866789277244194856/penguin_warrior.png"
+				)
+				.setColor("#bdc3c7");
 		} else if (args[0] == "Magician" || args[0] == "m") {
 			await profileModel.findOneAndUpdate(
 				{ userID: message.author.id },
@@ -48,7 +53,12 @@ module.exports = {
 					penguin: "a",
 				}
 			);
-			adoptionEmbed.setDescription("You adopted an archer penguin!");
+			adoptionEmbed
+				.setDescription("You adopted an archer penguin!")
+				.setImage(
+					"https://cdn.discordapp.com/attachments/866741907702546462/866789269514092554/penguin_archer.png"
+				)
+				.setColor("#239b56");
 		} else {
 			return "Valid types: Warrior (w), Magician (m), Healer (h), and Archer (a)";
 		}
