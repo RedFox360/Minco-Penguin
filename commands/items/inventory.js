@@ -34,6 +34,6 @@ module.exports = {
 			.setDescription(inv.join("\n"))
 			.setColor("#F8C471");
 		if (message.guild) invEmbed.setFooter(message.guild.name);
-		message.channel.send();
+		message.channel.send(invEmbed);
 	},
 };
