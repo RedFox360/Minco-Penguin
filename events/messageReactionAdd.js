@@ -17,7 +17,6 @@ module.exports = async (client, reaction, user) => {
 	if (message.author.bot) return;
 
 	const channel = client.channels.fetch(channelID);
-
 	const embed = new MessageEmbed()
 		.setAuthor(message.member.displayName, message.author.avatarURL())
 		.setDescription(message.content)
