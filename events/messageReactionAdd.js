@@ -18,7 +18,7 @@ module.exports = async (client, reaction, user) => {
 
 	const channel = await client.channels.fetch(channelID);
 	const embed = new MessageEmbed()
-		.setAuthor(message.member.displayName, message.author.avatarURL())
+		.setAuthor(message.member.displayName, message.author.avatarURL(), message.url)
 		.setDescription(message.content)
 		.setFooter(`⭐️  | ${message.id}`)
 		.setTimestamp(message.createdTimestamp)
