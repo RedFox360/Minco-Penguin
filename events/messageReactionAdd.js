@@ -9,8 +9,8 @@ module.exports = async (client, reaction, user) => {
 	const { message } = reaction;
 	if (!message.guild) return;
 	if (reaction.emoji.name !== "⭐" && reaction.emoji.name !== "🌟") return;
-	const { channelID, starAmount } = await serverModel.findOne({ serverID: message.guild.id })
-		.starboard;
+	const serverData = await serverModel.findOne({ serverID: message.guild.id });
+	const { channelID, starAmount } = serverData.starboard;
 
 	if (!channelID) return;
 	if (reaction.count != starAmount) return;
