@@ -24,4 +24,3 @@ module.exports = {
 		message.channel.send(`You succesfully divorced <@${userSpouse}>`);
 	},
 };
-/** @param {Messag} message */

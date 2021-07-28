@@ -7,7 +7,7 @@ module.exports = {
 		if (!args.length) {
 			return "Valid usage: !setfav <animal/color/food> <favorite object>";
 		}
-		let first = args[0];
+		let first = args[0].toLowerCase();
 		args.shift();
 		let favObj = args.join(" ");
 		if (first == "animal") {
@@ -46,6 +46,6 @@ module.exports = {
 		} else {
 			return "Valid usage: !setfav <animal/color/food> <favorite object>";
 		}
-		message.channel.send(`Favorite ${args[0]} set to ${favObj}`);
+		message.channel.send(`Favorite ${first} set to ${favObj}`);
 	},
 };

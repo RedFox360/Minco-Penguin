@@ -40,6 +40,5 @@ module.exports = {
 	},
 };
 
-const format = (time) => {
-	return dayjs.tz(time, "America/Los_Angeles").format("ddd [**]MMM D, YYYY[**] hh:mm A [PST]");
-};
+const format = (time) =>
+	dayjs.tz(time, "America/Los_Angeles").format("ddd [**]MMM D, YYYY[**] hh:mm A [PST]");
