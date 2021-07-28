@@ -20,8 +20,9 @@ module.exports = async (client, reaction, user) => {
 	const embed = new MessageEmbed()
 		.setAuthor(message.member.displayName, message.author.avatarURL())
 		.setDescription(message.content)
-		.setFooter(`⭐️ | ${message.id}`)
-		.setTimestamp(message.createdTimestamp);
+		.setFooter(`⭐️  | ${message.id}`)
+		.setTimestamp(message.createdTimestamp)
+		.setColor("#F7DC6F"); // yellow
 	if (message.attachments) embed.attachFiles(message.attachments.array());
 
 	channel.send(embed);
