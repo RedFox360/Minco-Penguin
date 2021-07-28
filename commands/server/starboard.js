@@ -12,7 +12,7 @@ module.exports = {
 			{ serverID: message.guild.id },
 			{
 				starboard: {
-					channel: channel.id,
+					channelID: channel.id,
 					starAmount,
 				},
 			}

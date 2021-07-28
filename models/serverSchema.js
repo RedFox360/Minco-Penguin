@@ -28,7 +28,7 @@ const serverSchema = new mongoose.Schema({
 	modRole: String,
 	botRole: String,
 	starboard: {
-		channel: String,
+		channelID: String,
 		starAmount: Number,
 	},
 	clean: { type: Boolean, default: true },
