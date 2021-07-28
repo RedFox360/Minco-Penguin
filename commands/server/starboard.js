@@ -6,6 +6,7 @@ module.exports = {
 	async execute(message, args) {
 		const channel = message.mentions.channels.first();
 		if (!channel) return "Mention a valid channel";
+		const starAmount = parseInt(args[1]) || 2;
 
 		await serverModel.findOneAndUpdate(
 			{ serverID: message.guild.id },
@@ -16,5 +17,7 @@ module.exports = {
 				},
 			}
 		);
+
+		message.channel.send(`Starboard channel set to <#${channel.id}>`);
 	},
 };
