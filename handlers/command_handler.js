@@ -7,10 +7,7 @@ module.exports = (client) => {
 		);
 		for (const file of commandFiles) {
 			const command = require(`../commands/${category}/${file}`);
-			client.commands.set(file.split(".")[0], {
-				category,
-				...command,
-			});
+			client.commands.set(file.split(".")[0], command);
 		}
 	}
 };

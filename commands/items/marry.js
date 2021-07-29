@@ -23,7 +23,7 @@ module.exports = {
 		);
 		await marryMsg.react("✅");
 		const filter = (reaction, u) => reaction.emoji.name === "✅" && u.id === user.id;
-		const collector = marryMsg.createReactionCollector(filter, { time: ms("2m") });
+		const collector = marryMsg.createReactionCollector(filter, { time: ms("2m"), limit: 1 });
 		collector.on("collect", async () => {
 			await profileModel.findOneAndUpdate(
 				{ userID: message.author.id },
@@ -42,8 +42,6 @@ module.exports = {
 			);
 
 			message.channel.send(`You have married <@${user.id}>!`);
-
-			collector.stop();
 		});
 	},
 };

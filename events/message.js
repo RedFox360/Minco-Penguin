@@ -75,11 +75,6 @@ module.exports = async (client, message) => {
 	const cmd = args.shift().toLowerCase();
 	const command =
 		client.commands.get(cmd) || client.commands.find((a) => a.aliases && a.aliases.includes(cmd));
-	if (
-		command.category == "rpg" &&
-		!["724786310711214118", "804755578702266399"].includes(message.author.id)
-	)
-		return;
 	if (!command) return;
 	if (command.servers?.includes(message.guild?.id) === false) {
 		return;

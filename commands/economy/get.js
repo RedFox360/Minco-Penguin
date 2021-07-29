@@ -30,7 +30,7 @@ module.exports = {
 		);
 		await checkM.react("✅");
 		const filter = (reaction, u) => u.id === user.id && reaction.emoji.name === "✅";
-		const collector = checkM.createReactionCollector(filter, ms("90s"));
+		const collector = checkM.createReactionCollector(filter, { time: ms("90s"), limit: 1 });
 		let onEnd = true;
 		collector.on("collect", async (reaction, user) => {
 			onEnd = false;
@@ -54,7 +54,6 @@ module.exports = {
 			message.channel.send("Transaction successful!").then(async (m) => {
 				await m.react("💵");
 			});
-			collector.stop();
 		});
 		collector.on("end", (collected) => {
 			if (onEnd) message.channel.send("Timed out...");

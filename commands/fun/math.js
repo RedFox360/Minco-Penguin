@@ -29,7 +29,7 @@ module.exports = {
 		else if (oper == "*") result = num1 * num2;
 		message.channel.send(`${message.author.toString()}, what is ${num1} ${oper} ${num2}?`);
 		const filter = (m) => m.author.id == message.author.id;
-		const collector = message.channel.createMessageCollector(filter, { time: 20000 });
+		const collector = message.channel.createMessageCollector(filter, { time: 20000, limit: 1 });
 		var sendTimeOut = true;
 		let amount = randomInt(10, 20);
 		if (profileData.spouse != null) {
@@ -57,7 +57,6 @@ module.exports = {
 			} else {
 				message.channel.send(`Incorrect! The correct answer is ${result}`);
 			}
-			collector.stop();
 		});
 		collector.on("end", (collected) => {
 			if (sendTimeOut) return message.reply("Timed out!");

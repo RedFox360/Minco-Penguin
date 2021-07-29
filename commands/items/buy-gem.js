@@ -44,7 +44,7 @@ async function buyGem(message, item, price, itemNumber, profileData) {
 	const msg = await message.channel.send(`React to buy a **${item}** for ${price} MD`);
 	await msg.react("✅");
 	const filter = (reaction, user) => reaction.emoji.name === "✅" && user.id === message.author.id;
-	const reactionCollector = msg.createReactionCollector(filter, { time: ms("30s") });
+	const reactionCollector = msg.createReactionCollector(filter, { time: ms("30s"), limit: 1 });
 	reactionCollector.on("collect", async () => {
 		await profileModel.findOneAndUpdate(
 			{ userID: message.author.id },
@@ -58,6 +58,5 @@ async function buyGem(message, item, price, itemNumber, profileData) {
 			}
 		);
 		message.channel.send(`You succesfully bought a ${item}!`);
-		reactionCollector.stop();
 	});
 }
