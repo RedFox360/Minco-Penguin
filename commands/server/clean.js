@@ -11,5 +11,6 @@ module.exports = {
 		else return `Valid usage: ${this.usage}`;
 
 		await serverModel.findOneAndUpdate({ serverID: message.guild.id }, { clean });
+		return `Clean mode set ${args[0]}`;
 	},
 };
