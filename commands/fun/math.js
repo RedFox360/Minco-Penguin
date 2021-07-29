@@ -58,7 +58,7 @@ module.exports = {
 				message.channel.send(`Incorrect! The correct answer is ${result}`);
 			}
 		});
-		collector.on("end", (collected) => {
+		collector.on("end", () => {
 			if (sendTimeOut) return message.reply("Timed out!");
 		});
 	},

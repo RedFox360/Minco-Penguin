@@ -30,7 +30,7 @@ module.exports = {
 		);
 		await checkM.react("✅");
 		const filter = (reaction, u) => u.id === user.id && reaction.emoji.name === "✅";
-		const collector = checkM.createReactionCollector(filter, { time: ms("90s"), max: 1 });
+		const collector = checkM.createReactionCollector(filter, { time: ms("90s"), limit: 1 });
 		let onEnd = true;
 		collector.on("collect", async (reaction, user) => {
 			onEnd = false;
