@@ -29,7 +29,7 @@ module.exports = {
 		else if (oper == "*") result = num1 * num2;
 		message.channel.send(`${message.author.toString()}, what is ${num1} ${oper} ${num2}?`);
 		const filter = (m) => m.author.id == message.author.id;
-		const collector = message.channel.createMessageCollector(filter, { time: 20000, limit: 1 });
+		const collector = message.channel.createMessageCollector(filter, { time: 20000, max: 1 });
 		var sendTimeOut = true;
 		let amount = randomInt(10, 20);
 		if (profileData.spouse != null) {

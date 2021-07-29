@@ -15,7 +15,7 @@ module.exports = async (client, guild) => {
 	});
 	serverProfile.save();
 	const fetchedLogs = await guild.fetchAuditLogs({
-		limit: 1,
+		max: 1,
 		type: "BOT_ADD",
 	});
 	const auditLog = fetchedLogs.entries.first();
