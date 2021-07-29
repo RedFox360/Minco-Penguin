@@ -1,3 +1,4 @@
+const profileModel = require("../../models/profileSchema");
 module.exports = {
 	description: "Sell your items",
 	usage: "!sell <item number>",
