@@ -4,7 +4,7 @@ module.exports = {
 	async run(message, args, _0, _1, profileData) {
 		const item = args[0];
 		if (!item) return;
-		if (!profileData.market.includes(item)) return "You don't have that item!";
+		if (!profileData.inventory.includes(item)) return "You don't have that item!";
 
 		const sellableItems = ["01", "02", "03", "06", "07", "08", "09"];
 		const index = sellableItems.indexOf(item);
@@ -24,7 +24,7 @@ module.exports = {
 			await profileModel.findOneAndUpdate(
 				{ userID: message.author.id },
 				{
-					$pull: { market: item },
+					$pull: { inventory: item },
 					$inc: { mincoDollars: returnAmount },
 				}
 			);
