@@ -1,12 +1,9 @@
-const { Message, Client, MessageEmbed } = require("discord.js");
+const { Message, MessageEmbed } = require("discord.js");
 module.exports = {
 	description: "Quickly ban a member from the server",
 	usage: "!ban (days) <@user> (reason)",
 	permission: ["BAN_MEMBERS"],
-	/**
-	 * @param {Message} message
-	 * @param {Client} client
-	 */
+	/** @param {Message} message */
 	execute(message, args) {
 		if (!message.guild) return;
 		const days = parseInt(args[0]);

@@ -1,12 +1,9 @@
-const { Message, Client, MessageEmbed } = require("discord.js");
+const { Message, MessageEmbed } = require("discord.js");
 module.exports = {
 	description: "Quickly kick a member from the server",
 	usage: "!kick <@user> (reason)",
 	permissions: ["KICK_MEMBERS"],
-	/**
-	 * @param {Message} message
-	 * @param {Client} client
-	 */
+	/** @param {Message} message */
 	execute(message, args) {
 		if (!message.guild) return;
 		const member = message.mentions.members.first();

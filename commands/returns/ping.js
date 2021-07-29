@@ -11,7 +11,6 @@ module.exports = {
 		const msg = await message.channel.send("pong!");
 		const latency = Math.round(client.ws.ping);
 		const ping = msg.createdTimestamp - message.createdTimestamp;
-		const exec = ping - latency;
 
 		const [status, color] = (() => {
 			if (ping <= 500) return ["online", "#48C9B0"];
@@ -27,10 +26,10 @@ module.exports = {
 				{ name: "Status:", value: status },
 				{
 					name: "Execution Time",
-					value: prettyMs(exec),
+					value: prettyMs(ping),
 				},
 				{ name: "Client Latency", value: prettyMs(latency) },
-				{ name: "Total", value: prettyMs(ping) },
+				{ name: "Total", value: prettyMs(latency + ping) },
 				{ name: "Client Uptime", value: prettyMs(client.uptime) }
 			)
 			.setTimestamp();
