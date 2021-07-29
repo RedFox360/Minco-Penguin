@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js");
 const calculatePower = require("../../functions/calculatePower");
 module.exports = {
 	description: "View your battle stats",
-	async execute(message) {
+	async run(message) {
 		const mention = message.mentions.users.first();
 		const author = mention ?? message.author;
 		const [attack, defense, health] = await calculatePower(author.id);

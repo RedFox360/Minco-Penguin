@@ -1,6 +1,6 @@
 module.exports = {
 	description: "Sends a random fact about penguins",
-	execute: () =>
+	run: () =>
 		[
 			"Penguins can drink seawater. They have a gland that removes the salt from their bloodstream. However, Penguins still have to drink freshwater to stay hydrated.",
 			"Emperor Penguins are the tallest species of penguins - reaching up to 3' 11\" feet tall!",

@@ -6,7 +6,7 @@ module.exports = {
 	usage: "!gift <@user> <number>",
 	cooldown: 3,
 	/** @param {Message} message */
-	async execute(message, args, _0, _1, profileData) {
+	async run(message, args, _0, _1, profileData) {
 		const mention = message.mentions.users.first();
 		if (!mention) return "Mention a valid user";
 		const amount = parseInt(args[1]);

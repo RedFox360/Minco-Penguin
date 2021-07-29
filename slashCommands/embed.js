@@ -26,7 +26,7 @@ module.exports = {
 		],
 	},
 
-	async execute(p) {
+	async run(p) {
 		const title = p.getArg("title");
 		const desc = p.getArg("description");
 		const color = p.getArg("color")?.toUpperCase() ?? "C782FE";

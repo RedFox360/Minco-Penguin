@@ -3,7 +3,7 @@ module.exports = {
 	description: "Combine two people's names!",
 	usage: "!combine/ship <name 1> <name 2>",
 	aliases: ["ship"],
-	execute(_, args) {
+	run(_, args) {
 		if (args.length < 1) return "Valid arguments: !ship <name 1> <name 2>";
 		return combineNames(args[0], args[1]);
 	},

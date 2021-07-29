@@ -3,7 +3,7 @@ module.exports = {
 	description: "[OWNER ONLY] Ban a user from using Minco Penguin\nUnban: unban a user",
 	aliases: ["unban"],
 	usage: "!banuser <@user>",
-	async execute(message, _, cmd) {
+	async run(message, _, cmd) {
 		if (message.author.id == "724786310711214118") {
 			let guildData = serverModel.findOne({ serverID: message.guild.id });
 			let bannedPeople = new Array(guildData.bannedPeople);

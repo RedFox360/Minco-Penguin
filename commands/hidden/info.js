@@ -7,7 +7,7 @@ dayjs.extend(timezone);
 
 module.exports = {
 	/** @param {Message} message */
-	execute(message) {
+	run(message) {
 		const member = message.mentions.members.first() ?? message.member;
 		const author = member?.user ?? message.author;
 		const infoEmbed = new MessageEmbed()

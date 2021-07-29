@@ -6,7 +6,7 @@ module.exports = {
 	description: "Trade your animals!",
 	usage: "!trade-animal <@user> <animal> <price>",
 	/** @param {Message} message */
-	async execute(message, args, _0, _1, profileData) {
+	async run(message, args, _0, _1, profileData) {
 		const mention = message.mentions.users.first();
 		const animal = args[1];
 		const price = parseInt(args[2]);

@@ -5,7 +5,7 @@ module.exports = {
 		"[MANAGE SERVER] Set the welcome and leave messages for a server. Use !announce-message format for a formatting guide.",
 	usage: "!announce-message <join/joindm/leave> <message>/default",
 	permissions: ["MANAGE_GUILD"],
-	async execute(message, args, _0, _1, _2, serverData) {
+	async run(message, args, _0, _1, _2, serverData) {
 		const first = args[0];
 		if (!first)
 			return "Valid usage: !announce-message <join/leave> <message> or !announce-message format";

@@ -4,7 +4,7 @@ module.exports = {
 	usage: "!ban (days) <@user> (reason)",
 	permission: ["BAN_MEMBERS"],
 	/** @param {Message} message */
-	execute(message, args) {
+	run(message, args) {
 		if (!message.guild) return;
 		const days = parseInt(args[0]);
 		const member = message.mentions.members.first();

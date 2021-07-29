@@ -5,7 +5,7 @@ module.exports = {
 	usage: "!say <words>",
 	aliases: ["sayd"],
 	/** @param {Message} message */
-	execute(message, args, cmd) {
+	run(message, args, cmd) {
 		if (!args.length) return "You didn't provide any arguments.";
 		const channel = message.mentions.channels.first();
 		if (channel && channel.permissionsFor(message.member).has("SEND_MESSAGES")) {
@@ -18,7 +18,7 @@ module.exports = {
 		}
 		if (cmd === "sayd")
 			message.delete().catch(() => {
-				// cmd executed in dm
+				// cmd runned in dm
 			});
 	},
 };

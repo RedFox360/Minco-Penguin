@@ -31,7 +31,7 @@ module.exports = (client) => {
 				});
 			},
 		};
-		require(`../slashCommands/${command}`).execute(p);
+		require(`../slashCommands/${command}`).run(p);
 	});
 };
 async function createAPIMessage(interaction, client, content) {

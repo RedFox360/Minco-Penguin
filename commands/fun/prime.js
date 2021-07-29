@@ -3,7 +3,7 @@ module.exports = {
 	aliases: ["composite", "isprime"],
 	usage: "!prime <number>",
 	/** @param {string[]} args */
-	execute(_, args, cmd) {
+	run(_, args, cmd) {
 		if (!args[0]) return "Please enter an argument (valid usage: !prime <Number>)";
 		let numberString = args[0].replace(/,/g, "");
 		var primeNumber = parseInt(numberString);

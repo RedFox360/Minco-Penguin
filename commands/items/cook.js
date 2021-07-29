@@ -3,7 +3,7 @@ module.exports = {
 	description:
 		"Cook your items!\nEgg values: boiled, scrambled, omelette\nPrices: 6 MD for boiled, 7 MD for scrambled, 8 MD for omelette",
 	usage: "!cook egg <egg type>",
-	async execute(message, args, _0, _1, profileData) {
+	async run(message, args, _0, _1, profileData) {
 		if (args[0] == "egg") {
 			if (!profileData.inventory.includes("11")) return "You don't have a raw egg!";
 			let price;

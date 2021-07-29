@@ -4,7 +4,7 @@ const { MessageEmbed } = require("discord.js");
 module.exports = {
 	description: "Check the weather! (Checks San Diego if you don't provide a city argument)",
 	usage: "!weather <city>",
-	execute(message, args) {
+	run(message, args) {
 		let search = args.join(" ");
 		if (!args[0]) search = "san diego";
 		weather.find(

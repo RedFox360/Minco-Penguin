@@ -4,7 +4,7 @@ module.exports = {
 	aliases: ["admindivorce"],
 	description: "Divorce your spouse.",
 	/** @param {Message} message */
-	async execute(message, args, _0, _1, profileData) {
+	async run(message, args, _0, _1, profileData) {
 		const userSpouse = profileData.spouse;
 		if (!userSpouse) return "You aren't married!";
 

@@ -6,7 +6,7 @@ const randomInt = require("../../functions/random");
 const ms = require("ms");
 module.exports = {
 	description: "Claim your surprise chest for the server",
-	async execute(message, args, _0, _1, profileData, serverData) {
+	async run(message, args, _0, _1, profileData, serverData) {
 		if (args[0] == "drop" && message.member.hasPermission("ADMINISTRATOR")) {
 			if (serverData.chest?.hasChest) return "There is already a chest dropped in this server!";
 			const mdAmount = parseInt(args[1]);
@@ -36,7 +36,7 @@ module.exports = {
 			const surpriseMessage = await message.guild.systemChannel.send(surpriseEmbed);
 
 			message.delete().catch(() => {
-				// cmd executed in dm
+				// cmd runned in dm
 			});
 
 			setTimeout(async () => {

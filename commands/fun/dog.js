@@ -4,7 +4,7 @@ module.exports = {
 	description: "Sends a random dog picture (oreo, archie, or rocco) or a nice looking embed",
 	usage: "!dog (info) oreo/archie/rocco",
 	servers: ["785642761814671381", "843951306745577524"],
-	execute(message, args) {
+	run(message, args) {
 		let pics;
 		const oreoPics = [
 			"826527871542493184/63669166328__718717DF-7C6F-4F66-872E-A54799AC53D3.jpg",

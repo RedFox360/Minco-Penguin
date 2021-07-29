@@ -5,7 +5,7 @@ module.exports = {
 	cooldown: 10,
 	usage: "!bet <number>",
 	/** @param {Message} message */
-	async execute(message, args, _0, _1, profileData) {
+	async run(message, args, _0, _1, profileData) {
 		let random = Math.floor(Math.random() * 2);
 		let amount = parseInt(args[0]);
 		if (isNaN(amount)) return "Enter a valid number";

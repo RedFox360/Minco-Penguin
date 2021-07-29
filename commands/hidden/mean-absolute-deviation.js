@@ -4,7 +4,7 @@ module.exports = {
 	description: "Calculate the mean average deviation of a set of numbers",
 	usage: "!mad <number 1> <number 2> ...",
 	aliases: ["mad", "mean-ad", "mean-a-d"],
-	execute(_, args) {
+	run(_, args) {
 		if (!args.length) return "Enter valid arguments";
 		const numbers = args.map((arg) => parseInt(arg));
 		for (let i = 0; i < numbers.length; i++) {

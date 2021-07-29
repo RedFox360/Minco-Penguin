@@ -1,7 +1,7 @@
 module.exports = {
 	description: "Returns a random hello message.",
 	aliases: ["howdy", "hi"],
-	execute(message) {
+	run(message) {
 		const mention = message.mentions.users.first();
 		const ping = mention ? `<@${mention.id}>` : message.author.toString();
 		const hellos = [

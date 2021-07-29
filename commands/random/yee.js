@@ -11,7 +11,7 @@ module.exports = {
 		"yeeeeeeeeee",
 		"eeeeeeeeeee",
 	],
-	execute(message, args) {
+	run(message, args) {
 		const yees = [
 			"https://tenor.com/view/yee-yeedinasour-dinasour-gif-4930781",
 			"https://tenor.com/view/yee-dinosaur-meme-smile-gif-15696659",

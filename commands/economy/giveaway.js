@@ -5,7 +5,7 @@ module.exports = {
 	usage: "!giveaway <@user 1> <@user 2> ...",
 	servers: ["785642761814671381", "827635704145772574", "843951306745577524", "838951077012832306"],
 	/** @param {Message} message */
-	async execute(message) {
+	async run(message) {
 		if (message.author.id == "804755578702266399" || message.author.id == "724786310711214118") {
 			var options = [1, 25, 50, 75, 100];
 			var users = message.mentions.users.array();

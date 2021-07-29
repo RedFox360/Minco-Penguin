@@ -2,7 +2,7 @@ module.exports = {
 	data: {
 		description: "Pings the bot",
 	},
-	execute(p) {
+	run(p) {
 		p.reply("pong!");
 	},
 };

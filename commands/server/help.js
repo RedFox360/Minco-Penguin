@@ -9,7 +9,7 @@ module.exports = {
 	 * @param {Discord.Message} message
 	 * @param {Discord.Client} client
 	 */
-	async execute(message, args, _, client) {
+	async run(message, args, _, client) {
 		var color = "C782FE"; // light purple
 		var author = [message.authorName(), message.author.avatarURL()];
 		var titles = [

@@ -11,7 +11,7 @@ module.exports = {
 			},
 		],
 	},
-	execute(p) {
+	run(p) {
 		const description = p.getArg("content");
 		p.reply(description);
 	},

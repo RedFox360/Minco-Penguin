@@ -4,7 +4,7 @@ const gems = require("../../functions/gems.json");
 module.exports = {
 	description: "Use your lootbox!",
 	cooldown: "1m",
-	async execute(message, _0, _1, _2, profileData) {
+	async run(message, _0, _1, _2, profileData) {
 		if (!profileData.inventory.includes("10")) return "You don't have a lootbox!";
 
 		const mincoAmount = randomInt(35, 70);

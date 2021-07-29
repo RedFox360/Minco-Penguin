@@ -4,7 +4,7 @@ module.exports = {
 	usage: "!magic8ball <Question>",
 	aliases: ["8b", "magic8b", "8ball", "fruitball", "fball"],
 	/** @param {Message} message */
-	execute(message, args, cmd) {
+	run(message, args, cmd) {
 		if (!args.length) return "Enter a question";
 		if (args.join(" ").toLowerCase().includes("crush"))
 			return "Stop asking questions about crushes!";

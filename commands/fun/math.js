@@ -6,7 +6,7 @@ module.exports = {
 	usage: "!math <operation>",
 	cooldown: "7m",
 	/** @param {Message} message */
-	async execute(message, args, _0, _1, profileData) {
+	async run(message, args, _0, _1, profileData) {
 		var num1, num2, result;
 		if (!args.length)
 			return "Invalid usage. Correct usage: !math <operation>\n(Division is not a permitted operation)";

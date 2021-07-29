@@ -3,7 +3,7 @@ module.exports = {
 	description: "Add an item to your market!",
 	aliases: ["ma"],
 	usage: "!market-add <price> <item name> | <item description>",
-	async execute(message, args, _0, _1, profileData) {
+	async run(message, args, _0, _1, profileData) {
 		if (args.length < 1) return "Valid usage: !market-add <price> <item name>";
 		const price = parseInt(args[0]);
 		if (isNaN(price)) return "Enter a valid price";

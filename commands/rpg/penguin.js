@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js");
 
 module.exports = {
 	description: "Adopt a penguin!",
-	execute(message, args) {
+	run(message, args) {
 		if (!args.length) {
 			const adoptEmbed = new MessageEmbed()
 				.setTitle("Adopt a penguin!")

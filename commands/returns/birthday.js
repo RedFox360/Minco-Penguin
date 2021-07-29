@@ -7,7 +7,7 @@ module.exports = {
 	description: "View everyone's birthday. Usage: birthday <name>",
 	usage: "!birthday <@user>",
 	/** @param {Message} message */
-	async execute(message, args) {
+	async run(message, args) {
 		if (!args.length) return "You didn't provide any arguments.";
 		const mention = message.mentions.users.first();
 		if (!mention) return "Mention a valid user";

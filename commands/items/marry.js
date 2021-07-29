@@ -5,7 +5,7 @@ module.exports = {
 	description: "Marry a user",
 	usage: "!marry (@user)",
 	/** @param {Message} message */
-	async execute(message, _0, _1, _2, profileData) {
+	async run(message, _0, _1, _2, profileData) {
 		if (profileData.spouse != null) return "You are already married!";
 
 		const user = message.mentions.users.first();

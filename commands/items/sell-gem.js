@@ -4,7 +4,7 @@ const gems = require("../../functions/gems.json");
 module.exports = {
 	description: "Sell your gems!",
 	usage: "!sell <gem number>",
-	async execute(message, args, _0, _1, profileData) {
+	async run(message, args, _0, _1, profileData) {
 		const itemNumber = args[0];
 		if (!itemNumber) return "Enter an item number";
 		if (!profileData.inventory.includes(itemNumber)) return "You don't have that item!";

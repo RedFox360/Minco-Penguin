@@ -1,7 +1,7 @@
 const animals = require("../../functions/animals.json");
 module.exports = {
 	description: "Sends all the animal that you can get in the zoo",
-	execute(_, args) {
+	run(_, args) {
 		const a = [];
 		for (const { name, emoji } of animals) {
 			if (args[0] == "list") {

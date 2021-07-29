@@ -3,7 +3,7 @@ const randomInt = require("../../functions/random");
 module.exports = {
 	description: "Use your tomato! Get between 2 and 6 Minco Dollars",
 	cooldown: 90,
-	async execute(message, args, _1, _2, profileData) {
+	async run(message, args, _1, _2, profileData) {
 		if (args[0] == "tomato") {
 			if (!profileData.inventory.includes("04")) return "You don't have a tomato!";
 			let numberEcon = randomInt(2, 6);

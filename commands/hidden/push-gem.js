@@ -2,7 +2,7 @@ const profileModel = require("../../models/profileSchema");
 module.exports = {
 	description: "[sameer only] Gives the ametrine to a user",
 	usage: "!green-diamond <@user>",
-	async execute(message, args) {
+	async run(message, args) {
 		if (message.author.id == "724786310711214118") {
 			const mention = message.mentions.users.first();
 			if (!mention) return "Mention a valid user";

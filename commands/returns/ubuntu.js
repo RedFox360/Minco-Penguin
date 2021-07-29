@@ -2,7 +2,7 @@ module.exports = {
 	description: "Get the ubuntu name of someone",
 	usage: "!ubuntu name <person>",
 	servers: ["827635704145772574"],
-	execute(_, args) {
+	run(_, args) {
 		switch (args[1].toLowerCase()) {
 			case "sammy":
 				return "Kirabo the Wizard";

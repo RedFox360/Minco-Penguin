@@ -3,7 +3,7 @@ module.exports = {
 	description: "Sets the welcome channel",
 	usage: "!welcome <channel>",
 	permissions: ["MANAGE_GUILD"],
-	async execute(message) {
+	async run(message) {
 		const channel = message.mentions.channels.first();
 		if (!channel) return "Mention a valid channel";
 

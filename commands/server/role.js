@@ -4,7 +4,7 @@ module.exports = {
 		"[ADMIN ONLY] The main role will be given to members who join the server. Mute role allows muting to work. The bot role will be given to bots who join the server.",
 	usage: "!role <mute/main/mod/bot> <@role>",
 	permissions: ["ADMINISTRATOR"],
-	async execute(message, args) {
+	async run(message, args) {
 		const role = message.mentions.roles.first();
 		if (!role) return "Mention a valid role";
 		if (args[0] == "main") {

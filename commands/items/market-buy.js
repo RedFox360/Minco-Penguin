@@ -4,7 +4,7 @@ module.exports = {
 	description: "Buy items from a user's market!",
 	aliases: ["mb"],
 	usage: "!market-buy <@user> <item>",
-	async execute(message, args, _0, _1, profileData) {
+	async run(message, args, _0, _1, profileData) {
 		if (args.length < 1) return "Valid usage: !market-add <price> <item name>";
 		const mention = message.mentions.users.first();
 		if (!mention) return "Mention a valid user";

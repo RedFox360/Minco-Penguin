@@ -5,7 +5,7 @@ module.exports = {
 	usage: "!slowmode <ms>",
 	permissions: ["MANAGE_CHANNELS"],
 	/** @param {Message} message */
-	execute(message, args) {
+	run(message, args) {
 		if (!args.length) return "You didn't provide any arguments.";
 		var slowmode;
 		if (args[0] == "off") {

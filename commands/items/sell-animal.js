@@ -3,7 +3,7 @@ const profileModel = require("../../models/profileSchema");
 module.exports = {
 	description: "Sell your animals",
 	usage: "!sell-animal <animal name>",
-	async execute(message, args, _0, _1, profileData) {
+	async run(message, args, _0, _1, profileData) {
 		const animal = args[0];
 		if (!animal) return "Enter an animal";
 		if (!animalExists(animal)) return "Enter a valid animal";

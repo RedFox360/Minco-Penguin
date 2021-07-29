@@ -4,7 +4,7 @@ module.exports = {
 	description: "sends a is lying/not lying message",
 	usage: "!ld <Question>",
 	/** @param {Message} message */
-	execute(message, args) {
+	run(message, args) {
 		if (!args.length) return "Enter a question";
 		let name = message.authorName();
 		let randomL = [

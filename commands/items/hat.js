@@ -1,6 +1,6 @@
 module.exports = {
 	description: "Flex on how rich you are by showing off your HATS",
-	execute(message, _0, _1, _2, profileData) {
+	run(message, _0, _1, _2, profileData) {
 		let sendNone = true;
 		if (profileData.inventory.includes("02")) {
 			message.channel.send("https://tenor.com/view/crystal-tiara-gif-18445329");

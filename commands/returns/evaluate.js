@@ -3,7 +3,7 @@ module.exports = {
 	description: "Solve any math equation",
 	usage: "!evaluate/solve <equation>",
 	aliases: ["solve"],
-	execute(message, args) {
+	run(message, args) {
 		if (!args.length) return "Enter a math equation";
 		const equation = args.join(" ");
 		try {

@@ -5,7 +5,7 @@ module.exports = {
 	usage: "!favorites <@user>",
 	aliases: ["favs"],
 	/** @param {Message} message */
-	async execute(message) {
+	async run(message) {
 		var id, avatarURL;
 		const mention = message.mentions.users.first();
 		if (mention) {

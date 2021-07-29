@@ -3,7 +3,7 @@ module.exports = {
 	description: "Returns the states and capitals",
 	aliases: ["states-and-capitals", "s-and-c", "state-cap", "states-capitals"],
 	usage: "!sac (west/midwest/south/northeast)",
-	execute(message, args) {
+	run(message, args) {
 		const embed = new MessageEmbed()
 			.setTitle(":flag_us: States & Capitals of the US")
 			.setColor("#43426B");

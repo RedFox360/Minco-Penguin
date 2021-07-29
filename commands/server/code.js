@@ -2,7 +2,7 @@ const { MessageEmbed, version } = require("discord.js");
 const { dependencies } = require("../../package.json");
 module.exports = {
 	description: "sends info about the code",
-	execute(message) {
+	run(message) {
 		let pingEmbed = new MessageEmbed()
 			.setTitle(":robot_face: Code Info")
 			.setColor("70E5FF")

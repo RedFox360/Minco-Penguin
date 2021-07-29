@@ -10,7 +10,7 @@ module.exports = {
 	 * @param {Discord.Message} message
 	 * @param {Discord.Client} client
 	 */
-	async execute(message, args, cmd, _0, _1, serverData) {
+	async run(message, args, cmd, _0, _1, serverData) {
 		const { muteRole, mainRole, modRole } = serverData;
 		if (!muteRole) return "This server doesn't have a mute role";
 		if (!mainRole) return "This server doesn't have a main role";

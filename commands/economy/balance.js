@@ -7,7 +7,7 @@ module.exports = {
 	usage: "!balance (@user)",
 	cooldown: 3,
 	/** @param {Message} message */
-	async execute(message, _0, _1, _2, profileData) {
+	async run(message, _0, _1, _2, profileData) {
 		const mention = message.mentions.users.first();
 		let { bank, mincoDollars: md } = mention
 			? await profileModel.findOne({ userID: mention.id })

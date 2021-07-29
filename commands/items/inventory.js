@@ -3,7 +3,7 @@ const profileModel = require("../../models/profileSchema");
 module.exports = {
 	description: "View your item inventory! (from shop)",
 	aliases: ["inv"],
-	async execute(message) {
+	async run(message) {
 		const mention = message.mentions.users.first();
 		const author = mention ?? message.author;
 

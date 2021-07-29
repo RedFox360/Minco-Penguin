@@ -5,7 +5,7 @@ module.exports = {
 	description: "View your marriage status",
 	usage: "!marriage (@user)",
 	/** @param {Message} message */
-	async execute(message, _0, _1, _2, profileData) {
+	async run(message, _0, _1, _2, profileData) {
 		const member = message.mentions.members.first();
 		const name = member?.displayName ?? message.authorName();
 		const avatarURL = member?.user?.avatarURL() ?? message.author.avatarURL();

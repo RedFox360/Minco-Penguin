@@ -6,7 +6,7 @@ const { MessageEmbed } = require("discord.js");
 const dayLength = ms("1 day");
 module.exports = {
 	description: "Collect your daily reward!",
-	async execute(message, _0, _1, _2, profileData) {
+	async run(message, _0, _1, _2, profileData) {
 		const now = Date.now();
 		const lastUsedDaily = profileData.lastUsedDaily;
 		if (lastUsedDaily && lastUsedDaily + dayLength > Date.now()) {

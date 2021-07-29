@@ -5,14 +5,14 @@ module.exports = {
 	aliases: ["spoll"],
 	usage: "!poll/spoll <Question>",
 	/** @param {Message} message */
-	async execute(message, args, cmd) {
+	async run(message, args, cmd) {
 		let pollEmbed = new MessageEmbed()
 			.setColor("BLUE")
 			.setAuthor(message.authorName(), message.author.avatarURL())
 			.setTitle("Poll")
 			.setDescription(args.join(" "));
 		message.delete().catch(() => {
-			// cmd executed in dm
+			// cmd runned in dm
 		});
 		const pollMessage = await message.channel.send(pollEmbed);
 		await pollMessage.react("👍");

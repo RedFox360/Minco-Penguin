@@ -3,7 +3,7 @@ const profileModel = require("../../models/profileSchema");
 module.exports = {
 	description: "Adopt a penguin. Types are Warrior (w), Magician (m), Healer (h), and Archer (a)",
 	usage: "!adopt <type>",
-	async execute(message, args) {
+	async run(message, args) {
 		if (!args.length) return "Valid types: Warrior (w), Magician (m), Healer (h), and Archer (a)";
 		const adoptionEmbed = new MessageEmbed().setAuthor("Adoption", message.author.avatarURL());
 		if (args[0] == "Warrior" || args[0] == "w") {

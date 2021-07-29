@@ -1,6 +1,6 @@
 module.exports = {
 	description: "[OWNER ONLY] Makes Minco penguin leave the server",
-	async execute(message) {
+	async run(message) {
 		if (message.author.id == "724786310711214118") {
 			let msg = await message.channel.send(
 				`Leaving ${message.guild.name}. React with a ✅ to continue.`

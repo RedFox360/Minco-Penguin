@@ -4,7 +4,7 @@ module.exports = {
 	description: "View the market of a user!",
 	usage: "!market-view (@user)",
 	aliases: ["mv"],
-	async execute(message, _0, _1, _2, profileData) {
+	async run(message, _0, _1, _2, profileData) {
 		const mention = message.mentions.users.first();
 		let profile = profileData;
 		let id = message.author.id;

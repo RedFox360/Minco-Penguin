@@ -1,6 +1,6 @@
 module.exports = {
 	description: "Secret command: Never Gonna Give You Up lyrics",
-	execute: () =>
+	run: () =>
 		`**Never Gonna Give You Up**
 We're no strangers to love
 You know the rules and so do I

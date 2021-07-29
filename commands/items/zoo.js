@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js");
 const profileModel = require("../../models/profileSchema");
 module.exports = {
 	description: "View your Minco Zoo!",
-	async execute(message, args, _1, _2, profileData) {
+	async run(message, args, _1, _2, profileData) {
 		const animals = [];
 		const mention = message.mentions.users.first();
 		const profile = mention ? await profileModel.findOne({ userID: mention.id }) : profileData;

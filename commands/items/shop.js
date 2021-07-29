@@ -3,7 +3,7 @@ const ms = require("ms");
 module.exports = {
 	description: "The Minco shop! Use it to view the items you can buy",
 	usage: "!shop (page)",
-	async execute(message, args) {
+	async run(message, args) {
 		const descriptions = [
 			"Buy these using !buy <item number>",
 			"continued...\nBuy these using !buy <item number>",

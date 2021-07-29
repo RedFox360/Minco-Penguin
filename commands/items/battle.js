@@ -6,7 +6,7 @@ module.exports = {
 	description: "BATTLE A USER!",
 	usage: "!battle <@user>",
 	cooldown: 15,
-	async execute(message) {
+	async run(message) {
 		if (!message.guild) return;
 		const mention = message.mentions.users.first();
 		if (!mention) return "Mention a valid user";

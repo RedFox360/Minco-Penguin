@@ -121,12 +121,12 @@ module.exports = async (client, message) => {
 		}
 		if (invalidPerms.length) {
 			return message.channel.send(
-				`You need these permissions to execute this command: \`${invalidPerms}\``
+				`You need these permissions to run this command: \`${invalidPerms}\``
 			);
 		}
 		if (botInvalidPerms.length) {
 			return message.channel.send(
-				`The bot needs these permissions to execute this command: \`${botInvalidPerms}\``
+				`The bot needs these permissions to run this command: \`${botInvalidPerms}\``
 			);
 		}
 	}
@@ -152,7 +152,7 @@ module.exports = async (client, message) => {
 			});
 			setTimeout(() => {
 				message.delete().catch(() => {
-					// cmd executed in dm
+					// cmd runned in dm
 				});
 			}, timeLeft + 15000);
 			return;
@@ -163,9 +163,9 @@ module.exports = async (client, message) => {
 	};
 	timeStamps.set(message.author.id, currentTime);
 	try {
-		if (getParamNames(command.execute).includes("serverData"))
+		if (getParamNames(command.run).includes("serverData"))
 			return "This command cannot be used in DMs";
-		const t = command.execute(message, args, cmd, client, profileData, serverData);
+		const t = command.run(message, args, cmd, client, profileData, serverData);
 		if (typeof t === "string") sendC(message, t, resetCooldown);
 		if (t instanceof Promise) {
 			t.then((toSend) => {
@@ -174,7 +174,7 @@ module.exports = async (client, message) => {
 		}
 	} catch (error) {
 		message.react("❌");
-		message.channel.send("An error occured while trying to execute this command");
+		message.channel.send("An error occured while trying to run this command");
 		console.error(error);
 	}
 };

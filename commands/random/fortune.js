@@ -1,6 +1,6 @@
 module.exports = {
 	description: "Gives you a fortune",
-	execute(_, args) {
+	run(_, args) {
 		let fortunes = [
 			"For the next coming bot war, you should be on the side of Minco Penguin",
 			"Thanos will come alive again and *snap*",

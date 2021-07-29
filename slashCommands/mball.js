@@ -11,7 +11,7 @@ module.exports = {
 			},
 		],
 	},
-	execute(p) {
+	run(p) {
 		let yesAnswers = [
 			"Yes",
 			"It is decidedly so",

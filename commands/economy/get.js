@@ -5,7 +5,7 @@ module.exports = {
 	description: "Get Minco Dollars from a user (they have to react to approve)",
 	usage: "!get <@user> <amount>",
 	/** @param {Message} message */
-	async execute(message, args) {
+	async run(message, args) {
 		const user = message.mentions.users.first();
 		if (!user) return "Mention a valid user";
 		if (user.bot) return "You can't get money from a bot!";

@@ -7,7 +7,7 @@ module.exports = {
 	 * @param {Discord.Message} message
 	 * @param {Discord.Client} client
 	 */
-	async execute(message, args, _1, client) {
+	async run(message, args, _1, client) {
 		const msg = await message.channel.send("pong!");
 		const latency = Math.round(client.ws.ping);
 		const ping = msg.createdTimestamp - message.createdTimestamp;

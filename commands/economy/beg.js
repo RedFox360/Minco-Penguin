@@ -4,7 +4,7 @@ module.exports = {
 	cooldown: "3.5m",
 	aliases: ["gimmemoney"],
 	description: "Beg for Minco Dollars",
-	async execute(message, _0, cmd, _1, profileData) {
+	async run(message, _0, cmd, _1, profileData) {
 		let numberEcon = cmd === "gimmemoney" ? 1 : randomInt(1, 3);
 		if (profileData.inventory.includes("05")) {
 			if (profileData.candyAmount <= 0) {

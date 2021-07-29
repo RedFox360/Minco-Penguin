@@ -5,7 +5,7 @@ module.exports = {
 	aliases: ["end-lockdown"],
 	permissions: ["ADMINISTRATOR"],
 	/** @param {Message} message */
-	execute(message, _0, cmd) {
+	run(message, _0, cmd) {
 		const SEND_MESSAGES = cmd === "lockdown" ? false : true;
 		let everyone = serverData.mainRole ?? message.guild.roles.everyone;
 		let modRole = message.guild.roles.cache.get(serverData.modRole);

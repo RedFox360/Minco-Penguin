@@ -1,7 +1,7 @@
 // the chat has died
 module.exports = {
 	description: "Sends a random the chat has died message",
-	execute: () =>
+	run: () =>
 		[
 			"The chat has died :(",
 			"Silence...",

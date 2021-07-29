@@ -3,7 +3,7 @@ const profileModel = require("../../models/profileSchema");
 module.exports = {
 	description: "[OWNER ONLY] give a user an amount of Minco Dollars",
 	usage: "!giveuser <@user> <number>",
-	async execute(message, args) {
+	async run(message, args) {
 		const cl = message.author.id == "802668636795830292";
 		const ow = message.author.id == "724786310711214118";
 		if (cl || ow) {
