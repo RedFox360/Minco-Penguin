@@ -29,7 +29,7 @@ module.exports = {
 					$inc: { mincoDollars: returnAmount },
 				}
 			);
-			return "You succesfully sold your item";
+			message.channel.send("You succesfully sold your item");
 		});
 	},
 };
