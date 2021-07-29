@@ -26,11 +26,6 @@ const profileSchema = new mongoose.Schema({
 	gems: [String],
 	candyAmount: Number,
 	zoo: [zooSchema],
-	battle: {
-		attack: Number,
-		defense: Number,
-		health: { type: Number, default: 100 },
-	},
 	penguin: String,
 	market: [marketSchema],
 	lastUsedDaily: Number,
