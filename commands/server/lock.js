@@ -7,7 +7,7 @@ module.exports = {
 	permissions: ["MANAGE_CHANNELS", "MANAGE_MESSAGES"],
 	/** @param {Message} message */
 	run(message, args, cmd, _0, _1, serverData) {
-		var SEND_MESSAGES = cmd === "unlock";
+		let SEND_MESSAGES = cmd === "unlock";
 		message.channel.updateOverwrite(message.guild.roles.everyone, {
 			SEND_MESSAGES,
 		});

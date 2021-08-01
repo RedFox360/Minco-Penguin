@@ -7,11 +7,11 @@ module.exports = {
 	/** @param {Message} message */
 	async run(message) {
 		if (message.author.id == "804755578702266399" || message.author.id == "724786310711214118") {
-			var options = [1, 25, 50, 75, 100];
-			var users = message.mentions.users.array();
+			let options = [1, 25, 50, 75, 100];
+			let users = message.mentions.users.array();
 			if (!users) return "Mention at least 1 user";
-			var randomUser = users.rand();
-			var randomAmount = options.rand();
+			let randomUser = users.rand();
+			let randomAmount = options.rand();
 			await profileModel.findOneAndUpdate(
 				{ userID: randomUser.id },
 				{

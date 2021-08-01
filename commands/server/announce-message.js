@@ -11,7 +11,7 @@ module.exports = {
 			return "Valid usage: !announce-message <join/leave> <message> or !announce-message format";
 		args.shift();
 		if (first == "format") {
-			return `These texts will be converted to variables.
+			return `These texts will be converted to letiables.
 **{server}** = the server name
 **{mention}** = mention the user who joined
 **{member_count}** = the new server member count

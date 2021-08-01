@@ -15,8 +15,8 @@ module.exports = {
 			`${name} is DEFINITELY lying.`,
 		];
 		let randomInt = Math.floor(Math.random() * randomL.length);
-		var response = randomL[randomInt];
-		var color = response.includes("lying") ? "🔴" : "🟢";
+		let response = randomL[randomInt];
+		let color = response.includes("lying") ? "🔴" : "🟢";
 		if (response.includes("info")) color = "🟡";
 		message.channel.send(`${color} Lie Detector: **${response}**`);
 	},

@@ -10,11 +10,11 @@ module.exports = {
 };
 // note: this is copied from OwO Bot
 function combineNames(name1, name2) {
-	var count1 = -1,
+	let count1 = -1,
 		count2 = -1;
-	var mid1 = Math.ceil(name1.length / 2) - 1;
-	var mid2 = Math.ceil(name2.length / 2) - 1;
-	var noVowel1 = false,
+	let mid1 = Math.ceil(name1.length / 2) - 1;
+	let mid2 = Math.ceil(name2.length / 2) - 1;
+	let noVowel1 = false,
 		noVowel2 = false;
 	for (i = mid1; i >= 0; i--) {
 		count1++;
@@ -33,7 +33,7 @@ function combineNames(name1, name2) {
 		}
 	}
 
-	var name = "";
+	let name = "";
 	if (noVowel1 && noVowel2) {
 		name = name1.substring(0, mid1 + 1);
 		name += name2.substring(mid2);

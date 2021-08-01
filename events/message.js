@@ -181,8 +181,8 @@ function sendC(message, info, resetCooldown) {
 	}
 }
 function getParamNames(func) {
-	var fnStr = func.toString().replace(removeComments, "");
-	var result = fnStr.slice(fnStr.indexOf("(") + 1, fnStr.indexOf(")")).match(argumentNames);
+	let fnStr = func.toString().replace(removeComments, "");
+	let result = fnStr.slice(fnStr.indexOf("(") + 1, fnStr.indexOf(")")).match(argumentNames);
 	if (result === null) result = [];
 	return result;
 }

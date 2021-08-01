@@ -10,7 +10,7 @@ module.exports = {
 					msgSplit[i] += " ";
 			}
 		}
-		var msg = msgSplit.join("");
+		let msg = msgSplit.join("");
 		message.channel.send(msg);
 	},
 };

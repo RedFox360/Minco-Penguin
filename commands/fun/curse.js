@@ -4,9 +4,9 @@ module.exports = {
 	/** @param {Message} message */
 	run(message, args) {
 		if (!args[1]) return `Valid usage: ${this.usage}`;
-		var person = args[0];
+		let person = args[0];
 		args.shift();
-		var curse = args.join(" ");
+		let curse = args.join(" ");
 		let checkCurse = curse.toLowerCase();
 		if (
 			checkCurse.includes("avada kedavra") ||

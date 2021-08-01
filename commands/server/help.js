@@ -10,9 +10,9 @@ module.exports = {
 	 * @param {Discord.Client} client
 	 */
 	async run(message, args, _, client) {
-		var color = "C782FE"; // light purple
-		var author = [message.authorName(), message.author.avatarURL()];
-		var titles = [
+		let color = "C782FE"; // light purple
+		let author = [message.authorName(), message.author.avatarURL()];
+		let titles = [
 			"Minco Penguin Commands",
 			"INFO/USEFUL Commands",
 			"FUN Commands",
@@ -22,7 +22,7 @@ module.exports = {
 			"ECONOMY Commands",
 			"ITEM Commands",
 		];
-		var description = `Use the :arrow_left: and :arrow_right: reactions to switch between pages.
+		let description = `Use the :arrow_left: and :arrow_right: reactions to switch between pages.
 Don't put **< >** in the actual commands.
 **( )** show optional arguments
 **ms** means write '1m, 2 seconds, 4 days', etc.
@@ -76,7 +76,7 @@ Don't put **< >** in the actual commands.
 				.setColor(color);
 			return message.channel.send(commandEmbed);
 		}
-		var currentPage = 0;
+		let currentPage = 0;
 		const helpEmbed = new Discord.MessageEmbed()
 			.setAuthor(...author)
 			.setTitle(titles[currentPage])

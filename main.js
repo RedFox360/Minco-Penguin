@@ -9,8 +9,8 @@ require("./handlers/command_handler")(client);
 require("./handlers/event_handler")(client);
 
 Array.prototype.rand = function () {
-	var ri = Math.floor(Math.random() * this.length);
-	var val = this[ri];
+	let ri = Math.floor(Math.random() * this.length);
+	let val = this[ri];
 
 	return val;
 };

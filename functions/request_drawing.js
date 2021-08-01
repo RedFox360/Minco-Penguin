@@ -12,7 +12,7 @@ module.exports =
 	async (message, args, client, profileData) => {
 		const claire = await client.users.fetch("802668636795830292");
 		args.shift();
-		var drawing = args.join(" ");
+		let drawing = args.join(" ");
 		if (!args[1]) return "Valid usage: !buy drawing <drawing>";
 		let requestEmbed = new Discord.MessageEmbed()
 			.setColor("#70FFC2")
@@ -43,8 +43,8 @@ module.exports =
 		} catch (err) {
 			console.error(err);
 		}
-		var reacted = false;
-		var accepted = false;
+		let reacted = false;
+		let accepted = false;
 		const filter = (_, user) => user.id !== "725917919292162051";
 		const collector = reactMsgCl.createReactionCollector(filter, {
 			time: ms("12m"),

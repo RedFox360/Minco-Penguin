@@ -6,16 +6,16 @@ module.exports = {
 	run(_, args, cmd) {
 		if (!args[0]) return "Please enter an argument (valid usage: !prime <Number>)";
 		let numberString = args[0].replace(/,/g, "");
-		var primeNumber = parseInt(numberString);
+		let primeNumber = parseInt(numberString);
 		if (isNaN(primeNumber)) return "Enter a valid number";
 		if (primeNumber <= 0) return "Please enter a positive number";
-		var composite = cmd === "composite";
+		let composite = cmd === "composite";
 		return isPrime(primeNumber, composite);
 	},
 };
 /** @param {number} number */
 function isPrime(number, useComposite) {
-	var isPrimeText, isntPrimeText;
+	let isPrimeText, isntPrimeText;
 	if (useComposite) {
 		isPrimeText = "isn't composite";
 		isntPrimeText = "is composite";

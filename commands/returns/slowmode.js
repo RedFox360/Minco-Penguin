@@ -7,7 +7,7 @@ module.exports = {
 	/** @param {Message} message */
 	run(message, args) {
 		if (!args.length) return "You didn't provide any arguments.";
-		var slowmode;
+		let slowmode;
 		if (args[0] == "off") {
 			slowmode = 0;
 		} else if (isNaN(parseInt(args[0]))) {

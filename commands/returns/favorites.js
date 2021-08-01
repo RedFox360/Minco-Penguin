@@ -6,7 +6,7 @@ module.exports = {
 	aliases: ["favs"],
 	/** @param {Message} message */
 	async run(message) {
-		var id, avatarURL;
+		let id, avatarURL;
 		const mention = message.mentions.users.first();
 		if (mention) {
 			id = mention.id;
@@ -16,7 +16,7 @@ module.exports = {
 			avatarURL = message.author.avatarURL();
 		}
 		let profile = await profileModel.findOne({ userID: id });
-		var { animal, color, food } = profile.favs;
+		let { animal, color, food } = profile.favs;
 		message.channel.send(
 			new MessageEmbed()
 				.setTitle("Favorites")
