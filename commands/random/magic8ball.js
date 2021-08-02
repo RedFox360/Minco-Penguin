@@ -10,7 +10,6 @@ module.exports = {
 			return "Stop asking questions about crushes!";
 		let yesAnswers = [
 			"Yes",
-			"It is decidedly so",
 			"OBVIOUSLY",
 			"Undoubtedly",
 			"Ofc",
@@ -36,6 +35,7 @@ module.exports = {
 			"Why did you even ask that? No!",
 		];
 		let neutralAnswers = [
+			"It is decidedly so",
 			"I am not completely sure",
 			"Why did you even ask that?",
 			"Sorry, I was confunded. Try again.",
