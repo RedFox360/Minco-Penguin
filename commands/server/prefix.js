@@ -3,6 +3,7 @@ module.exports = {
 	description:
 		"Add a prefix or clear the prefixes of the server (pinging the bot will always be a prefix)",
 	usage: "!prefix add <prefix> or !prefix reset",
+	permissions: ["ADMINISTRATOR"],
 	async run(message, args) {
 		if (args[0] == "add") {
 			if (!args[1]) return "Enter a prefix";
