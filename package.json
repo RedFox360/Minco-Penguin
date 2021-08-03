@@ -2,10 +2,10 @@
 	"name": "minco-penguin",
 	"version": "1.0.0",
 	"description": "Minco Penguin discord bot!",
-	"main": "src/main.js",
+	"main": "main.js",
 	"scripts": {
 		"test": "echo hello",
-		"start": "node ."
+		"start": "node main.js"
 	},
 	"author": "Sameer Prakash",
 	"license": "ISC",
