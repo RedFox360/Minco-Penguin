@@ -5,7 +5,7 @@
 	"main": "src/main.js",
 	"scripts": {
 		"test": "echo hello",
-		"start": "node src/main.js"
+		"start": "node ."
 	},
 	"author": "Sameer Prakash",
 	"license": "ISC",
