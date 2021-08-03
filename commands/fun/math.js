@@ -29,7 +29,6 @@ module.exports = {
 		else if (oper == "*") result = num1 * num2;
 		message.channel.send(`${message.author.toString()}, what is ${num1} ${oper} ${num2}?`);
 		const filter = (m) => m.author.id == message.author.id;
-		const collector = message.channel.createMessageCollector(filter, { time: 20000, max: 1 });
 		let sendTimeOut = true;
 		let amount = randomInt(10, 20);
 		if (profileData.spouse != null) {
@@ -39,28 +38,30 @@ module.exports = {
 			// has a bear
 			amount = randomInt(10, 23);
 		}
-		collector.on("collect", async (m) => {
-			sendTimeOut = false;
-			let guess = m.content.replace(/,/g, "").replace(/ +/, "");
-			if (isNaN(parseInt(guess))) sendTimeOut = true;
-			if (parseInt(guess) == result) {
-				message.channel.send("Correct!");
-				message.channel.send(`You won ${amount} Minco Dollars!`);
-				await profileModel.findOneAndUpdate(
-					{ userID: message.author.id },
-					{
-						$inc: {
-							mincoDollars: amount,
-						},
-					}
-				);
-			} else {
-				message.channel.send(`Incorrect! The correct answer is ${result}`);
-			}
-		});
-		collector.on("end", () => {
-			if (sendTimeOut) return message.reply("Timed out!");
-		});
+		message.channel
+			.awaitMessages(filter, { max: 1, time: 20000, errors: ["time"] })
+			.then(async () => {
+				sendTimeOut = false;
+				let guess = m.content.replace(/,/g, "").replace(/ +/, "");
+				if (isNaN(parseInt(guess))) sendTimeOut = true;
+				if (parseInt(guess) == result) {
+					message.channel.send("Correct!");
+					message.channel.send(`You won ${amount} Minco Dollars!`);
+					await profileModel.findOneAndUpdate(
+						{ userID: message.author.id },
+						{
+							$inc: {
+								mincoDollars: amount,
+							},
+						}
+					);
+				} else {
+					message.channel.send(`Incorrect! The correct answer is ${result}`);
+				}
+			})
+			.catch(() => {
+				message.reply("Timed out!");
+			});
 	},
 };
 

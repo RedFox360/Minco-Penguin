@@ -30,9 +30,8 @@ module.exports = {
 		);
 		await checkM.react("✅");
 		const filter = (reaction, u) => u.id === user.id && reaction.emoji.name === "✅";
-		const collector = checkM.createReactionCollector(filter, { time: ms("90s"), limit: 1 });
 		let onEnd = true;
-		collector.on("collect", async (reaction, user) => {
+		checkM.awaitReactions(filter, { time: ms("30s"), max: 1 }).then(async (reaction, user) => {
 			onEnd = false;
 			message.channel.send("Request approved...");
 			await profileModel.findOneAndUpdate(
@@ -54,9 +53,6 @@ module.exports = {
 			message.channel.send("Transaction successful!").then(async (m) => {
 				await m.react("💵");
 			});
-		});
-		collector.on("end", (collected) => {
-			if (onEnd) message.channel.send("Timed out...");
 		});
 	},
 };

@@ -20,8 +20,7 @@ module.exports = {
 		const filter = (reaction, user) =>
 			reaction.emoji.name === "✅" && user.id === message.author.id;
 
-		const collector = msg.createReactionCollector(filter, { time: 30000, max: 1 });
-		collector.on("collect", async () => {
+		msg.awaitReactions(filter, { time: 30000, max: 1 }).then(async () => {
 			await profileModel.findOneAndUpdate(
 				{ userID: message.author.id },
 				{

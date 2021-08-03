@@ -7,17 +7,14 @@ module.exports = {
 			);
 			const filter = (reaction, user) => user.id === message.author.id;
 			msg.react("✅").catch(console.error);
-			const collector = await msg.createReactionCollector(filter, {
-				time: 5000,
-			});
-			collector.on("collect", (reaction, user) => {
-				message.channel.send("Leaving...");
-				message.guild.leave();
-			});
-
-			collector.on("end", (collected) => {
-				message.channel.send("Timed out. Canceling...");
-			});
+			msg
+				.awaitReactions(filter, {
+					time: 5000,
+				})
+				.then((reaction, user) => {
+					message.channel.send("Leaving...");
+					message.guild.leave();
+				});
 		}
 	},
 };

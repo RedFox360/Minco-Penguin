@@ -28,9 +28,7 @@ module.exports = {
 
 		msg.react("✅");
 		const filter = (reaction, user) => reaction.emoji.name === "✅" && user.id === mention.id;
-		const reactionCollector = msg.createReactionCollector(filter, { time: ms("3m"), max: 1 });
-
-		reactionCollector.on("collect", async () => {
+		msg.awaitReactions(filter, { time: ms("3m"), max: 1 }).then(async () => {
 			await profileModel.findOneAndUpdate(
 				{ userID: message.author.id },
 				{
