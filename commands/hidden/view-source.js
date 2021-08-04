@@ -1,14 +1,14 @@
-const { readFile } = require("fs");
-const { MessageAttachment } = require("discord.js");
+const { readFileSync } = require("fs");
 module.exports = {
 	description: "[OWNER ONLY] View the contents of a file",
 
 	run(message, args) {
 		if (message.author.id != "724786310711214118") return;
-		readFile(args.join(" "), (err, data) => {
-			if (err) return message.channel.send("There was an error / enter a valid file");
-
-			message.channel.send(new MessageAttachment(data));
-		});
+		try {
+			const file = readFileSync(args.join(" "), { encoding: "utf-8" });
+		} catch (error) {
+			return message.reply("An error occured / enter a valid file");
+		}
+		message.channel.send("```js\n" + file + "\n```");
 	},
 };
