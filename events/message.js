@@ -159,7 +159,7 @@ module.exports = async (client, message) => {
 	timeStamps.set(message.author.id, currentTime);
 	try {
 		if (getParamNames(command.run).includes("serverData"))
-			return "This command cannot be used in DMs";
+			return message.channel.send("This command cannot be used in DMs");
 		const t = command.run(message, args, cmd, client, profileData, serverData);
 		if (typeof t === "string") sendC(message, t, resetCooldown);
 		if (t instanceof Promise) {
