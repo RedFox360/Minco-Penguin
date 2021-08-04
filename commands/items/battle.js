@@ -21,7 +21,8 @@ module.exports = {
 			}>, ${message.author.toString()} has challenged you to a battle! Accept by reacting with a ✅`
 		);
 		msg.react("✅");
-		msg.awaitReactions(filter, { time: ms("3m") }).then(async () => {
+		const reactionCollector = msg.createReactionCollector(filter, { time: ms("3m") });
+		reactionCollector.on("collect", async () => {
 			let [attack, defense, health] = await calculatePower(message.author.id);
 			let [mattack, mdefense, mhealth] = await calculatePower(mention.id);
 			const name = message.authorName();

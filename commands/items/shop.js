@@ -101,7 +101,8 @@ module.exports = {
 			console.error(err);
 		}
 		const filter = (_, user) => user.id === message.author.id;
-		shopMsg.awaitReactions(filter, { time: ms("4m") }).then(async (reaction) => {
+		const collector = shopMsg.createReactionCollector(filter, { time: ms("4m") });
+		collector.on("collect", async (reaction) => {
 			if (reaction.emoji.name == "⬅️") {
 				if (currentPage != 0) currentPage--;
 				shopEmbed

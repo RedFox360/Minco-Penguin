@@ -23,7 +23,8 @@ module.exports = {
 		);
 		await marryMsg.react("✅");
 		const filter = (reaction, u) => reaction.emoji.name === "✅" && u.id === user.id;
-		marryMsg.awaitReactions(filter, { time: ms("2m"), max: 1 }).then(async () => {
+		const collector = marryMsg.createReactionCollector(filter, { time: ms("2m"), max: 1 });
+		collector.on("collect", async () => {
 			await profileModel.findOneAndUpdate(
 				{ userID: message.author.id },
 				{

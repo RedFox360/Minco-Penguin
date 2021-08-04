@@ -95,7 +95,8 @@ Don't put **< >** in the actual commands.
 		}
 
 		const filter = (_, user) => user.id === message.author.id;
-		helpMsg.awaitReactions(filter, { time: ms("4m") }).then(async (reaction) => {
+		const collector = helpMsg.createReactionCollector(filter, { time: ms("4m") });
+		collector.on("collect", async (reaction) => {
 			if (reaction.emoji.name == "⬅️") {
 				if (currentPage != 0) currentPage--;
 				if (currentPage == 0) {

@@ -92,7 +92,8 @@ module.exports = {
 				}
 
 				const filter = (_, user) => user.id === message.author.id;
-				msg.awaitReactions(filter, { time: ms("4m") }).then(async (reaction) => {
+				const collector = msg.createReactionCollector(filter, { time: ms("4m") });
+				collector.on("collect", async (reaction) => {
 					if (reaction.emoji.name == "⬅️") {
 						firstEmbed.setTimestamp();
 						msg.edit(firstEmbed);
