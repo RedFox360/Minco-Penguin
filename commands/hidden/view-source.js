@@ -10,6 +10,8 @@ module.exports = {
 		} catch (error) {
 			return message.reply("An error occured / enter a valid file");
 		}
-		message.channel.send("```js\n" + file + "\n```");
+		message.channel.send(`\`\`\`${args.join(" ").split(".")[1]}
+${file}
+\`\`\``);
 	},
 };
