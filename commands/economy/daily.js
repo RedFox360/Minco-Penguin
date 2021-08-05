@@ -20,8 +20,8 @@ module.exports = {
 		if (message.guild) dailyEmbed.setFooter(message.guild.name);
 		let description = "";
 		let upperLimit = 50;
-		if (profile.spouse != null) upperLimit = 65;
-		else if (profile.market.includes("07")) upperLimit = 57;
+		if (profileData.dailyspouse != null) upperLimit = 65;
+		else if (profileData.market.includes("07")) upperLimit = 57;
 		const randomAmount = randomInt(25, upperLimit);
 
 		await profileModel.findOneAndUpdate(
