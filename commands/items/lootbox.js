@@ -5,9 +5,10 @@ module.exports = {
 	description: "Use your lootbox!",
 	cooldown: "1m",
 	async run(message, _0, _1, _2, profileData) {
-		if (!profileData.inventory.includes("10")) return "You don't have a lootbox!";
+		if (!profileData.inventory.includes("10"))
+			return "You don't have a lootbox!";
 
-		const mincoAmount = randomInt(35, 70);
+		const mincoAmount = randomInt(30, 70);
 
 		await profileModel.findOneAndUpdate(
 			{ userID: message.author.id },
@@ -15,6 +16,11 @@ module.exports = {
 				$inc: {
 					mincoDollars: mincoAmount,
 				},
+			}
+		);
+		await profileModel.findOneAndUpdate(
+			{ userID: message.author.id },
+			{
 				$pull: {
 					inventory: "10",
 				},
@@ -40,7 +46,10 @@ module.exports = {
 				message.channel.send(`You won a ${gemName}!`);
 			}
 		}
-		if (Math.floor(Math.random() * 4) == 0 && !profileData.inventory.includes("05")) {
+		if (
+			Math.floor(Math.random() * 4) == 0 &&
+			!profileData.inventory.includes("05")
+		) {
 			await profileModel.findOneAndUpdate(
 				{
 					userID: message.author.id,
