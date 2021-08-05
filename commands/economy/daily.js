@@ -19,8 +19,11 @@ module.exports = {
 			.setAuthor("Daily Reward", message.author.avatarURL());
 		if (message.guild) dailyEmbed.setFooter(message.guild.name);
 		let description = "";
+		let upperLimit = 50;
+		if (profile.spouse != null) upperLimit = 65;
+		else if (profile.market.includes("07")) upperLimit = 57;
+		const randomAmount = randomInt(25, upperLimit);
 
-		const randomAmount = randomInt(25, 60);
 		await profileModel.findOneAndUpdate(
 			{
 				userID: message.author.id,
@@ -35,7 +38,10 @@ module.exports = {
 
 		description += `You earned ${randomAmount} Minco Dollars!`;
 
-		if (Math.floor(Math.random() * 4) == 0 && !profileData.inventory.includes("05")) {
+		if (
+			Math.floor(Math.random() * 4) == 0 &&
+			!profileData.inventory.includes("05")
+		) {
 			await profileModel.findOneAndUpdate(
 				{
 					userID: message.author.id,
