@@ -29,6 +29,7 @@ const profileSchema = new mongoose.Schema({
 	penguin: String,
 	market: [marketSchema],
 	lastUsedDaily: Number,
+	cooldowns: Map,
 });
 
 const model = mongoose.model("ProfileModels", profileSchema);
