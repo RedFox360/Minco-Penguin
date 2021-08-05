@@ -2,6 +2,7 @@ const filter = require("leo-profanity");
 filter.remove(["suck", "sucks"]);
 const removeComments = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/gm;
 const argumentNames = /([^\s,]+)/g;
+const cooldowns = new Map();
 const validPermissions = require("../functions/permissions.json");
 const profileModel = require("../models/profileSchema");
 const serverModel = require("../models/serverSchema");
@@ -72,8 +73,7 @@ module.exports = async (client, message) => {
 	const args = message.content.slice(prefix.length).split(/ +/);
 	const cmd = args.shift().toLowerCase();
 	const command =
-		client.commands.get(cmd) ||
-		client.commands.find((a) => a.aliases && a.aliases.includes(cmd));
+		client.commands.get(cmd) || client.commands.find((a) => a.aliases && a.aliases.includes(cmd));
 	if (!command) return;
 	if (command.servers?.includes(message.guild?.id) === false) {
 		return;
@@ -83,9 +83,7 @@ module.exports = async (client, message) => {
 			for (let i = 0; i < serverData.bannedPeople.length; i++) {
 				let person = serverData.bannedPeople[i];
 				if (message.author.id == person) {
-					return message.channel.send(
-						"You were banned from using Minco Penguin."
-					);
+					return message.channel.send("You were banned from using Minco Penguin.");
 				}
 			}
 		}
@@ -127,38 +125,37 @@ module.exports = async (client, message) => {
 		}
 	}
 
-	const { cooldowns } = profileData;
 	if (!cooldowns.has(command.description))
-		cooldowns.set(command.description, 0);
+		cooldowns.set(command.description, new Discord.Collection());
 	const currentTime = Date.now();
+	const timeStamps = cooldowns.get(command.description);
 	const cooldown = command.cooldown;
-	const cooldownAmount =
-		typeof cooldown === "string" ? ms(cooldown) : (cooldown || 2) * 1000;
-	const expTime = cooldowns.get(command.description) + cooldownAmount;
-	if (currentTime < expTime) {
-		const timeLeft = expTime - currentTime;
-		let timeEmbed = new Discord.MessageEmbed()
-			.setColor("RED")
-			.setTitle("Cooldown")
-			.setDescription(
-				`Please wait ${prettyMs(timeLeft)} before using command ${cmd}`
-			);
-		message.channel.send(timeEmbed).then((msg) => {
-			setTimeout(() => {
-				msg.delete();
-			}, timeLeft);
-		});
-		setTimeout(() => {
-			message.delete().catch(() => {
-				// cmd runned in dm
+	const cooldownAmount = typeof cooldown === "string" ? ms(cooldown) : (cooldown || 2) * 1000;
+	if (timeStamps.has(message.author.id)) {
+		const expTime = timeStamps.get(message.author.id) + cooldownAmount;
+		if (currentTime < expTime) {
+			const timeLeft = expTime - currentTime;
+			let timeEmbed = new Discord.MessageEmbed()
+				.setColor("RED")
+				.setTitle("Cooldown")
+				.setDescription(`Please wait ${prettyMs(timeLeft)} before using command ${cmd}`);
+			message.channel.send(timeEmbed).then((msg) => {
+				setTimeout(() => {
+					msg.delete();
+				}, timeLeft);
 			});
-		}, timeLeft + 15000);
-		return;
+			setTimeout(() => {
+				message.delete().catch(() => {
+					// cmd runned in dm
+				});
+			}, timeLeft + 15000);
+			return;
+		}
 	}
 	const resetCooldown = () => {
-		cooldowns.delete(command.description);
+		timeStamps.delete(message.author.id);
 	};
-	cooldowns.set(command.description, currentTime);
+	timeStamps.set(message.author.id, currentTime);
 	try {
 		if (getParamNames(command.run).includes("serverData"))
 			return message.channel.send("This command cannot be used in DMs");
@@ -184,9 +181,7 @@ function sendC(message, info, resetCooldown) {
 }
 function getParamNames(func) {
 	let fnStr = func.toString().replace(removeComments, "");
-	let result = fnStr
-		.slice(fnStr.indexOf("(") + 1, fnStr.indexOf(")"))
-		.match(argumentNames);
+	let result = fnStr.slice(fnStr.indexOf("(") + 1, fnStr.indexOf(")")).match(argumentNames);
 	if (result === null) result = [];
 	return result;
 }
