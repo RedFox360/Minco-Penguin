@@ -12,7 +12,7 @@ module.exports = async (client, member) => {
 		{ serverID: member.guild.id },
 		{
 			$inc: {
-				memberCount: +member.user.bot,
+				memberCount: member.user.bot ? 0 : 1,
 			},
 		},
 		{
