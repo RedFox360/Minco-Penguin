@@ -46,6 +46,7 @@ const ms = require("ms");
  * @param {Discord.Client} client
  */
 module.exports = async (message, client) => {
+	return;
 	let serverData;
 	try {
 		serverData = await serverModel.findOne({ serverID: message.guild.id });
