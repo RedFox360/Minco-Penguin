@@ -7,6 +7,9 @@
 		"test": "echo hello",
 		"start": "ts-node src/main.ts"
 	},
+	"engines": {
+		"node": "16.6.1"
+	},
 	"author": "Sameer Prakash",
 	"license": "ISC",
 	"dependencies": {

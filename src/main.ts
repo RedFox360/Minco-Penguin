@@ -4,6 +4,7 @@ import { connect } from "mongoose";
 import { config as loadenv } from "dotenv";
 import commandHandler from "./handlers/command_handler";
 import eventHandler from "./handlers/event_handler";
+import slashHandler from "./handlers/slash_handler";
 loadenv();
 
 const client = new Client({
@@ -18,6 +19,7 @@ const client = new Client({
 client.on("ready", async () => {
 	commandHandler(client);
 	eventHandler(client);
+	slashHandler(client);
 	console.log(`${client.user.tag} is online!`);
 });
 
