@@ -1,12 +1,14 @@
 const animals = require("../../functions/animals.json");
 const profileModel = require("../../models/profileSchema");
-const { hasAnimal } = require("../../functions/animalFunctions");
+
 module.exports = {
 	description: "Pay 20 MD for a random animal!",
 	cooldown: "12m",
 	async run(message, _0, _1, _2, profileData) {
-		if (profileData.zoo.length >= 15) return "You have reached the maximum amount of animals (15)";
-		if (profileData.mincoDollars < 20) return "You need 20 Minco Dollars to buy an animal";
+		if (profileData.zoo.length >= 15)
+			return "You have reached the maximum amount of animals (15)";
+		if (profileData.mincoDollars < 20)
+			return "You need 20 Minco Dollars to buy an animal";
 		let randomAnimal = animals.rand();
 		while (hasAnimal(randomAnimal.name, profileData)) {
 			randomAnimal = animals.rand();
@@ -24,6 +26,11 @@ module.exports = {
 				},
 			}
 		);
-		message.channel.send(`You bought a ${randomAnimal.name} ${randomAnimal.emoji} for 20 MD!`);
+		message.channel.send(
+			`You bought a ${randomAnimal.name} ${randomAnimal.emoji} for 20 MD!`
+		);
 	},
 };
+function hasAnimal(name, profileData) {
+	return profileData.zoo.find((item) => item.name === name);
+}
