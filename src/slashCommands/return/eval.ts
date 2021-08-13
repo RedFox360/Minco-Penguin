@@ -1,20 +1,18 @@
 import { CommandData } from "../../types";
 import { MessageEmbed } from "discord.js";
 import { transpile } from "typescript";
+import { SlashCommandBuilder } from "@discordjs/builders";
 import prettyMs from "pretty-ms";
 
-export const data = {
-	name: "eval",
-	description: "Execute Javascript code",
-	options: [
-		{
-			name: "code",
-			type: "STRING",
-			description: "The code to execute",
-			required: true,
-		},
-	],
-};
+export const data = new SlashCommandBuilder()
+	.setName("eval")
+	.setDescription("Execute Javascript code")
+	.addStringOption((option) =>
+		option
+			.setName("code")
+			.setDescription("The code to execute")
+			.setRequired(true)
+	);
 
 export async function run({ interaction }: CommandData) {
 	if (

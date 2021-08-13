@@ -1,18 +1,16 @@
 import { CommandData } from "../../types";
 import { MessageEmbed } from "discord.js";
+import { SlashCommandBuilder } from "@discordjs/builders";
 
-export const data = {
-	name: "market_remove",
-	description: "Remove an item from your market",
-	options: [
-		{
-			name: "item_name",
-			description: "The name of the item you want to remove",
-			type: "STRING",
-			required: true,
-		},
-	],
-};
+export const data = new SlashCommandBuilder()
+	.setName("market_remove")
+	.setDescription("Remove an item from your market")
+	.addStringOption((option) =>
+		option
+			.setName("item_name")
+			.setDescription("The name of the item you want to remove")
+			.setRequired(true)
+	);
 
 export async function run({
 	interaction,

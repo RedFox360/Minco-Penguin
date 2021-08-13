@@ -1,32 +1,30 @@
 import { CommandData } from "../../types";
 import { MessageEmbed } from "discord.js";
+import { SlashCommandBuilder } from "@discordjs/builders";
 
-export const data = {
-	name: "poll",
-	description:
-		"Send a poll to the channel with thumbsup and thumbsdown reactions",
-
-	options: [
-		{
-			name: "question",
-			description: "The question you want to ask",
-			type: "STRING",
-			required: true,
-		},
-		{
-			name: "emoji_1",
-			description: "The first emoji in the poll",
-			type: "STRING",
-			required: false,
-		},
-		{
-			name: "emoji_2",
-			description: "The second emoji in the poll",
-			type: "STRING",
-			required: false,
-		},
-	],
-};
+export const data = new SlashCommandBuilder()
+	.setName("poll")
+	.setDescription(
+		"Send a poll to the channel with thumbsup and thumbsdown reactions"
+	)
+	.addStringOption((option) =>
+		option
+			.setName("question")
+			.setDescription("The question you want to ask")
+			.setRequired(true)
+	)
+	.addStringOption((option) =>
+		option
+			.setName("emoji_1")
+			.setDescription("The first emoji in the poll")
+			.setRequired(false)
+	)
+	.addStringOption((option) =>
+		option
+			.setName("emoji_2")
+			.setDescription("The second emoji in the poll")
+			.setRequired(false)
+	);
 
 export async function run({ interaction }: CommandData) {
 	const question = interaction.options.getString("question");

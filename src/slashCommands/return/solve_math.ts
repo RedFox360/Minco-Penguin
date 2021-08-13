@@ -1,18 +1,16 @@
 import { CommandData } from "../../types";
 import { evaluate } from "mathjs";
+import { SlashCommandBuilder } from "@discordjs/builders";
 
-export const data = {
-	name: "solve_math",
-	description: "Solve a math equation",
-	options: [
-		{
-			name: "equation",
-			description: "The equation to solve",
-			type: "STRING",
-			required: true,
-		},
-	],
-};
+export const data = new SlashCommandBuilder()
+	.setName("solve_math")
+	.setDescription("Solve a math equation")
+	.addStringOption((option) =>
+		option
+			.setName("equation")
+			.setDescription("The equation to solve")
+			.setRequired(true)
+	);
 
 export async function run({ interaction }: CommandData) {
 	const equation = interaction.options.getString("equation");

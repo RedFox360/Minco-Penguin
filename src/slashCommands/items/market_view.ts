@@ -1,18 +1,16 @@
 import { MessageEmbed } from "discord.js";
 import { CommandData } from "../../types";
+import { SlashCommandBuilder } from "@discordjs/builders";
 
-export const data = {
-	name: "market_view",
-	description: "View the market of a user",
-	options: [
-		{
-			name: "user",
-			description: "The user whose market to view",
-			type: "USER",
-			required: true,
-		},
-	],
-};
+export const data = new SlashCommandBuilder()
+	.setName("market_view")
+	.setDescription("View the market of a user")
+	.addUserOption((option) =>
+		option
+			.setName("user")
+			.setDescription("The user whose market to view")
+			.setRequired(true)
+	);
 
 export async function run({
 	interaction,

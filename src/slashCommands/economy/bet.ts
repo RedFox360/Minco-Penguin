@@ -1,18 +1,16 @@
 import { CommandData } from "../../types";
 import { MessageEmbed } from "discord.js";
+import { SlashCommandBuilder } from "@discordjs/builders";
 
-export const data = {
-	name: "bet",
-	description: "Bet a number of your Minco Dollars!",
-	options: [
-		{
-			name: "amount",
-			description: "The amount of MD you want to bet",
-			type: "INTEGER",
-			required: true,
-		},
-	],
-};
+export const data = new SlashCommandBuilder()
+	.setName("bet")
+	.setDescription("Bet a number of your Minco Dollars!")
+	.addIntegerOption((option) =>
+		option
+			.setName("amount")
+			.setDescription("The amount of MD you want to bet")
+			.setRequired(true)
+	);
 
 export async function run({
 	interaction,

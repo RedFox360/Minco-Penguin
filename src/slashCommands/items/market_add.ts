@@ -1,30 +1,28 @@
 import { MessageEmbed } from "discord.js";
 import { CommandData } from "../../types";
+import { SlashCommandBuilder } from "@discordjs/builders";
 
-export const data = {
-	name: "market_add",
-	description: "Add an item to your market",
-	options: [
-		{
-			name: "price",
-			description: "The price of the item",
-			type: "INTEGER",
-			required: true,
-		},
-		{
-			name: "item_name",
-			description: "The name of your item",
-			type: "STRING",
-			required: true,
-		},
-		{
-			name: "description",
-			description: "A description of your item",
-			type: "STRING",
-			required: false,
-		},
-	],
-};
+export const data = new SlashCommandBuilder()
+	.setName("market_add")
+	.setDescription("Add an item to your market")
+	.addIntegerOption((option) =>
+		option
+			.setName("price")
+			.setDescription("The price of the item")
+			.setRequired(true)
+	)
+	.addStringOption((option) =>
+		option
+			.setName("item_name")
+			.setDescription("The name of your item")
+			.setRequired(true)
+	)
+	.addStringOption((option) =>
+		option
+			.setName("description")
+			.setDescription("A description of your item")
+			.setRequired(false)
+	);
 
 export async function run({
 	interaction,

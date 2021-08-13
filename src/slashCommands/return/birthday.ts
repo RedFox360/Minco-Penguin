@@ -1,17 +1,16 @@
 import { CommandData } from "../../types";
 import { MessageEmbed } from "discord.js";
-export const data = {
-	name: "birthday",
-	description: "View someone's birthday",
-	options: [
-		{
-			name: "user",
-			description: "The user whose birthday the bot will send",
-			type: "USER",
-			required: true,
-		},
-	],
-};
+import { SlashCommandBuilder } from "@discordjs/builders";
+
+export const data = new SlashCommandBuilder()
+	.setName("birthday")
+	.setDescription("View someone's birthday")
+	.addUserOption((option) =>
+		option
+			.setName("user")
+			.setDescription("The user whose birthday to view")
+			.setRequired(true)
+	);
 
 export async function run({ interaction, profileOf }: CommandData) {
 	const user = interaction.options.getUser("user");

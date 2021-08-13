@@ -1,18 +1,16 @@
 import { CommandData } from "../../types";
 import { MessageEmbed } from "discord.js";
+import { SlashCommandBuilder } from "@discordjs/builders";
 
-export const data = {
-	name: "marriage",
-	description: "View a marriage status",
-	options: [
-		{
-			name: "user",
-			description: "The user whose marriage to view",
-			type: "USER",
-			required: false,
-		},
-	],
-};
+export const data = new SlashCommandBuilder()
+	.setName("marriage")
+	.setDescription("View a marriage status")
+	.addUserOption((option) =>
+		option
+			.setName("user")
+			.setDescription("The user whose marriage to view")
+			.setRequired(false)
+	);
 
 export async function run({ interaction, profileOf }: CommandData) {
 	const userOption = interaction.options.getUser("user");

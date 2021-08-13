@@ -1,34 +1,24 @@
 import { MessageEmbed } from "discord.js";
 import { CommandData } from "../../types";
+import { SlashCommandBuilder } from "@discordjs/builders";
 
-export const data = {
-	name: "zoo",
-	description: "View your Minco Zoo!",
-	options: [
-		{
-			name: "view_type",
-			description: "How to view the zoo",
-			type: "STRING",
-			required: true,
-			choices: [
-				{
-					name: "Compact",
-					value: "compact",
-				},
-				{
-					name: "List",
-					value: "list",
-				},
-			],
-		},
-		{
-			name: "user",
-			description: "The user whose zoo to view",
-			type: "USER",
-			required: false,
-		},
-	],
-};
+export const data = new SlashCommandBuilder()
+	.setName("zoo")
+	.setDescription("View your Minco Zoo!")
+	.addStringOption((option) =>
+		option
+			.setName("view_type")
+			.setDescription("How to view the zoo")
+			.setRequired(true)
+			.addChoice("Compact", "compact")
+			.addChoice("List", "list")
+	)
+	.addUserOption((option) =>
+		option
+			.setName("user")
+			.setDescription("The user whose zoo to view")
+			.setRequired(false)
+	);
 
 export async function run({ interaction, profileOf }: CommandData) {
 	const animals = [];

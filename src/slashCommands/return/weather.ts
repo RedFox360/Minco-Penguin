@@ -1,35 +1,26 @@
 import { CommandData } from "../../types";
 import * as weather from "weather-js";
 import { MessageButton, MessageActionRow, MessageEmbed } from "discord.js";
+import { SlashCommandBuilder } from "@discordjs/builders";
 
-export const data = {
-	name: "weather",
-	description: "Get the weather from a location (MSN)",
-	options: [
-		{
-			name: "location",
-			description: "The location to obtain the weather forecast from",
-			type: "STRING",
-			required: true,
-		},
-		{
-			name: "degree_type",
-			description: "The degree type for the weather forecast",
-			type: "STRING",
-			required: true,
-			choices: [
-				{
-					name: "Celsius",
-					value: "C",
-				},
-				{
-					name: "Fahrenheit",
-					value: "F",
-				},
-			],
-		},
-	],
-};
+export const data = new SlashCommandBuilder()
+	.setName("weather")
+	.setDescription("Get the weather from a location (from MSN)")
+	.addStringOption((option) =>
+		option
+			.setName("location")
+			.setDescription("The location to obtain the weather forecast from")
+			.setRequired(true)
+	)
+	.addStringOption((option) =>
+		option
+			.setName("degree_type")
+			.setDescription("The degree type for the weather forecast")
+			.setRequired(true)
+			.addChoice("Celsius", "C")
+			.addChoice("Fahrenheit", "F")
+	);
+
 export async function run({ interaction }: CommandData) {
 	const weatherButton = new MessageButton()
 		.setCustomId("view_weather")

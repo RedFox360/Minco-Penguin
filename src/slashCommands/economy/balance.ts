@@ -1,17 +1,16 @@
 import { CommandData } from "../../types";
 import { MessageEmbed } from "discord.js";
-export const data = {
-	name: "balance",
-	description: "View your balance of Minco Dollars!",
-	options: [
-		{
-			name: "user",
-			type: "USER",
-			description: "The user to view the balance of",
-			required: false,
-		},
-	],
-};
+import { SlashCommandBuilder } from "@discordjs/builders";
+export const data = new SlashCommandBuilder()
+	.setName("balance")
+	.setDescription("View your balance of Minco Dollars!")
+	.addUserOption((option) =>
+		option
+			.setName("user")
+			.setDescription("The user to view the balance of")
+			.setRequired(false)
+	);
+
 export async function run({ interaction, profileOf }: CommandData) {
 	const user = interaction.options.getUser("user") ?? interaction.user;
 	const profile = await profileOf(user.id);

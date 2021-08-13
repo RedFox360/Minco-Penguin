@@ -1,11 +1,12 @@
 import { CommandData } from "../../types";
 import prettyMs from "pretty-ms";
 import { MessageEmbed } from "discord.js";
+import { SlashCommandBuilder } from "@discordjs/builders";
 
-export const data = {
-	name: "ping",
-	description: "Ping the bot",
-};
+export const data = new SlashCommandBuilder()
+	.setName("ping")
+	.setDescription("Ping the bot");
+
 export async function run({ interaction }: CommandData) {
 	await interaction.deferReply();
 	const latency = Math.round(interaction.client.ws.ping);

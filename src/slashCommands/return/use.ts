@@ -1,32 +1,21 @@
 import { CommandData } from "../../types";
 import { randomInt } from "mathjs";
+import { SlashCommandBuilder } from "@discordjs/builders";
 import gems from "../../json/gems.json";
-export const data = {
-	name: "use",
-	description: "Use your items!",
-	options: [
-		{
-			name: "item",
-			description: "The item to use",
-			type: "STRING",
-			required: true,
-			choices: [
-				{
-					name: "Lootbox",
-					value: "lootbox",
-				},
-				{
-					name: "🍅 Tomato",
-					value: "tomato",
-				},
-				{
-					name: "🥚 Egg",
-					value: "egg",
-				},
-			],
-		},
-	],
-};
+
+export const data = new SlashCommandBuilder()
+	.setName("use")
+	.setDescription("Use your items!")
+	.addStringOption((option) =>
+		option
+			.setName("item")
+			.setDescription("The item to use")
+			.setRequired(true)
+			.addChoice("Lootbox", "lootbox")
+			.addChoice("🍅 Tomato", "tomato")
+			.addChoice("🥚 Egg", "egg")
+	);
+
 export const cooldown = 12;
 export async function run(data: CommandData) {
 	const { interaction } = data;

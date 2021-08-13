@@ -1,18 +1,16 @@
 import { MessageEmbed } from "discord.js";
 import { CommandData } from "../../types";
+import { SlashCommandBuilder } from "@discordjs/builders";
 
-export const data = {
-	name: "inventory",
-	description: "View your inventory",
-	options: [
-		{
-			name: "user",
-			description: "The user to view the inventory of",
-			type: "USER",
-			required: false,
-		},
-	],
-};
+export const data = new SlashCommandBuilder()
+	.setName("inventory")
+	.setDescription("View your inventory!")
+	.addUserOption((option) =>
+		option
+			.setName("user")
+			.setDescription("The user to view the inventory of")
+			.setRequired(false)
+	);
 
 export async function run({ interaction, profileOf }: CommandData) {
 	const userExists = interaction.options.getUser("user");

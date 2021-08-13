@@ -1,11 +1,11 @@
 import { CommandData } from "../../types";
 import { MessageActionRow, MessageSelectMenu, GuildMember } from "discord.js";
+import { SlashCommandBuilder } from "@discordjs/builders";
 import shop from "../../json/shop.json";
 
-export const data = {
-	name: "buy",
-	description: "Buy items from the shop!",
-};
+export const data = new SlashCommandBuilder()
+	.setName("buy")
+	.setDescription("Buy items from the shop!");
 
 export async function run({
 	interaction,

@@ -1,16 +1,14 @@
 import { CommandData } from "../../types";
-export const data = {
-	name: "deposit",
-	description: "Deposit money into your bank",
-	options: [
-		{
-			name: "amount",
-			description: "The amount of MD to deposit",
-			type: "INTEGER",
-			required: true,
-		},
-	],
-};
+import { SlashCommandBuilder } from "@discordjs/builders";
+export const data = new SlashCommandBuilder()
+	.setName("deposit")
+	.setDescription("Deposit money into your bank")
+	.addIntegerOption((option) =>
+		option
+			.setName("amount")
+			.setDescription("The amount of MD to deposit")
+			.setRequired(true)
+	);
 
 export async function run({
 	interaction,

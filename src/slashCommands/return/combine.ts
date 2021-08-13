@@ -1,24 +1,16 @@
 import { CommandData } from "../../types";
+import { SlashCommandBuilder } from "@discordjs/builders";
 const vowels = ["a", "e", "i", "o", "u", "y"];
 
-export const data = {
-	name: "combine",
-	description: "Combine 2 names",
-	options: [
-		{
-			name: "name_1",
-			description: "The first name",
-			type: "STRING",
-			required: true,
-		},
-		{
-			name: "name_2",
-			description: "The second name",
-			type: "STRING",
-			required: true,
-		},
-	],
-};
+export const data = new SlashCommandBuilder()
+	.setName("combine")
+	.setDescription("Combine 2 names")
+	.addStringOption((option) =>
+		option.setName("name_1").setDescription("The first name").setRequired(true)
+	)
+	.addStringOption((option) =>
+		option.setName("name_2").setDescription("The second name").setRequired(true)
+	);
 
 export async function run({ interaction }: CommandData) {
 	const n1 = interaction.options.getString("name_1");

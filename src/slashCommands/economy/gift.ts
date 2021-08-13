@@ -1,22 +1,22 @@
 import { CommandData } from "../../types";
-export const data = {
-	name: "gift",
-	description: "Gift money to a user!",
-	options: [
-		{
-			name: "user",
-			description: "The user to gift money to",
-			type: "USER",
-			required: true,
-		},
-		{
-			name: "md_amount",
-			description: "The amount of money to gift",
-			type: "INTEGER",
-			required: true,
-		},
-	],
-};
+import { SlashCommandBuilder } from "@discordjs/builders";
+
+export const data = new SlashCommandBuilder()
+	.setName("gift")
+	.setDescription("Gift money to a user!")
+	.addUserOption((option) =>
+		option
+			.setName("user")
+			.setDescription("The user to gift money to")
+			.setRequired(true)
+	)
+	.addIntegerOption((option) =>
+		option
+			.setName("md_amount")
+			.setDescription("The amount of money to gift")
+			.setRequired(true)
+	);
+
 export async function run({
 	interaction,
 	profile,

@@ -1,4 +1,5 @@
 import { CommandData } from "../../types";
+import { SlashCommandBuilder } from "@discordjs/builders";
 
 const byes = ["Goodbye", "Adios!", "Cheerio!", "Later!", "I'm out."];
 const laughs = [
@@ -10,29 +11,24 @@ const laughs = [
 	"Hahahaha",
 ];
 
-export const data = {
-	name: "word",
-	description: "Send a random hello/goodbye/laugh!",
-	options: [
-		{
-			name: "phrase_type",
-			description: "The phrase type",
-			type: "STRING",
-			required: true,
-			choices: [
-				{ name: "Hello", value: "hello" },
-				{ name: "Goodbye", value: "bye" },
-				{ name: "Laugh", value: "laugh" },
-			],
-		},
-		{
-			name: "user",
-			description: "The user to say hello/bye to",
-			type: "USER",
-			required: false,
-		},
-	],
-};
+export const data = new SlashCommandBuilder()
+	.setName("word")
+	.setDescription("Send a random hello/goodbye/laugh")
+	.addStringOption((option) =>
+		option
+			.setName("phrase_type")
+			.setDescription("The phrase type")
+			.setRequired(true)
+			.addChoice("Hello", "hello")
+			.addChoice("Goodbye", "bye")
+			.addChoice("Laugh", "laugh")
+	)
+	.addUserOption((option) =>
+		option
+			.setName("user")
+			.setDescription("The user the bot will talk to")
+			.setRequired(false)
+	);
 
 export async function run({ interaction }: CommandData) {
 	const phraseType = interaction.options.getString("phrase_type");

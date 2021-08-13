@@ -1,23 +1,21 @@
 import { CommandData } from "../../types";
 import { MessageEmbed } from "discord.js";
+import { SlashCommandBuilder } from "@discordjs/builders";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-export const data = {
-	name: "info",
-	description: "Get the info of a user",
-	options: [
-		{
-			name: "user",
-			description: "The user to get info from",
-			type: "USER",
-			required: true,
-		},
-	],
-};
+export const data = new SlashCommandBuilder()
+	.setName("info")
+	.setDescription("Get the info of a user")
+	.addUserOption((option) =>
+		option
+			.setName("user")
+			.setDescription("The user to get info from")
+			.setRequired(true)
+	);
 
 export async function run({ interaction }: CommandData) {
 	const user = interaction.options.getUser("user");

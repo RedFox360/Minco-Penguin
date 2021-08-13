@@ -1,4 +1,5 @@
 import { CommandData } from "../../types";
+import { SlashCommandBuilder } from "@discordjs/builders";
 
 const responses = [
 	"🔴 You are lying!",
@@ -8,18 +9,12 @@ const responses = [
 	"🔴 You are DEFINITELY lying",
 ];
 
-export const data = {
-	name: "lie_detector",
-	description: "Check if you are lying...",
-	options: [
-		{
-			name: "question",
-			description: "A question",
-			type: "STRING",
-			required: true,
-		},
-	],
-};
+export const data = new SlashCommandBuilder()
+	.setName("lie_detector")
+	.setDescription("Check if you are lying")
+	.addStringOption((option) =>
+		option.setName("question").setDescription("A question").setRequired(true)
+	);
 
 export async function run({ interaction }: CommandData) {
 	const randomResponse =

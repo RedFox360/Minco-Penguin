@@ -1,9 +1,11 @@
 import { CommandData } from "../../types";
 import { randomInt } from "mathjs";
-export const data = {
-	name: "beg",
-	description: "Beg for Minco Dollars!",
-};
+import { SlashCommandBuilder } from "@discordjs/builders";
+
+export const data = new SlashCommandBuilder()
+	.setName("beg")
+	.setDescription("Beg for Minco Dollars!");
+
 export const cooldown = "3.5m";
 export async function run({
 	interaction,

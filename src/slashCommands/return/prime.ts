@@ -1,17 +1,15 @@
 import { CommandData } from "../../types";
+import { SlashCommandBuilder } from "@discordjs/builders";
 
-export const data = {
-	name: "prime",
-	description: "Checks if a num is prime",
-	options: [
-		{
-			name: "number",
-			description: "The number to check",
-			type: "INTEGER",
-			required: true,
-		},
-	],
-};
+export const data = new SlashCommandBuilder()
+	.setName("prime")
+	.setDescription("Checks if a number is prime")
+	.addIntegerOption((option) =>
+		option
+			.setName("number")
+			.setDescription("The number to check")
+			.setRequired(true)
+	);
 
 export async function run({ interaction }: CommandData) {
 	const num = interaction.options.getInteger("number");

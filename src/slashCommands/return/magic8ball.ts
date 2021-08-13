@@ -1,18 +1,17 @@
 import { CommandData } from "../../types";
 import { ColorResolvable, MessageEmbed } from "discord.js";
+import { SlashCommandBuilder } from "@discordjs/builders";
 
-export const data = {
-	name: "magic8ball",
-	description: "A magic 8 ball that can answer any question!",
-	options: [
-		{
-			name: "question",
-			description: "Your question for the 8 ball",
-			type: "STRING",
-			required: true,
-		},
-	],
-};
+export const data = new SlashCommandBuilder()
+	.setName("magic8ball")
+	.setDescription("A magic 8 ball that can answer any question!")
+	.addStringOption((option) =>
+		option
+			.setName("question")
+			.setDescription("Your question for the 8 ball")
+			.setRequired(true)
+	);
+
 export async function run({ interaction }: CommandData) {
 	const question = interaction.options.getString("question");
 	let yesAnswers = [

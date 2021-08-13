@@ -1,9 +1,9 @@
 import { CommandData } from "../../types";
+import { SlashCommandBuilder } from "@discordjs/builders";
 
-export const data = {
-	name: "coinflip",
-	description: "Flip a coin!",
-};
+export const data = new SlashCommandBuilder()
+	.setName("coinflip")
+	.setDescription("Flip a coin!");
 
 export async function run({ interaction }: CommandData) {
 	if (Math.round(Math.random())) {

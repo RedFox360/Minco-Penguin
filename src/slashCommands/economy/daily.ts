@@ -1,14 +1,15 @@
 import { CommandData } from "../../types";
 import { MessageEmbed } from "discord.js";
 import { randomInt } from "mathjs";
+import { SlashCommandBuilder } from "@discordjs/builders";
 import ms from "ms";
 import prettyMs from "pretty-ms";
 const dayLength = ms("1 day");
 
-export const data = {
-	name: "daily",
-	description: "Claim your daily reward!",
-};
+export const data = new SlashCommandBuilder()
+	.setName("daily")
+	.setDescription("Claim your daily reward!");
+
 export async function run({
 	interaction,
 	profile,

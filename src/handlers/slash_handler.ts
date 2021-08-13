@@ -16,9 +16,10 @@ export default async (client: Client) => {
 			const command = await import(
 				`../slashCommands/${category}/${commandName}`
 			);
-			(client as any).commands.set(command.data.name, command);
-			console.log("added " + command.data.name);
-			data.push(command.data);
+			const commandData = command.data.toJSON();
+			(client as any).commands.set(commandData.name, command);
+			console.log("added " + commandData.name);
+			data.push(commandData);
 		}
 	}
 	console.log(`commands added || command count: ${data.length + 1}`);

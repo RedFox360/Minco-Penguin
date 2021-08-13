@@ -1,24 +1,22 @@
 import { CommandData } from "../../types";
 import { MessageButton, MessageActionRow } from "discord.js";
+import { SlashCommandBuilder } from "@discordjs/builders";
 
-export const data = {
-	name: "market_buy",
-	description: "Buy items from a user's market",
-	options: [
-		{
-			name: "user",
-			description: "The user to buy the item from",
-			type: "USER",
-			required: true,
-		},
-		{
-			name: "item_name",
-			description: "The name of the item you want to buy",
-			type: "STRING",
-			required: true,
-		},
-	],
-};
+export const data = new SlashCommandBuilder()
+	.setName("market_buy")
+	.setDescription("Buy items from a user's market")
+	.addUserOption((option) =>
+		option
+			.setName("user")
+			.setDescription("The user to buy the item from")
+			.setRequired(true)
+	)
+	.addStringOption((option) =>
+		option
+			.setName("item_name")
+			.setDescription("The name of the item you want to buy")
+			.setRequired(true)
+	);
 
 export async function run({
 	interaction,
