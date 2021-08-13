@@ -5,7 +5,7 @@ const serverModel = require("../models/serverSchema");
  * @param {MessageReaction} reaction
  * @param {User} user
  */
-module.exports = async (client, reaction, user) => {
+module.exports = async (reaction, user, client) => {
 	const { message } = reaction;
 	if (!message.guild) return;
 	if (reaction.emoji.name !== "⭐" && reaction.emoji.name !== "🌟") return;
@@ -18,7 +18,11 @@ module.exports = async (client, reaction, user) => {
 
 	const channel = await client.channels.fetch(channelID);
 	const embed = new MessageEmbed()
-		.setAuthor(message.member.displayName, message.author.avatarURL(), message.url)
+		.setAuthor(
+			message.member.displayName,
+			message.author.avatarURL(),
+			message.url
+		)
 		.setDescription(message.content)
 		.setFooter(`⭐️  | ${message.id}`)
 		.setTimestamp(message.createdTimestamp)

@@ -4,7 +4,7 @@ const serverModel = require("../models/serverSchema");
  * @param {Discord.Guild} guild
  * @param {Discord.User} user
  */
-module.exports = async (_, guild, user) => {
+module.exports = async (guild, user) => {
 	if (user.bot) return;
 	let serverData = await serverModel.findOneAndUpdate(
 		{ serverID: guild.id },
@@ -15,7 +15,9 @@ module.exports = async (_, guild, user) => {
 	let banEmbed = new Discord.MessageEmbed()
 		.setColor("F75853") // red
 		.setTitle("Banned")
-		.setDescription(`${user.tag} flew too close to the sun and was banned from ${guild.name}.`);
+		.setDescription(
+			`${user.tag} flew too close to the sun and was banned from ${guild.name}.`
+		);
 	const channel = serverData.welcomeChannel
 		? client.channels.cache.get(serverData.welcomeChannel)
 		: member.guild.systemChannel;

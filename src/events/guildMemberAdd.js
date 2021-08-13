@@ -6,7 +6,7 @@ const serverModel = require("../models/serverSchema");
 const ordinal = require("ordinal");
 
 /** @param {Discord.GuildMember} member */
-module.exports = async (client, member) => {
+module.exports = async (member, client) => {
 	let profileData = await profileModel.findOne({ userID: member.id });
 	let serverData = await serverModel.findOneAndUpdate(
 		{ serverID: member.guild.id },

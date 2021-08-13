@@ -4,7 +4,7 @@ const serverModel = require("../models/serverSchema");
  * @param {Guild} guild
  * @param {Client} client
  */
-module.exports = async (client, guild) => {
+module.exports = async (guild, client) => {
 	let members = await guild.members.fetch();
 	let memberCount = members.filter((member) => !member.user.bot).size;
 	let serverProfile = await serverModel.create({
