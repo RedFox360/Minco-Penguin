@@ -48,7 +48,8 @@ Don't put **< >** in the actual commands.
 				args[0] == "random" ||
 				args[0] == "info"
 			) {
-				if (args[0] == "returns" || args[0] == "useful" || args[0] == "info") pos = 1;
+				if (args[0] == "returns" || args[0] == "useful" || args[0] == "info")
+					pos = 1;
 				else if (args[0] == "fun") pos = 2;
 				else if (args[0] == "server") pos = 3;
 				else if (args[0] == "random") pos = 4;
@@ -66,8 +67,10 @@ Don't put **< >** in the actual commands.
 				return;
 			}
 			const command =
-				client.commands.get(args[0]) ||
-				client.commands.find((a) => a.aliases && a.aliases.includes(args[0]));
+				client.normalCommands.get(args[0]) ||
+				client.normalCommands.find(
+					(a) => a.aliases && a.aliases.includes(args[0])
+				);
 			if (!command) return "Enter a valid command name";
 			let commandEmbed = new Discord.MessageEmbed()
 				.setAuthor(...author)
@@ -95,7 +98,9 @@ Don't put **< >** in the actual commands.
 		}
 
 		const filter = (_, user) => user.id === message.author.id;
-		const collector = helpMsg.createReactionCollector(filter, { time: ms("4m") });
+		const collector = helpMsg.createReactionCollector(filter, {
+			time: ms("4m"),
+		});
 		collector.on("collect", async (reaction) => {
 			if (reaction.emoji.name == "⬅️") {
 				if (currentPage != 0) currentPage--;
@@ -146,7 +151,9 @@ Don't put **< >** in the actual commands.
 
 function getFields(message) {
 	const fields = [0, [], [], [], [], [], [], []];
-	const categories = fs.readdirSync("./commands/").filter((file) => !file.endsWith(".DS_Store"));
+	const categories = fs
+		.readdirSync("./commands/")
+		.filter((file) => !file.endsWith(".DS_Store"));
 	for (const category of categories) {
 		if (category != "hidden") {
 			const commandFiles = fs
@@ -164,7 +171,8 @@ function getFields(message) {
 				else if (category == "items") pos = 7;
 				if (!message.guild && command.servers) continue;
 				if (command.servers?.includes(message.guild.id) === false) continue;
-				if (command.usage) fields[pos].push([command.usage, command.description]);
+				if (command.usage)
+					fields[pos].push([command.usage, command.description]);
 				else fields[pos].push([`!${file.split(".")[0]}`, command.description]);
 			}
 		}

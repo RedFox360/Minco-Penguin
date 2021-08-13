@@ -105,8 +105,8 @@ module.exports = async (message, client) => {
 	const args = message.content.slice(prefix.length).split(/ +/);
 	const cmd = args.shift().toLowerCase();
 	const command =
-		client.commands.get(cmd) ||
-		client.commands.find((a) => a.aliases && a.aliases.includes(cmd));
+		client.normalCommands.get(cmd) ||
+		client.normalCommands.find((a) => a.aliases && a.aliases.includes(cmd));
 	if (!command) return;
 	if (command.servers?.includes(message.guild?.id) === false) {
 		return;
