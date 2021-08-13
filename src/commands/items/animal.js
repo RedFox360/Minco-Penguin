@@ -1,6 +1,6 @@
 const animals = require("../../functions/animals.json");
 const profileModel = require("../../models/profileSchema");
-
+const { hasAnimal } = require("../../functions/animalFunctions");
 module.exports = {
 	description: "Pay 20 MD for a random animal!",
 	cooldown: "12m",
@@ -31,6 +31,3 @@ module.exports = {
 		);
 	},
 };
-function hasAnimal(name, profileData) {
-	return profileData.zoo.find((item) => item.name === name);
-}
