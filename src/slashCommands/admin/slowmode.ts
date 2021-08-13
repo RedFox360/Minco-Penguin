@@ -1,17 +1,13 @@
 import { CommandData } from "../../types";
 import { MessageEmbed, TextChannel } from "discord.js";
-export const data = {
-	name: "slowmode",
-	description: "Set the slowmode of a channel",
-	options: [
-		{
-			name: "time",
-			description: "The slowmode time",
-			type: "INTEGER",
-			required: true,
-		},
-	],
-};
+import { SlashCommandBuilder } from "@discordjs/builders";
+
+export const data = new SlashCommandBuilder()
+	.setName("slowmode")
+	.setDescription("Set the slowmode of a channel")
+	.addIntegerOption((option) =>
+		option.setName("item").setDescription("The slowmode time").setRequired(true)
+	);
 
 export const permissions = ["MANAGE_CHANNELS"];
 
