@@ -1,0 +1,46 @@
+[
+	{
+		"name": "Penguin",
+		"emoji": "<:penguinzoo:842208725165932584>"
+	},
+	{
+		"name": "Bear",
+		"emoji": ":bear:"
+	},
+	{
+		"name": "Jellyfish",
+		"emoji": "<:transparent_jellybot:833491227995013130>"
+	},
+	{
+		"name": "Blobfish",
+		"emoji": "<:transparent_blobfish:818535776027541605>"
+	},
+	{
+		"name": "Octopus",
+		"emoji": "🐙"
+	},
+	{
+		"name": "Tiger",
+		"emoji": "🐯"
+	},
+	{
+		"name": "Mouse",
+		"emoji": "🐭"
+	},
+	{
+		"name": "Pufferfish",
+		"emoji": "🐡"
+	},
+	{
+		"name": "Lion",
+		"emoji": "🦁"
+	},
+	{
+		"name": "Dolphin",
+		"emoji": "🐬"
+	},
+	{
+		"name": "Elephant",
+		"emoji": "🐘"
+	}
+]

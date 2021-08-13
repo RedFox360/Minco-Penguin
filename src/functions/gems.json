@@ -1,0 +1,81 @@
+[
+	[
+		"02",
+		"04",
+		"05",
+		"06",
+		"07"
+	],
+	[
+		{
+			"number": "01",
+			"name": "Blue Diamond",
+			"price": 100
+		},
+		{
+			"number": "02",
+			"name": "Pink Diamond",
+			"price": 150
+		},
+		{
+			"number": "03",
+			"name": "Emerald",
+			"price": 150
+		},
+		{
+			"number": "04",
+			"name": "Gold Bar",
+			"price": 75
+		},
+		{
+			"number": "05",
+			"name": "Sapphire",
+			"price": 75
+		},
+		{
+			"number": "06",
+			"name": "Ruby",
+			"price": 100
+		},
+		{
+			"number": "07",
+			"nmae": "Amethyst",
+			"price": 50
+		},
+		{
+			"number": "08",
+			"name": "Black Diamond",
+			"price": 500
+		},
+		{
+			"number": "09",
+			"name": "Topaz",
+			"price": 75
+		},
+		{
+			"number": "10",
+			"name": "Moonstone",
+			"price": 100
+		},
+		{
+			"number": "11",
+			"name": "Opal",
+			"price": 75
+		},
+		{
+			"number": "12",
+			"name": "Quartz",
+			"price": 50
+		},
+		{
+			"number": "13",
+			"name": "Alexandrite",
+			"price": 100
+		},
+		{
+			"number": "14",
+			"name": "Jade",
+			"price": 75
+		}
+	]
+]
