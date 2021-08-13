@@ -1,0 +1,74 @@
+[
+	{
+		"emoji": "💍",
+		"label": "Marriage Ring",
+		"description": "75 Minco Dollars\nCan be used to propose to someone",
+		"value": "01"
+	},
+	{
+		"emoji": "💠",
+		"label": "Diamond Crown",
+		"description": "900 Minco Dollars",
+		"value": "02"
+	},
+	{
+		"emoji": "🤠",
+		"label": "Cowboy Hat",
+		"description": "25 Minco Dollars",
+		"value": "03"
+	},
+	{
+		"emoji": "🍅",
+		"label": "Tomato",
+		"description": "4 Minco Dollars\nCan be eaten for between 2 and 6 Minco Dollars (use /eat tomato)",
+		"value": "04"
+	},
+	{
+		"emoji": "🍬",
+		"label": "Candy",
+		"description": "10 Minco Dollars\nDoubles beg reward for the next 3 begs",
+		"value": "05"
+	},
+	{
+		"emoji": "<:transparent_jellybot:833491227995013130>",
+		"label": "Jellyfish",
+		"description": "75 Minco Dollars\nGives a +12 attack bonus in battle and allows you to use /sting <@user>.",
+		"value": "06"
+	},
+	{
+		"emoji": "🐻",
+		"label": "Pet Bear",
+		"description": "400 Minco Dollars\n5% chance of doubling beg reward, 33 Minco Dollar math reward",
+		"value": "07"
+	},
+	{
+		"emoji": "🌵",
+		"label": "Cactus",
+		"description": "50 Minco Dollars | Gives a +8 defense bonus in battle.",
+		"value": "08"
+	},
+	{
+		"emoji": "🔥",
+		"label": "Fire",
+		"description": "50 Minco Dollars | Gives +6 attack -3 health in battle.",
+		"value": "09"
+	},
+	{
+		"emoji": "<:cardboard_box:843173235549667349>",
+		"label": "Lootbox",
+		"description": "50 Minco Dollars | Gives a random reward with !lootbox",
+		"value": "10"
+	},
+	{
+		"emoji": "🥚",
+		"label": "Egg",
+		"description": "8 Minco Dollars\nCan be eaten (!eat egg) raw or cooked using !cook egg <type> for a reward",
+		"value": "11"
+	},
+	{
+		"emoji": "🍌",
+		"label": "Banana",
+		"description": "10 Minco Dollars\nCan be eaten using /eat banana for a random reward",
+		"value": "12"
+	}
+]
