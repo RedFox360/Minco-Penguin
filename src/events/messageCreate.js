@@ -3,7 +3,7 @@ filter.remove(["suck", "sucks"]);
 const removeComments = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/gm;
 const argumentNames = /([^\s,]+)/g;
 const cooldowns = new Map();
-const validPermissions = require("../functions/permissions.json");
+const validPermissions = require("../json/permissions.json");
 const profileModel = require("../models/profileSchema");
 const serverModel = require("../models/serverSchema");
 const Discord = require("discord.js");
