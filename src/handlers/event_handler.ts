@@ -3,7 +3,7 @@ import { Client } from "discord.js";
 export default async (client: Client) => {
 	const eventFiles = fs
 		.readdirSync(`./src/events`)
-		.filter((file) => file.endsWith(".ts"));
+		.filter((file) => file.endsWith(".ts") || file.endsWith(".js"));
 	for (const file of eventFiles) {
 		const { default: event } = await import(`../events/${file}`);
 		const eventName = file.split(".")[0];
