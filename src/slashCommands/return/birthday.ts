@@ -27,8 +27,9 @@ export async function run({ interaction, profileOf }: CommandData) {
 		});
 		return;
 	}
+	const member = await interaction.guild.members.fetch(user.id);
 	const embed = new MessageEmbed()
-		.setAuthor(interaction.member.displayName, interaction.user.avatarURL())
+		.setAuthor(member.displayName, user.avatarURL())
 		.setDescription("🎂 " + profile.birthday)
 		.setColor("#ffc0cb");
 	await interaction.reply({ embeds: [embed] });
