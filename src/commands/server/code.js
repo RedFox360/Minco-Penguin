@@ -1,5 +1,5 @@
 const { MessageEmbed, version } = require("discord.js");
-const { dependencies } = require("../../package.json");
+const { dependencies } = require("../../../package.json");
 module.exports = {
 	description: "sends info about the code",
 	run(message) {
