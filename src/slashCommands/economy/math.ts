@@ -61,7 +61,8 @@ export async function run({
 					embeds: [
 						new MessageEmbed()
 							.setDescription(
-								`<:check_circle:872594799662858270> Correct!\nYou won ${amount} Minco Dollars!`
+								`<:check_circle:872594799662858270> Correct!
+You won ${amount} Minco Dollars!`
 							)
 							.setColor("#B8FF8B"),
 					],

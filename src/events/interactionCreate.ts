@@ -26,21 +26,21 @@ export default async (interaction: Interaction) => {
 	const profileOf = async (userID: string) => {
 		return profileModel.findOne({ userID });
 	};
-	command
-		.run({ interaction, profile, profileOf, updateProfile })
-		.catch((err) => {
-			console.log("An error occured");
-			if (interaction.user.id === "724786310711214118") {
-				const errorEmbed = new MessageEmbed()
-					.setTitle("<:x_circle:872594799553839114>  **ERROR** ")
-					.setDescription("```xl\n" + clean(err) + "\n```")
-					.setColor("#E48383");
-				interaction.reply({
-					embeds: [errorEmbed],
-					ephemeral: true,
-				});
-			}
-		});
+	try {
+		command.run({ interaction, profile, profileOf, updateProfile });
+	} catch (err) {
+		console.log("An error occured");
+		if (interaction.user.id === "724786310711214118") {
+			const errorEmbed = new MessageEmbed()
+				.setTitle("<:x_circle:872594799553839114>  **ERROR** ")
+				.setDescription("```xl\n" + clean(err) + "\n```")
+				.setColor("#E48383");
+			interaction.reply({
+				embeds: [errorEmbed],
+				ephemeral: true,
+			});
+		}
+	}
 };
 
 function handleCooldowns(interaction: Interaction, command: any) {
