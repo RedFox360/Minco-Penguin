@@ -7,6 +7,16 @@ import eventHandler from "./handlers/event_handler";
 import slashHandler from "./handlers/slash_handler";
 loadenv();
 
+connect(process.env.SRV, {
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
+	useFindAndModify: false,
+})
+	.then(() => {
+		console.log("Connected to the database!");
+	})
+	.catch(console.error);
+
 const client = new Client({
 	intents: [
 		Intents.FLAGS.GUILDS,
@@ -24,15 +34,6 @@ client.on("ready", async () => {
 	console.log(`${client.user.tag} is online!`);
 });
 
-connect(process.env.SRV, {
-	useNewUrlParser: true,
-	useUnifiedTopology: true,
-	useFindAndModify: false,
-})
-	.then(() => {
-		console.log("Connected to the database!");
-	})
-	.catch(console.error);
 const rest = new REST({ version: "9" }).setToken(process.env.TOKEN);
 client.login(process.env.TOKEN);
 
