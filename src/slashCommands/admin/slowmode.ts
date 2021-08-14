@@ -6,7 +6,7 @@ export const data = new SlashCommandBuilder()
 	.setName("slowmode")
 	.setDescription("Set the slowmode of a channel")
 	.addIntegerOption((option) =>
-		option.setName("item").setDescription("The slowmode time").setRequired(true)
+		option.setName("time").setDescription("The slowmode time").setRequired(true)
 	);
 
 export const permissions = ["MANAGE_CHANNELS"];

@@ -3,6 +3,7 @@ import { Interaction } from "../types";
 import profileModel from "../models/profileSchema";
 import ms from "ms";
 import prettyMs from "pretty-ms";
+import validPermissions from "../json/permissions.json";
 const cooldowns = new Map();
 export default async (interaction: Interaction) => {
 	if (!interaction.isCommand()) return;
@@ -72,6 +73,9 @@ async function handlePermissions(interaction: Interaction, command: any) {
 	let invalidPerms = [];
 	let botInvalidPerms = [];
 	for (const perm of command.permissions) {
+		if (!validPermissions.includes(perm)) {
+			return console.log(`Invalid Permissions ${perm}`);
+		}
 		if (!interaction.member.permissions.has(perm)) {
 			invalidPerms.push(perm);
 		} else if (!interaction.guild.me.permissions.has(perm)) {
