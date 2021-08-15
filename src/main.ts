@@ -26,7 +26,6 @@ const client = new Client({
 	],
 });
 (client as any).commands = new Collection();
-(client as any).normalCommands = new Collection();
 
 client.on("ready", async () => {
 	commandHandler(client);
