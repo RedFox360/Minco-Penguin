@@ -33,7 +33,7 @@ client.on("ready", async () => {
 	eventHandler(client);
 	slashHandler(client);
 	console.log(`${client.user.tag} is online!`);
-	client.user.setActivity("to slash commands", { type: "LISTENING" });
+	client.user.setActivity("slash commands", { type: "LISTENING" });
 });
 
 const rest = new REST({ version: "9" }).setToken(process.env.TOKEN);
