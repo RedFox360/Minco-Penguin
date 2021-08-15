@@ -49,6 +49,7 @@ export async function run({
 		})
 		.then(async (msg) => {
 			const message = msg.first();
+			message.guild.roles.fetch();
 			sendtimeout = true;
 			let guess = parseInt(message.content.replace(/\D/g, ""));
 			console.log(guess);
