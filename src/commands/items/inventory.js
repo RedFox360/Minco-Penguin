@@ -1,5 +1,5 @@
 const { MessageEmbed } = require("discord.js");
-const profileModel = require("../../models/profileSchema");
+const { default: profileModel } = require("../../models/profileSchema");
 module.exports = {
 	description: "View your item inventory! (from shop)",
 	aliases: ["inv"],
@@ -15,7 +15,8 @@ module.exports = {
 			if (t == "03") return ":cowboy: Cowboy Hat";
 			if (t == "04") return ":tomato: Tomato";
 			if (t == "05") return ":candy: Candy";
-			if (t == "06") return `<:transparent_jellybot:833491227995013130> Jellyfish`;
+			if (t == "06")
+				return `<:transparent_jellybot:833491227995013130> Jellyfish`;
 			if (t == "07") return ":bear: Bear";
 			if (t == "08") return ":cactus: Cactus";
 			if (t == "09") return ":fire: Fire";

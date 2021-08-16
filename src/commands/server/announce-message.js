@@ -1,5 +1,5 @@
 const ordinal = require("ordinal");
-const serverModel = require("../../models/serverSchema");
+const { default: serverModel } = require("../../models/serverSchema");
 module.exports = {
 	description:
 		"[MANAGE SERVER] Set the welcome and leave messages for a server. Use !announce-message format for a formatting guide.",
@@ -20,16 +20,25 @@ module.exports = {
 **{user_tag}** = the username including tag`;
 		}
 
-		if (!args.length) return "Valid usage: !announce-message <join/leave> <message>";
+		if (!args.length)
+			return "Valid usage: !announce-message <join/leave> <message>";
 		let msg = args.join(" ");
 		if (first == "join") {
 			if (args[0] == "default")
-				msg = "Welcome to {server}, {mention}!\nYou are the {ord_member_count} member!";
-			await serverModel.findOneAndUpdate({ serverID: message.guild.id }, { welcomeMessage: msg });
+				msg =
+					"Welcome to {server}, {mention}!\nYou are the {ord_member_count} member!";
+			await serverModel.findOneAndUpdate(
+				{ serverID: message.guild.id },
+				{ welcomeMessage: msg }
+			);
 		} else if (first == "leave") {
 			if (args[0] == "default")
-				msg = "It seems {user_tag} has left us. We now have {member_count} members.";
-			await serverModel.findOneAndUpdate({ serverID: message.guild.id }, { leaveMessage: msg });
+				msg =
+					"It seems {user_tag} has left us. We now have {member_count} members.";
+			await serverModel.findOneAndUpdate(
+				{ serverID: message.guild.id },
+				{ leaveMessage: msg }
+			);
 		} else if (first == "joindm") {
 			if (args[0] == "default") {
 				await serverModel.findOneAndUpdate(
@@ -38,7 +47,10 @@ module.exports = {
 				);
 				return "Welcome DM turned off";
 			}
-			await serverModel.findOneAndUpdate({ serverID: message.guild.id }, { welcomeDM: msg });
+			await serverModel.findOneAndUpdate(
+				{ serverID: message.guild.id },
+				{ welcomeDM: msg }
+			);
 		} else {
 			return "Valid usage: !announce-message <join/leave> <message>";
 		}

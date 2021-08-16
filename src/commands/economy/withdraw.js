@@ -1,4 +1,4 @@
-const profileModel = require("../../models/profileSchema");
+const { default: profileModel } = require("../../models/profileSchema");
 module.exports = {
 	aliases: ["wd"],
 	description: "Withdraw Minco Dollars from your bank",
@@ -6,7 +6,8 @@ module.exports = {
 	async run(message, args, _0, _1, profileData) {
 		const amount = parseInt(args[0]);
 		if (isNaN(amount)) return "Enter a valid number";
-		if (amount % 1 != 0 || amount <= 0) return "Withdraw amount must be a whole number";
+		if (amount % 1 != 0 || amount <= 0)
+			return "Withdraw amount must be a whole number";
 		try {
 			if (amount > profileData.bank)
 				return "You don't have that amount of Minco Dollars in your bank.";

@@ -1,5 +1,5 @@
 const { MessageEmbed, Message } = require("discord.js");
-const profileModel = require("../../models/profileSchema");
+const { default: profileModel } = require("../../models/profileSchema");
 
 module.exports = {
 	aliases: ["bal", "bl"],

@@ -1,4 +1,4 @@
-const profileModel = require("../../models/profileSchema");
+const { default: profileModel } = require("../../models/profileSchema");
 module.exports = {
 	description: "Add an item to your market!",
 	aliases: ["ma"],
@@ -30,9 +30,13 @@ module.exports = {
 			}
 		);
 		if (desc) {
-			message.channel.send(`**${title}** | ${desc} for ${price} MD has been added to your market.`);
+			message.channel.send(
+				`**${title}** | ${desc} for ${price} MD has been added to your market.`
+			);
 		} else {
-			message.channel.send(`**${title}** for ${price} MD has been added to your market.`);
+			message.channel.send(
+				`**${title}** for ${price} MD has been added to your market.`
+			);
 		}
 	},
 };

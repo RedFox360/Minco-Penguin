@@ -1,4 +1,4 @@
-const profileModel = require("../../models/profileSchema");
+const { default: profileModel } = require("../../models/profileSchema");
 module.exports = {
 	description: "[SAMEER ONLY] Reset someone's money, inv, and gems",
 	usage: "!reset <@user>",
@@ -14,7 +14,9 @@ module.exports = {
 					inventory: [],
 				}
 			);
-			message.channel.send(`Minco Dollars for <@${mention.id}> has been reset.`);
+			message.channel.send(
+				`Minco Dollars for <@${mention.id}> has been reset.`
+			);
 		}
 	},
 };

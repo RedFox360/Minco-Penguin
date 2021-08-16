@@ -1,5 +1,5 @@
 const ms = require("ms");
-const profileModel = require("../../models/profileSchema");
+const { default: profileModel } = require("../../models/profileSchema");
 module.exports = {
 	description: "Buy items from a user's market!",
 	aliases: ["mb"],
@@ -14,14 +14,18 @@ module.exports = {
 		if (!hasItem(item, profile))
 			return `<@${mention.id}> does not have that item! (remember capitalization)`;
 		const i = getItem(item, profile);
-		if (profileData.mincoDollars < i.price) return `You do not have ${i.price} MD (price).`;
+		if (profileData.mincoDollars < i.price)
+			return `You do not have ${i.price} MD (price).`;
 		const msg = await message.channel.send(
 			`Confirm by reacting to buy **${i.name}** for ${i.price} MD.`
 		);
 		msg.react("✅");
 		const filter = (reaction, user) =>
 			reaction.emoji.name === "✅" && user.id === message.author.id;
-		const reactionCollector = msg.createReactionCollector(filter, { time: ms("30s"), max: 1 });
+		const reactionCollector = msg.createReactionCollector(filter, {
+			time: ms("30s"),
+			max: 1,
+		});
 		reactionCollector.on("collect", async () => {
 			await profileModel.findOneAndUpdate(
 				{
@@ -35,7 +39,9 @@ module.exports = {
 				},
 				{ $inc: { mincoDollars: -i.price } }
 			);
-			mention.send(`${message.author.toString()} has bought your **${i.name}**!`);
+			mention.send(
+				`${message.author.toString()} has bought your **${i.name}**!`
+			);
 			message.channel.send(
 				`You bought **${i.name}** for **${i.price}** MD! <@${mention.id}> will be DMed notifying your purchase.`
 			);

@@ -1,5 +1,5 @@
 const randomInt = require("../../functions/random");
-const profileModel = require("../../models/profileSchema");
+const { default: profileModel } = require("../../models/profileSchema");
 module.exports = {
 	cooldown: "3.5m",
 	aliases: ["gimmemoney"],
@@ -34,7 +34,8 @@ module.exports = {
 		if (profileData.spouse != null || profileData.inventory.includes("07")) {
 			random = Math.floor(Math.random() * 100);
 			const chance = profileData.spouse != null ? 10 : 5;
-			const mOrB = profileData.spouse != null ? "for marriage" : "from your bear";
+			const mOrB =
+				profileData.spouse != null ? "for marriage" : "from your bear";
 			if (random < chance) {
 				numberEcon *= 2;
 				message.channel.send(`You got a double bonus ${mOrB}!`);

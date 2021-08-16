@@ -33,7 +33,9 @@ export async function run({ interaction }: CommandData) {
 			target: 99,
 		});
 		const timeStamp1 = Date.now();
-		let evaled = eval(code);
+		let evaled = eval(`(async () => {
+			${code}
+		})()`);
 		if (typeof evaled !== "string") evaled = require("util").inspect(evaled);
 		const codeEvaled = "```js\n" + clean(evaled) + "\n```";
 		const codeFormat = "```js\n" + code + "\n```";

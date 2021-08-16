@@ -1,10 +1,10 @@
-const Discord = require("discord.js");
-const serverModel = require("../models/serverSchema");
-/**
- * @param {Discord.Guild} guild
- * @param {Discord.User} user
- */
-module.exports = async (guild, user) => {
+import Discord from "discord.js";
+import serverModel from "../models/serverSchema";
+export default async (
+	guild: Discord.Guild,
+	user: Discord.User,
+	client: Discord.Client
+) => {
 	if (user.bot) return;
 	let serverData = await serverModel.findOneAndUpdate(
 		{ serverID: guild.id },
@@ -13,14 +13,14 @@ module.exports = async (guild, user) => {
 	);
 	if (serverData.silenceBans) return;
 	let banEmbed = new Discord.MessageEmbed()
-		.setColor("F75853") // red
+		.setColor("#F75853") // red
 		.setTitle("Banned")
 		.setDescription(
 			`${user.tag} flew too close to the sun and was banned from ${guild.name}.`
 		);
 	const channel = serverData.welcomeChannel
 		? client.channels.cache.get(serverData.welcomeChannel)
-		: member.guild.systemChannel;
-	channel.send(banEmbed);
+		: guild.systemChannel;
+	(channel as Discord.TextChannel).send({ embeds: [banEmbed] });
 	user.send(`${user.tag}, you were banned from ${guild.name}.`);
 };

@@ -1,11 +1,12 @@
-const profileModel = require("../../models/profileSchema");
+const { default: profileModel } = require("../../models/profileSchema");
 module.exports = {
 	description: "Sell your items",
 	usage: "!sell <item number>",
 	async run(message, args, _0, _1, profileData) {
 		const item = args[0];
 		if (!item) return;
-		if (!profileData.inventory.includes(item)) return "You don't have that item!";
+		if (!profileData.inventory.includes(item))
+			return "You don't have that item!";
 
 		const sellableItems = ["01", "02", "03", "06", "07", "08", "09"];
 		const index = sellableItems.indexOf(item);
@@ -20,7 +21,10 @@ module.exports = {
 		const filter = (reaction, user) =>
 			reaction.emoji.name === "✅" && user.id === message.author.id;
 
-		const collector = msg.createReactionCollector(filter, { time: 30000, max: 1 });
+		const collector = msg.createReactionCollector(filter, {
+			time: 30000,
+			max: 1,
+		});
 		collector.on("collect", async () => {
 			await profileModel.findOneAndUpdate(
 				{ userID: message.author.id },

@@ -1,4 +1,4 @@
-const profileModel = require("../models/profileSchema");
+const { default: profileModel } = require("../models/profileSchema");
 async function calculatePower(userID) {
 	let attack = 1;
 	let defense = 0;

@@ -1,4 +1,4 @@
-const profileModel = require("../../models/profileSchema");
+const { default: profileModel } = require("../../models/profileSchema");
 const { Message } = require("discord.js");
 module.exports = {
 	aliases: ["admindivorce"],

@@ -1,8 +1,8 @@
-const Discord = require("discord.js");
-const serverModel = require("../models/serverSchema");
-const ordinal = require("ordinal");
-/** @param {Discord.GuildMember} member */
-module.exports = async (member, client) => {
+import Discord from "discord.js";
+import serverModel from "../models/serverSchema";
+import ordinal from "ordinal";
+
+export default async (member: Discord.GuildMember, client: Discord.Client) => {
 	if (member.user.bot) return;
 	let serverData = await serverModel.findOneAndUpdate(
 		{ serverID: member.guild.id },
@@ -19,7 +19,7 @@ module.exports = async (member, client) => {
 	const { leaveMessage, memberCount } = serverData;
 	const memberCountOrdinal = ordinal(memberCount);
 	let leaveEmbed = new Discord.MessageEmbed()
-		.setColor("EC7063") // red
+		.setColor("#EC7063") // red
 		.setTitle("Goodbye")
 		.setDescription(
 			leaveMessage
@@ -33,5 +33,5 @@ module.exports = async (member, client) => {
 	const channel = serverData.welcomeChannel
 		? client.channels.cache.get(serverData.welcomeChannel)
 		: member.guild.systemChannel;
-	channel.send(leaveEmbed);
+	(channel as Discord.TextChannel).send({ embeds: [leaveEmbed] });
 };

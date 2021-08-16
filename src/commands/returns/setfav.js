@@ -1,4 +1,4 @@
-const profileModel = require("../../models/profileSchema");
+const { default: profileModel } = require("../../models/profileSchema");
 
 module.exports = {
 	description: "Set your favorite animal, color, and food",

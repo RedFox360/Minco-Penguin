@@ -1,4 +1,4 @@
-const serverModel = require("../../models/serverSchema");
+const { default: serverModel } = require("../../models/serverSchema");
 const Discord = require("discord.js");
 const ms = require("ms");
 module.exports = {

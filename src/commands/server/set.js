@@ -1,4 +1,4 @@
-const profileModel = require("../../models/profileSchema");
+const { default: profileModel } = require("../../models/profileSchema");
 module.exports = {
 	description: "Set a birthday for your account",
 	usage: "!set birthday <birthday: format: January 23, 2010>",

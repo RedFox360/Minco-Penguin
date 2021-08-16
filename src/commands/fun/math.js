@@ -1,5 +1,5 @@
 const { Message } = require("discord.js");
-const profileModel = require("../../models/profileSchema");
+const { default: profileModel } = require("../../models/profileSchema");
 const randomInt = require("../../functions/random");
 module.exports = {
 	description: "Sends a math question for you to solve",
@@ -12,8 +12,14 @@ module.exports = {
 			return "Invalid usage. Correct usage: !math <operation>\n(Division is not a permitted operation)";
 		let oper;
 		if (args[0] == "add" || args[0] == "addition" || args[0] == "+") oper = "+";
-		else if (args[0] == "subtract" || args[0] == "minus" || args[0] == "-") oper = "-";
-		else if (args[0] == "multiply" || args[0] == "mult" || args[0] == "x" || args[0] == "*")
+		else if (args[0] == "subtract" || args[0] == "minus" || args[0] == "-")
+			oper = "-";
+		else if (
+			args[0] == "multiply" ||
+			args[0] == "mult" ||
+			args[0] == "x" ||
+			args[0] == "*"
+		)
 			oper = "*";
 		else
 			return "Invalid usage: Correct usage: !math <operation>\n(Division is not a permitted operation)";
@@ -27,9 +33,14 @@ module.exports = {
 		if (oper == "+") result = num1 + num2;
 		else if (oper == "-") result = num1 - num2;
 		else if (oper == "*") result = num1 * num2;
-		message.channel.send(`${message.author.toString()}, what is ${num1} ${oper} ${num2}?`);
+		message.channel.send(
+			`${message.author.toString()}, what is ${num1} ${oper} ${num2}?`
+		);
 		const filter = (m) => m.author.id == message.author.id;
-		const collector = message.channel.createMessageCollector(filter, { time: 20000, max: 1 });
+		const collector = message.channel.createMessageCollector(filter, {
+			time: 20000,
+			max: 1,
+		});
 		let sendTimeOut = true;
 		let amount = randomInt(10, 20);
 		if (profileData.spouse != null) {

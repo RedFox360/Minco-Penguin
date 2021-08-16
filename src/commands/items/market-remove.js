@@ -1,4 +1,4 @@
-const profileModel = require("../../models/profileSchema");
+const { default: profileModel } = require("../../models/profileSchema");
 module.exports = {
 	description: "Remove items from your market",
 	usage: "!market-remove <item name>",
@@ -6,7 +6,8 @@ module.exports = {
 	async run(message, args, _0, _1, profileData) {
 		if (!args.length) return "Valid usage: !market-add <ITEM NUMBER>";
 		const item = args.join(" ");
-		if (!hasItem(item, profileData)) return "You don't have this item! (remember capitalization)";
+		if (!hasItem(item, profileData))
+			return "You don't have this item! (remember capitalization)";
 		await profileModel.findOneAndUpdate(
 			{
 				userID: message.author.id,

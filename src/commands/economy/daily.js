@@ -1,5 +1,5 @@
 const ms = require("ms");
-const profileModel = require("../../models/profileSchema");
+const { default: profileModel } = require("../../models/profileSchema");
 const randomInt = require("../../functions/random");
 const prettyMs = require("pretty-ms");
 const { MessageEmbed } = require("discord.js");

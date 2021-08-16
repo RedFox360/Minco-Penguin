@@ -1,5 +1,5 @@
 const { MessageEmbed } = require("discord.js");
-const profileModel = require("../../models/profileSchema");
+const { default: profileModel } = require("../../models/profileSchema");
 module.exports = {
 	description: "View your gems!",
 	async run(message) {
@@ -16,14 +16,16 @@ module.exports = {
 			if (t == "05") return "<:sapphire:843182746050232340> Sapphire";
 			if (t == "06") return "<:ruby:843184456025112606> Ruby";
 			if (t == "07") return "<:amethyst:843184890337296454> Amethyst";
-			if (t == "08") return "<:black_diamond:843607902136696862> **Black Diamond**";
+			if (t == "08")
+				return "<:black_diamond:843607902136696862> **Black Diamond**";
 			if (t == "09") return "<:topaz:844645993747185686> Topaz";
 			if (t == "10") return "<:moonstone:844646676337131521> Moonstone";
 			if (t == "11") return "<:opal:844663271705280533> Opal";
 			if (t == "12") return "<:quartz:844740992473104384> Quartz";
 			if (t == "13") return "<:alexandrite:845793544278638603> Alexandrite";
 			if (t == "14") return "<:jade:845834920903704587> Jade";
-			if (t == "157") return "<:green_diamond:844236649948905483> **Green Diamond**";
+			if (t == "157")
+				return "<:green_diamond:844236649948905483> **Green Diamond**";
 			if (t == "158") return "<:ametrine:844649341481910323> **Ametrine**";
 		});
 		for (let i = 0; i < g.length; i++) {

@@ -1,4 +1,4 @@
-const profileModel = require("../../models/profileSchema");
+const { default: profileModel } = require("../../models/profileSchema");
 const randomInt = require("../../functions/random");
 const gems = require("../../functions/gems.json");
 module.exports = {

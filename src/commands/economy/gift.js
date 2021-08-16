@@ -1,5 +1,5 @@
 const { Message } = require("discord.js");
-const profileModel = require("../../models/profileSchema");
+const { default: profileModel } = require("../../models/profileSchema");
 
 module.exports = {
 	description: "Gift an amount of Minco Dollars to a user",
@@ -12,7 +12,8 @@ module.exports = {
 		const amount = parseInt(args[1]);
 		if (isNaN(amount)) return "Enter a valid number";
 		if (amount <= 0) return "You must gift a positive integer";
-		if (amount > profileData.mincoDollars) return `You don't have ${amount} dollars`;
+		if (amount > profileData.mincoDollars)
+			return `You don't have ${amount} dollars`;
 		const userData = await profileModel.findOne({ userID: mention.id });
 		if (!userData) {
 			let profile = await profileModel.create({

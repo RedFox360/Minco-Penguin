@@ -1,4 +1,4 @@
-const serverModel = require("../../models/serverSchema");
+const { default: serverModel } = require("../../models/serverSchema");
 module.exports = {
 	description:
 		"Add a prefix or clear the prefixes of the server (pinging the bot will always be a prefix)",

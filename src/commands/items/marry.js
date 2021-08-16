@@ -1,6 +1,6 @@
 const { Message } = require("discord.js");
 const ms = require("ms");
-const profileModel = require("../../models/profileSchema");
+const { default: profileModel } = require("../../models/profileSchema");
 module.exports = {
 	description: "Marry a user",
 	usage: "!marry (@user)",
@@ -14,16 +14,22 @@ module.exports = {
 		const userProfile = await profileModel.findOne({ userID: user.id });
 		if (userProfile.spouse != null) return `<@${user.id}> is already married!`;
 
-		if (user.id == message.author.id) return "You can't marry yourself, obviously";
+		if (user.id == message.author.id)
+			return "You can't marry yourself, obviously";
 
-		if (!profileData.inventory.includes("01")) return "You need to buy a ring first!";
+		if (!profileData.inventory.includes("01"))
+			return "You need to buy a ring first!";
 
 		const marryMsg = await message.channel.send(
 			`You have proposed to marry <@${user.id}>! <@${user.id}>, accept by reacting with a check mark.`
 		);
 		await marryMsg.react("✅");
-		const filter = (reaction, u) => reaction.emoji.name === "✅" && u.id === user.id;
-		const collector = marryMsg.createReactionCollector(filter, { time: ms("2m"), max: 1 });
+		const filter = (reaction, u) =>
+			reaction.emoji.name === "✅" && u.id === user.id;
+		const collector = marryMsg.createReactionCollector(filter, {
+			time: ms("2m"),
+			max: 1,
+		});
 		collector.on("collect", async () => {
 			await profileModel.findOneAndUpdate(
 				{ userID: message.author.id },

@@ -1,5 +1,5 @@
 const animals = require("../../functions/animals.json");
-const profileModel = require("../../models/profileSchema");
+const { default: profileModel } = require("../../models/profileSchema");
 const { hasAnimal } = require("../../functions/animalFunctions");
 module.exports = {
 	description: "Pay 20 MD for a random animal!",

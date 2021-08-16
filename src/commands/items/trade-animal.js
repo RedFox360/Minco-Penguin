@@ -1,6 +1,10 @@
-const profileModel = require("../../models/profileSchema");
+const { default: profileModel } = require("../../models/profileSchema");
 const ms = require("ms");
-const { animalExists, getAnimal, hasAnimal } = require("../../functions/animalFunctions");
+const {
+	animalExists,
+	getAnimal,
+	hasAnimal,
+} = require("../../functions/animalFunctions");
 const { Message } = require("discord.js");
 module.exports = {
 	description: "Trade your animals!",
@@ -21,14 +25,20 @@ module.exports = {
 		const gAnimal = getAnimal(animal);
 
 		const msg = await message.channel.send(
-			`<@${mention.id}>, ${message.author.toString()} has offered to trade you their ${
+			`<@${
+				mention.id
+			}>, ${message.author.toString()} has offered to trade you their ${
 				gAnimal.name
 			} ${gAnimal.emoji} for ${price} MD. Accept by reacting with a ✅`
 		);
 
 		msg.react("✅");
-		const filter = (reaction, user) => reaction.emoji.name === "✅" && user.id === mention.id;
-		const reactionCollector = msg.createReactionCollector(filter, { time: ms("3m"), max: 1 });
+		const filter = (reaction, user) =>
+			reaction.emoji.name === "✅" && user.id === mention.id;
+		const reactionCollector = msg.createReactionCollector(filter, {
+			time: ms("3m"),
+			max: 1,
+		});
 
 		reactionCollector.on("collect", async () => {
 			await profileModel.findOneAndUpdate(

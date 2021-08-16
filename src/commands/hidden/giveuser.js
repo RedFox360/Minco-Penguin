@@ -1,4 +1,4 @@
-const profileModel = require("../../models/profileSchema");
+const { default: profileModel } = require("../../models/profileSchema");
 
 module.exports = {
 	description: "[OWNER ONLY] give a user an amount of Minco Dollars",
@@ -13,7 +13,8 @@ module.exports = {
 				return message.reply("you cannot give money to yourself");
 			const amount = parseInt(args[1]);
 			if (isNaN(amount)) return "Enter a valid number";
-			if (cl && amount > 100) return message.reply("you cannot give an amount greater than 100");
+			if (cl && amount > 100)
+				return message.reply("you cannot give an amount greater than 100");
 			await profileModel.findOneAndUpdate(
 				{ userID: mention.id },
 				{
@@ -22,7 +23,9 @@ module.exports = {
 					},
 				}
 			);
-			message.channel.send(`You have given <@${mention.id}> ${amount} Minco Dollars`);
+			message.channel.send(
+				`You have given <@${mention.id}> ${amount} Minco Dollars`
+			);
 		}
 	},
 };

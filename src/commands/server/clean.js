@@ -1,6 +1,7 @@
-const serverModel = require("../../models/serverSchema");
+const { default: serverModel } = require("../../models/serverSchema");
 module.exports = {
-	description: "[MANAGE SERVER] Toggles whether profanity is banned in the server (default: on).",
+	description:
+		"[MANAGE SERVER] Toggles whether profanity is banned in the server (default: on).",
 	usage: "!clean <on/off>",
 	permissions: ["MANAGE_GUILD"],
 	async run(message, args) {
@@ -10,7 +11,10 @@ module.exports = {
 		else if (args[0] == "off") clean = false;
 		else return `Valid usage: ${this.usage}`;
 
-		await serverModel.findOneAndUpdate({ serverID: message.guild.id }, { clean });
+		await serverModel.findOneAndUpdate(
+			{ serverID: message.guild.id },
+			{ clean }
+		);
 		return `Clean mode set ${args[0]}`;
 	},
 };

@@ -1,7 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 const ms = require("ms");
 const calculatePower = require("../../functions/calculatePower");
-const profileModel = require("../../models/profileSchema");
+const { default: profileModel } = require("../../models/profileSchema");
 module.exports = {
 	description: "BATTLE A USER!",
 	usage: "!battle <@user>",
@@ -12,16 +12,22 @@ module.exports = {
 		if (!mention) return "Mention a valid user";
 		if (mention.bot) return "You can't battle a bot!";
 		if (mention.id === message.author.id) return "You can't battle yourself!";
-		let { mincoDollars, bank } = await profileModel.findOne({ userID: mention.id });
-		if (mincoDollars + bank <= 0) return "You can't battle someone with no or negative money!";
-		const filter = (reaction, user) => reaction.emoji.name === "✅" && user.id === mention.id;
+		let { mincoDollars, bank } = await profileModel.findOne({
+			userID: mention.id,
+		});
+		if (mincoDollars + bank <= 0)
+			return "You can't battle someone with no or negative money!";
+		const filter = (reaction, user) =>
+			reaction.emoji.name === "✅" && user.id === mention.id;
 		const msg = await message.channel.send(
 			`<@${
 				mention.id
 			}>, ${message.author.toString()} has challenged you to a battle! Accept by reacting with a ✅`
 		);
 		msg.react("✅");
-		const reactionCollector = msg.createReactionCollector(filter, { time: ms("3m") });
+		const reactionCollector = msg.createReactionCollector(filter, {
+			time: ms("3m"),
+		});
 		reactionCollector.on("collect", async () => {
 			let [attack, defense, health] = await calculatePower(message.author.id);
 			let [mattack, mdefense, mhealth] = await calculatePower(mention.id);
@@ -31,7 +37,9 @@ module.exports = {
 					.setAuthor(name, message.author.avatarURL())
 					.setTitle("Battle")
 					.setColor("#F5B041")
-					.setDescription(`Top: ${message.author.toString()}, Bottom: <@${mention.id}>`)
+					.setDescription(
+						`Top: ${message.author.toString()}, Bottom: <@${mention.id}>`
+					)
 					.setFooter(message.guild.name)
 					.addFields(
 						...getDescription(attack, defense, health),
@@ -51,7 +59,10 @@ module.exports = {
 				}
 
 				if (attack == mattack && defense == mdefense && health == mhealth) {
-					winner = Math.floor(Math.random()) == 0 ? mention.id : message.author.toString();
+					winner =
+						Math.floor(Math.random()) == 0
+							? mention.id
+							: message.author.toString();
 					break;
 				}
 
@@ -69,7 +80,8 @@ module.exports = {
 					turnAuthor = true;
 				}
 			}
-			const loser = winner === message.author.id ? mention.id : message.author.id;
+			const loser =
+				winner === message.author.id ? mention.id : message.author.id;
 			const loserProfile = await profileModel.findOne({ userID: loser });
 			const md = loserProfile.mincoDollars;
 			const amount = calculateAmount(md + loserProfile.bank);
@@ -87,7 +99,10 @@ module.exports = {
 							},
 					  };
 			await profileModel.findOneAndUpdate({ userID: loser }, inc);
-			await profileModel.findOneAndUpdate({ userID: winner }, { $inc: { mincoDollars: amount } });
+			await profileModel.findOneAndUpdate(
+				{ userID: winner },
+				{ $inc: { mincoDollars: amount } }
+			);
 			message.channel.send(
 				`The battle is over! The winner is <@${winner}>, they won ${amount} MD!`
 			);

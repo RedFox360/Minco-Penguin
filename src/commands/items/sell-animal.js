@@ -1,5 +1,9 @@
-const { animalExists, getAnimal, hasAnimal } = require("../../functions/animalFunctions");
-const profileModel = require("../../models/profileSchema");
+const {
+	animalExists,
+	getAnimal,
+	hasAnimal,
+} = require("../../functions/animalFunctions");
+const { default: profileModel } = require("../../models/profileSchema");
 module.exports = {
 	description: "Sell your animals",
 	usage: "!sell-animal <animal name>",
@@ -21,6 +25,8 @@ module.exports = {
 				},
 			}
 		);
-		message.channel.send(`You sold your ${gAnimal.name} ${gAnimal.emoji} for ${price} MD`);
+		message.channel.send(
+			`You sold your ${gAnimal.name} ${gAnimal.emoji} for ${price} MD`
+		);
 	},
 };

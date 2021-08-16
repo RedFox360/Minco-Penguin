@@ -1,11 +1,16 @@
-const profileModel = require("../../models/profileSchema");
+const { default: profileModel } = require("../../models/profileSchema");
 const ms = require("ms");
 module.exports = {
 	description: "Buy items!",
 	usage: "!buy <item number>",
 	run(message, args, _0, client, profileData) {
 		if (args[0] == "drawing" && message.guild.id == "785642761814671381") {
-			require("../../functions/request_drawing")(message, args, client, profileData);
+			require("../../functions/request_drawing")(
+				message,
+				args,
+				client,
+				profileData
+			);
 		} else if (args[0] == "01") {
 			buy(message, "Marriage Ring :ring:", 75, "01", profileData, true, client);
 		} else if (args[0] == "02") {
@@ -58,17 +63,32 @@ module.exports = {
 	},
 };
 
-async function buy(message, item, price, itemNumber, profileData, showReaction, client) {
+async function buy(
+	message,
+	item,
+	price,
+	itemNumber,
+	profileData,
+	showReaction,
+	client
+) {
 	if (profileData.inventory.includes(itemNumber))
 		return message.channel.send("You already have this item!");
 	if (profileData.mincoDollars < price)
-		return message.channel.send(`You need ${price} Minco Dollars to buy this item`);
+		return message.channel.send(
+			`You need ${price} Minco Dollars to buy this item`
+		);
 	if (showReaction) {
-		const msg = await message.channel.send(`React to buy a **${item}** for ${price} MD`);
+		const msg = await message.channel.send(
+			`React to buy a **${item}** for ${price} MD`
+		);
 		await msg.react("✅");
 		const filter = (reaction, user) =>
 			reaction.emoji.name === "✅" && user.id === message.author.id;
-		const reactionCollector = msg.createReactionCollector(filter, { time: ms("30s"), max: 1 });
+		const reactionCollector = msg.createReactionCollector(filter, {
+			time: ms("30s"),
+			max: 1,
+		});
 		reactionCollector.on("collect", async () => {
 			await profileModel.findOneAndUpdate(
 				{ userID: message.author.id },

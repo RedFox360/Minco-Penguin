@@ -1,4 +1,4 @@
-const serverModel = require("../../models/serverSchema");
+const { default: serverModel } = require("../../models/serverSchema");
 module.exports = {
 	description:
 		"[ADMIN ONLY] The main role will be given to members who join the server. Mute role allows muting to work. The bot role will be given to bots who join the server.",

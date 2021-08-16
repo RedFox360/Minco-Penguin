@@ -27,9 +27,9 @@ export default async (interaction: Interaction) => {
 		return profileModel.findOne({ userID });
 	};
 	try {
-		command.run({ interaction, profile, profileOf, updateProfile });
+		await command.run({ interaction, profile, profileOf, updateProfile });
 	} catch (err) {
-		console.log("An error occured");
+		console.error(err);
 		if (interaction.user.id === "724786310711214118") {
 			const errorEmbed = new MessageEmbed()
 				.setTitle("<:x_circle:872594799553839114>  **ERROR** ")

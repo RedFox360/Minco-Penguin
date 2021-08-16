@@ -1,4 +1,4 @@
-const profileModel = require("../../models/profileSchema");
+const { default: profileModel } = require("../../models/profileSchema");
 const { Message } = require("discord.js");
 module.exports = {
 	description: "Bet a number of your Minco Dollars on a random outcome",
@@ -11,7 +11,8 @@ module.exports = {
 		if (isNaN(amount)) return "Enter a valid number";
 		if (amount > profileData.mincoDollars)
 			return `You don't have ${amount} Minco Dollars in your wallet.`;
-		if (amount <= 0) return "You have to bet a positive whole number of Minco Dollars";
+		if (amount <= 0)
+			return "You have to bet a positive whole number of Minco Dollars";
 		if (amount > 20) return "You can't bet more than 20 Minco Dollars";
 		if (random == 1) {
 			await profileModel.findOneAndUpdate(

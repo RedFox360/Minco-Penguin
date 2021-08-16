@@ -1,4 +1,4 @@
-const profileModel = require("../../models/profileSchema");
+const { default: profileModel } = require("../../models/profileSchema");
 const ms = require("ms");
 const gems = require("../../functions/gems.json");
 module.exports = {
@@ -7,7 +7,8 @@ module.exports = {
 	async run(message, args, _0, _1, profileData) {
 		const itemNumber = args[0];
 		if (!itemNumber) return "Enter an item number";
-		if (!profileData.inventory.includes(itemNumber)) return "You don't have that item!";
+		if (!profileData.inventory.includes(itemNumber))
+			return "You don't have that item!";
 		let price, name;
 		for (const g of gems[1]) {
 			if (g.number == itemNumber) {
@@ -20,7 +21,9 @@ module.exports = {
 			msg.react("✅");
 			const filter = (reaction, user) =>
 				reaction.emoji.name === "✅" && user.id === message.author.id;
-			const reactionCollector = msg.createReactionCollector(filter, { time: ms("30s") });
+			const reactionCollector = msg.createReactionCollector(filter, {
+				time: ms("30s"),
+			});
 			reactionCollector.on("collect", () => {
 				sell(message, price, itemNumber, name);
 			});

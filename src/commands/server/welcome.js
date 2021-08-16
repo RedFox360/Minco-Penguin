@@ -1,4 +1,4 @@
-const serverModel = require("../../models/serverSchema");
+const { default: serverModel } = require("../../models/serverSchema");
 module.exports = {
 	description: "Sets the welcome channel",
 	usage: "!welcome <channel>",

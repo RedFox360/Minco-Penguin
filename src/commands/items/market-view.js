@@ -1,5 +1,5 @@
 const { MessageEmbed } = require("discord.js");
-const profileModel = require("../../models/profileSchema");
+const { default: profileModel } = require("../../models/profileSchema");
 module.exports = {
 	description: "View the market of a user!",
 	usage: "!market-view (@user)",
@@ -13,7 +13,8 @@ module.exports = {
 			profile = await profileModel.findOne({ userID: id });
 		}
 		const market = profile.market;
-		if (!market.length) return `<@${id}> does not have anything in their market`;
+		if (!market.length)
+			return `<@${id}> does not have anything in their market`;
 		market.sort((a, b) => b.price - a.price);
 		await profileModel.findOneAndUpdate(
 			{

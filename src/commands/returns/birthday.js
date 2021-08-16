@@ -1,5 +1,5 @@
 const { Message } = require("discord.js");
-const profileModel = require("../../models/profileSchema");
+const { default: profileModel } = require("../../models/profileSchema");
 
 module.exports = {
 	aliases: ["bday", "b"],
@@ -13,7 +13,9 @@ module.exports = {
 		if (!mention) return "Mention a valid user";
 		const profile = await profileModel.findOne({ userID: mention.id });
 		message.channel.send(profile.birthday).catch((err) => {
-			message.channel.send("This user's birthday has not been added to the database.");
+			message.channel.send(
+				"This user's birthday has not been added to the database."
+			);
 		});
 	},
 };

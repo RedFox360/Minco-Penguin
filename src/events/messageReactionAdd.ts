@@ -1,11 +1,11 @@
-const { Client, MessageReaction, User, MessageEmbed } = require("discord.js");
-const serverModel = require("../models/serverSchema");
-/**
- * @param {Client} client
- * @param {MessageReaction} reaction
- * @param {User} user
- */
-module.exports = async (reaction, user, client) => {
+import Discord from "discord.js";
+import serverModel from "../models/serverSchema";
+
+export default async (
+	reaction: Discord.MessageReaction,
+	_,
+	client: Discord.Client
+) => {
 	const { message } = reaction;
 	if (!message.guild) return;
 	if (reaction.emoji.name !== "⭐" && reaction.emoji.name !== "🌟") return;
@@ -17,7 +17,7 @@ module.exports = async (reaction, user, client) => {
 	if (message.author.bot) return;
 
 	const channel = await client.channels.fetch(channelID);
-	const embed = new MessageEmbed()
+	const embed = new Discord.MessageEmbed()
 		.setAuthor(
 			message.member.displayName,
 			message.author.avatarURL(),
@@ -27,7 +27,9 @@ module.exports = async (reaction, user, client) => {
 		.setFooter(`⭐️  | ${message.id}`)
 		.setTimestamp(message.createdTimestamp)
 		.setColor("#F7DC6F"); // yellow
-	if (message.attachments) embed.attachFiles(message.attachments.array());
 
-	channel.send(embed);
+	(channel as Discord.TextChannel).send({
+		embeds: [embed],
+		files: Array.from(message.attachments.values()),
+	});
 };

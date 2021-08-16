@@ -1,14 +1,15 @@
 const { MessageEmbed } = require("discord.js");
 const tips = require("../../functions/tips.json");
-const serverModel = require("../../models/serverSchema");
-const profileModel = require("../../models/profileSchema");
+const { default: serverModel } = require("../../models/serverSchema");
+const { default: profileModel } = require("../../models/profileSchema");
 const randomInt = require("../../functions/random");
 const ms = require("ms");
 module.exports = {
 	description: "Claim your surprise chest for the server",
 	async run(message, args, _0, _1, profileData, serverData) {
 		if (args[0] == "drop" && message.member.hasPermission("ADMINISTRATOR")) {
-			if (serverData.chest?.hasChest) return "There is already a chest dropped in this server!";
+			if (serverData.chest?.hasChest)
+				return "There is already a chest dropped in this server!";
 			const mdAmount = parseInt(args[1]);
 			if (isNaN(mdAmount)) return "Enter a valid amount of MD";
 			await serverModel.findOneAndUpdate(
@@ -33,7 +34,9 @@ module.exports = {
 
 			if (message.guild.id == "785642761814671381")
 				surpriseEmbed.addField(":bulb: Tip", tips.rand());
-			const surpriseMessage = await message.guild.systemChannel.send(surpriseEmbed);
+			const surpriseMessage = await message.guild.systemChannel.send(
+				surpriseEmbed
+			);
 
 			message.delete().catch(() => {
 				// cmd runned in dm
@@ -83,7 +86,10 @@ module.exports = {
 					},
 				}
 			);
-			if (Math.floor(Math.random() * 5) == 0 && !profileData.inventory.includes("05")) {
+			if (
+				Math.floor(Math.random() * 5) == 0 &&
+				!profileData.inventory.includes("05")
+			) {
 				await profileModel.findOneAndUpdate(
 					{
 						userID: message.author.id,

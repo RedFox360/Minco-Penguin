@@ -1,5 +1,5 @@
 const { MessageEmbed, Message } = require("discord.js");
-const profileModel = require("../../models/profileSchema");
+const { default: profileModel } = require("../../models/profileSchema");
 module.exports = {
 	description: "Check the favorites of a user",
 	usage: "!favorites <@user>",

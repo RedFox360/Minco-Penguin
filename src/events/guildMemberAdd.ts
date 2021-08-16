@@ -1,12 +1,11 @@
-const Discord = require("discord.js");
+import Discord from "discord.js";
 
-const profileModel = require("../models/profileSchema");
-const serverModel = require("../models/serverSchema");
+import profileModel from "../models/profileSchema";
+import serverModel from "../models/serverSchema";
 
-const ordinal = require("ordinal");
+import ordinal from "ordinal";
 
-/** @param {Discord.GuildMember} member */
-module.exports = async (member, client) => {
+export default async (member: Discord.GuildMember, client: Discord.Client) => {
 	let profileData = await profileModel.findOne({ userID: member.id });
 	let serverData = await serverModel.findOneAndUpdate(
 		{ serverID: member.guild.id },
@@ -38,7 +37,7 @@ module.exports = async (member, client) => {
 	const memberCountOrdinal = ordinal(memberCount);
 
 	let joinEmbed = new Discord.MessageEmbed()
-		.setColor("58D68D") // green
+		.setColor("#58D68D") // green
 		.setTitle("Welcome")
 		.setDescription(
 			welcomeMessage
@@ -53,7 +52,7 @@ module.exports = async (member, client) => {
 	const channel = serverData.welcomeChannel
 		? client.channels.cache.get(serverData.welcomeChannel)
 		: member.guild.systemChannel;
-	channel.send(joinEmbed);
+	(channel as Discord.TextChannel).send({ embeds: [joinEmbed] });
 	if (welcomeDM)
 		member.send(
 			welcomeDM
