@@ -1,9 +1,7 @@
 import { Client, Intents, Collection } from "discord.js";
 import { REST } from "@discordjs/rest";
 import { connect } from "mongoose";
-import { config as loadenv } from "dotenv";
 import eventHandler from "./handlers/event_handler";
-loadenv();
 
 connect(process.env.SRV, {
 	useNewUrlParser: true,
