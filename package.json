@@ -10,7 +10,6 @@
 	"engines": {
 		"node": "16.6.1"
 	},
-	"type": "module",
 	"author": "Sameer Prakash",
 	"license": "ISC",
 	"dependencies": {

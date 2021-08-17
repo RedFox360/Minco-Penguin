@@ -4,7 +4,7 @@
 		"moduleResolution": "node",
 		"resolveJsonModule": true,
 		"target": "ESNext",
-		"module": "esnext"
+		"module": "CommonJS"
 	},
 	"exclude": [
 		"node_modules"
