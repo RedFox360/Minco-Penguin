@@ -7,7 +7,7 @@ import slashHandler from "./handlers/slash_handler";
 loadenv();
 
 (async () => {
-	connect(process.env.SRV, {
+	await connect(process.env.SRV, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
 		useFindAndModify: false,
