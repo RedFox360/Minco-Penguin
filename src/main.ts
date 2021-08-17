@@ -3,7 +3,6 @@ import { REST } from "@discordjs/rest";
 import { connect } from "mongoose";
 import { config as loadenv } from "dotenv";
 import eventHandler from "./handlers/event_handler";
-import slashHandler from "./handlers/slash_handler";
 loadenv();
 
 (async () => {
@@ -30,7 +29,6 @@ const client = new Client({
 
 client.on("ready", async () => {
 	eventHandler(client);
-	slashHandler(client);
 	console.log(`${client.user.tag} is online!`);
 	client.user.setActivity("slash commands", { type: "LISTENING" });
 });
