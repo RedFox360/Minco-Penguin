@@ -6,6 +6,6 @@ export const data = new SlashCommandBuilder()
 
 export async function run({ interaction }) {
 	if (interaction.author.id === "724786310711214118") {
-		slashHandler(interaction.client);
+		slashHandler(interaction.client, true);
 	}
 }

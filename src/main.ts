@@ -2,6 +2,7 @@ import { Client, Intents, Collection } from "discord.js";
 import { REST } from "@discordjs/rest";
 import { connect } from "mongoose";
 import eventHandler from "./handlers/event_handler";
+import slashHandler from "./handlers/slash_handler";
 
 connect(process.env.SRV, {
 	useNewUrlParser: true,
@@ -28,6 +29,7 @@ const client = new Client({
 
 client.on("ready", async () => {
 	eventHandler(client);
+	slashHandler(client, false);
 	console.log(`${client.user.tag} is online!`);
 	client.user.setActivity("slash commands", { type: "LISTENING" });
 });

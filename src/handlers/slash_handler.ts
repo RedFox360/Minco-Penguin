@@ -3,7 +3,7 @@ import { Routes } from "discord-api-types/v9";
 import { Client } from "discord.js";
 import { readdirSync } from "fs";
 
-export default async (client: Client) => {
+export default async (client: Client, useRest: boolean) => {
 	const categories = readdirSync("./src/slashCommands/").filter(
 		(file) => !file.includes(".")
 	);
@@ -19,11 +19,12 @@ export default async (client: Client) => {
 			const commandData = command.data.toJSON();
 			(client as any).commands.set(commandData.name, command);
 			console.log("added " + commandData.name);
-			data.push(commandData);
+			if (useRest) data.push(commandData);
 		}
 	}
 	console.log(`commands added || command count: ${data.length + 1}`);
-	await rest.put(Routes.applicationCommands(client.user.id), {
-		body: data,
-	});
+	if (useRest)
+		await rest.put(Routes.applicationCommands(client.user.id), {
+			body: data,
+		});
 };
