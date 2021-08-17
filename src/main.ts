@@ -5,14 +5,15 @@ import { config as loadenv } from "dotenv";
 import eventHandler from "./handlers/event_handler";
 loadenv();
 
-(async () => {
-	await connect(process.env.SRV, {
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-		useFindAndModify: false,
-	});
-	console.log("Connected to the database!");
-})();
+connect(process.env.SRV, {
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
+	useFindAndModify: false,
+})
+	.then(() => {
+		console.log("Connected to the database!");
+	})
+	.catch(console.error);
 
 const client = new Client({
 	intents: [
