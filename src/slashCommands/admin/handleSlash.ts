@@ -1,7 +1,7 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import slashHandler from "../../handlers/slash_handler";
 export const data = new SlashCommandBuilder()
-	.setName("handleSlash")
+	.setName("handle_slash")
 	.setDescription("Handle slashes");
 
 export async function run({ interaction }) {
