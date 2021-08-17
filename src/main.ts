@@ -6,14 +6,12 @@ import eventHandler from "./handlers/event_handler";
 import slashHandler from "./handlers/slash_handler";
 loadenv();
 
-(async () => {
-	await connect(process.env.SRV, {
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-		useFindAndModify: false,
-	});
-	console.log("Connected to the database!");
-})();
+await connect(process.env.SRV, {
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
+	useFindAndModify: false,
+});
+console.log("Connected to the database!");
 
 const client = new Client({
 	intents: [
