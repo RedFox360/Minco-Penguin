@@ -3,6 +3,7 @@ import serverModel from "../models/serverSchema";
 import ordinal from "ordinal";
 
 export default async (member: Discord.GuildMember, client: Discord.Client) => {
+	if (member.guild.bans.cache.find((ban) => ban.user === member.user)) return;
 	if (member.user.bot) return;
 	let serverData = await serverModel.findOneAndUpdate(
 		{ serverID: member.guild.id },
