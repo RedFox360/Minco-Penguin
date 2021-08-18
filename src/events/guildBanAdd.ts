@@ -1,8 +1,7 @@
 import Discord from "discord.js";
 import serverModel from "../models/serverSchema";
 export default async (
-	guild: Discord.Guild,
-	user: Discord.User,
+	{ user, guild }: Discord.GuildBan,
 	client: Discord.Client
 ) => {
 	if (user.bot) return;

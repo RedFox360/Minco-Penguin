@@ -1,6 +1,6 @@
 import serverModel from "../models/serverSchema";
-import { Guild, User } from "discord.js";
-export default async (guild: Guild, user: User) => {
+import { GuildBan, User } from "discord.js";
+export default async ({ user, guild }: GuildBan) => {
 	if (user.bot) return;
 	const serverData = await serverModel.findOneAndUpdate(
 		{ serverID: guild.id },
