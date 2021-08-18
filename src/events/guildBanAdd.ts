@@ -12,7 +12,7 @@ export default async (
 	);
 	if (serverData.silenceBans) return;
 	let desc = `${user.tag} flew too close to the sun and was banned from ${guild.name}.`;
-	if (reason) desc += `\nReason: ${reason}`;
+	if (reason) desc += `\nReason: *${reason}*`;
 	let banEmbed = new Discord.MessageEmbed()
 		.setColor("#F75853") // red
 		.setTitle("Banned")
@@ -21,5 +21,7 @@ export default async (
 		? client.channels.cache.get(serverData.welcomeChannel)
 		: guild.systemChannel;
 	(channel as Discord.TextChannel).send({ embeds: [banEmbed] });
-	user.send(`${user.tag}, you were banned from ${guild.name}.`);
+	let userDesc = `${user.tag}, you were banned from ${guild.name}.`;
+	if (reason) userDesc += `\nReason: *${reason}*`;
+	user.send(userDesc);
 };
