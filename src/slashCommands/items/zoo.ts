@@ -52,7 +52,7 @@ export async function run({ interaction, profileOf }: CommandData) {
 		.setAuthor("Minco Zoo", user.avatarURL())
 		.setColor("#F4D03F")
 		.setDescription(animals.join(""))
-		.setFooter(interaction.guild.name);
+		.setFooter(interaction.guild?.name ?? interaction.user.username);
 
 	await interaction.reply({ embeds: [zooEmbed] });
 }

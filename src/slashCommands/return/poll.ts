@@ -36,7 +36,7 @@ export async function run({ interaction }: CommandData) {
 		.setTitle("Poll")
 		.setDescription(question)
 		.setColor("BLUE")
-		.setFooter(interaction.guild.name);
+		.setFooter(interaction.guild?.name ?? interaction.user.username);
 
 	const msg = await interaction.reply({
 		embeds: [pollEmbed],

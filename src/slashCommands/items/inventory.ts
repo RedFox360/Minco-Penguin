@@ -50,6 +50,6 @@ export async function run({ interaction, profileOf }: CommandData) {
 		.setAuthor("Inventory", user.avatarURL())
 		.setDescription(inv.join("\n"))
 		.setColor("#F8C471")
-		.setFooter(interaction.guild.name);
+		.setFooter(interaction.guild?.name ?? interaction.user.username);
 	interaction.reply({ embeds: [invEmbed] });
 }

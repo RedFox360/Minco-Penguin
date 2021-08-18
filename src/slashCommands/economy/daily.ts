@@ -30,7 +30,7 @@ export async function run({
 	const dailyEmbed = new MessageEmbed()
 		.setColor("#ffa845")
 		.setTitle("Daily Reward")
-		.setFooter(interaction.guild.name);
+		.setFooter(interaction.guild?.name ?? interaction.user.username);
 	let upperLimit = 50;
 	let description = "";
 	if (profile.spouse != null) upperLimit = 65;

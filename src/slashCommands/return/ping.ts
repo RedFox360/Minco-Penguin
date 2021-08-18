@@ -21,7 +21,10 @@ export async function run({ interaction }: CommandData) {
 	const pingEmbed = new MessageEmbed()
 		.setColor(color as any)
 		.setTitle(":robot: Pong!")
-		.setAuthor(interaction.member.displayName, interaction.user.avatarURL())
+		.setAuthor(
+			interaction.member?.displayName ?? interaction.user.username,
+			interaction.user.avatarURL()
+		)
 		.addFields(
 			{ name: "Status:", value: status },
 			{
@@ -32,7 +35,7 @@ export async function run({ interaction }: CommandData) {
 			{ name: "Client Uptime", value: prettyMs(interaction.client.uptime) }
 		)
 		.setTimestamp()
-		.setFooter(interaction.guild.name);
+		.setFooter(interaction.guild?.name ?? interaction.user.username);
 
 	interaction.editReply({ embeds: [pingEmbed] });
 }

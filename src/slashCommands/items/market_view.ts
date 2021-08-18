@@ -30,7 +30,7 @@ export async function run({
 		.setColor("#D1F2EB")
 		.setTitle("Market")
 		.setDescription(`User: ${user.toString()}`)
-		.setFooter(interaction.guild.name);
+		.setFooter(interaction.guild?.name ?? interaction.user.username);
 	for (const { name, price, desc } of market) {
 		let value = `Price: ${price} MD`;
 		if (desc) value += `\n${desc}`;
