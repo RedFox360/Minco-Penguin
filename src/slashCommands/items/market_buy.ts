@@ -73,7 +73,9 @@ export async function run({
 		if (i.customId == "confirm") {
 			await updateProfile({ $inc: { mincoDollars: -item.price } });
 			await updateProfile({ $inc: { mincoDollars: item.price } }, user.id);
-			user.send(`${interaction.user.toString()} bought your **${item.name}**`);
+			await user.send(
+				`${interaction.user.toString()} bought your **${item.name}**`
+			);
 			await i.followUp(
 				`You succesfully bought that item! ${user.toString()} will be DMed notifying your purchase.`
 			);
