@@ -1,5 +1,9 @@
 import { CommandData } from "../../types";
-import { MessageButton, MessageActionRow } from "discord.js";
+import {
+	MessageButton,
+	MessageActionRow,
+	MessageComponentInteraction,
+} from "discord.js";
 import { SlashCommandBuilder } from "@discordjs/builders";
 
 export const data = new SlashCommandBuilder()
@@ -68,19 +72,20 @@ export async function run({
 		max: 1,
 	});
 	let sendtimeout = true;
-	collector.on("collect", async (i) => {
+	collector.on("collect", async (i: MessageComponentInteraction) => {
 		sendtimeout = false;
+		await i.deferUpdate();
 		if (i.customId == "confirm") {
 			await updateProfile({ $inc: { mincoDollars: -item.price } });
 			await updateProfile({ $inc: { mincoDollars: item.price } }, user.id);
 			await user.send(
 				`${interaction.user.toString()} bought your **${item.name}**`
 			);
-			await i.followUp(
+			await interaction.followUp(
 				`You succesfully bought that item! ${user.toString()} will be DMed notifying your purchase.`
 			);
 		} else {
-			await i.followUp("Request canceled");
+			await interaction.followUp("Request canceled");
 		}
 	});
 	collector.on("end", async () => {
