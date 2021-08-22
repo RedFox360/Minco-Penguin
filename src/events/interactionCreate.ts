@@ -35,10 +35,12 @@ export default async (interaction: Interaction) => {
 				.setTitle("<:x_circle:872594799553839114>  **ERROR** ")
 				.setDescription("```xl\n" + clean(err) + "\n```")
 				.setColor("#E48383");
-			interaction.reply({
+			await interaction.reply({
 				embeds: [errorEmbed],
 				ephemeral: true,
 			});
+		} else {
+			await interaction.reply({ content: "An error occured", ephemeral: true });
 		}
 	}
 };
