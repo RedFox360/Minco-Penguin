@@ -1,9 +1,9 @@
 import Discord from "discord.js";
 export interface CommandData {
 	interaction: Interaction;
-	profile: Schema;
-	updateProfile(data: any, uid?: string): Promise<Schema>;
-	profileOf(userID: string): Promise<Schema>;
+	profile: Profile;
+	updateProfile(data: any, uid?: string): Promise<Profile>;
+	profileOf(userID: string): Promise<Profile>;
 }
 export interface Interaction extends Discord.Interaction {
 	readonly command:
@@ -40,7 +40,7 @@ export interface Interaction extends Discord.Interaction {
 	member: Discord.GuildMember;
 	user: Discord.User;
 }
-interface Schema {
+export interface Profile {
 	userID: string;
 	mincoDollars?: number;
 	bank?: number;
