@@ -2,6 +2,7 @@ import { CommandData, Profile } from "../../types";
 import { SlashCommandBuilder } from "@discordjs/builders";
 import animals from "../../json/animals.json";
 
+export const cooldown = "6m";
 export const data = new SlashCommandBuilder()
 	.setName("animal")
 	.setDescription("Buy an animal")
