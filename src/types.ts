@@ -3,7 +3,9 @@ export interface CommandData {
 	interaction: Interaction;
 	profile: Profile;
 	updateProfile(data: any, uid?: string): Promise<Profile>;
+	updateServer(data: any, sid?: string): Promise<ServerData>;
 	profileOf(userID: string): Promise<Profile>;
+	server: ServerData;
 }
 export interface Interaction extends Discord.Interaction {
 	readonly command:
@@ -39,6 +41,25 @@ export interface Interaction extends Discord.Interaction {
 	): Promise<void>;
 	member: Discord.GuildMember;
 	user: Discord.User;
+}
+export interface ServerData {
+	serverID: string;
+	prefixes?: string[];
+	bannedPeople?: string[];
+	blacklist?: string[];
+	welcomeChannel?: string;
+	welcomeMessage?: string;
+	leaveMessage?: string[];
+	welcomeDM?: string;
+	memberCount?: number;
+	silenceJoins?: boolean;
+	silenceBans?: boolean;
+	muteRole?: string;
+	mainRole?: string;
+	modRole?: string;
+	botRole?: string;
+	starboard: { channelID?: string; starAmount?: number };
+	clean: boolean;
 }
 export interface Profile {
 	userID: string;

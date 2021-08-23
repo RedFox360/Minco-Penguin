@@ -1,13 +1,43 @@
 import { Collection, MessageEmbed } from "discord.js";
 import { Interaction } from "../types";
 import profileModel from "../models/profileSchema";
+import serverModel from "../models/serverSchema";
 import ms from "ms";
 import prettyMs from "pretty-ms";
 import validPermissions from "../json/permissions.json";
 const cooldowns = new Map();
 export default async (interaction: Interaction) => {
-	if (!interaction.isCommand()) return;
+	const updateProfile = async (data: any, uid?: string) => {
+		const filter = { userID: uid ?? interaction.user.id };
+		const model = await profileModel.findOneAndUpdate(filter, data, {
+			new: true,
+		});
+		return model;
+	};
+	const updateServer = async (data: any, sid?: string) => {
+		const filter = { serverID: sid ?? interaction.guild.id };
+		const model = await serverModel.findOneAndUpdate(filter, data, {
+			new: true,
+		});
+		return model;
+	};
+	const profileOf = async (userID: string) => {
+		return profileModel.findOne({ userID });
+	};
 	const profile = await profileModel.findOne({ userID: interaction.user.id });
+	const server = await serverModel.findOne({ serverID: interaction.guild.id });
+	const data = {
+		interaction,
+		profile,
+		profileOf,
+		updateProfile,
+		updateServer,
+		server,
+	};
+	if (interaction.isContextMenu()) {
+		(interaction.client as any).contexts.get(interaction.commandName).run(data);
+	}
+	if (!interaction.isCommand()) return;
 	const command = (interaction.client as any).commands.get(
 		interaction.commandName
 	);
@@ -17,17 +47,8 @@ export default async (interaction: Interaction) => {
 	}
 	if (handleCooldowns(interaction, command)) return;
 
-	const updateProfile = async (data: any, uid?: string) => {
-		const filter = { userID: uid ?? interaction.user.id };
-		return profileModel.findOneAndUpdate(filter, data, {
-			new: true,
-		});
-	};
-	const profileOf = async (userID: string) => {
-		return profileModel.findOne({ userID });
-	};
 	try {
-		await command.run({ interaction, profile, profileOf, updateProfile });
+		await command.run(data);
 	} catch (err) {
 		console.error(err);
 		if (interaction.user.id === "724786310711214118") {
