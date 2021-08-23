@@ -1,16 +1,6 @@
 import { CommandData } from "../../types";
 import { SlashCommandBuilder } from "@discordjs/builders";
 
-const byes = ["Goodbye", "Adios!", "Cheerio!", "Later!", "I'm out."];
-const laughs = [
-	"MWAHAHAHA!",
-	"BHAHHAHAHAHHA",
-	"tEEHee",
-	"hehe",
-	":rofl:",
-	"Hahahaha",
-];
-
 export const data = new SlashCommandBuilder()
 	.setName("word")
 	.setDescription("Send a random hello/goodbye/laugh")
@@ -22,6 +12,7 @@ export const data = new SlashCommandBuilder()
 			.addChoice("Hello", "hello")
 			.addChoice("Goodbye", "bye")
 			.addChoice("Laugh", "laugh")
+			.addChoice("Dead chat", "tchd")
 	)
 	.addUserOption((option) =>
 		option
@@ -59,5 +50,35 @@ export async function run({ interaction }: CommandData) {
 			);
 			break;
 		}
+		case "tchd": {
+			await interaction.reply(tchds[Math.floor(Math.random() * tchds.length)]);
+			break;
+		}
 	}
 }
+
+const byes = ["Goodbye", "Adios!", "Cheerio!", "Later!", "I'm out."];
+const laughs = [
+	"MWAHAHAHA!",
+	"BHAHHAHAHAHHA",
+	"tEEHee",
+	"hehe",
+	":rofl:",
+	"Hahahaha",
+];
+const tchds = [
+	"The chat has died :(",
+	"Silence...",
+	"Quiet...",
+	"Dead chat",
+	"The chat is sad",
+	"You're so mean, you killed the chat",
+	"That's not very nice of you to kill the chat",
+	"**DEAD SILENCE**",
+	":cricket:",
+	"*crickets*",
+	"...silence... more silence",
+	"🪦⚰️💬",
+	"Why why why?",
+	"Chat = :(",
+];
