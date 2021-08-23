@@ -25,42 +25,16 @@ export async function run({ interaction }: CommandData) {
 		});
 		return;
 	}
+	const code = transpile(interaction.options.getString("code"), {
+		esModuleInterop: true,
+		moduleResolution: 2,
+		resolveJsonModule: true,
+		target: 99,
+	});
+	const timeStamp1 = Date.now();
+	let evaled;
 	try {
-		const code = transpile(interaction.options.getString("code"), {
-			esModuleInterop: true,
-			moduleResolution: 2,
-			resolveJsonModule: true,
-			target: 99,
-		});
-		const timeStamp1 = Date.now();
-		let evaled = eval(`(async () => {
-			${code}
-		})()`);
-		if (typeof evaled !== "string") evaled = require("util").inspect(evaled);
-		const codeEvaled = "```js\n" + clean(evaled) + "\n```";
-		const codeFormat = "```js\n" + code + "\n```";
-		const responseEmbed = new MessageEmbed()
-			.setTitle("<:check_circle:872594799662858270>  Eval...")
-			.addFields(
-				{
-					name: "Input",
-					value: codeFormat,
-				},
-				{
-					name: "Output",
-					value: codeEvaled,
-				},
-				{
-					name: "Time taken",
-					value: prettyMs(Date.now() - timeStamp1),
-				}
-			)
-			.setColor("#B8FF8B");
-		if (code.includes("interaction.reply")) {
-			await interaction.followUp({ embeds: [responseEmbed] });
-		} else {
-			await interaction.reply({ embeds: [responseEmbed] });
-		}
+		evaled = eval(code);
 	} catch (err) {
 		const errorEmbed = new MessageEmbed()
 			.setTitle("<:x_circle:872594799553839114>  **ERROR** ")
@@ -70,6 +44,32 @@ export async function run({ interaction }: CommandData) {
 			embeds: [errorEmbed],
 			ephemeral: true,
 		});
+		return;
+	}
+	if (typeof evaled !== "string") evaled = require("util").inspect(evaled);
+	const codeEvaled = "```js\n" + clean(evaled) + "\n```";
+	const codeFormat = "```js\n" + code + "\n```";
+	const responseEmbed = new MessageEmbed()
+		.setTitle("<:check_circle:872594799662858270>  Eval...")
+		.addFields(
+			{
+				name: "Input",
+				value: codeFormat,
+			},
+			{
+				name: "Output",
+				value: codeEvaled,
+			},
+			{
+				name: "Time taken",
+				value: prettyMs(Date.now() - timeStamp1),
+			}
+		)
+		.setColor("#B8FF8B");
+	if (code.includes("interaction.reply")) {
+		await interaction.followUp({ embeds: [responseEmbed] });
+	} else {
+		await interaction.reply({ embeds: [responseEmbed] });
 	}
 }
 function clean(text: any) {
