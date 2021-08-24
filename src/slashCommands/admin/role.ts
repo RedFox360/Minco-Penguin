@@ -19,6 +19,16 @@ export const data = new SlashCommandBuilder()
 	);
 
 export async function run({ interaction, updateServer }: CommandData) {
+	if (
+		!interaction.member.permissions.has("MANAGE_ROLES") &&
+		!interaction.member.permissions.has("MANAGE_GUILD")
+	) {
+		await interaction.reply({
+			content: "This channel can only be used by server admins",
+			ephemeral: true,
+		});
+		return;
+	}
 	const role = interaction.options.getRole("role");
 	const type = interaction.options.getString("role_type");
 	const typeFormat = type.charAt(0).toUpperCase() + type.slice(1);
