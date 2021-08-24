@@ -49,7 +49,7 @@ export async function run({ interaction, profileOf }: CommandData) {
 		.setColor("#E67E22") //orange
 		.setDescription(format(slices[0]))
 		.setFooter(`Your leaderboard rank: ${authorIndex + 1}`);
-	console.log(slices);
+
 	await interaction.editReply({
 		embeds: [lbEmbed],
 		components: [row],
