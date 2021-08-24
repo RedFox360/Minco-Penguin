@@ -51,11 +51,11 @@ export async function run({ interaction, profileOf }: CommandData) {
 		.setFooter(`Your leaderboard rank: ${authorIndex + 1}`);
 	console.log(formatted.length);
 
-	const msg = await interaction.reply({
+	await interaction.editReply({
 		embeds: [lbEmbed],
 		components: [row],
-		fetchReply: true,
 	});
+	const msg = await interaction.fetchReply();
 
 	if (formatted.length <= 10) return;
 	const collector = msg.createMessageComponentCollector({ time: ms("2h") });
