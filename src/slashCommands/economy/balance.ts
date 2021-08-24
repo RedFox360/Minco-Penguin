@@ -14,12 +14,14 @@ export const data = new SlashCommandBuilder()
 export async function run({ interaction, profileOf }: CommandData) {
 	const user = interaction.options.getUser("user") ?? interaction.user;
 	const profile = await profileOf(user.id);
+	const total = profile.mincoDollars + profile.bank;
 	const balanceEmbed = new MessageEmbed()
 		.setAuthor("Balance", user.avatarURL())
 		.setColor("#7BFF70")
 		.setDescription(
-			`:coin: Wallet: **${profile.mincoDollars.toLocaleString()}** Minco Dollars
-:dollar: Bank: **${profile.bank.toLocaleString()}** Minco Dollars`
+			`🪙 Wallet: **${profile.mincoDollars.toLocaleString()}** Minco Dollars
+💵 Bank: **${profile.bank.toLocaleString()}** Minco Dollars
+💰 Total: **${total.toLocaleString()}** Minco Dollars`
 		);
 	await interaction.reply({ embeds: [balanceEmbed] });
 }

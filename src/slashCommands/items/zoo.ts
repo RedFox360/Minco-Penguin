@@ -2,6 +2,7 @@ import { MessageEmbed } from "discord.js";
 import { CommandData } from "../../types";
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { MessageActionRow, MessageButton } from "discord.js";
+import ms from "ms";
 import animalList from "../../json/animals.json";
 export const data = new SlashCommandBuilder()
 	.setName("zoo")
@@ -65,7 +66,6 @@ export async function run({ interaction, profileOf }: CommandData) {
 
 async function viewAnimalList({ interaction }: CommandData) {
 	const perGroup = Math.ceil(animalList.length / 3);
-	let index = 0;
 	const animalSlices = new Array(3)
 		.fill("")
 		.map((_, i) => animalList.slice(i * perGroup, (i + 1) * perGroup));
@@ -74,10 +74,12 @@ async function viewAnimalList({ interaction }: CommandData) {
 		.setCustomId("prev")
 		.setLabel("Previous")
 		.setStyle("PRIMARY")
+		.setEmoji("⬅️")
 		.setDisabled();
 	const next = new MessageButton()
 		.setCustomId("next")
 		.setLabel("Next")
+		.setEmoji("➡️")
 		.setStyle("PRIMARY");
 	let row = new MessageActionRow().addComponents(previous, next);
 	let currentPage = 0;
@@ -90,7 +92,7 @@ async function viewAnimalList({ interaction }: CommandData) {
 	const filter = (i) => i.user.id === interaction.user.id;
 	const collector = msg.createMessageComponentCollector({
 		filter,
-		time: 60000,
+		time: ms("2h"),
 	});
 
 	collector.on("collect", async (i) => {
