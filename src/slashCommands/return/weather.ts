@@ -128,8 +128,7 @@ export async function run({ interaction }: CommandData) {
 			});
 
 			const filter = (i) =>
-				(i.customId === "view_weather" || i.customId === "view_forecast") &&
-				i.user.id === interaction.user.id;
+				i.customId === "view_weather" || i.customId === "view_forecast";
 
 			const collector = msg.createMessageComponentCollector({
 				filter,
