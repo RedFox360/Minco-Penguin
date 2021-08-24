@@ -49,8 +49,7 @@ export async function run({ interaction, profileOf }: CommandData) {
 		.setColor("#E67E22") //orange
 		.setDescription(format(slices[0]))
 		.setFooter(`Your leaderboard rank: ${authorIndex + 1}`);
-	console.log(formatted.length);
-
+	console.log(slices);
 	await interaction.editReply({
 		embeds: [lbEmbed],
 		components: [row],
@@ -76,7 +75,7 @@ export async function run({ interaction, profileOf }: CommandData) {
 		} else {
 			currentPage++;
 			previous.setDisabled(false);
-			if (currentPage == slices.length) {
+			if (currentPage + 1 == slices.length) {
 				next.setDisabled();
 			}
 			lbEmbed.setDescription(format(slices[currentPage]));
@@ -92,10 +91,9 @@ function format(arr) {
 	return arr.map((a) => a[0]).join("\n");
 }
 function chunkArray<T>(myArray: T[], chunkSize: number): T[][] {
-	const arrayLength = myArray.length;
 	const tempArray = [];
 
-	for (let index = 0; index < arrayLength; index += chunkSize) {
+	for (let index = 0; index < myArray.length; index += chunkSize) {
 		const myChunk = myArray.slice(index, index + chunkSize);
 		// Do something if you want with the group
 		tempArray.push(myChunk);
