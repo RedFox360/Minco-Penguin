@@ -2,7 +2,7 @@ import { CommandData } from "../../types";
 import { MessageActionRow, MessageSelectMenu, GuildMember } from "discord.js";
 import { SlashCommandBuilder } from "@discordjs/builders";
 import shop from "../../json/shop.json";
-
+import ms from "ms";
 export const data = new SlashCommandBuilder()
 	.setName("buy")
 	.setDescription("Buy items from the shop!");
@@ -29,7 +29,7 @@ export async function run({
 
 	const collector = (msg as any).createMessageComponentCollector({
 		filter,
-		time: 30000,
+		time: ms("2h"),
 		max: 3,
 	});
 

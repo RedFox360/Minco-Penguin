@@ -2,7 +2,7 @@ import { CommandData } from "../../types";
 import * as weather from "weather-js";
 import { MessageButton, MessageActionRow, MessageEmbed } from "discord.js";
 import { SlashCommandBuilder } from "@discordjs/builders";
-
+import ms from "ms";
 export const data = new SlashCommandBuilder()
 	.setName("weather")
 	.setDescription("Get the weather from a location (from MSN)")
@@ -133,7 +133,7 @@ export async function run({ interaction }: CommandData) {
 
 			const collector = msg.createMessageComponentCollector({
 				filter,
-				time: 45000,
+				time: ms("2h"),
 			});
 			collector.on("collect", async (i) => {
 				if (i.customId === "view_weather") {
