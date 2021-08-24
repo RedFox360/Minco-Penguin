@@ -26,10 +26,12 @@ export async function run({ interaction }: CommandData) {
 		.setCustomId("view_weather")
 		.setLabel("Weather")
 		.setStyle("PRIMARY")
+		.setEmoji("☀️")
 		.setDisabled();
 	const forecastButton = new MessageButton()
 		.setCustomId("view_forecast")
 		.setLabel("Forecast")
+		.setEmoji("🗓")
 		.setStyle("PRIMARY");
 	let row = new MessageActionRow().addComponents(weatherButton, forecastButton);
 	let search = interaction.options.getString("location");
