@@ -75,7 +75,7 @@ export async function run({ interaction, profileOf }: CommandData) {
 		} else {
 			currentPage++;
 			previous.setDisabled(false);
-			if (currentPage == formatted.length) {
+			if (currentPage == slices.length) {
 				next.setDisabled();
 			}
 			lbEmbed.setDescription(format(slices[currentPage]));
