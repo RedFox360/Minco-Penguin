@@ -35,6 +35,7 @@ export async function run({ interaction }: CommandData) {
 		});
 		return;
 	}
-	interaction.deferReply();
+	await interaction.reply("cleared messages");
+	await interaction.deleteReply();
 	await (interaction.channel as TextChannel).bulkDelete(amount + 1);
 }
