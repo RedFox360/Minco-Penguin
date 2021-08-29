@@ -1,4 +1,5 @@
 import { Client, Intents, Collection } from "discord.js";
+import { REST } from "@discordjs/rest";
 import { connect } from "mongoose";
 import scheduler from "./scheduler";
 import eventHandler from "./handlers/event_handler";
@@ -16,7 +17,6 @@ const client = new Client({
 	],
 });
 (client as any).commands = new Collection();
-(client as any).contexts = new Collection();
 
 client.on("ready", async () => {
 	await connect(process.env.SRV, {
@@ -34,5 +34,8 @@ client.on("ready", async () => {
 	console.log(`${client.user.tag} is online!`);
 	client.user.setActivity("slash commands", { type: "LISTENING" });
 });
-client.on("guildMemberAdd", () => console.log("a member joined!"));
+
+const rest = new REST({ version: "9" }).setToken(process.env.TOKEN);
 client.login(process.env.TOKEN);
+
+export { rest };
