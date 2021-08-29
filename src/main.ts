@@ -1,6 +1,6 @@
 import { Client, Intents, Collection } from "discord.js";
-import { REST } from "@discordjs/rest";
 import { connect } from "mongoose";
+import scheduler from "./scheduler";
 import eventHandler from "./handlers/event_handler";
 import slashHandler from "./handlers/slash_handler";
 
@@ -16,6 +16,7 @@ const client = new Client({
 	],
 });
 (client as any).commands = new Collection();
+(client as any).contexts = new Collection();
 
 client.on("ready", async () => {
 	await connect(process.env.SRV, {
@@ -27,13 +28,11 @@ client.on("ready", async () => {
 			console.log("Connected to the database!");
 		})
 		.catch(console.error);
-	eventHandler(client);
-	slashHandler(client);
+	await eventHandler(client);
+	await slashHandler(client);
+	scheduler(client);
 	console.log(`${client.user.tag} is online!`);
 	client.user.setActivity("slash commands", { type: "LISTENING" });
 });
-
-const rest = new REST({ version: "9" }).setToken(process.env.TOKEN);
+client.on("guildMemberAdd", () => console.log("a member joined!"));
 client.login(process.env.TOKEN);
-
-export { rest };
