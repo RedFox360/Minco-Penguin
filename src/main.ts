@@ -4,6 +4,7 @@ import { connect } from "mongoose";
 import scheduler from "./scheduler";
 import eventHandler from "./handlers/event_handler";
 import slashHandler from "./handlers/slash_handler";
+import serverModel from "./models/serverSchema";
 
 const client = new Client({
 	intents: [
@@ -28,6 +29,17 @@ client.on("ready", async () => {
 			console.log("Connected to the database!");
 		})
 		.catch(console.error);
+	(async () => {
+		client.guilds.cache.forEach(async (guild) => {
+			const memberCount = (await guild.members.fetch()).filter(
+				(member) => !member.user.bot
+			).size;
+			await serverModel.findOneAndUpdate(
+				{ serverID: guild.id },
+				{ memberCount }
+			);
+		});
+	})();
 	await eventHandler(client);
 	await slashHandler(client);
 	scheduler(client);
