@@ -9,7 +9,7 @@ export default async (member: Discord.GuildMember, client: Discord.Client) => {
 		{ serverID: member.guild.id },
 		{
 			$inc: {
-				memberCount: +member.user.bot,
+				memberCount: -+member.user.bot,
 			},
 		},
 		{
