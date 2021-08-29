@@ -32,7 +32,7 @@ client.on("ready", async () => {
 	client.guilds.cache.forEach(async (guild) => {
 		const memberCount = (await guild.members.fetch()).filter(
 			(m) => !m.user.bot
-		);
+		).size;
 		await serverModel.findOneAndUpdate({ serverID: guild.id }, { memberCount });
 	});
 	await eventHandler(client);
