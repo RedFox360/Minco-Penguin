@@ -21,6 +21,9 @@ const serverSchema = new Schema({
 		default:
 			"It seems {user_tag} has left us. We now have {member_count} members.",
 	},
+	birthdays: Map,
+	sendBirthdays: { type: Boolean, default: true },
+	birthdayChannel: String,
 	welcomeDM: String,
 	memberCount: Number,
 	silenceJoins: { type: Boolean, default: false },
@@ -34,6 +37,7 @@ const serverSchema = new Schema({
 		starAmount: Number,
 	},
 	clean: { type: Boolean, default: true },
+	timezone: { type: String, default: "America/Los_Angeles" },
 });
 
 const serverModel = model("SeverModels", serverSchema);

@@ -17,7 +17,7 @@ export const data = new SlashCommandBuilder()
 			.setRequired(true)
 	);
 
-export async function run({ interaction }: CommandData) {
+export async function run({ interaction, server }: CommandData) {
 	const user = interaction.options.getUser("user");
 	const member = await interaction.guild.members.fetch(user.id);
 	const roles = Array.from(member.roles.cache.values());
@@ -36,21 +36,19 @@ export async function run({ interaction }: CommandData) {
 			},
 			{
 				name: "Created at",
-				value: format(user.createdAt),
+				value: format(user.createdAt, server.timezone),
 				inline: true,
 			},
 			{
 				name: "Joined at",
-				value: format(member.joinedAt),
+				value: format(member.joinedAt, server.timezone),
 				inline: true,
 			}
 		)
-		.setFooter(`UID: ${user.id}`)
+		.setFooter(`UID: ${user.id} | Timezone: ${server.timezone}`)
 		.setTimestamp();
 	await interaction.reply({ embeds: [infoEmbed] });
 }
 
-const format = (time) =>
-	dayjs
-		.tz(time, "America/Los_Angeles")
-		.format("ddd [**]MMM D, YYYY[**] hh:mm A [PST]");
+const format = (time, timezone) =>
+	dayjs.tz(time, timezone).format("ddd [**]MMM D, YYYY[**] hh:mm A");

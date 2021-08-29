@@ -48,18 +48,22 @@ export interface ServerData {
 	bannedPeople?: string[];
 	blacklist?: string[];
 	welcomeChannel?: string;
-	welcomeMessage?: string;
-	leaveMessage?: string[];
+	welcomeMessage: string;
+	leaveMessage: string[];
 	welcomeDM?: string;
 	memberCount?: number;
-	silenceJoins?: boolean;
-	silenceBans?: boolean;
+	silenceJoins: boolean;
+	silenceBans: boolean;
 	muteRole?: string;
 	mainRole?: string;
 	modRole?: string;
 	botRole?: string;
-	starboard: { channelID?: string; starAmount?: number };
+	sendBirthdays: boolean;
+	birthdays?: Map<string, string>;
+	birthdayChannel?: string;
+	starboard?: { channelID?: string; starAmount?: number };
 	clean: boolean;
+	timezone: any;
 }
 export interface Profile {
 	userID: string;

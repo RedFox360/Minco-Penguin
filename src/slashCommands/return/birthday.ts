@@ -1,6 +1,11 @@
 import { CommandData } from "../../types";
 import { MessageEmbed } from "discord.js";
 import { SlashCommandBuilder } from "@discordjs/builders";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export const data = new SlashCommandBuilder()
 	.setName("birthday")
@@ -12,10 +17,10 @@ export const data = new SlashCommandBuilder()
 			.setRequired(true)
 	);
 
-export async function run({ interaction, profileOf }: CommandData) {
+export async function run({ interaction, server }: CommandData) {
 	const user = interaction.options.getUser("user");
-	const profile = await profileOf(user.id);
-	if (!profile.birthday || profile.birthday.includes("database")) {
+	const birthday = server.birthdays.get(user.id);
+	if (!birthday) {
 		await interaction.reply({
 			embeds: [
 				new MessageEmbed()
@@ -28,9 +33,16 @@ export async function run({ interaction, profileOf }: CommandData) {
 		return;
 	}
 	const member = await interaction.guild.members.fetch(user.id);
+	const date = dayjs.tz(birthday, server.timezone);
+	let formatted;
+	if (date.year() === 2001) {
+		formatted = date.format("MMMM D");
+	} else {
+		formatted = date.format("MMMM D, YYYY");
+	}
 	const embed = new MessageEmbed()
 		.setAuthor(member.displayName, user.avatarURL())
-		.setDescription("🎂 " + profile.birthday)
+		.setDescription("🎂 " + formatted)
 		.setColor("#ffc0cb");
 	await interaction.reply({ embeds: [embed] });
 }
