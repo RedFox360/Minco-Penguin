@@ -5,11 +5,12 @@ import ordinal from "ordinal";
 export default async (member: Discord.GuildMember, client: Discord.Client) => {
 	if (member.guild.bans.cache.find((ban) => ban.user === member.user)) return;
 	if (member.user.bot) return;
+	const amount = +member.user.bot;
 	let serverData = await serverModel.findOneAndUpdate(
 		{ serverID: member.guild.id },
 		{
 			$inc: {
-				memberCount: -+member.user.bot,
+				memberCount: -amount,
 			},
 		},
 		{
