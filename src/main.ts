@@ -29,12 +29,7 @@ client.on("ready", async () => {
 			console.log("Connected to the database!");
 		})
 		.catch(console.error);
-	client.guilds.cache.forEach(async (guild) => {
-		const memberCount = (await guild.members.fetch()).filter(
-			(m) => !m.user.bot
-		).size;
-		await serverModel.findOneAndUpdate({ serverID: guild.id }, { memberCount });
-	});
+
 	await eventHandler(client);
 	await slashHandler(client);
 	scheduler(client);
