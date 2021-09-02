@@ -23,6 +23,7 @@ export async function run({
 		await interaction.reply({
 			content: `${user.toString()} doesn't have anything in their market`,
 		});
+		return;
 	}
 	market.sort((a, b) => b.price - a.price);
 	await updateProfile({ market }, user.id);
