@@ -35,6 +35,17 @@ client.on("ready", async () => {
 	scheduler(client);
 	console.log(`${client.user.tag} is online!`);
 	client.user.setActivity("slash commands", { type: "LISTENING" });
+	(async () => {
+		client.guilds.cache.forEach(async (guild) => {
+			const members = (await guild.members.fetch()).filter(
+				(member) => member.user.bot === false
+			);
+			await serverModel.findOneAndUpdate(
+				{ serverID: guild.id },
+				{ memberCount: members.size }
+			);
+		});
+	})();
 });
 
 const rest = new REST({ version: "9" }).setToken(process.env.TOKEN);
