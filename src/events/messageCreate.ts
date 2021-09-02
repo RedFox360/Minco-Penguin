@@ -1,0 +1,14 @@
+import { Message } from "discord.js";
+import serverModel from "../models/serverSchema";
+import { ServerData } from "../types";
+import filter from "leo-profanity";
+
+export default async (message: Message) => {
+	const server: ServerData = await serverModel.findOne({
+		serverID: message.guild.id,
+	});
+	if (server.clean) {
+		if (!message.guild.me.permissions.has("MANAGE_MESSAGES")) return;
+		if (filter.check(message.content)) message.delete();
+	}
+};
