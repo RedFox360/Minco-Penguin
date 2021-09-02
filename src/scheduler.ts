@@ -15,8 +15,6 @@ export default (client: Client) => {
 			"0 9 * * *",
 			async () => {
 				const date = dayjs();
-				console.log(date.format());
-				console.log(server.birthdays);
 				const month = date.month();
 				const day = date.date();
 				const { birthdayChannel } = server;
@@ -31,7 +29,7 @@ export default (client: Client) => {
 						let desc = `Today is ${member.user.toString()}'s birthday!`;
 						if (birthdate.year() !== 2001) {
 							desc += `\nThey are turning ${
-								birthdate.year() - date.year()
+								date.year() - birthdate.year()
 							} years old!`;
 						}
 						const channel = birthdayChannel
