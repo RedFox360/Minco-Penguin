@@ -13,15 +13,8 @@ export const data = new SlashCommandBuilder()
 			.setRequired(true)
 	);
 
+export const permissions = ["ADMINISTRATOR"];
 export async function run({ interaction, updateServer }: CommandData) {
-	if (!interaction.member.permissions.has("ADMINISTRATOR")) {
-		await interaction.reply({
-			content: "This command can only be used by admins",
-			ephemeral: true,
-		});
-		return;
-	}
-
 	const timezone = interaction.options.getString("timezone");
 	if (!timezoneList.includes(timezone)) {
 		const row = new MessageActionRow().addComponents(

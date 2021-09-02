@@ -20,15 +20,9 @@ export const data = new SlashCommandBuilder()
 			.setDescription("The true/false value of the option")
 			.setRequired(true)
 	);
+export const permissions = ["ADMINISTRATOR"];
 
 export async function run({ interaction, updateServer }: CommandData) {
-	if (!interaction.member.permissions.has("ADMINISTRATOR")) {
-		await interaction.reply({
-			content: "This command can only be used by admins",
-			ephemeral: true,
-		});
-		return;
-	}
 	const value = interaction.options.getBoolean("value");
 	switch (interaction.options.getString("option")) {
 		case "sb": {

@@ -3,6 +3,7 @@ import serverModel from "./models/serverSchema";
 import { Client, MessageEmbed, TextChannel } from "discord.js";
 import { ServerData } from "./types";
 import dayjs from "dayjs";
+import profileModel from "./models/profileSchema";
 
 export default (client: Client) => {
 	client.guilds.cache.forEach(async (guild) => {
@@ -18,19 +19,16 @@ export default (client: Client) => {
 				console.log(server.birthdays);
 				const month = date.month();
 				const day = date.date();
-				const { birthdays, birthdayChannel } = server;
-				if (!birthdays) {
-					server = await serverModel.findOneAndUpdate(
-						{ serverID: guild.id },
-						{ birthdays: new Map() },
-						{ new: true }
-					);
-				}
-				console.log("pass 1");
-				server.birthdays.forEach(async (birthday, uid) => {
+				const { birthdayChannel } = server;
+				(await guild.members.fetch()).forEach(async (member) => {
+					if (member.user.bot) return;
+					const { birthday } = await profileModel.findOne({
+						userID: member.id,
+					});
+					if (!birthday) return;
 					const birthdate = dayjs(birthday, server.timezone);
 					if (birthdate.month() == month && birthdate.date() == day) {
-						let desc = `Today is <@${uid}>'s birthday!`;
+						let desc = `Today is ${member.user.toString()}'s birthday!`;
 						if (birthdate.year() !== 2001) {
 							desc += `\nThey are turning ${
 								birthdate.year() - date.year()

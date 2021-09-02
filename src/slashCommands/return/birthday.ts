@@ -17,9 +17,9 @@ export const data = new SlashCommandBuilder()
 			.setRequired(true)
 	);
 
-export async function run({ interaction, server }: CommandData) {
+export async function run({ interaction, server, profileOf }: CommandData) {
 	const user = interaction.options.getUser("user");
-	const birthday = server.birthdays.get(user.id);
+	const { birthday } = await profileOf(interaction.user.id);
 	if (!birthday) {
 		await interaction.reply({
 			embeds: [

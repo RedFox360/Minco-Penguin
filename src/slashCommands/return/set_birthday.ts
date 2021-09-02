@@ -11,7 +11,7 @@ export const data = new SlashCommandBuilder()
 			.setRequired(true)
 	);
 
-export async function run({ interaction, server, updateServer }: CommandData) {
+export async function run({ interaction, updateProfile }: CommandData) {
 	const birthday = interaction.options.getString("birthday");
 	const date = dayjs(birthday);
 	if (!date.isValid()) {
@@ -21,14 +21,7 @@ export async function run({ interaction, server, updateServer }: CommandData) {
 		});
 		return;
 	}
-	if (!server.birthdays) {
-		await updateServer({ birthdays: new Map() });
-	}
-	let updated = server.birthdays;
-	updated.set(interaction.user.id, birthday);
-	await updateServer({
-		birthdays: updated,
-	});
+	await updateProfile({ birthday });
 	await interaction.reply(
 		`Your birthday has been set to ${date.format("MMM D")}`
 	);
