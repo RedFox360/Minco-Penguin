@@ -8,7 +8,6 @@ export const data = new SlashCommandBuilder()
 	.setDescription("View the Minco Dollar leaderboard of the server");
 
 export async function run({ interaction, profileOf }: CommandData) {
-	await interaction.deferReply();
 	const members = await interaction.guild.members.fetch({
 		limit: 50,
 	});

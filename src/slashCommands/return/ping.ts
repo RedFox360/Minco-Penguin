@@ -8,7 +8,6 @@ export const data = new SlashCommandBuilder()
 	.setDescription("Ping the bot");
 
 export async function run({ interaction }: CommandData) {
-	await interaction.deferReply();
 	const latency = Math.round(interaction.client.ws.ping);
 	const ping = Date.now() - interaction.createdTimestamp;
 	const [status, color] = (() => {

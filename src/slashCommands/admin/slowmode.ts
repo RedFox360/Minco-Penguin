@@ -12,7 +12,6 @@ export const data = new SlashCommandBuilder()
 export const permissions = ["MANAGE_CHANNELS"];
 
 export async function run({ interaction }: CommandData) {
-	await interaction.deferReply();
 	const time = interaction.options.getInteger("time");
 	if (time > 21600) {
 		await interaction.reply({
