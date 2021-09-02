@@ -40,9 +40,12 @@ export default async (interaction: Interaction) => {
 	);
 
 	if (command.permissions) {
-		if (handlePermissions(interaction, command)) return;
+		console.log(command.permissions);
+		const permission = await handlePermissions(interaction, command);
+		if (permission) return;
 	}
-	if (handleCooldowns(interaction, command)) return;
+	const cooldown = await handleCooldowns(interaction, command);
+	if (cooldown) return;
 
 	try {
 		await command.run(data);
@@ -63,7 +66,7 @@ export default async (interaction: Interaction) => {
 	}
 };
 
-function handleCooldowns(interaction: Interaction, command: any) {
+async function handleCooldowns(interaction: Interaction, command: any) {
 	if (!cooldowns.has(command.data.name))
 		cooldowns.set(command.data.name, new Collection());
 	const currentTime = Date.now();
@@ -83,7 +86,7 @@ function handleCooldowns(interaction: Interaction, command: any) {
 						command.data.name
 					}`
 				);
-			interaction.reply({ embeds: [timeEmbed], ephemeral: true });
+			await interaction.reply({ embeds: [timeEmbed], ephemeral: true });
 			return true;
 		}
 	}
