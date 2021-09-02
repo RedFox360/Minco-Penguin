@@ -7,6 +7,7 @@ import prettyMs from "pretty-ms";
 import validPermissions from "../json/permissions.json";
 const cooldowns = new Map();
 export default async (interaction: Interaction) => {
+	if (!interaction.isCommand()) return;
 	const updateProfile = async (data: any, uid?: string) => {
 		const filter = { userID: uid ?? interaction.user.id };
 		const model = await profileModel.findOneAndUpdate(filter, data, {
@@ -34,10 +35,6 @@ export default async (interaction: Interaction) => {
 		updateServer,
 		server,
 	};
-	if (interaction.isContextMenu()) {
-		(interaction.client as any).contexts.get(interaction.commandName).run(data);
-	}
-	if (!interaction.isCommand()) return;
 	const command = (interaction.client as any).commands.get(
 		interaction.commandName
 	);
@@ -48,7 +45,6 @@ export default async (interaction: Interaction) => {
 	if (handleCooldowns(interaction, command)) return;
 
 	try {
-		await interaction.deferReply();
 		await command.run(data);
 	} catch (err) {
 		console.error(err);
