@@ -20,17 +20,6 @@ const client = new Client({
 (client as any).commands = new Collection();
 
 client.on("ready", async () => {
-	(async () => {
-		client.guilds.cache.forEach(async (guild) => {
-			const members = (await guild.members.fetch()).filter(
-				(member) => member.user.bot === false
-			);
-			await serverModel.findOneAndUpdate(
-				{ serverID: guild.id },
-				{ memberCount: members.size }
-			);
-		});
-	})();
 	await connect(process.env.SRV, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
