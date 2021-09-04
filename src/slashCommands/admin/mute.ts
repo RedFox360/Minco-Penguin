@@ -68,10 +68,11 @@ export async function run({ interaction, server }: CommandData) {
 		});
 		return;
 	}
+	const hasMod = member.roles.cache.has(modRole);
 	if (
 		member.permissions.has("MANAGE_CHANNELS") ||
 		member.permissions.has("MANAGE_GUILD") ||
-		member.roles.cache.has(modRole)
+		(hasMod && !interaction.member.permissions.has("ADMINISTRATOR"))
 	) {
 		await interaction.reply({
 			content: `${user.toString()} cannot be muted`,
@@ -92,6 +93,8 @@ Reason: ${reasonFormat}`
 		.setAuthor(user.username, user.avatarURL());
 	member.roles.add(muteRole);
 	member.roles.remove(mainRole);
+	if (hasMod) member.roles.remove(modRole);
+
 	await interaction.reply({ embeds: [muteEmbed] });
 	await user.send(`You were muted in ${interaction.guild.name}
 Reason: ${reasonFormat}`);
@@ -103,7 +106,7 @@ Reason: ${reasonFormat}`);
 	setTimeout(async () => {
 		member.roles.add(mainRole);
 		member.roles.remove(muteRole);
-
+		if (hasMod) member.roles.add(modRole);
 		await interaction.channel.send(`${user.toString()} has been unmuted`);
 		await user.send(`You were unmuted in ${interaction.guild.name}`);
 	}, msTime);
