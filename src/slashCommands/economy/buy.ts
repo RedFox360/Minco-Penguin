@@ -1,5 +1,10 @@
 import { CommandData } from "../../types";
-import { MessageActionRow, MessageSelectMenu, GuildMember } from "discord.js";
+import {
+	MessageActionRow,
+	MessageSelectMenu,
+	GuildMember,
+	MessageComponentInteraction,
+} from "discord.js";
 import { SlashCommandBuilder } from "@discordjs/builders";
 import shop from "../../json/shop.json";
 import ms from "ms";
@@ -35,7 +40,7 @@ export async function run({
 
 	collector.on("collect", async (i) => {
 		await i.deferUpdate();
-		const value = i.values;
+		const value = i.values[0];
 		if (profile.inventory.includes(value)) {
 			await i.followUp({
 				content: "You already have this item!",
