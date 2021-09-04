@@ -23,6 +23,13 @@ export const data = new SlashCommandBuilder()
 	);
 
 export async function run({ interaction, server }: CommandData) {
+	if (!interaction.guild) {
+		await interaction.reply({
+			content: "This command can only be used in a server",
+			ephemeral: true,
+		});
+		return;
+	}
 	const { muteRole, mainRole, modRole } = server;
 
 	if (

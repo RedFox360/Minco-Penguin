@@ -4,6 +4,7 @@ import { ServerData } from "../types";
 import filter from "leo-profanity";
 
 export default async (message: Message) => {
+	if (!message.guild) return;
 	const server: ServerData = await serverModel.findOne({
 		serverID: message.guild.id,
 	});
