@@ -48,7 +48,11 @@ export async function run({ interaction, profileOf }: CommandData) {
 		.setTitle("Leaderboard")
 		.setColor("#E67E22") //orange
 		.setDescription(format(slices[0]))
-		.setFooter(`Your leaderboard rank: ${authorIndex + 1}`);
+		.setFooter(
+			`Page ${currentPage}/${slices.length} • Your leaderboard rank: ${
+				authorIndex + 1
+			}`
+		);
 
 	await interaction.editReply({
 		embeds: [lbEmbed],
@@ -66,7 +70,13 @@ export async function run({ interaction, profileOf }: CommandData) {
 			if (currentPage == 0) {
 				previous.setDisabled();
 			}
-			lbEmbed.setDescription(format(slices[currentPage]));
+			lbEmbed
+				.setDescription(format(slices[currentPage]))
+				.setFooter(
+					`Page ${currentPage + 1}/${slices.length} • Your leaderboard rank: ${
+						authorIndex + 1
+					}`
+				);
 			row = new MessageActionRow().addComponents(previous, next);
 			await i.update({
 				embeds: [lbEmbed],
@@ -78,7 +88,13 @@ export async function run({ interaction, profileOf }: CommandData) {
 			if (currentPage + 1 == slices.length) {
 				next.setDisabled();
 			}
-			lbEmbed.setDescription(format(slices[currentPage]));
+			lbEmbed
+				.setDescription(format(slices[currentPage]))
+				.setFooter(
+					`Page ${currentPage + 1}/${slices.length} • Your leaderboard rank: ${
+						authorIndex + 1
+					}`
+				);
 			row = new MessageActionRow().addComponents(previous, next);
 			await i.update({
 				embeds: [lbEmbed],
