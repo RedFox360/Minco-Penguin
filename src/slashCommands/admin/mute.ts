@@ -90,7 +90,6 @@ Reason: ${reasonFormat}`
 		)
 		.setFooter(interaction.guild.name)
 		.setAuthor(user.username, user.avatarURL());
-	console.log(muteRole);
 	member.roles.add(muteRole);
 	member.roles.remove(mainRole);
 	await interaction.reply({ embeds: [muteEmbed] });

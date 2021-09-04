@@ -52,7 +52,6 @@ export async function run({
 			message.guild.roles.fetch();
 			sendtimeout = true;
 			let guess = parseInt(message.content.replace(/\D/g, ""));
-			console.log(guess);
 			if (guess == result) {
 				let amount = randomInt(10, 21);
 				if (profile.spouse) amount = randomInt(10, 26);
