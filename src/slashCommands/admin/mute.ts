@@ -97,14 +97,14 @@ Reason: ${reasonFormat}`
 Reason: ${reasonFormat}`);
 
 	const time = interaction.options.getString("time");
-	if (time) {
-		const msTime = ms(time);
-		setTimeout(async () => {
-			member.roles.add(mainRole);
-			member.roles.remove(muteRole);
+	if (!time) return;
+	const msTime = ms(time);
+	if (!msTime) return;
+	setTimeout(async () => {
+		member.roles.add(mainRole);
+		member.roles.remove(muteRole);
 
-			await interaction.channel.send(`${user.toString()} has been unmuted`);
-			await user.send(`You were unmuted in ${interaction.guild.name}`);
-		}, msTime);
-	}
+		await interaction.channel.send(`${user.toString()} has been unmuted`);
+		await user.send(`You were unmuted in ${interaction.guild.name}`);
+	}, msTime);
 }
