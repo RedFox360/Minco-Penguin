@@ -1,0 +1,86 @@
+[
+	{
+		"emoji": "<:blue_diamond:843178044894216202>",
+		"label": "Blue Diamond",
+		"description": "500 Minco Dollars",
+		"value": "01"
+	},
+	{
+		"emoji": "<:pink_diamond:843177780946010132>",
+		"label": "Pink Diamond",
+		"description": "750 Minco Dollars",
+		"value": "02"
+	},
+	{
+		"emoji": "<:emerald:843180288984219689>",
+		"label": "Emerald",
+		"description": "750 Minco Dollars",
+		"value": "03"
+	},
+	{
+		"emoji": "<:gold_bar:843180638705287188>",
+		"label": "Gold Bar",
+		"description": "500 Minco Dollars",
+		"value": "04"
+	},
+	{
+		"emoji": "<:sapphire:843182746050232340>",
+		"label": "Sapphire",
+		"description": "750 Minco Dollars",
+		"value": "05"
+	},
+	{
+		"emoji": "<:ruby:843184456025112606>",
+		"label": "Ruby",
+		"description": "750 Minco Dollars",
+		"value": "06"
+	},
+	{
+		"emoji": "<:amethyst:843184890337296454>",
+		"label": "Amethyst",
+		"description": "400 Minco Dollars",
+		"value": "07"
+	},
+	{
+		"emoji": "<:black_diamond:843607902136696862>",
+		"label": "Black Diamond",
+		"description": "1500 Minco Dollars",
+		"value": "08"
+	},
+	{
+		"emoji": "<:topaz:844645993747185686>",
+		"label": "Topaz",
+		"description": "400 Minco Dollars",
+		"value": "09"
+	},
+	{
+		"emoji": "<:moonstone:844646676337131521>",
+		"label": "Moonstone",
+		"description": "400 Minco Dollars",
+		"value": "10"
+	},
+	{
+		"emoji": "<:opal:844663271705280533>",
+		"label": "Opal",
+		"description": "400 Minco Dollars",
+		"value": "11"
+	},
+	{
+		"emoji": "<:quartz:844740992473104384>",
+		"label": "Quartz",
+		"description": "300 Minco Dollars",
+		"value": "12"
+	},
+	{
+		"emoji": "<:alexandrite:845793544278638603>",
+		"label": "Alexandrite",
+		"description": "1250 Minco Dollars",
+		"value": "13"
+	},
+	{
+		"emoji": "<:jade:845834920903704587>",
+		"label": "Jade",
+		"description": "400 Minco Dollars",
+		"value": "14"
+	}
+]

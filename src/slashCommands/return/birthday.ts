@@ -25,7 +25,7 @@ export async function run({ interaction, server, profileOf }: CommandData) {
 			embeds: [
 				new MessageEmbed()
 					.setDescription(
-						"<:Denied:754471937165754458> This user's birthday hasn't been added to the database yet."
+						"<:x_circle:872594799553839114> This user's birthday hasn't been added to the database yet."
 					)
 					.setColor("#E48383"),
 			],
@@ -34,7 +34,7 @@ export async function run({ interaction, server, profileOf }: CommandData) {
 	}
 	const member = await interaction.guild.members.fetch(user.id);
 	const date = dayjs.tz(birthday, server.timezone);
-	let formatted;
+	let formatted: string;
 	if (date.year() === 2001) {
 		formatted = date.format("MMMM D");
 	} else {
