@@ -17,7 +17,7 @@ export const permissions = ["MANAGE_CHANNELS"];
 
 export async function run({ interaction }: CommandData) {
 	let timeString = interaction.options.getString("time");
-	let time = +timeString || ms(timeString);
+	let time = +timeString || ms(timeString) / 1000;
 	if (!time) {
 		await interaction.reply({
 			content: "You wrote an invalid time",
