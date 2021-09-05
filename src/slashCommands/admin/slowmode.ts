@@ -1,18 +1,30 @@
 import { CommandData } from "../../types";
 import { MessageEmbed, TextChannel } from "discord.js";
 import { SlashCommandBuilder } from "@discordjs/builders";
+import ms from "ms";
 
 export const data = new SlashCommandBuilder()
 	.setName("slowmode")
 	.setDescription("Set the slowmode of a channel")
-	.addIntegerOption((option) =>
-		option.setName("time").setDescription("The slowmode time").setRequired(true)
+	.addStringOption((option) =>
+		option
+			.setName("time")
+			.setDescription("The slowmode time (e.g. 1, 1s, 3h, 1m)")
+			.setRequired(true)
 	);
 
 export const permissions = ["MANAGE_CHANNELS"];
 
 export async function run({ interaction }: CommandData) {
-	const time = interaction.options.getInteger("time");
+	let timeString = interaction.options.getString("time");
+	let time = +timeString || ms(timeString);
+	if (!time) {
+		await interaction.reply({
+			content: "You wrote an invalid time",
+			ephemeral: true,
+		});
+		return;
+	}
 	if (time > 21600) {
 		await interaction.reply({
 			content: "Please enter an amount less than 21600 (6 hours)",
