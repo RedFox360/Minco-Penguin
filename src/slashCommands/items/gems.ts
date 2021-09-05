@@ -12,9 +12,11 @@ export const data = new SlashCommandBuilder()
 			.setRequired(false)
 	);
 
-export async function run({ interaction, profile }: CommandData) {
+export async function run({ interaction, profileOf }: CommandData) {
 	const userExists = interaction.options.getUser("user");
 	const user = userExists ?? interaction.user;
+
+	const profile = await profileOf(user.id);
 	if (!profile.gems.length) {
 		await interaction.reply({
 			content: `${
