@@ -15,8 +15,8 @@ export default async (guild: Guild, client: Client) => {
 		limit: 1,
 		type: "BOT_ADD",
 	});
-	const auditLog = fetchedLogs.entries.first();
-	auditLog.executor.send({
+	const owner = client.users.cache.get(guild.ownerId);
+	owner.send({
 		embeds: [
 			new MessageEmbed()
 				.setColor("GREEN")
