@@ -12,10 +12,8 @@ export async function run({
 	profile,
 	updateProfile,
 }: CommandData) {
-	console.log(profile.inventory);
 	let response = "";
 	let numberEcon = randomInt(1, 4);
-	console.log(profile.inventory);
 	if (profile.inventory.includes("05")) {
 		if (profile.candyAmount <= 0) {
 			await updateProfile({
