@@ -40,7 +40,6 @@ export default async (interaction: Interaction) => {
 	);
 
 	if (command.permissions) {
-		console.log(command.permissions);
 		const permission = await handlePermissions(interaction, command);
 		if (permission) return;
 	}
