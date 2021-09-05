@@ -44,9 +44,12 @@ export async function run({ interaction, profileOf }: CommandData) {
 			if (t == "12") return "<:quartz:844740992473104384> Quartz";
 			if (t == "13") return "<:alexandrite:845793544278638603> Alexandrite";
 			if (t == "14") return "<:jade:845834920903704587> Jade";
+			if (t == "15") return "<:lapis_lazuli:884171323004297226> Lapis Lazuli";
+			if (t == "16") return "<:rose_quartz:884172100062052422> Rose Quartz";
 			if (t == "157")
 				return "<:green_diamond:844236649948905483> **Green Diamond**";
 			if (t == "158") return "<:ametrine:844649341481910323> **Ametrine**";
+			if (t == "159") return "<:fluorite:884170534391275540> **Fluorite**";
 		})
 		.map((t, i) => `${i + 1}. ${t}`);
 

@@ -14,7 +14,7 @@ export const data = new SlashCommandBuilder()
 
 export async function run({
 	interaction,
-	profile,
+	profileOf,
 	updateProfile,
 }: CommandData) {
 	const row = new MessageActionRow().addComponents(
@@ -24,7 +24,8 @@ export async function run({
 			.addOptions(shop)
 	);
 	const prices = [
-		500, 750, 750, 500, 750, 750, 400, 1500, 400, 400, 400, 300, 1250, 400,
+		500, 750, 750, 500, 750, 750, 400, 1500, 400, 400, 400, 300, 1250, 400, 500,
+		400,
 	];
 	const msg = await interaction.reply({
 		content: "Choose a gem from the Minco Shop",
@@ -32,17 +33,15 @@ export async function run({
 		fetchReply: true,
 	});
 
-	const filter = (i) => i.user.id === interaction.user.id;
-
 	const collector = msg.createMessageComponentCollector({
-		filter,
 		time: ms("2h"),
 		max: 10,
 	});
 
 	collector.on("collect", async (i) => {
 		await i.deferUpdate();
-		const value = i.values[0];
+		const profile = await profileOf(i.user.id);
+		const value = (i as any).values[0];
 		if (profile.gems.includes(value)) {
 			await i.followUp({
 				content: "You already have this item!",

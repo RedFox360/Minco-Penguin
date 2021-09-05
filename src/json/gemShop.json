@@ -82,5 +82,17 @@
 		"label": "Jade",
 		"description": "400 Minco Dollars",
 		"value": "14"
+	},
+	{
+		"emoji": "<:lapis_lazuli:884171323004297226>",
+		"label": "Lapis Lazuli",
+		"description": "500 Minco Dollars",
+		"value": "15"
+	},
+	{
+		"emoji": "<:rose_quartz:884172100062052422>",
+		"label": "Rose Quartz",
+		"description": "400 Minco Dollars",
+		"value": "16"
 	}
 ]
