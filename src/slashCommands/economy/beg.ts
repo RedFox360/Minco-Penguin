@@ -18,7 +18,7 @@ export async function run({
 		if (profile.candyAmount <= 0) {
 			await updateProfile({
 				$pull: {
-					inventorxy: "05",
+					inventory: "05",
 				},
 			});
 		} else {
