@@ -8,7 +8,6 @@ export default async (guild: Guild, client: Client) => {
 		bannedPeople: [],
 		prefixes: ["!", "###", "minco "],
 		memberCount,
-		birthdays: new Map(),
 	});
 	serverProfile.save();
 	const fetchedLogs = await guild.fetchAuditLogs({
