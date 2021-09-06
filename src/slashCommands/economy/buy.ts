@@ -65,7 +65,9 @@ export async function run({
 		});
 		let item = shop.find((i) => i.value == value);
 		await i.followUp(
-			`You succesfully bought a(n) ${item.emoji} **${item.label}** for ${price} MD`
+			`${interaction.user.toString()}, you succesfully bought a(n) ${
+				item.emoji
+			} **${item.label}** for ${price} MD`
 		);
 	});
 }

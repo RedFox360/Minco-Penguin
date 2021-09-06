@@ -63,7 +63,9 @@ export async function run({
 		await updateProfile({ $inc: { mincoDollars: -price } });
 		let item = shop.find((i) => i.value == value);
 		await i.followUp(
-			`You succesfully bought a(n) ${item.emoji} **${item.label}** for ${price} MD`
+			`${interaction.user.toString()}, you succesfully bought a(n) ${
+				item.emoji
+			} **${item.label}** for ${price} MD`
 		);
 	});
 }
