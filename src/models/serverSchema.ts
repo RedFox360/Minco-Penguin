@@ -21,7 +21,6 @@ const serverSchema = new Schema({
 		default:
 			"It seems {user_tag} has left us. We now have {member_count} members.",
 	},
-	birthdays: Map,
 	sendBirthdays: { type: Boolean, default: true },
 	birthdayChannel: String,
 	welcomeDM: String,

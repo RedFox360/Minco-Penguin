@@ -59,7 +59,6 @@ export interface ServerData {
 	modRole?: string;
 	botRole?: string;
 	sendBirthdays: boolean;
-	birthdays?: Map<string, string>;
 	birthdayChannel?: string;
 	starboard?: { channelID?: string; starAmount?: number };
 	clean: boolean;
