@@ -17,7 +17,7 @@ export const permissions = ["MANAGE_CHANNELS"];
 
 export async function run({ interaction }: CommandData) {
 	let timeString = interaction.options.getString("time");
-	let time = +timeString || ms(timeString) / 1000;
+	let time = +timeString == NaN ? ms(timeString) / 1000 : +timeString;
 	if (!time) {
 		await interaction.reply({
 			content: "You wrote an invalid time",
@@ -37,7 +37,7 @@ export async function run({ interaction }: CommandData) {
 		let confirmEmbed = new MessageEmbed()
 			.setColor("#7E78D2")
 			.setTitle("Slowmode")
-			.setDescription(`Slowmode set to ${time} seconds`);
+			.setDescription(`Slowmode set to ${timeString} seconds`);
 		await interaction.reply({ embeds: [confirmEmbed] });
 	} else {
 		await interaction.reply({
