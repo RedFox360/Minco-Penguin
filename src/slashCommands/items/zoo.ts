@@ -34,12 +34,11 @@ export async function run({ interaction, profileOf }: CommandData) {
 	const user = userExists ?? interaction.user;
 	const { zoo } = await profileOf(user.id);
 	if (!zoo.length) {
-		await interaction.reply({
-			content: `${
+		await interaction.reply(
+			`${
 				userExists ? `${userExists} doesn't` : "You don't"
-			} have any animals in ${userExists ? `their` : "your"} zoo`,
-			ephemeral: true,
-		});
+			} have any animals in ${userExists ? `their` : "your"} zoo`
+		);
 		return;
 	}
 	for (let i = 1; i <= zoo.length; i++) {
