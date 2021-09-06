@@ -57,7 +57,9 @@ export async function run({
 			.setStyle("DANGER")
 	);
 	const msg = await interaction.reply({
-		content: `Confirm to buy ${item.name} for ${item.price} MD`,
+		content: `${interaction.user.toString()}, confirm to buy ${item.name} for ${
+			item.price
+		} MD`,
 		components: [row],
 		fetchReply: true,
 	});
