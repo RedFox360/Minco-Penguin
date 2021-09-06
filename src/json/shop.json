@@ -20,7 +20,7 @@
 	{
 		"emoji": "🍅",
 		"label": "Tomato",
-		"description": "4 Minco Dollars\nCan be eaten for between 2 and 6 Minco Dollars (use /eat tomato)",
+		"description": "4 Minco Dollars\nUse /use tomato for a random reward",
 		"value": "04"
 	},
 	{
@@ -68,7 +68,7 @@
 	{
 		"emoji": "🍌",
 		"label": "Banana",
-		"description": "10 Minco Dollars\nCan be eaten using /eat banana for a random reward",
+		"description": "10 Minco Dollars\nUse /use banana for a random reward",
 		"value": "12"
 	}
 ]
