@@ -59,13 +59,13 @@ export async function run({
 			return;
 		}
 
-		await updateProfile({ $push: { gems: value } });
-		await updateProfile({ $inc: { mincoDollars: -price } });
+		await updateProfile({ $push: { gems: value } }, i.user.id);
+		await updateProfile({ $inc: { mincoDollars: -price } }, i.user.id);
 		let item = shop.find((i) => i.value == value);
 		await i.followUp(
-			`${interaction.user.toString()}, you succesfully bought a(n) ${
-				item.emoji
-			} **${item.label}** for ${price} MD`
+			`${i.user.toString()}, you succesfully bought a(n) ${item.emoji} **${
+				item.label
+			}** for ${price} MD`
 		);
 	});
 }

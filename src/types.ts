@@ -78,6 +78,7 @@ export interface Profile {
 	inventory?: string[];
 	gems?: string[];
 	candyAmount?: number;
+	rod: string;
 	zoo?: zooSchema[];
 	penguin?: string;
 	market?: marketSchema[];
