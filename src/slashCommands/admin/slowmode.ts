@@ -2,6 +2,7 @@ import { CommandData } from "../../types";
 import { MessageEmbed, TextChannel } from "discord.js";
 import { SlashCommandBuilder } from "@discordjs/builders";
 import ms from "ms";
+import prettyMs from "pretty-ms";
 
 export const data = new SlashCommandBuilder()
 	.setName("slowmode")
@@ -17,8 +18,10 @@ export const permissions = ["MANAGE_CHANNELS"];
 
 export async function run({ interaction }: CommandData) {
 	let timeString = interaction.options.getString("time");
-	let time = +timeString == NaN ? ms(timeString) / 1000 : +timeString;
-	if (!time) {
+	let unary = +timeString;
+	let time = isNaN(unary) ? ms(timeString) / 1000 : unary;
+
+	if (isNaN(time)) {
 		await interaction.reply({
 			content: "You wrote an invalid time",
 			ephemeral: true,
@@ -37,7 +40,9 @@ export async function run({ interaction }: CommandData) {
 		let confirmEmbed = new MessageEmbed()
 			.setColor("#7E78D2")
 			.setTitle("Slowmode")
-			.setDescription(`Slowmode set to ${timeString} seconds`);
+			.setDescription(
+				`Slowmode set to ${time} seconds (${prettyMs(time * 1000)})`
+			);
 		await interaction.reply({ embeds: [confirmEmbed] });
 	} else {
 		await interaction.reply({
