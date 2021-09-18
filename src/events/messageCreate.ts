@@ -2,6 +2,8 @@ import { Message } from "discord.js";
 import serverModel from "../models/serverSchema";
 import { ServerData } from "../types";
 import filter from "leo-profanity";
+filter.add(["fucked", "fuq", "stfu", "feck", "fawk", "shet"]);
+filter.remove(["suck", "sucks"]);
 
 export default async (message: Message) => {
 	if (!message.guild) return;

@@ -10,7 +10,7 @@ export const data = new SlashCommandBuilder()
 export async function run({ interaction, profileOf }: CommandData) {
 	await interaction.deferReply();
 	const members = await interaction.guild.members.fetch({
-		limit: 50,
+		limit: 100,
 	});
 	let formatted = [];
 	for (const member of members.values()) {
@@ -49,9 +49,7 @@ export async function run({ interaction, profileOf }: CommandData) {
 		.setColor("#E67E22") //orange
 		.setDescription(format(slices[0]))
 		.setFooter(
-			`Page ${currentPage}/${slices.length} • Your leaderboard rank: ${
-				authorIndex + 1
-			}`
+			`Page 1/${slices.length} • Your leaderboard rank: ${authorIndex + 1}`
 		);
 
 	await interaction.editReply({
