@@ -31,12 +31,11 @@ const serverSchema = new Schema({
 	mainRole: String,
 	modRole: String,
 	botRole: String,
-	rod: String,
 	starboard: {
 		channelID: String,
 		starAmount: Number,
 	},
-	clean: { type: Boolean, default: true },
+	clean: { type: Boolean, default: false },
 	timezone: { type: String, default: "America/Los_Angeles" },
 });
 
