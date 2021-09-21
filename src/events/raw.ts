@@ -1,5 +1,5 @@
 import { Client } from "discord.js";
-export default (packet, client) => {
+export default (packet, _, client) => {
 	// We don't want this to run on unrelated packets
 	if (!["MESSAGE_REACTION_ADD", "MESSAGE_REACTION_REMOVE"].includes(packet.t))
 		return;
