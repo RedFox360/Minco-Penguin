@@ -78,11 +78,19 @@ export interface Profile {
 	inventory?: string[];
 	gems?: string[];
 	candyAmount?: number;
-	rod: string;
+	rod: RodType;
+	fish?: FishType[];
 	zoo?: zooSchema[];
 	penguin?: string;
 	market?: marketSchema[];
 	lastUsedDaily?: number;
+	baits: {
+		worms: number;
+		leeches: number;
+		bugs: number;
+		fishes: number;
+	};
+	lastUsedWeekly: number;
 }
 
 interface zooSchema {
@@ -95,3 +103,14 @@ interface marketSchema {
 	name: string;
 	desc?: string;
 }
+
+type FishType = 1 | 2 | 3 | 4 | 5;
+type RodType =
+	| "normal"
+	| "metal"
+	| "heavy"
+	| "lava"
+	| "ruby"
+	| "diamond"
+	| "emerald"
+	| "legendary gemstone";
