@@ -25,7 +25,17 @@ export default async (interaction: Interaction) => {
 	const profileOf = async (userID: string) => {
 		return profileModel.findOne({ userID });
 	};
-	const profile = await profileModel.findOne({ userID: interaction.user.id });
+	let profile = await profileModel.findOne({ userID: interaction.user.id });
+	if (!profile) {
+		let profileCreated = await profileModel.create({
+			userID: interaction.user.id,
+			serverID: interaction.guild.id,
+			mincoDollars: 100,
+			bank: 0,
+		});
+		profileCreated.save();
+		profile = await profileModel.findOne({ userID: interaction.user.id });
+	}
 	const server = await serverModel.findOne({ serverID: interaction.guild.id });
 	const data = {
 		interaction,
