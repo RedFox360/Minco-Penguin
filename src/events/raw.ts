@@ -1,3 +1,4 @@
+import { Message } from "discord.js";
 export default async (packet, _, client) => {
 	// We don't want this to run on unrelated packets
 	if (!["MESSAGE_REACTION_ADD", "MESSAGE_REACTION_REMOVE"].includes(packet.t))
@@ -7,13 +8,13 @@ export default async (packet, _, client) => {
 	// There's no need to emit if the message is cached, because the event will fire anyway for that
 	if (channel.messages.cache.has(packet.d.message_id)) return;
 	// Since we have confirmed the message is not cached, let's fetch it
-	const message = await channel.messages.fetch(packet.d.message_id);
+	const message: Message = await channel.messages.fetch(packet.d.message_id);
 	// Emojis can have identifiers of name:id format, so we have to account for that case as well
 	const emoji = packet.d.emoji.id
 		? `${packet.d.emoji.name}:${packet.d.emoji.id}`
 		: packet.d.emoji.name;
 	// This gives us the reaction we need to emit the event properly, in top of the message object
-	const reaction = await message.reactions.fetch(emoji);
+	const reaction = message.reactions.cache.get(emoji);
 	// Adds the currently reacting user to the reaction's users collection.
 	if (reaction)
 		reaction.users.cache.set(
