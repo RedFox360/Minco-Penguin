@@ -31,6 +31,7 @@ const serverSchema = new Schema({
 	mainRole: String,
 	modRole: String,
 	botRole: String,
+	joinRole: String,
 	starboard: {
 		channelID: String,
 		starAmount: Number,

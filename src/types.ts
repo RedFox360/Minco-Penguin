@@ -58,6 +58,7 @@ export interface ServerData {
 	mainRole?: string;
 	modRole?: string;
 	botRole?: string;
+	joinRole?: string;
 	sendBirthdays: boolean;
 	birthdayChannel?: string;
 	starboard?: { channelID?: string; starAmount?: number };
