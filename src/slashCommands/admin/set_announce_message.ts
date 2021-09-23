@@ -62,7 +62,7 @@ export async function run({ interaction, server, updateServer }: CommandData) {
 				.replace(/\{server\}/g, interaction.guild.name)
 				.replace(/\{mention\}/g, interaction.user.toString())
 				.replace(/\{ord_member_count\}/g, memberCountOrdinal)
-				.replace(/\{member_count\}/g, memberCount.toString())
+				.replace(/\{member_count\}/g, memberCount.toLocaleString())
 				.replace(/\{user\}/g, interaction.user.username)
 				.replace(/\{user_tag\}/g, interaction.user.tag)
 	);
