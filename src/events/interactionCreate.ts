@@ -1,5 +1,6 @@
 import { Collection, MessageEmbed } from "discord.js";
 import { Interaction } from "../types";
+import profileInServerModel from "../models/profileInServerSchema";
 import profileModel from "../models/profileSchema";
 import serverModel from "../models/serverSchema";
 import ms from "ms";
@@ -22,28 +23,63 @@ export default async (interaction: Interaction) => {
 		});
 		return model;
 	};
-	const profileOf = async (userID: string) => {
-		return profileModel.findOne({ userID });
-	};
-	let profile = await profileModel.findOne({ userID: interaction.user.id });
-	if (!profile) {
-		let profileCreated = await profileModel.create({
-			userID: interaction.user.id,
-			serverID: interaction.guild.id,
-			mincoDollars: 100,
-			bank: 0,
+	const updateProfileInServer = async (
+		data: any,
+		uid?: string,
+		sid?: string
+	) => {
+		const filter = {
+			userID: uid ?? interaction.user.id,
+			serverID: sid ?? interaction.guild.id,
+		};
+		const model = await profileInServerModel.findOneAndUpdate(filter, data, {
+			new: true,
 		});
-		profileCreated.save();
-		profile = await profileModel.findOne({ userID: interaction.user.id });
-	}
+		return model;
+	};
+	const profileOf = async (userID: string) => {
+		let model = await profileModel.findOne({ userID });
+		if (!model) {
+			let profileCreated = await profileModel.create({
+				userID: interaction.user.id,
+				serverID: interaction.guild.id,
+				mincoDollars: 100,
+				bank: 0,
+			});
+			profileCreated.save();
+			model = await profileModel.findOne({ userID });
+		}
+		return model;
+	};
+	const profileInServerOf = async (userID: string, serverID?: string) => {
+		const sid = serverID ?? interaction.guild.id;
+		let model = await profileInServerModel.findOne({ userID, serverID: sid });
+		if (!model) {
+			let profileCreated = await profileModel.create({
+				userID: interaction.user.id,
+				serverID: interaction.guild.id,
+				mincoDollars: 100,
+				market: [],
+				bank: 0,
+			});
+			profileCreated.save();
+			model = await profileModel.findOne({ userID, serverID: sid });
+		}
+		return model;
+	};
+	let profile = profileOf(interaction.user.id);
+	let profileInServer = await profileInServerOf(interaction.user.id);
 	const server = await serverModel.findOne({ serverID: interaction.guild.id });
 	const data = {
 		interaction,
 		profile,
-		profileOf,
-		updateProfile,
-		updateServer,
+		profileInServer,
 		server,
+		updateServer,
+		updateProfile,
+		updateProfileInServer,
+		profileOf,
+		profileInServerOf,
 	};
 	const command = (interaction.client as any).commands.get(
 		interaction.commandName

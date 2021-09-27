@@ -24,13 +24,13 @@ export const data = new SlashCommandBuilder()
 
 export async function run({
 	interaction,
-	profileOf,
+	profileInServerOf,
 	profile,
 	updateProfile,
 }: CommandData) {
 	const user = interaction.options.getUser("user");
 	const itemName = interaction.options.getString("item_name");
-	const uprofile = await profileOf(user.id);
+	const uprofile = await profileInServerOf(user.id);
 	const item = uprofile.market.find((m) => m.name === itemName);
 	if (!item) {
 		await interaction.reply({

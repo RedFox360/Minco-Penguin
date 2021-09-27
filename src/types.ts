@@ -2,10 +2,20 @@ import Discord from "discord.js";
 export interface CommandData {
 	interaction: Interaction;
 	profile: Profile;
+	profileInServer: ProfileInServer;
+	server: ServerData;
 	updateProfile(data: any, uid?: string): Promise<Profile>;
 	updateServer(data: any, sid?: string): Promise<ServerData>;
+	updateProfileInServer(
+		data: any,
+		uid?: string,
+		sid?: string
+	): Promise<ProfileInServer>;
 	profileOf(userID: string): Promise<Profile>;
-	server: ServerData;
+	profileInServerOf(
+		userID: string,
+		serverID?: string
+	): Promise<ProfileInServer>;
 }
 export interface Interaction extends Discord.Interaction {
 	readonly command:
@@ -41,6 +51,13 @@ export interface Interaction extends Discord.Interaction {
 	): Promise<void>;
 	member: Discord.GuildMember;
 	user: Discord.User;
+}
+export interface ProfileInServer {
+	userID: string;
+	serverID: string;
+	market?: marketSchema[];
+	infractions: [infractionSchema];
+	muted: boolean;
 }
 export interface ServerData {
 	serverID: string;
@@ -83,7 +100,6 @@ export interface Profile {
 	fish?: FishType[];
 	zoo?: zooSchema[];
 	penguin?: string;
-	market?: marketSchema[];
 	lastUsedDaily?: number;
 	baits: {
 		worms: number;
@@ -92,6 +108,7 @@ export interface Profile {
 		fishes: number;
 	};
 	lastUsedWeekly: number;
+	timezone: string;
 }
 
 interface zooSchema {
@@ -103,6 +120,13 @@ interface marketSchema {
 	price: number;
 	name: string;
 	desc?: string;
+}
+
+interface infractionSchema {
+	reason: string;
+	infractionType: "Mute" | "Kick" | "Ban" | "Warn";
+	time: number;
+	date: number;
 }
 
 type FishType = 1 | 2 | 3 | 4 | 5;

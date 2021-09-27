@@ -12,7 +12,11 @@ export const data = new SlashCommandBuilder()
 			.setRequired(true)
 	);
 
-export async function run({ interaction, server }: CommandData) {
+export async function run({
+	interaction,
+	server,
+	updateProfileInServer,
+}: CommandData) {
 	if (!interaction.guild) {
 		await interaction.reply({
 			content: "This command can only be used in a server",
@@ -69,10 +73,9 @@ export async function run({ interaction, server }: CommandData) {
 		});
 		return;
 	}
-
 	member.roles.add(mainRole);
 	member.roles.remove(muteRole);
-
+	await updateProfileInServer({ muted: false });
 	await interaction.reply(`You unmuted ${user.toString()}`);
 	await user.send(`You were unmuted in ${interaction.guild.name}`);
 }

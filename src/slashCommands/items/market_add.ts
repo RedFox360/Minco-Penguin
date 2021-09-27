@@ -26,10 +26,10 @@ export const data = new SlashCommandBuilder()
 
 export async function run({
 	interaction,
-	profile,
-	updateProfile,
+	profileInServer,
+	updateProfileInServer,
 }: CommandData) {
-	const { market } = profile;
+	const { market } = profileInServer;
 	const price = interaction.options.getInteger("price");
 	const itemName = interaction.options.getString("item_name");
 	const desc = interaction.options.getString("description");
@@ -44,7 +44,9 @@ export async function run({
 		}
 	}
 
-	await updateProfile({ $push: { market: { name: itemName, desc, price } } });
+	await updateProfileInServer({
+		$push: { market: { name: itemName, desc, price } },
+	});
 	if (desc) {
 		await interaction.reply({
 			embeds: [

@@ -14,11 +14,11 @@ export const data = new SlashCommandBuilder()
 
 export async function run({
 	interaction,
-	profileOf,
+	profileInServerOf,
 	updateProfile,
 }: CommandData) {
 	const user = interaction.options.getUser("user");
-	const { market } = await profileOf(user.id);
+	const { market } = await profileInServerOf(user.id);
 	if (!market.length) {
 		await interaction.reply({
 			content: `${user.toString()} doesn't have anything in their market`,

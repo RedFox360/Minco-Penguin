@@ -17,7 +17,7 @@ export const data = new SlashCommandBuilder()
 			.setRequired(true)
 	);
 
-export async function run({ interaction, server }: CommandData) {
+export async function run({ interaction, profile }: CommandData) {
 	const user = interaction.options.getUser("user");
 	const member = await interaction.guild.members.fetch(user.id);
 	const roles = Array.from(member.roles.cache.values());
@@ -36,16 +36,16 @@ export async function run({ interaction, server }: CommandData) {
 			},
 			{
 				name: "Created at",
-				value: format(user.createdAt, server.timezone),
+				value: format(user.createdAt, profile.timezone),
 				inline: true,
 			},
 			{
 				name: "Joined at",
-				value: format(member.joinedAt, server.timezone),
+				value: format(member.joinedAt, profile.timezone),
 				inline: true,
 			}
 		)
-		.setFooter(`UID: ${user.id} | Timezone: ${server.timezone}`)
+		.setFooter(`UID: ${user.id} | Timezone: ${profile.timezone}`)
 		.setTimestamp();
 	await interaction.reply({ embeds: [infoEmbed] });
 }

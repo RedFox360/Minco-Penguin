@@ -40,7 +40,11 @@ export async function run({
 		$inc: { mincoDollars: randomAmount },
 		lastUsedWeekly: now,
 	});
-	await updateProfile({ $push: { inventory: "05" }, candyAmount: 3 });
+	if (profile.inventory.includes("05")) {
+		await updateProfile({ candyAmount: 3 });
+	} else {
+		await updateProfile({ $push: { inventory: "05" }, candyAmount: 3 });
+	}
 
 	weeklyEmbed.setDescription(
 		`You earned ${randomAmount} Minco Dollars and a candy :candy:!`

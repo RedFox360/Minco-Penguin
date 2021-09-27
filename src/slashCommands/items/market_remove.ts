@@ -14,11 +14,11 @@ export const data = new SlashCommandBuilder()
 
 export async function run({
 	interaction,
-	profile,
-	updateProfile,
+	profileInServer,
+	updateProfileInServer,
 }: CommandData) {
 	const itemName = interaction.options.getString("item_name");
-	if (!profile.market.find((i) => i.name === itemName)) {
+	if (!profileInServer.market.find((i) => i.name === itemName)) {
 		await interaction.reply({
 			content: "You don't have this item! (remember capitalization)",
 			ephemeral: true,
@@ -26,7 +26,7 @@ export async function run({
 		return;
 	}
 
-	updateProfile({ $pull: { market: { name: itemName } } });
+	updateProfileInServer({ $pull: { market: { name: itemName } } });
 
 	await interaction.reply({
 		embeds: [accepted(`**${itemName} ** has been removed from your market.`)],

@@ -1,6 +1,7 @@
 import { CommandData } from "../../types";
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { MessageEmbed } from "discord.js";
+import prettyMs from "pretty-ms";
 import ms from "ms";
 
 export const data = new SlashCommandBuilder()
@@ -22,7 +23,12 @@ export const data = new SlashCommandBuilder()
 			.setRequired(false)
 	);
 
-export async function run({ interaction, server }: CommandData) {
+export async function run({
+	interaction,
+	server,
+	profileInServerOf,
+	updateProfileInServer,
+}: CommandData) {
 	if (!interaction.guild) {
 		await interaction.reply({
 			content: "This command can only be used in a server",
@@ -81,12 +87,38 @@ export async function run({ interaction, server }: CommandData) {
 		return;
 	}
 	const reason = interaction.options.getString("reason");
+	const time = interaction.options.getString("time");
+	if (time && !ms(time)) {
+		await interaction.reply({
+			content: "You wrote an invalid time",
+			ephemeral: true,
+		});
+		return;
+	}
 	const reasonFormat = reason ? `*${reason}*` : "No reason provided";
+	const timeFormat = time ? prettyMs(ms(time)) : "Indefinite";
+	const addInfraction = {
+		reason,
+		infractionType: "Mute",
+		time: undefined,
+		date: Date.now(),
+	};
+	if (time) addInfraction.time = ms(time);
+	updateProfileInServer({ muted: true }, user.id);
+	updateProfileInServer(
+		{
+			$push: {
+				infractions: addInfraction,
+			},
+		},
+		user.id
+	);
 	const muteEmbed = new MessageEmbed()
 		.setColor("#E48383")
 		.setTitle("Mute Warning")
 		.setDescription(
 			`${user.toString()} has been muted
+Time: ${timeFormat}
 Reason: ${reasonFormat}`
 		)
 		.setFooter(interaction.guild.name)
@@ -98,16 +130,18 @@ Reason: ${reasonFormat}`
 	await interaction.reply({ embeds: [muteEmbed] });
 	await user.send(`You were muted in ${interaction.guild.name}
 Reason: ${reasonFormat}`);
-
-	const time = interaction.options.getString("time");
-	if (!time) return;
-	const msTime = ms(time);
-	if (!msTime) return;
-	setTimeout(async () => {
-		member.roles.add(mainRole);
-		member.roles.remove(muteRole);
-		if (hasMod) member.roles.add(modRole);
-		await interaction.channel.send(`${user.toString()} has been unmuted`);
-		await user.send(`You were unmuted in ${interaction.guild.name}`);
-	}, msTime);
+	console.log(time);
+	if (time) {
+		setTimeout(async () => {
+			const up = await profileInServerOf(user.id);
+			if (up.muted) {
+				member.roles.add(mainRole);
+				member.roles.remove(muteRole);
+				if (hasMod) member.roles.add(modRole);
+				await interaction.channel.send(`${user.toString()} has been unmuted`);
+				await user.send(`You were unmuted in ${interaction.guild.name}`);
+				updateProfileInServer({ muted: false }, user.id);
+			}
+		}, ms(time));
+	}
 }
