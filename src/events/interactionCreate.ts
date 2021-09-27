@@ -11,9 +11,18 @@ export default async (interaction: Interaction) => {
 	if (!interaction.isCommand()) return;
 	const updateProfile = async (data: any, uid?: string) => {
 		const filter = { userID: uid ?? interaction.user.id };
-		const model = await profileModel.findOneAndUpdate(filter, data, {
+		let model = await profileModel.findOneAndUpdate(filter, data, {
 			new: true,
 		});
+		if (!model) {
+			await profileModel.create({
+				userID: interaction.user.id,
+				serverID: interaction.guild.id,
+				mincoDollars: 100,
+				bank: 0,
+			});
+			model = await profileModel.findOneAndUpdate(filter, data, { new: true });
+		}
 		return model;
 	};
 	const updateServer = async (data: any, sid?: string) => {
@@ -32,9 +41,18 @@ export default async (interaction: Interaction) => {
 			userID: uid ?? interaction.user.id,
 			serverID: sid ?? interaction.guild.id,
 		};
-		const model = await profileInServerModel.findOneAndUpdate(filter, data, {
+		let model = await profileInServerModel.findOneAndUpdate(filter, data, {
 			new: true,
 		});
+		if (!model) {
+			await profileModel.create({
+				userID: interaction.user.id,
+				serverID: interaction.guild.id,
+				mincoDollars: 100,
+				bank: 0,
+			});
+			model = await profileModel.findOneAndUpdate(filter, data, { new: true });
+		}
 		return model;
 	};
 	const profileOf = async (userID: string) => {
@@ -63,11 +81,14 @@ export default async (interaction: Interaction) => {
 			});
 			model = await profileInServerModel.findOne({ userID, serverID: sid });
 		}
+		console.table(!!model);
 		return model;
 	};
 	let profile = await profileOf(interaction.user.id);
 	let profileInServer = await profileInServerOf(interaction.user.id);
-	const server = await serverModel.findOne({ serverID: interaction.guild.id });
+	const server = await serverModel.findOne({
+		serverID: interaction.guild.id,
+	});
 	const data = {
 		interaction,
 		profile,
