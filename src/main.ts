@@ -40,7 +40,7 @@ client.on("ready", async () => {
 	const members = await dmusd.members.fetch();
 	members.forEach(async (member) => {
 		const model = await profileModel.findOne({ userID: member });
-		if (model.market?.length) {
+		if (model?.market?.length) {
 			let m = await profileInServerModel.findOne({
 				userID: member.user.id,
 				serverID: dmusd.id,
