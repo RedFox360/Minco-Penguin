@@ -3,19 +3,17 @@ import serverModel from "../models/serverSchema";
 export default async (guild: Guild, client: Client) => {
 	let members = await guild.members.fetch();
 	let memberCount = members.filter((member) => !member.user.bot).size;
-	let serverProfile = await serverModel.create({
+	await serverModel.create({
 		serverID: guild.id,
 		bannedPeople: [],
 		prefixes: ["!", "###", "minco "],
 		memberCount,
 	});
-	serverProfile.save();
 	const fetchedLogs = await guild.fetchAuditLogs({
 		limit: 1,
 		type: "BOT_ADD",
 	});
-	const owner = client.users.cache.get(guild.ownerId);
-	owner.send({
+	fetchedLogs.entries.first().executor.send({
 		embeds: [
 			new MessageEmbed()
 				.setColor("GREEN")

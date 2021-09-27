@@ -11,18 +11,16 @@ export default async (interaction: Interaction) => {
 	if (!interaction.isCommand()) return;
 	const updateProfile = async (data: any, uid?: string) => {
 		const filter = { userID: uid ?? interaction.user.id };
-		let model = await profileModel.findOneAndUpdate(filter, data, {
-			new: true,
-		});
-		if (!model) {
-			await profileModel.create({
+		const model =
+			(await profileModel.findOneAndUpdate(filter, data, {
+				new: true,
+			})) ??
+			(await profileModel.create({
 				userID: interaction.user.id,
 				serverID: interaction.guild.id,
 				mincoDollars: 100,
 				bank: 0,
-			});
-			model = await profileModel.findOneAndUpdate(filter, data, { new: true });
-		}
+			}));
 		return model;
 	};
 	const updateServer = async (data: any, sid?: string) => {
@@ -41,46 +39,40 @@ export default async (interaction: Interaction) => {
 			userID: uid ?? interaction.user.id,
 			serverID: sid ?? interaction.guild.id,
 		};
-		let model = await profileInServerModel.findOneAndUpdate(filter, data, {
-			new: true,
-		});
-		if (!model) {
-			await profileModel.create({
+		const model =
+			(await profileInServerModel.findOneAndUpdate(filter, data, {
+				new: true,
+			})) ??
+			(await profileModel.create({
 				userID: interaction.user.id,
 				serverID: interaction.guild.id,
 				mincoDollars: 100,
 				bank: 0,
-			});
-			model = await profileModel.findOneAndUpdate(filter, data, { new: true });
-		}
+			}));
 		return model;
 	};
 	const profileOf = async (userID: string) => {
-		let model = await profileModel.findOne({ userID });
-		if (!model) {
-			await profileModel.create({
+		const model =
+			(await profileModel.findOne({ userID })) ??
+			(await profileModel.create({
 				userID: interaction.user.id,
 				serverID: interaction.guild.id,
 				mincoDollars: 100,
 				bank: 0,
-			});
-			model = await profileModel.findOne({ userID });
-		}
+			}));
 		return model;
 	};
 	const profileInServerOf = async (userID: string, serverID?: string) => {
 		const sid = serverID ?? interaction.guild.id;
-		let model = await profileInServerModel.findOne({ userID, serverID: sid });
-		if (!model) {
-			await profileInServerModel.create({
+		const model =
+			(await profileInServerModel.findOne({ userID, serverID: sid })) ??
+			(await profileInServerModel.create({
 				userID: interaction.user.id,
 				serverID: interaction.guild.id,
 				mincoDollars: 100,
 				market: [],
 				bank: 0,
-			});
-			model = await profileInServerModel.findOne({ userID, serverID: sid });
-		}
+			}));
 		console.table(!!model);
 		return model;
 	};
