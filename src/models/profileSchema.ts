@@ -29,7 +29,7 @@ const profileSchema = new Schema({
 	},
 	spouse: String,
 	inventory: [String],
-	market: marketSchema,
+	market: [marketSchema],
 	fish: [String], // 01: Cod, 02: Salmon, 03: Pufferfish, 04: Clownfish, 05: Axolotl
 	rod: { type: String, default: "normal" }, // normal, metal, heavy, lava, ruby, diamond, emerald, legendary gemstone
 	gems: [String],
