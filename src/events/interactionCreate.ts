@@ -55,7 +55,7 @@ export default async (interaction: Interaction) => {
 		const sid = serverID ?? interaction.guild.id;
 		let model = await profileInServerModel.findOne({ userID, serverID: sid });
 		if (!model) {
-			let profileCreated = await profileModel.create({
+			let profileCreated = await profileInServerModel.create({
 				userID: interaction.user.id,
 				serverID: interaction.guild.id,
 				mincoDollars: 100,
@@ -63,7 +63,7 @@ export default async (interaction: Interaction) => {
 				bank: 0,
 			});
 			profileCreated.save();
-			model = await profileModel.findOne({ userID, serverID: sid });
+			model = await profileInServerModel.findOne({ userID, serverID: sid });
 		}
 		return model;
 	};
