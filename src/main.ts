@@ -4,8 +4,7 @@ import { connect } from "mongoose";
 import scheduler from "./scheduler";
 import eventHandler from "./handlers/event_handler";
 import slashHandler from "./handlers/slash_handler";
-import profileModel from "./models/profileSchema";
-import profileInServerModel from "./models/profileInServerSchema";
+import serverModel from "./models/serverSchema";
 
 const client = new Client({
 	intents: [
@@ -36,6 +35,17 @@ client.on("ready", async () => {
 	scheduler(client);
 	console.log(`${client.user.tag} is online!`);
 	client.user.setActivity("slash commands", { type: "LISTENING" });
+	(async () => {
+		client.guilds.cache.forEach(async (guild) => {
+			const members = (await guild.members.fetch()).filter(
+				(member) => member.user.bot === false
+			);
+			await serverModel.findOneAndUpdate(
+				{ serverID: guild.id },
+				{ memberCount: members.size }
+			);
+		});
+	})();
 });
 
 const rest = new REST({ version: "9" }).setToken(process.env.TOKEN);
