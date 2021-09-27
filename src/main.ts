@@ -5,6 +5,8 @@ import scheduler from "./scheduler";
 import eventHandler from "./handlers/event_handler";
 import slashHandler from "./handlers/slash_handler";
 import serverModel from "./models/serverSchema";
+import profileModel from "./models/profileSchema";
+import profileInServerModel from "./models/profileInServerSchema";
 
 const client = new Client({
 	intents: [
@@ -46,6 +48,36 @@ client.on("ready", async () => {
 			);
 		});
 	})();
+	const dmusd = client.guilds.cache.get("785642761814671381");
+	const members = await dmusd.members.fetch();
+	members.forEach(async (member) => {
+		const model = await profileModel.findOne({ userID: member });
+		if (model?.market?.length) {
+			let m = await profileInServerModel.findOne({
+				userID: member.user.id,
+				serverID: dmusd.id,
+			});
+			if (!m) {
+				let profileCreated = await profileModel.create({
+					userID: member.user.id,
+					serverID: dmusd.id,
+					market: model.market ?? [],
+					mincoDollars: 100,
+					bank: 0,
+				});
+				profileCreated.save();
+				m = await profileModel.findOne({
+					userID: member.user.id,
+					serverID: dmusd.id,
+				});
+			} else {
+				await profileInServerModel.findOneAndUpdate(
+					{ userID: member.user.id, serverID: dmusd.id },
+					{ market: model.market ?? [] }
+				);
+			}
+		}
+	});
 });
 
 const rest = new REST({ version: "9" }).setToken(process.env.TOKEN);
