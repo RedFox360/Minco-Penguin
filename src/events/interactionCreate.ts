@@ -67,7 +67,7 @@ export default async (interaction: Interaction) => {
 		}
 		return model;
 	};
-	let profile = profileOf(interaction.user.id);
+	let profile = await profileOf(interaction.user.id);
 	let profileInServer = await profileInServerOf(interaction.user.id);
 	const server = await serverModel.findOne({ serverID: interaction.guild.id });
 	const data = {
