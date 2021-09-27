@@ -14,7 +14,7 @@ const marketSchema = new Schema({
 });
 
 const profileInServerSchema = new Schema({
-	userID: { type: String, require: true, unique: true },
+	userID: { type: String, require: true },
 	serverID: { type: String, require: true },
 	infractions: [infractionSchema],
 	market: [marketSchema],
