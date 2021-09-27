@@ -73,7 +73,6 @@ export default async (interaction: Interaction) => {
 				market: [],
 				bank: 0,
 			}));
-		console.table(!!model);
 		return model;
 	};
 	let profile = await profileOf(interaction.user.id);
