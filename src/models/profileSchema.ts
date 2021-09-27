@@ -11,6 +11,11 @@ const baits = new Schema({
 	bugs: Number,
 	fishes: Number,
 });
+const marketSchema = new Schema({
+	price: Number,
+	name: String,
+	desc: String,
+});
 
 const profileSchema = new Schema({
 	userID: { type: String, require: true, unique: true },
@@ -24,7 +29,7 @@ const profileSchema = new Schema({
 	},
 	spouse: String,
 	inventory: [String],
-	market: String,
+	market: marketSchema,
 	fish: [String], // 01: Cod, 02: Salmon, 03: Pufferfish, 04: Clownfish, 05: Axolotl
 	rod: { type: String, default: "normal" }, // normal, metal, heavy, lava, ruby, diamond, emerald, legendary gemstone
 	gems: [String],
