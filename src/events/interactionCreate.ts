@@ -16,7 +16,7 @@ export default async (interaction: Interaction) => {
 				new: true,
 			})) ??
 			(await profileModel.create({
-				userID: interaction.user.id,
+				...filter,
 				serverID: interaction.guild.id,
 				mincoDollars: 100,
 				bank: 0,
@@ -44,8 +44,7 @@ export default async (interaction: Interaction) => {
 				new: true,
 			})) ??
 			(await profileModel.create({
-				userID: interaction.user.id,
-				serverID: interaction.guild.id,
+				...filter,
 				mincoDollars: 100,
 				bank: 0,
 			}));
@@ -55,7 +54,7 @@ export default async (interaction: Interaction) => {
 		const model =
 			(await profileModel.findOne({ userID })) ??
 			(await profileModel.create({
-				userID: interaction.user.id,
+				userID,
 				serverID: interaction.guild.id,
 				mincoDollars: 100,
 				bank: 0,
@@ -67,8 +66,8 @@ export default async (interaction: Interaction) => {
 		const model =
 			(await profileInServerModel.findOne({ userID, serverID: sid })) ??
 			(await profileInServerModel.create({
-				userID: interaction.user.id,
-				serverID: interaction.guild.id,
+				userID,
+				serverID: sid,
 				mincoDollars: 100,
 				market: [],
 				bank: 0,
