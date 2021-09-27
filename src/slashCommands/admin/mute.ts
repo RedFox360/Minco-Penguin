@@ -130,7 +130,6 @@ Reason: ${reasonFormat}`
 	await interaction.reply({ embeds: [muteEmbed] });
 	await user.send(`You were muted in ${interaction.guild.name}
 Reason: ${reasonFormat}`);
-	console.log(time);
 	if (time) {
 		setTimeout(async () => {
 			const up = await profileInServerOf(user.id);

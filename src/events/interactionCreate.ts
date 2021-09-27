@@ -40,13 +40,12 @@ export default async (interaction: Interaction) => {
 	const profileOf = async (userID: string) => {
 		let model = await profileModel.findOne({ userID });
 		if (!model) {
-			let profileCreated = await profileModel.create({
+			await profileModel.create({
 				userID: interaction.user.id,
 				serverID: interaction.guild.id,
 				mincoDollars: 100,
 				bank: 0,
 			});
-			profileCreated.save();
 			model = await profileModel.findOne({ userID });
 		}
 		return model;
@@ -55,14 +54,13 @@ export default async (interaction: Interaction) => {
 		const sid = serverID ?? interaction.guild.id;
 		let model = await profileInServerModel.findOne({ userID, serverID: sid });
 		if (!model) {
-			let profileCreated = await profileInServerModel.create({
+			await profileInServerModel.create({
 				userID: interaction.user.id,
 				serverID: interaction.guild.id,
 				mincoDollars: 100,
 				market: [],
 				bank: 0,
 			});
-			profileCreated.save();
 			model = await profileInServerModel.findOne({ userID, serverID: sid });
 		}
 		return model;

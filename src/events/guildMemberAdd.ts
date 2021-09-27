@@ -25,13 +25,12 @@ export default async (member: Discord.GuildMember, client: Discord.Client) => {
 	if (serverData.joinRole) member.roles.add(serverData.joinRole);
 	if (serverData.silenceJoins) return;
 	if (!profileData) {
-		let profile = await profileModel.create({
+		await profileModel.create({
 			userID: member.id,
 			mincoDollars: 100,
 			bank: 0,
 			orbs: 0,
 		});
-		profile.save();
 	}
 	const { welcomeMessage, welcomeDM, memberCount } = serverData;
 	const memberCountOrdinal = ordinal(memberCount);
