@@ -27,7 +27,7 @@ export async function run({
 	await interaction.deferReply();
 	const user = interaction.options.getUser("user");
 	const profileInServer = await profileInServerOf(user.id);
-	if (!profileInServer.infractions) {
+	if (!profileInServer.infractions?.length) {
 		await interaction.editReply(`${user.toString()}'s logs are clean!`);
 		return;
 	}
