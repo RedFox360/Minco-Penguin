@@ -4,6 +4,8 @@ import { ServerData } from "../types";
 import filter from "leo-profanity";
 filter.add([
 	"fucked",
+	"fuced",
+	"fuc",
 	"fuq",
 	"stfu",
 	"feck",
@@ -12,6 +14,7 @@ filter.add([
 	"betch",
 	"cocaine",
 	"heroin",
+	"sacc",
 ]);
 filter.remove(["suck", "sucks"]);
 
