@@ -15,6 +15,8 @@ filter.add([
 	"cocaine",
 	"heroin",
 	"sacc",
+	"retard",
+	"retarded",
 ]);
 filter.remove(["suck", "sucks"]);
 
