@@ -31,17 +31,37 @@ export async function run({
 		await interaction.editReply(`${user.toString()}'s logs are clean!`);
 		return;
 	}
-	const format = profileInServer.infractions.slice(-120).map((i) => {
-		const dateFormat = dayjs
-			.tz(i.date, server.timezone)
-			.format("ddd [*]MMM, D, YYYY[*] hh:mm A");
-		return {
-			title: i.infractionType,
-			description: `Reason: *${i.reason ? i.reason : "No reason provided"}*
+	const format = profileInServer.infractions
+		.slice(-120)
+		.map((i, l) => {
+			const dateFormat = dayjs
+				.tz(i.date, server.timezone)
+				.format("ddd [*]MMM, D, YYYY[*] hh:mm A");
+			let title = (() => {
+				switch (i.infractionType) {
+					case "Mute": {
+						return ":speak_no_evil: Mute";
+					}
+					case "Kick": {
+						return ":mechanical_leg: Kick";
+					}
+					case "Ban": {
+						return ":no_entry_sign: Ban";
+					}
+					case "Warn": {
+						return ":warning: Warning";
+					}
+				}
+			})();
+			title += `  #${l + 1}`;
+			return {
+				title,
+				description: `Reason: *${i.reason ? i.reason : "No reason provided"}*
 Date: ${dateFormat}`,
-			time: i.time,
-		};
-	});
+				time: i.time,
+			};
+		})
+		.reverse();
 	const sliced = chunkArray(format, 8);
 	const previous = new MessageButton()
 		.setCustomId("prev")
@@ -54,7 +74,7 @@ Date: ${dateFormat}`,
 		.setLabel("Next")
 		.setEmoji("➡️")
 		.setStyle("PRIMARY")
-		.setDisabled(sliced.length <= 10);
+		.setDisabled(sliced.length == 1);
 	let row = new MessageActionRow().addComponents(previous, next);
 	let currentPage = 0;
 
@@ -68,22 +88,26 @@ Date: ${dateFormat}`,
 		if (s.time) desc += `\nTime: ${prettyMs(s.time)}`;
 		embed.addField(s.title, s.description);
 	}
-	await interaction.editReply({ embeds: [embed] });
+	await interaction.editReply({ embeds: [embed], components: [row] });
 	const msg = await interaction.fetchReply();
-
-	if (sliced.length <= 10) return;
-	const collector = msg.createMessageComponentCollector({ time: ms("2h") });
+	if (sliced.length == 1) return;
+	const filter = (i) => i.member.permissions.has("MANAGE_MESSAGES");
+	const collector = msg.createMessageComponentCollector({
+		filter,
+		time: ms("2h"),
+	});
 
 	collector.on("collect", async (i) => {
 		if (i.customId == "prev") {
 			currentPage--;
 			next.setDisabled(false);
 			if (currentPage == 0) previous.setDisabled();
+			embed.fields = [];
 			for (const s of sliced[currentPage]) {
-				embed.fields = [];
 				let desc = s.description;
 				if (s.time) desc += `\nTime: ${prettyMs(s.time)}`;
 				embed.addField(s.title, s.description);
+				embed.setFooter(`Page ${currentPage + 1}/${sliced.length}`);
 			}
 			row = new MessageActionRow().addComponents(previous, next);
 			await i.update({ embeds: [embed], components: [row] });
@@ -91,11 +115,12 @@ Date: ${dateFormat}`,
 			currentPage++;
 			previous.setDisabled(false);
 			if (currentPage + 1 == sliced.length) next.setDisabled();
+			embed.fields = [];
 			for (const s of sliced[currentPage]) {
-				embed.fields = [];
 				let desc = s.description;
 				if (s.time) desc += `\nTime: ${prettyMs(s.time)}`;
 				embed.addField(s.title, s.description);
+				embed.setFooter(`Page ${currentPage + 1}/${sliced.length}`);
 			}
 			row = new MessageActionRow().addComponents(previous, next);
 			await i.update({ embeds: [embed], components: [row] });

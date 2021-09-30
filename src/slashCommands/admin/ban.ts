@@ -53,7 +53,7 @@ export async function run({ interaction, updateProfileInServer }: CommandData) {
 		date: Date.now(),
 	};
 	if (time) addInfraction.time = ms(time);
-	updateProfileInServer(
+	const { infractions } = await updateProfileInServer(
 		{
 			$push: {
 				infractions: addInfraction,
@@ -65,7 +65,9 @@ export async function run({ interaction, updateProfileInServer }: CommandData) {
 		.setColor("#E48383")
 		.setTitle("Banned")
 		.setDescription(
-			`${user.toString()} has been banned\nReason: ${reasonFormat}`
+			`${user.toString()} has been banned
+Case #${infractions.length}
+Reason: ${reasonFormat}`
 		)
 		.setFooter(interaction.guild.name)
 		.setAuthor(user.username, user.avatarURL());

@@ -104,8 +104,8 @@ export async function run({
 		date: Date.now(),
 	};
 	if (time) addInfraction.time = ms(time);
-	updateProfileInServer({ muted: true }, user.id);
-	updateProfileInServer(
+	await updateProfileInServer({ muted: true }, user.id);
+	const { infractions } = await updateProfileInServer(
 		{
 			$push: {
 				infractions: addInfraction,
@@ -118,6 +118,7 @@ export async function run({
 		.setTitle("Mute Warning")
 		.setDescription(
 			`${user.toString()} has been muted
+Case #${infractions.length}
 Time: ${timeFormat}
 Reason: ${reasonFormat}`
 		)

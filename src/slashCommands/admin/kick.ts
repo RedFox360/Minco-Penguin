@@ -29,7 +29,7 @@ export async function run({ interaction, updateProfileInServer }: CommandData) {
 	const member = await interaction.guild.members.fetch(user);
 	const reason = interaction.options.getString("reason");
 
-	updateProfileInServer(
+	const { infractions } = await updateProfileInServer(
 		{
 			$push: {
 				infractions: { reason, infractionType: "Kick", date: Date.now() },
@@ -42,7 +42,9 @@ export async function run({ interaction, updateProfileInServer }: CommandData) {
 		.setColor("#E48383")
 		.setTitle("Kicked")
 		.setDescription(
-			`${user.toString()} has been kicked\nReason: ${reasonFormat}`
+			`${user.toString()} has been kicked
+Case #${infractions.length}
+Reason: ${reasonFormat}`
 		)
 		.setFooter(interaction.guild.name)
 		.setAuthor(user.username, user.avatarURL());
