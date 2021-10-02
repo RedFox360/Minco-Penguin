@@ -2,6 +2,7 @@ import { Message } from "discord.js";
 import serverModel from "../models/serverSchema";
 import { ServerData } from "../types";
 import filter from "leo-profanity";
+import profileInServerModel from "../models/profileInServerSchema";
 filter.add([
 	"fucked",
 	"fuced",
@@ -27,6 +28,13 @@ export default async (message: Message) => {
 	});
 	if (server.clean) {
 		if (!message.guild.me.permissions.has("MANAGE_MESSAGES")) return;
-		if (filter.check(message.content)) message.delete();
+		if (filter.check(message.content)) await message.delete();
+	}
+	const profile = await profileInServerModel.findOne({
+		userID: message.author.id,
+		serverID: message.guild.id,
+	});
+	if (profile?.isShadowBanned) {
+		await message.delete();
 	}
 };

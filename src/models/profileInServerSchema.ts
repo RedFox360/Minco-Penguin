@@ -19,6 +19,7 @@ const profileInServerSchema = new Schema({
 	infractions: [infractionSchema],
 	market: [marketSchema],
 	muted: Boolean,
+	isShadowBanned: { type: Boolean, default: false },
 });
 
 const profileInServerModel = model("guildProfileModel", profileInServerSchema);

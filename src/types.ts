@@ -58,6 +58,7 @@ export interface ProfileInServer {
 	market?: marketSchema[];
 	infractions: [infractionSchema];
 	muted: boolean;
+	isShadowBanned: boolean;
 }
 export interface ServerData {
 	serverID: string;
