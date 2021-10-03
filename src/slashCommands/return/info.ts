@@ -21,19 +21,11 @@ export async function run({ interaction, profile }: CommandData) {
 	const user = interaction.options.getUser("user");
 	const member = await interaction.guild.members.fetch(user.id);
 	const roles = Array.from(member.roles.cache.values());
+
 	const infoEmbed = new MessageEmbed()
 		.setAuthor(user.tag, user.avatarURL(), user.avatarURL())
-		.setColor("#16A085") // darkish green
+		.setColor(member.roles.highest.color || "GREYPLE") // darkish green
 		.addFields(
-			{
-				name: "Roles",
-				value: roles
-					.filter((role) => !role.name.includes("everyone"))
-					.map((role) => `<@&${role.id}>`)
-					.join(" "),
-
-				inline: true,
-			},
 			{
 				name: "Created at",
 				value: format(user.createdAt, profile.timezone),
@@ -47,6 +39,16 @@ export async function run({ interaction, profile }: CommandData) {
 		)
 		.setFooter(`UID: ${user.id} | Timezone: ${profile.timezone}`)
 		.setTimestamp();
+	if (roles.length > 1) {
+		infoEmbed.addField(
+			"Roles",
+			roles
+				.filter((role) => !role.name.includes("everyone"))
+				.map((role) => `<@&${role.id}>`)
+				.join(" "),
+			true
+		);
+	}
 	await interaction.reply({ embeds: [infoEmbed] });
 }
 
