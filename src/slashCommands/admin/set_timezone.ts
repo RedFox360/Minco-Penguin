@@ -50,8 +50,9 @@ export async function run({
 			return;
 		}
 		await updateServer({ timezone });
+		await interaction.reply(`Server timezone updated to ${timezone}`);
 	} else {
 		await updateProfile({ timezone });
+		await interaction.reply(`Personal timezone updated to ${timezone}`);
 	}
-	await interaction.reply(`Server timezone updated to ${timezone}`);
 }
