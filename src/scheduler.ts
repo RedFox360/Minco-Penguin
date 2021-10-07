@@ -1,5 +1,4 @@
 import cron from "node-cron";
-import { magenta, dim } from "chalk";
 import serverModel from "./models/serverSchema";
 import { Client, MessageEmbed, TextChannel } from "discord.js";
 import { ServerData } from "./types";
@@ -52,6 +51,6 @@ export default (client: Client) => {
 			},
 			{ timezone: server.timezone }
 		);
+		console.log("finished with " + guild.name);
 	});
-	console.log(dim(magenta("finished scheduling birthdays")));
 };
