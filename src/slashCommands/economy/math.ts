@@ -42,7 +42,7 @@ export async function run({
 	});
 
 	const filter = (msg) => msg.author.id === interaction.user.id;
-
+	let timeout = true;
 	mathMsg.channel
 		.awaitMessages({
 			filter,
@@ -51,6 +51,7 @@ export async function run({
 			errors: ["time"],
 		})
 		.then(async (msg) => {
+			timeout = false;
 			const message = msg.first();
 			message.guild.roles.fetch();
 			let guess = parseInt(message.content.replace(/\D/g, ""));
@@ -82,6 +83,6 @@ You won ${amount} Minco Dollars!`
 			}
 		})
 		.catch(() => {
-			interaction.followUp("Timed out!");
+			if (timeout) interaction.followUp("Timed out!");
 		});
 }
