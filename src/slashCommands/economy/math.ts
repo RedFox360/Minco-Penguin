@@ -36,11 +36,14 @@ export async function run({
 	} else {
 		result = num1 + num2;
 	}
-	await interaction.reply(`What is ${num1} ${oper} ${num2}?`);
+	const msg = await interaction.reply({
+		content: `What is ${num1} ${oper} ${num2}?`,
+		fetchReply: true,
+	});
 
 	const filter = (msg) => msg.author.id === interaction.user.id;
-	let sendtimeout = false;
-	interaction.channel
+
+	msg.channel
 		.awaitMessages({
 			filter,
 			max: 1,
@@ -50,7 +53,6 @@ export async function run({
 		.then(async (msg) => {
 			const message = msg.first();
 			message.guild.roles.fetch();
-			sendtimeout = true;
 			let guess = parseInt(message.content.replace(/\D/g, ""));
 			if (guess == result) {
 				let amount = randomInt(10, 21);
