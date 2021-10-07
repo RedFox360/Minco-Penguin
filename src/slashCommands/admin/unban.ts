@@ -17,6 +17,8 @@ export const data = new SlashCommandBuilder()
 			.setRequired(false)
 	);
 export const permissions = ["BAN_MEMBERS"];
+export const serverOnly = true;
+
 export async function run({ interaction }: CommandData) {
 	const user = interaction.options.getString("user");
 	const userObj = await interaction.client.users.fetch(user);

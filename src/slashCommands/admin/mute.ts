@@ -22,20 +22,13 @@ export const data = new SlashCommandBuilder()
 			.setDescription("Why you muted that user")
 			.setRequired(false)
 	);
-
+export const serverOnly = true;
 export async function run({
 	interaction,
 	server,
 	profileInServerOf,
 	updateProfileInServer,
 }: CommandData) {
-	if (!interaction.guild) {
-		await interaction.reply({
-			content: "This command can only be used in a server",
-			ephemeral: true,
-		});
-		return;
-	}
 	const { muteRole, mainRole, modRole } = server;
 
 	if (
@@ -129,8 +122,10 @@ Reason: ${reasonFormat}`
 	if (hasMod) member.roles.remove(modRole);
 
 	await interaction.reply({ embeds: [muteEmbed] });
-	await user.send(`You were muted in ${interaction.guild.name}
+	try {
+		await user.send(`You were muted in ${interaction.guild.name}
 Reason: ${reasonFormat}`);
+	} catch (err) {}
 	if (time) {
 		setTimeout(async () => {
 			const up = await profileInServerOf(user.id);
@@ -139,7 +134,9 @@ Reason: ${reasonFormat}`);
 				member.roles.remove(muteRole);
 				if (hasMod) member.roles.add(modRole);
 				await interaction.channel.send(`${user.toString()} has been unmuted`);
-				await user.send(`You were unmuted in ${interaction.guild.name}`);
+				try {
+					await user.send(`You were unmuted in ${interaction.guild.name}`);
+				} catch (err) {}
 				updateProfileInServer({ muted: false }, user.id);
 			}
 		}, ms(time));

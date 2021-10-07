@@ -6,7 +6,7 @@ import ms from "ms";
 export const data = new SlashCommandBuilder()
 	.setName("leaderboard")
 	.setDescription("View the Minco Dollar leaderboard of the server");
-
+export const serverOnly = true;
 export async function run({ interaction, profileOf }: CommandData) {
 	await interaction.deferReply();
 	const members = await interaction.guild.members.fetch({

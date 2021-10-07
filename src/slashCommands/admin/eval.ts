@@ -13,6 +13,7 @@ export const data = new SlashCommandBuilder()
 			.setDescription("The code to execute")
 			.setRequired(true)
 	);
+export const serverOnly = true;
 
 export async function run({ interaction }: CommandData) {
 	if (

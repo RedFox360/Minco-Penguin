@@ -16,15 +16,9 @@ export const data = new SlashCommandBuilder()
 	);
 
 export const permissions = ["KICK_MEMBERS"];
+export const serverOnly = true;
 
 export async function run({ interaction, updateProfileInServer }: CommandData) {
-	if (!interaction.guild) {
-		await interaction.reply({
-			content: "This command can only be used in a server",
-			ephemeral: true,
-		});
-		return;
-	}
 	const user = interaction.options.getUser("user");
 	const member = await interaction.guild.members.fetch(user);
 	const reason = interaction.options.getString("reason");

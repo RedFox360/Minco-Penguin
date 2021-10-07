@@ -11,6 +11,7 @@ export const data = new SlashCommandBuilder()
 			.setDescription("The amount of messages to clear")
 			.setRequired(true)
 	);
+export const serverOnly = true;
 
 export async function run({ interaction }: CommandData) {
 	const amount = interaction.options.getInteger("amount");

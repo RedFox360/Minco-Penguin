@@ -18,7 +18,7 @@ export const data = new SlashCommandBuilder()
 	.addRoleOption((option) =>
 		option.setName("role").setDescription("The role to set").setRequired(true)
 	);
-
+export const serverOnly = true;
 export async function run({ interaction, updateServer }: CommandData) {
 	if (
 		!interaction.member.permissions.has("MANAGE_ROLES") &&

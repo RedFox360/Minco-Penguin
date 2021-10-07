@@ -11,6 +11,7 @@ export const data = new SlashCommandBuilder()
 			.setDescription("The user to unmute")
 			.setRequired(true)
 	);
+export const serverOnly = true;
 
 export async function run({
 	interaction,

@@ -11,6 +11,8 @@ export const data = new SlashCommandBuilder()
 			.setRequired(true)
 	);
 export const permissions = ["MANAGE_MESSAGES", "KICK_MEMBERS"];
+export const serverOnly = true;
+
 export async function run({ interaction, updateProfileInServer }: CommandData) {
 	const user = interaction.options.getUser("user");
 	await updateProfileInServer({ infractions: [] }, user.id);

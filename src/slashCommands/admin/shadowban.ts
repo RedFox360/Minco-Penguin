@@ -20,7 +20,7 @@ export const data = new SlashCommandBuilder()
 	);
 
 export const permissions = ["ADMINISTRATOR"];
-
+export const serverOnly = true;
 export async function run({
 	interaction,
 	profileInServerOf,

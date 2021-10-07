@@ -24,6 +24,7 @@ export default async (interaction: Interaction) => {
 		return model;
 	};
 	const updateServer = async (data: any, sid?: string) => {
+		if (!interaction.guild) return;
 		const filter = { serverID: sid ?? interaction.guild.id };
 		const model = await serverModel.findOneAndUpdate(filter, data, {
 			new: true,
@@ -35,6 +36,7 @@ export default async (interaction: Interaction) => {
 		uid?: string,
 		sid?: string
 	) => {
+		if (!interaction.guild) return;
 		const filter = {
 			userID: uid ?? interaction.user.id,
 			serverID: sid ?? interaction.guild.id,
@@ -62,6 +64,7 @@ export default async (interaction: Interaction) => {
 		return model;
 	};
 	const profileInServerOf = async (userID: string, serverID?: string) => {
+		if (!interaction.guild) return;
 		const sid = serverID ?? interaction.guild.id;
 		const model =
 			(await profileInServerModel.findOne({ userID, serverID: sid })) ??
@@ -93,7 +96,13 @@ export default async (interaction: Interaction) => {
 	const command = (interaction.client as any).commands.get(
 		interaction.commandName
 	);
-
+	if (!interaction.guild && command.serverOnly) {
+		await interaction.reply({
+			content: "This command can only be used in a server",
+			ephemeral: true,
+		});
+		return;
+	}
 	if (command.permissions) {
 		const permission = await handlePermissions(interaction, command);
 		if (permission) return;

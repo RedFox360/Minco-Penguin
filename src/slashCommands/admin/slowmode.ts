@@ -15,7 +15,7 @@ export const data = new SlashCommandBuilder()
 	);
 
 export const permissions = ["MANAGE_CHANNELS"];
-
+export const serverOnly = true;
 export async function run({ interaction }: CommandData) {
 	let timeString = interaction.options.getString("time");
 	let unary = +timeString;

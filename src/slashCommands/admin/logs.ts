@@ -19,6 +19,8 @@ export const data = new SlashCommandBuilder()
 			.setRequired(true)
 	);
 export const permissions = ["MANAGE_MESSAGES"];
+export const serverOnly = true;
+
 export async function run({
 	interaction,
 	server,
