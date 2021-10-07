@@ -18,6 +18,7 @@ const client = new Client({
 		Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS,
 		Intents.FLAGS.DIRECT_MESSAGES,
 	],
+	partials: ["CHANNEL", "MESSAGE", "REACTION"],
 });
 (client as any).commands = new Collection();
 
