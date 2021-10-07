@@ -36,14 +36,14 @@ export async function run({
 	} else {
 		result = num1 + num2;
 	}
-	const msg = await interaction.reply({
+	const mathMsg = await interaction.reply({
 		content: `What is ${num1} ${oper} ${num2}?`,
 		fetchReply: true,
 	});
 
 	const filter = (msg) => msg.author.id === interaction.user.id;
 
-	msg.channel
+	mathMsg.channel
 		.awaitMessages({
 			filter,
 			max: 1,
