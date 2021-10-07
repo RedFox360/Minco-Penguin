@@ -5,8 +5,7 @@ import scheduler from "./scheduler";
 import eventHandler from "./handlers/event_handler";
 import slashHandler from "./handlers/slash_handler";
 import serverModel from "./models/serverSchema";
-import profileModel from "./models/profileSchema";
-import profileInServerModel from "./models/profileInServerSchema";
+import { blue, green, yellow, bold } from "chalk";
 
 const client = new Client({
 	intents: [
@@ -29,14 +28,14 @@ client.on("ready", async () => {
 		useFindAndModify: false,
 	})
 		.then(() => {
-			console.log("Connected to the database!");
+			console.log(`Connected to the ${yellow("database")}!`);
 		})
 		.catch(console.error);
 
 	await eventHandler(client);
 	await slashHandler(client);
 	scheduler(client);
-	console.log(`${client.user.tag} is online!`);
+	console.log(`${bold(blue(client.user.tag))} is ${green("online")}!`);
 	client.user.setActivity("slash commands", { type: "LISTENING" });
 	(async () => {
 		client.guilds.cache.forEach(async (guild) => {
