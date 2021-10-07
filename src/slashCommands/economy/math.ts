@@ -42,7 +42,7 @@ export async function run({
 	});
 
 	const filter = (msg) => msg.author.id === interaction.user.id;
-
+	console.log(mathMsg);
 	mathMsg.channel
 		.awaitMessages({
 			filter,
