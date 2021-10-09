@@ -17,6 +17,8 @@ export default async (
 	if (message.author.bot) return;
 
 	const channel = await client.channels.fetch(channelID);
+	const name = (message.channel as any).name;
+	const nameFormat = name ? `#${name}` : message.id;
 	const embed = new Discord.MessageEmbed()
 		.setAuthor(
 			message.member.displayName,
@@ -24,7 +26,7 @@ export default async (
 			message.url
 		)
 		.setDescription(message.content)
-		.setFooter(`⭐️  | ${message.id}`)
+		.setFooter(`⭐️  | ${nameFormat}`)
 		.setTimestamp(message.createdTimestamp)
 		.setColor("#F7DC6F"); // yellow
 

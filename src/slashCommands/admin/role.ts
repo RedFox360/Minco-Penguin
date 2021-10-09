@@ -33,14 +33,8 @@ export async function run({ interaction, updateServer }: CommandData) {
 	const role = interaction.options.getRole("role");
 	const type = interaction.options.getString("role_type");
 	const typeFormat = type.charAt(0).toUpperCase() + type.slice(1);
-	if (type == "main") {
-		await updateServer({ mainRole: role.id });
-	} else if (type == "mod") {
-		await updateServer({ modRole: role.id });
-	} else if (type == "bot") {
+	if (type == "bot") {
 		await updateServer({ botRole: role.id });
-	} else if (type == "mute") {
-		await updateServer({ muteRole: role.id });
 	} else if (type == "join") {
 		await updateServer({ joinRole: role.id });
 	}
