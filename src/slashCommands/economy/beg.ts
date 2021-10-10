@@ -11,7 +11,7 @@ export const data = new SlashCommandBuilder()
 	.setName("beg")
 	.setDescription("Beg for Minco Dollars!");
 
-export const cooldown = "7m";
+export const cooldown = "6.5m";
 export async function run({
 	interaction,
 	profile,
@@ -38,9 +38,15 @@ export async function run({
 			response += "You got a double bonus from your candy!\n";
 		}
 	}
-	if (Math.round(Math.random()) && dayOfTheWeek === 0) {
+	if (Math.round(Math.random()) && dayOfTheWeek === 5) {
 		numberEcon *= 2;
 		response += "You got the Friday double bonus!\n";
+	} else if (
+		Math.floor(Math.random() * 4) === 1 &&
+		(dayOfTheWeek === 0 || dayOfTheWeek === 6)
+	) {
+		numberEcon *= 2;
+		response += "You got the weekend double bonus!\n";
 	}
 	if (profile.spouse != null || profile.inventory.includes("07")) {
 		let random = Math.floor(Math.random() * 100);
