@@ -1,19 +1,26 @@
 import { CommandData } from "../../types";
 import { randomInt } from "mathjs";
 import { SlashCommandBuilder } from "@discordjs/builders";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export const data = new SlashCommandBuilder()
 	.setName("beg")
 	.setDescription("Beg for Minco Dollars!");
 
-export const cooldown = "3.5m";
+export const cooldown = "7m";
 export async function run({
 	interaction,
 	profile,
+	server,
 	updateProfile,
 }: CommandData) {
+	const dayOfTheWeek = dayjs().tz(server.timezone).day();
 	let response = "";
-	let numberEcon = randomInt(1, 4);
+	let numberEcon = randomInt(4, 8);
 	if (profile.inventory.includes("05")) {
 		if (profile.candyAmount <= 0) {
 			await updateProfile({
@@ -30,6 +37,10 @@ export async function run({
 			numberEcon *= 2;
 			response += "You got a double bonus from your candy!\n";
 		}
+	}
+	if (Math.round(Math.random()) && dayOfTheWeek === 0) {
+		numberEcon *= 2;
+		response += "You got the Friday double bonus!\n";
 	}
 	if (profile.spouse != null || profile.inventory.includes("07")) {
 		let random = Math.floor(Math.random() * 100);
