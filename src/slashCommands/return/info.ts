@@ -81,7 +81,7 @@ export async function run({ interaction, server, profile }: CommandData) {
 				(await interaction.guild.emojis.fetch())
 					.map((emoji) => emoji.toString())
 					.values()
-			);
+			).slice(20);
 			const totalChannelAmount = textChannelAmount + voiceChannelAmount;
 			const infoEmbed = new MessageEmbed()
 				.setTitle("Server Info")
@@ -113,9 +113,16 @@ export async function run({ interaction, server, profile }: CommandData) {
 						value: roleAmount.toLocaleString(),
 						inline: true,
 					}
+				)
+				.setFooter(
+					`Server ID: ${interaction.guild.id} | Server Timezone: ${server.timezone}`
 				);
 			if (emojis?.length) {
-				infoEmbed.addField("Emojis", emojis.join(" "));
+				infoEmbed.addField(
+					"Emojis",
+					`${emojis.join(" ")}
+only 20 emojis are shown`
+				);
 			}
 			await interaction.editReply({ embeds: [infoEmbed] });
 		}
