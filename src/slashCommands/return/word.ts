@@ -23,7 +23,7 @@ export const data = new SlashCommandBuilder()
 
 export async function run({ interaction }: CommandData) {
 	const phraseType = interaction.options.getString("phrase_type");
-	const user = interaction.options.getString("user") ?? interaction.user;
+	const user = interaction.options.getUser("user") ?? interaction.user;
 	const hellos = [
 		"Hi :)",
 		"Hai!",
