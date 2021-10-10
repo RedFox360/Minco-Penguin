@@ -77,11 +77,6 @@ export async function run({ interaction, server, profile }: CommandData) {
 				channel.isVoice()
 			).size;
 			const roleAmount = (await interaction.guild.roles.fetch()).size;
-			const emojis = Array.from(
-				(await interaction.guild.emojis.fetch())
-					.map((emoji) => emoji.toString())
-					.values()
-			).slice(20);
 			const totalChannelAmount = textChannelAmount + voiceChannelAmount;
 			const infoEmbed = new MessageEmbed()
 				.setTitle("Server Info")
@@ -97,6 +92,7 @@ export async function run({ interaction, server, profile }: CommandData) {
 						value: `:speech_balloon: Text channels: ${textChannelAmount}
 :microphone2: Voice channels: ${voiceChannelAmount}
 :hash: Total: ${totalChannelAmount}`,
+						inline: true,
 					},
 					{
 						name: "Member Count",
@@ -112,18 +108,15 @@ export async function run({ interaction, server, profile }: CommandData) {
 						name: "Role amount",
 						value: roleAmount.toLocaleString(),
 						inline: true,
+					},
+					{
+						name: "Server Timezone",
+						value: `${server.timezone}
+Current time: ${dayjs().tz(server.timezone).format("MMM DD hh:mm A")}`,
+						inline: true,
 					}
 				)
-				.setFooter(
-					`Server ID: ${interaction.guild.id} | Server Timezone: ${server.timezone}`
-				);
-			if (emojis?.length) {
-				infoEmbed.addField(
-					"Emojis",
-					`${emojis.join(" ")}
-only 20 emojis are shown`
-				);
-			}
+				.setFooter(`Server ID: ${interaction.guild.id}`);
 			await interaction.editReply({ embeds: [infoEmbed] });
 		}
 	}
