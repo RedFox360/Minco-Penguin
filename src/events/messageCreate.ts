@@ -30,6 +30,7 @@ export default async (message: Message) => {
 		if (!message.guild.me.permissions.has("MANAGE_MESSAGES")) return;
 		if (filter.check(message.content)) await message.delete();
 	}
+	if (!message.author || !message.guild) return;
 	const profile = await profileInServerModel.findOne({
 		userID: message.author.id,
 		serverID: message.guild.id,
