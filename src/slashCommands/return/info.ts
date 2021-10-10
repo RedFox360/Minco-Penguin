@@ -115,7 +115,7 @@ export async function run({ interaction, server, profile }: CommandData) {
 					}
 				);
 			if (emojis?.length) {
-				infoEmbed.addField("Emojis", emojis.join(" "), true);
+				infoEmbed.addField("Emojis", emojis.join(" "));
 			}
 			await interaction.editReply({ embeds: [infoEmbed] });
 		}
