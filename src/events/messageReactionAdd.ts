@@ -6,7 +6,9 @@ export default async (
 	_,
 	client: Discord.Client
 ) => {
+	if (!reaction) return;
 	const { message } = reaction;
+	if (!message) return;
 	if (!message.guild) return;
 	if (reaction.emoji.name !== "⭐" && reaction.emoji.name !== "🌟") return;
 	const serverData = await serverModel.findOne({ serverID: message.guild.id });
