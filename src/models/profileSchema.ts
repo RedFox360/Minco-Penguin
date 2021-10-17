@@ -25,7 +25,7 @@ const profileSchema = new Schema({
 	spouse: String,
 	inventory: [String],
 	fish: [String], // 01: Cod, 02: Salmon, 03: Pufferfish, 04: Clownfish, 05: Axolotl
-	rod: { type: String, default: "normal" }, // normal, metal, heavy, lava, ruby, diamond, emerald, legendary gemstone
+	rod: { type: String, default: "normal" },
 	gems: [String],
 	candyAmount: Number,
 	zoo: [zooSchema],

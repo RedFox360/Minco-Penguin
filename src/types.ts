@@ -56,8 +56,6 @@ export interface ProfileInServer {
 	userID: string;
 	serverID: string;
 	market?: marketSchema[];
-	infractions: [infractionSchema];
-	muted: boolean;
 	isShadowBanned: boolean;
 }
 export interface ServerData {
@@ -122,14 +120,6 @@ interface marketSchema {
 	name: string;
 	desc?: string;
 }
-
-interface infractionSchema {
-	reason: string;
-	infractionType: "Mute" | "Kick" | "Ban" | "Warn";
-	time: number;
-	date: number;
-}
-
 type FishType = 1 | 2 | 3 | 4 | 5;
 type RodType =
 	| "normal"

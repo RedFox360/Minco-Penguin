@@ -1,10 +1,5 @@
 import { CommandData } from "../../types";
-import {
-	MessageActionRow,
-	MessageSelectMenu,
-	GuildMember,
-	MessageComponentInteraction,
-} from "discord.js";
+import { MessageActionRow, MessageSelectMenu } from "discord.js";
 import { SlashCommandBuilder } from "@discordjs/builders";
 import shop from "../../json/shop.json";
 import ms from "ms";
@@ -23,7 +18,7 @@ export async function run({
 			.setPlaceholder("Minco Shop")
 			.addOptions(shop)
 	);
-	const prices = [75, 900, 25, 4, 10, 75, 400, 50, 50, 50, 8, 10];
+	const prices = [75, 900, 25, 4, 33, 75, 400, 50, 50, 50, 8, 10];
 	const msg = await interaction.reply({
 		content: "Choose an item from the Minco Shop",
 		components: [row],

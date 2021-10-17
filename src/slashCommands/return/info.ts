@@ -144,7 +144,12 @@ Current time: ${dayjs().tz(server.timezone).format("MMM DD hh:mm A")}`,
 						inline: true,
 					},
 					{
-						name: "Role amount",
+						name: "Emoji Count",
+						value: "`" + emojiCount + "`",
+						inline: true,
+					},
+					{
+						name: "Role Count",
 						value: "`" + roleAmount.toLocaleString() + "`",
 						inline: true,
 					},
@@ -159,13 +164,9 @@ Current time: ${dayjs().tz(server.timezone).format("MMM DD hh:mm A")}`,
 						inline: true,
 					},
 					{
-						name: "Emoji Count",
-						value: "`" + emojiCount + "`",
-						inline: true,
-					},
-					{
-						name: "Role Count",
-						value: "`" + roleCount + "`",
+						name: "Rules Channel",
+						value:
+							"`" + (interaction.guild.rulesChannel ?? "None").toString() + "`",
 						inline: true,
 					},
 					{
