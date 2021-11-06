@@ -41,6 +41,12 @@ export const data = new SlashCommandBuilder()
 					.setDescription("Your birthday in the format (YYYY)-MM-DD")
 					.setRequired(true)
 			)
+			.addUserOption((option) =>
+				option
+					.setName("user")
+					.setDescription("Owner only: set the birthday of a specific user")
+					.setRequired(false)
+			)
 	)
 	.addSubcommand((subcommand) =>
 		subcommand
