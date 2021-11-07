@@ -21,6 +21,15 @@ export async function run({
 	const dayOfTheWeek = dayjs().tz(server.timezone).day();
 	let response = "";
 	let numberEcon = randomInt(4, 8);
+	if (
+		profile.birthday &&
+		dayjs(profile.birthday).format("M D") === dayjs().format("M D")
+	) {
+		if (Math.floor(Math.random() * 4) != 1) {
+			numberEcon *= 2;
+			response += "You got your birthday double bonus!\n";
+		}
+	}
 	if (profile.inventory.includes("05")) {
 		if (profile.candyAmount <= 0) {
 			await updateProfile({
