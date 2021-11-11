@@ -65,7 +65,7 @@ export interface ServerData {
 	blacklist?: string[];
 	welcomeChannel?: string;
 	welcomeMessage: string;
-	leaveMessage: string[];
+	leaveMessage: string;
 	welcomeDM?: string;
 	memberCount?: number;
 	silenceJoins: boolean;

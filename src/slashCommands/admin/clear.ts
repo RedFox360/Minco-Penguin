@@ -12,6 +12,7 @@ export const data = new SlashCommandBuilder()
 			.setRequired(true)
 	);
 export const serverOnly = true;
+export const permissions = ["MANAGE_MESSAGES"];
 
 export async function run({ interaction }: CommandData) {
 	const amount = interaction.options.getInteger("amount");

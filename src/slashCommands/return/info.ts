@@ -1,12 +1,7 @@
 import { CommandData } from "../../types";
 import { MessageEmbed } from "discord.js";
 import { SlashCommandBuilder } from "@discordjs/builders";
-import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
-import timezone from "dayjs/plugin/timezone";
-import prettyMs from "pretty-ms";
-dayjs.extend(utc);
-dayjs.extend(timezone);
+import ordinal from "ordinal";
 
 export const data = new SlashCommandBuilder()
 	.setName("info")
@@ -32,23 +27,22 @@ export async function run({ interaction, server, profile }: CommandData) {
 			const user = interaction.options.getUser("user");
 			const member = await interaction.guild.members.fetch(user.id);
 			const roles = Array.from(member.roles.cache.values());
-
+			console.table({
+				createdTimestamp: user.createdTimestamp,
+				joinedAt: member.joinedTimestamp,
+			});
 			const infoEmbed = new MessageEmbed()
 				.setAuthor(user.tag, user.avatarURL(), user.avatarURL())
 				.setColor(member.roles.highest.color || "GREYPLE") // darkish green
 				.addFields(
 					{
 						name: "Created at",
-						value: formatTime(user.createdAt, profile.timezone),
+						value: `<t:${Math.floor(user.createdTimestamp / 1000)}:f>`,
 						inline: true,
 					},
 					{
 						name: "Joined at",
-						value: formatJoined(
-							member.joinedAt,
-							profile.timezone,
-							interaction.guild.createdAt
-						),
+						value: `<t:${Math.floor(member.joinedTimestamp / 1000)}:f>`,
 						inline: true,
 					}
 				)
@@ -82,7 +76,21 @@ export async function run({ interaction, server, profile }: CommandData) {
 			const roleAmount = (await interaction.guild.roles.fetch()).size;
 			const totalChannelAmount = textChannelAmount + voiceChannelAmount;
 			const emojiCount = (await interaction.guild.emojis.fetch()).size;
-			const roleCount = (await interaction.guild.roles.fetch()).size;
+			const welcomeMessage = replace(
+				server.welcomeMessage,
+				interaction,
+				server.memberCount
+			);
+
+			const leaveMessage = replace(
+				server.leaveMessage,
+				interaction,
+				server.memberCount
+			);
+
+			const welcomeDM = server.welcomeDM
+				? replace(server.welcomeDM, interaction, server.memberCount)
+				: "`None`";
 			const verificationLevel = (() => {
 				switch (interaction.guild.verificationLevel) {
 					case "NONE":
@@ -98,9 +106,13 @@ export async function run({ interaction, server, profile }: CommandData) {
 				}
 			})();
 			const infoEmbed = new MessageEmbed()
-				.setThumbnail(interaction.guild.iconURL())
-				.setTitle("Server Info")
-				.setColor("BLURPLE")
+				.setAuthor(
+					"Minco Penguin",
+					interaction.guild.iconURL(),
+					interaction.guild.iconURL()
+				)
+				.setTitle(":bulb: Server Info")
+				.setColor("#DFBE33")
 				.addFields(
 					{
 						name: "Name",
@@ -119,7 +131,9 @@ export async function run({ interaction, server, profile }: CommandData) {
 					},
 					{
 						name: "Created at",
-						value: formatTime(interaction.guild.createdAt, profile.timezone),
+						value: `<t:${Math.floor(
+							interaction.guild.createdTimestamp / 1000
+						)}>`,
 						inline: true,
 					},
 					{
@@ -129,8 +143,7 @@ export async function run({ interaction, server, profile }: CommandData) {
 					},
 					{
 						name: "Server Timezone",
-						value: `\`${server.timezone}\`
-Current time: ${dayjs().tz(server.timezone).format("MMM DD hh:mm A")}`,
+						value: `\`${server.timezone}\``,
 						inline: true,
 					},
 					{
@@ -165,8 +178,7 @@ Current time: ${dayjs().tz(server.timezone).format("MMM DD hh:mm A")}`,
 					},
 					{
 						name: "Rules Channel",
-						value:
-							"`" + (interaction.guild.rulesChannel ?? "None").toString() + "`",
+						value: (interaction.guild.rulesChannel ?? "`None`").toString(),
 						inline: true,
 					},
 					{
@@ -178,33 +190,35 @@ Current time: ${dayjs().tz(server.timezone).format("MMM DD hh:mm A")}`,
 						name: "Verification Level",
 						value: verificationLevel,
 						inline: true,
+					},
+					{
+						name: "Welcome Message",
+						value: welcomeMessage,
+						inline: true,
+					},
+					{
+						name: "Leave Message",
+						value: leaveMessage,
+						inline: true,
+					},
+					{
+						name: "Welcome DM",
+						value: welcomeDM,
+						inline: true,
 					}
 				)
 				.setFooter(`Server ID: ${interaction.guild.id}`);
 			await interaction.editReply({ embeds: [infoEmbed] });
+			break;
 		}
 	}
 }
 
-const formatJoined = (time, timezone, createdAt) => {
-	const creationTime = dayjs.tz(time, timezone);
-	const timeBetween = prettyMs(creationTime.valueOf() - createdAt, {
-		unitCount: 3,
-		verbose: true,
-	});
-
-	return `${formatDate(creationTime)}
-*${timeBetween}* after the server was created`;
-};
-const formatTime = (time, timezone) => {
-	const currentTime = Date.now();
-	const creationTime = dayjs.tz(time, timezone);
-	const timeBetween = prettyMs(currentTime - creationTime.valueOf(), {
-		unitCount: 2,
-		verbose: true,
-	});
-
-	return `${formatDate(creationTime)} (*${timeBetween}* ago)`;
-};
-
-const formatDate = (date: dayjs.Dayjs) => date.format("MMM DD, YYYY h:mm A");
+const replace = (msg: string, interaction, memberCount) =>
+	msg
+		.replace(/\{server\}/g, interaction.guild.name)
+		.replace(/\{mention\}/g, interaction.user.toString())
+		.replace(/\{ord_member_count\}/g, ordinal(memberCount))
+		.replace(/\{member_count\}/g, memberCount.toLocaleString())
+		.replace(/\{user\}/g, interaction.user.username)
+		.replace(/\{user_tag\}/g, interaction.user.tag);

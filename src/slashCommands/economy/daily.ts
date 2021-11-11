@@ -3,7 +3,6 @@ import { MessageEmbed } from "discord.js";
 import { randomInt } from "mathjs";
 import { SlashCommandBuilder } from "@discordjs/builders";
 import ms from "ms";
-import prettyMs from "pretty-ms";
 const dayLength = ms("1 day");
 
 export const data = new SlashCommandBuilder()
@@ -19,9 +18,9 @@ export async function run({
 	const { lastUsedDaily } = profile;
 
 	if (lastUsedDaily && lastUsedDaily + dayLength > now) {
-		const waitTime = dayLength - (now - lastUsedDaily);
+		const time = Math.floor((lastUsedDaily + dayLength) / 1000);
 		await interaction.reply({
-			content: `Please wait ${prettyMs(waitTime)} before using /daily again`,
+			content: `You can use /daily again <t:${time}:R>`,
 			ephemeral: true,
 		});
 		return;
