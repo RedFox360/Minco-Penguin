@@ -12,7 +12,7 @@ export default (client: Client) => {
 		});
 		if (!server.sendBirthdays) return;
 		cron.schedule(
-			"30 7 * * *",
+			"0 7 * * *",
 			async () => {
 				const date = dayjs();
 				const month = date.month();
