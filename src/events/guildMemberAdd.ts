@@ -51,6 +51,7 @@ export default async (member: Discord.GuildMember, client: Discord.Client) => {
 	const channel = serverData.welcomeChannel
 		? client.channels.cache.get(serverData.welcomeChannel)
 		: member.guild.systemChannel;
+	if (!channel) return;
 	(channel as Discord.TextChannel).send({ embeds: [joinEmbed] });
 	if (welcomeDM)
 		member.send(
