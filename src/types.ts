@@ -1,4 +1,4 @@
-import Discord from "discord.js";
+import Discord, { GuildChannel } from "discord.js";
 export interface CommandData {
 	interaction: Interaction;
 	profile: Profile;
@@ -28,7 +28,7 @@ export interface Interaction extends Discord.Interaction {
 	commandName: string;
 	deferred: boolean;
 	ephemeral: boolean;
-	options: Discord.CommandInteractionOptionResolver;
+	options: Options;
 	replied: boolean;
 	webhook: Discord.InteractionWebhook;
 	deferReply(
@@ -52,11 +52,21 @@ export interface Interaction extends Discord.Interaction {
 	member: Discord.GuildMember;
 	user: Discord.User;
 }
+interface Options extends Discord.CommandInteractionOptionResolver {
+	getChannel(name: string, required: true): NonNullable<GuildChannel>;
+	getChannel(
+		name: string,
+		required?: boolean
+	): NonNullable<GuildChannel> | null;
+}
+
 export interface ProfileInServer {
 	userID: string;
 	serverID: string;
 	market?: marketSchema[];
 	isShadowBanned: boolean;
+	bannedFromCommands: boolean;
+	bannedFromConfessions: boolean;
 }
 export interface ServerData {
 	serverID: string;
@@ -96,7 +106,7 @@ export interface Profile {
 	gems?: string[];
 	candyAmount?: number;
 	rod: RodType;
-	fish?: FishType[];
+	fish?: Fishes;
 	zoo?: zooSchema[];
 	penguin?: string;
 	lastUsedDaily?: number;
@@ -114,19 +124,26 @@ interface zooSchema {
 	name: string;
 	emoji: string;
 }
-
+interface Fishes {
+	cods: number;
+	salmons: number;
+	pufferfish: number;
+	clownfish: number;
+	axolotls: number;
+}
 interface marketSchema {
 	price: number;
 	name: string;
 	desc?: string;
 }
-type FishType = 1 | 2 | 3 | 4 | 5;
 type RodType =
-	| "normal"
+	| "wood"
+	| "upgraded"
 	| "metal"
 	| "heavy"
-	| "lava"
+	| "polished"
+	| "quartz"
 	| "ruby"
+	| "sapphire"
 	| "diamond"
-	| "emerald"
-	| "legendary gemstone";
+	| "emerald";

@@ -11,6 +11,8 @@ const profileInServerSchema = new Schema({
 	serverID: { type: String, require: true },
 	market: [marketSchema],
 	isShadowBanned: { type: Boolean, default: false },
+	bannedFromCommands: { type: Boolean, default: false },
+	bannedFromConfessions: { type: Boolean, default: false },
 });
 
 const profileInServerModel = model("guildProfileModel", profileInServerSchema);
