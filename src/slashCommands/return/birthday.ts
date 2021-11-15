@@ -41,7 +41,7 @@ export async function run({ interaction, server, profileOf }: CommandData) {
 		formatted = date.format("MMMM D, YYYY");
 	}
 	const embed = new MessageEmbed()
-		.setAuthor(member.displayName, user.avatarURL())
+		.setAuthor(member.displayName, user.avatarURL({ dynamic: true }))
 		.setDescription("🎂 " + formatted)
 		.setColor("#ffc0cb");
 	await interaction.reply({ embeds: [embed] });

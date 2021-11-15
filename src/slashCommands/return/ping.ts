@@ -23,7 +23,7 @@ export async function run({ interaction }: CommandData) {
 		.setTitle(":robot: Pong!")
 		.setAuthor(
 			interaction.member?.displayName ?? interaction.user.username,
-			interaction.user.avatarURL()
+			interaction.user.avatarURL({ dynamic: true })
 		)
 		.addFields(
 			{ name: "Status:", value: status },

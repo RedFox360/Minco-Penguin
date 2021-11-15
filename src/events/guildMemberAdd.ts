@@ -47,7 +47,7 @@ export default async (member: Discord.GuildMember, client: Discord.Client) => {
 				.replace(/\{user\}/g, member.user.username)
 				.replace(/\{user_tag\}/g, member.user.tag)
 		)
-		.setThumbnail(member.user.avatarURL());
+		.setThumbnail(member.user.avatarURL({ dynamic: true }));
 	const channel = serverData.welcomeChannel
 		? client.channels.cache.get(serverData.welcomeChannel)
 		: member.guild.systemChannel;

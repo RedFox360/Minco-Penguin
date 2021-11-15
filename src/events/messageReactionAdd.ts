@@ -24,7 +24,7 @@ export default async (
 	const embed = new Discord.MessageEmbed()
 		.setAuthor(
 			message.member.displayName,
-			message.author.avatarURL(),
+			message.author.avatarURL({ dynamic: true }),
 			message.url
 		)
 		.setDescription(message.content)

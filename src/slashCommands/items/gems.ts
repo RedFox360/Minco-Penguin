@@ -54,7 +54,7 @@ export async function run({ interaction, profileOf }: CommandData) {
 		.map((t, i) => `${i + 1}. ${t}`);
 
 	const gemEmbed = new MessageEmbed()
-		.setAuthor("Gems", user.avatarURL())
+		.setAuthor("Gems", user.avatarURL({ dynamic: true }))
 		.setDescription(gems.join("\n"))
 		.setColor("#F8C471")
 		.setFooter(interaction.guild?.name ?? interaction.user.username);

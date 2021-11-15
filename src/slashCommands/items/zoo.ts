@@ -55,7 +55,7 @@ export async function run({ interaction, profileOf }: CommandData) {
 	}
 
 	const zooEmbed = new MessageEmbed()
-		.setAuthor("Minco Zoo", user.avatarURL())
+		.setAuthor("Minco Zoo", user.avatarURL({ dynamic: true }))
 		.setColor("#F4D03F")
 		.setDescription(animals.join(""))
 		.setFooter(interaction.guild?.name ?? interaction.user.username);

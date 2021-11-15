@@ -32,7 +32,11 @@ export async function run({ interaction, server, profile }: CommandData) {
 				joinedAt: member.joinedTimestamp,
 			});
 			const infoEmbed = new MessageEmbed()
-				.setAuthor(user.tag, user.avatarURL(), user.avatarURL())
+				.setAuthor(
+					user.tag,
+					user.avatarURL({ dynamic: true }),
+					user.avatarURL({ dynamic: true })
+				)
 				.setColor(member.roles.highest.color || "GREYPLE") // darkish green
 				.addFields(
 					{

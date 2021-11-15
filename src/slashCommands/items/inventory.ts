@@ -47,7 +47,7 @@ export async function run({ interaction, profileOf }: CommandData) {
 		.map((t, i) => `${i + 1}. ${t}`);
 
 	const invEmbed = new MessageEmbed()
-		.setAuthor("Inventory", user.avatarURL())
+		.setAuthor("Inventory", user.avatarURL({ dynamic: true }))
 		.setDescription(inv.join("\n"))
 		.setColor("#F8C471")
 		.setFooter(interaction.guild?.name ?? interaction.user.username);
