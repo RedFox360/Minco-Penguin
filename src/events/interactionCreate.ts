@@ -1,5 +1,4 @@
 import { Collection, MessageEmbed } from "discord.js";
-import { red } from "chalk";
 import { Interaction, Profile, ProfileInServer, ServerData } from "../types";
 import profileInServerModel from "../models/profileInServerSchema";
 import profileModel from "../models/profileSchema";
@@ -173,7 +172,7 @@ async function handlePermissions(interaction: Interaction, command: any) {
 	let botInvalidPerms = [];
 	for (const perm of command.permissions) {
 		if (!validPermissions.includes(perm)) {
-			return console.log(red(`Invalid Permissions ${perm}`));
+			return console.log(`Invalid Permissions ${perm}`);
 		}
 		if (!interaction.member.permissions.has(perm)) {
 			invalidPerms.push(perm);
