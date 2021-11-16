@@ -1,5 +1,6 @@
 import { Collection, MessageEmbed } from "discord.js";
-import { Interaction } from "../types";
+import { red } from "chalk";
+import { Interaction, Profile, ProfileInServer, ServerData } from "../types";
 import profileInServerModel from "../models/profileInServerSchema";
 import profileModel from "../models/profileSchema";
 import serverModel from "../models/serverSchema";
@@ -77,13 +78,26 @@ export default async (interaction: Interaction) => {
 			}));
 		return model;
 	};
-	let profile = await profileOf(interaction.user.id);
-	let profileInServer = await profileInServerOf(interaction.user.id);
-	const server =
+	let profile: Profile = await profileOf(interaction.user.id);
+	let profileInServer: ProfileInServer = await profileInServerOf(
+		interaction.user.id
+	);
+	const server: ServerData =
 		interaction.guild &&
 		(await serverModel.findOne({
 			serverID: interaction.guild.id,
 		}));
+	if (
+		profileInServer.bannedFromCommands &&
+		!interaction.member.permissions.has("MANAGE_MESSAGES") &&
+		interaction.user.id !== "724786310711214118"
+	) {
+		await interaction.reply({
+			content: "You were banned from commands by a server manager",
+			ephemeral: true,
+		});
+		return;
+	}
 	const data = {
 		interaction,
 		profile,
@@ -143,15 +157,12 @@ async function handleCooldowns(interaction: Interaction, command: any) {
 		const expTime = timeStamps.get(interaction.user.id) + cooldownAmount;
 		if (currentTime < expTime) {
 			const timeLeft = expTime - currentTime;
-			let timeEmbed = new MessageEmbed()
-				.setColor("RED")
-				.setTitle("Cooldown")
-				.setDescription(
-					`Please wait ${prettyMs(timeLeft)} before using command ${
-						command.data.name
-					}`
-				);
-			await interaction.reply({ embeds: [timeEmbed], ephemeral: true });
+			await interaction.reply({
+				content: `:clock: Please wait ${prettyMs(
+					timeLeft
+				)} before using command /${command.data.name}`,
+				ephemeral: true,
+			});
 			return true;
 		}
 	}
@@ -162,7 +173,7 @@ async function handlePermissions(interaction: Interaction, command: any) {
 	let botInvalidPerms = [];
 	for (const perm of command.permissions) {
 		if (!validPermissions.includes(perm)) {
-			return console.log(`Invalid Permissions ${perm}`);
+			return console.log(red(`Invalid Permissions ${perm}`));
 		}
 		if (!interaction.member.permissions.has(perm)) {
 			invalidPerms.push(perm);
