@@ -8,7 +8,7 @@
 		"start": "ts-node src/main.ts"
 	},
 	"engines": {
-		"node": "16.6.1"
+		"node": "16.x"
 	},
 	"author": "Sameer Prakash",
 	"license": "ISC",
