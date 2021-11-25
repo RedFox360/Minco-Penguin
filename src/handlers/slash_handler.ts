@@ -8,6 +8,7 @@ export default async (client: Client) => {
 		(file) => !file.includes(".")
 	);
 	const data = [];
+	const dmusdOnlyData = [];
 	for (const category of categories) {
 		const commands = readdirSync(`./src/slashCommands/${category}`).filter(
 			(file) => file.endsWith(".ts")
@@ -17,13 +18,20 @@ export default async (client: Client) => {
 				`../slashCommands/${category}/${commandName}`
 			);
 			const commandData = command.data.toJSON();
+			if (category === "dmusd_only") {
+				dmusdOnlyData.push(commandData);
+			} else {
+				data.push(commandData);
+			}
 			(client as any).commands.set(commandData.name, command);
 			console.log("added " + commandData.name);
-			data.push(commandData);
 		}
 	}
 	console.log(`commands added || command count: ${data.length + 1}`);
 	await rest.put(Routes.applicationCommands(client.user.id), {
 		body: data,
 	});
+	await client.guilds.cache
+		.get("785642761814671381")
+		?.commands.set(dmusdOnlyData);
 };
