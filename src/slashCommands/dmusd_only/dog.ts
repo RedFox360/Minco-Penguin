@@ -41,7 +41,17 @@ export async function run({ interaction }: CommandData) {
 		case "oreo": {
 			let pic = oreoPics[Math.floor(Math.random() * oreoPics.length)];
 			if (subcommand === "picture") {
-				await interaction.reply(pic);
+				await interaction.reply({
+					embeds: [
+						new MessageEmbed()
+							.setColor("#2F3136")
+							.setAuthor(
+								"Emma's Dog: Oreo",
+								"https://cdn.discordapp.com/attachments/858335619478454302/913270630948945970/unknown.png"
+							)
+							.setImage(pic),
+					],
+				});
 				break;
 			} else {
 				await interaction.reply({ embeds: [oreoEmbed.setThumbnail(pic)] });
@@ -51,7 +61,17 @@ export async function run({ interaction }: CommandData) {
 		case "archie": {
 			let pic = archiePics[Math.floor(Math.random() * archiePics.length)];
 			if (subcommand === "picture") {
-				await interaction.reply(pic);
+				await interaction.reply({
+					embeds: [
+						new MessageEmbed()
+							.setColor("#2F3136")
+							.setAuthor(
+								"Meera's Dog: Archie",
+								"https://cdn.discordapp.com/attachments/858335619478454302/913270741611479040/unknown.png"
+							)
+							.setImage(pic),
+					],
+				});
 				break;
 			} else {
 				await interaction.reply({ embeds: [archieEmbed.setThumbnail(pic)] });
@@ -61,7 +81,17 @@ export async function run({ interaction }: CommandData) {
 		case "rocco": {
 			let pic = roccoPics[Math.floor(Math.random() * roccoPics.length)];
 			if (subcommand === "picture") {
-				await interaction.reply(pic);
+				await interaction.reply({
+					embeds: [
+						new MessageEmbed()
+							.setColor("#2F3136")
+							.setAuthor(
+								"Mason L's Dog: Rocco",
+								"https://cdn.discordapp.com/attachments/858335619478454302/913270705485910047/unknown.png"
+							)
+							.setImage(pic),
+					],
+				});
 				break;
 			} else {
 				await interaction.reply({ embeds: [roccoEmbed.setThumbnail(pic)] });
@@ -104,7 +134,10 @@ const roccoPics = [
 ];
 
 const oreoEmbed = new MessageEmbed()
-	.setTitle("Emma's Dog: Oreo")
+	.setAuthor(
+		"Emma's Dog: Oreo",
+		"https://cdn.discordapp.com/attachments/858335619478454302/913270630948945970/unknown.png"
+	)
 	.setDescription(
 		"Oreo is a black and white Shih Tzu who lives with Emma. He loves to go on walks and play. He loves everyone that he meets and knows lots of tricks such as, sit, stay, shake, high five, dance, and lie down. :heart:"
 	)
@@ -128,7 +161,10 @@ const oreoEmbed = new MessageEmbed()
 	.setColor("#FF8B8B");
 
 const archieEmbed = new MessageEmbed()
-	.setTitle("Meera's Dog: Archie")
+	.setAuthor(
+		"Meera's Dog: Archie",
+		"https://cdn.discordapp.com/attachments/858335619478454302/913270741611479040/unknown.png"
+	)
 	.setDescription(
 		"Archie is a rescue. He was adopted from Maltese and More in La Jolla and now lives with Meera's family. Archie likes going on car rides and hiking. He only likes to be with his family. Archie is grey with silverish legs and a bit of goldish brown on his mustache. He likes playing Tug of War and Hide and Seek. Archie is a picky eater, but he likes to eat human food like chicken and turkey. The tricks he knows are sit, shake paw, down, roll, stay, under, over, and jump."
 	)
@@ -152,7 +188,10 @@ const archieEmbed = new MessageEmbed()
 	.setColor("#3498DB");
 
 const roccoEmbed = new MessageEmbed()
-	.setTitle("Mason L's dog: Rocco")
+	.setAuthor(
+		"Mason L's dog: Rocco",
+		"https://cdn.discordapp.com/attachments/858335619478454302/913270705485910047/unknown.png"
+	)
 	.setDescription(
 		"Rocco is a red/brown toy poodle that was born in Texas and lives with Mason L. We got Rocco when he was 4 months old and in November. He loves to play with Mason L and his mom."
 	)
