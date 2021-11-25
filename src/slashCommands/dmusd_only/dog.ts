@@ -104,6 +104,7 @@ const roccoPics = [
 ];
 
 const oreoEmbed = new MessageEmbed()
+	.setTitle("Emma's Dog: Oreo")
 	.setDescription(
 		"Oreo is a black and white Shih Tzu who lives with Emma. He loves to go on walks and play. He loves everyone that he meets and knows lots of tricks such as, sit, stay, shake, high five, dance, and lie down. :heart:"
 	)
@@ -127,6 +128,7 @@ const oreoEmbed = new MessageEmbed()
 	.setColor("#FF8B8B");
 
 const archieEmbed = new MessageEmbed()
+	.setTitle("Meera's Dog: Archie")
 	.setDescription(
 		"Archie is a rescue. He was adopted from Maltese and More in La Jolla and now lives with Meera's family. Archie likes going on car rides and hiking. He only likes to be with his family. Archie is grey with silverish legs and a bit of goldish brown on his mustache. He likes playing Tug of War and Hide and Seek. Archie is a picky eater, but he likes to eat human food like chicken and turkey. The tricks he knows are sit, shake paw, down, roll, stay, under, over, and jump."
 	)
@@ -150,6 +152,7 @@ const archieEmbed = new MessageEmbed()
 	.setColor("#3498DB");
 
 const roccoEmbed = new MessageEmbed()
+	.setTitle("Mason L's dog: Rocco")
 	.setDescription(
 		"Rocco is a red/brown toy poodle that was born in Texas and lives with Mason L. We got Rocco when he was 4 months old and in November. He loves to play with Mason L and his mom."
 	)
