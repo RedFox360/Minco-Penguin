@@ -58,6 +58,7 @@ export default async function run({
 	});
 	let sendtimeout = true;
 	collector.on("collect", async (i: MessageComponentInteraction) => {
+		if (!i.isMessageComponent()) return;
 		sendtimeout = false;
 		await i.deferUpdate();
 		if (i.customId == "confirm") {

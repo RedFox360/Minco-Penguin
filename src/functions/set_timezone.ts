@@ -1,8 +1,29 @@
 import { CommandData } from "../types";
 import { MessageButton, MessageActionRow } from "discord.js";
+import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
 import timezoneList from "../json/timezones.json";
 
-export default async function run({
+export function subcommand() {
+	return new SlashCommandSubcommandBuilder()
+		.setName("timezone")
+		.setDescription("Set a timezone for your server/user")
+		.addStringOption((option) =>
+			option
+				.setName("type")
+				.setDescription("Personal or server timezone")
+				.setRequired(true)
+				.addChoice("Personal", "personal")
+				.addChoice("Server", "server")
+		)
+		.addStringOption((option) =>
+			option
+				.setName("timezone")
+				.setDescription("The timezone of your server")
+				.setRequired(true)
+		);
+}
+
+export async function run({
 	interaction,
 	updateProfile,
 	updateServer,

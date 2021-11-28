@@ -1,11 +1,31 @@
 import { CommandData } from "../types";
+import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
 import ordinal from "ordinal";
 
-export default async function run({
-	interaction,
-	server,
-	updateServer,
-}: CommandData) {
+export function subcommand() {
+	return new SlashCommandSubcommandBuilder()
+		.setName("announce_message")
+		.setDescription(
+			"Set the announcement message for your server (type default to revert to normal)"
+		)
+		.addStringOption((option) =>
+			option
+				.setName("message_type")
+				.setDescription("The type of message")
+				.setRequired(true)
+				.addChoice("User joined", "join")
+				.addChoice("User left", "leave")
+				.addChoice("DM on join", "dm")
+		)
+		.addStringOption((option) =>
+			option
+				.setName("message")
+				.setDescription("The message you want to send")
+				.setRequired(true)
+		);
+}
+
+export async function run({ interaction, server, updateServer }: CommandData) {
 	if (!interaction.guild) {
 		await interaction.reply({
 			content: "This command can only be used in a server",

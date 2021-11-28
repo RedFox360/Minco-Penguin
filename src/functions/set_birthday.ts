@@ -1,7 +1,26 @@
 import { CommandData } from "../types";
 import dayjs from "dayjs";
+import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
 
-export default async function run({ interaction, updateProfile }: CommandData) {
+export function subcommand() {
+	return new SlashCommandSubcommandBuilder()
+		.setName("birthday")
+		.setDescription("Set your birthday")
+		.addStringOption((option) =>
+			option
+				.setName("birthday")
+				.setDescription("Your birthday in the format (YYYY)-MM-DD")
+				.setRequired(true)
+		)
+		.addUserOption((option) =>
+			option
+				.setName("user")
+				.setDescription("Owner only: set the birthday of a specific user")
+				.setRequired(false)
+		);
+}
+
+export async function run({ interaction, updateProfile }: CommandData) {
 	const birthday = interaction.options.getString("birthday");
 	const date = dayjs(birthday);
 	const user = interaction.options.getUser("user");
