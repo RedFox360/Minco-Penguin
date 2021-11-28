@@ -16,6 +16,7 @@ export const data = new SlashCommandBuilder()
 					.addChoice("Oreo", "oreo")
 					.addChoice("Archie", "archie")
 					.addChoice("Rocco", "rocco")
+					.addChoice("Kai or Ginger", "kai_or_ginger")
 					.setRequired(true)
 			)
 	)
@@ -30,6 +31,7 @@ export const data = new SlashCommandBuilder()
 					.addChoice("Oreo", "oreo")
 					.addChoice("Archie", "archie")
 					.addChoice("Rocco", "rocco")
+					.addChoice("Kai or Ginger", "kai_or_ginger")
 					.setRequired(true)
 			)
 	);
@@ -98,6 +100,51 @@ export async function run({ interaction }: CommandData) {
 				break;
 			}
 		}
+		case "kai_or_ginger": {
+			let pic;
+			let dog;
+			if (Math.round(Math.random())) {
+				dog = "Kai";
+				pic = kaiPics[Math.floor(Math.random() * kaiPics.length)];
+				if (subcommand === "picture") {
+					await interaction.reply({
+						embeds: [
+							new MessageEmbed()
+								.setColor("#2F3136")
+								.setAuthor(
+									"Kai",
+									"https://cdn.discordapp.com/attachments/858335619478454302/913508701485289492/unknown.png"
+								)
+								.setImage(pic),
+						],
+					});
+					return;
+				}
+			} else {
+				dog = "Ginger";
+				pic = gingerPics[Math.floor(Math.random() * gingerPics.length)];
+				if (subcommand === "picture") {
+					await interaction.reply({
+						embeds: [
+							new MessageEmbed()
+								.setColor("#2F3136")
+								.setAuthor(
+									"Ginger",
+									"https://cdn.discordapp.com/attachments/858335619478454302/913508701485289492/unknown.png"
+								)
+								.setImage(pic),
+						],
+					});
+					return;
+				}
+			}
+
+			await interaction.reply({
+				embeds: [
+					gingerKaiEmbed.setThumbnail(pic).setFooter("Picture of " + dog),
+				],
+			});
+		}
 	}
 }
 
@@ -132,6 +179,16 @@ const roccoPics = [
 	"https://cdn.discordapp.com/attachments/774431427222569031/826542789331386438/20200813_134212.jpg",
 	"https://cdn.discordapp.com/attachments/774431427222569031/826542790237880330/20201221_113400.jpg",
 ];
+const gingerPics = [
+	"https://cdn.discordapp.com/attachments/858759353033293895/913285180603662366/IMG_2421.jpg",
+	"https://cdn.discordapp.com/attachments/858759353033293895/913285305535176754/IMG_2792.jpg",
+	"https://cdn.discordapp.com/attachments/858759353033293895/913285366755237888/IMG_0313.JPG",
+];
+const kaiPics = [
+	"https://cdn.discordapp.com/attachments/858759353033293895/913285489337966592/IMG_2863.JPG",
+	"https://cdn.discordapp.com/attachments/858759353033293895/868963387332231218/Screen_Shot_2021-07-25_at_2.10.04_PM.png",
+	"https://cdn.discordapp.com/attachments/858759353033293895/868963475890794506/Screen_Shot_2021-07-25_at_2.10.30_PM.png",
+];
 
 const oreoEmbed = new MessageEmbed()
 	.setAuthor(
@@ -143,13 +200,13 @@ const oreoEmbed = new MessageEmbed()
 	)
 	.addFields(
 		{
-			name: "Age",
-			value: "2",
+			name: "Born",
+			value: "<t:1560884400:R>",
 			inline: true,
 		},
 		{
 			name: "Birthday",
-			value: "May 18",
+			value: "May 18, 2019",
 			inline: true,
 		},
 		{
@@ -170,13 +227,13 @@ const archieEmbed = new MessageEmbed()
 	)
 	.addFields(
 		{
-			name: "Age",
-			value: "4",
+			name: "Born",
+			value: "<t:1489863600:R>",
 			inline: true,
 		},
 		{
 			name: "Birthday",
-			value: "March 18",
+			value: "March 18, 2017",
 			inline: true,
 		},
 		{
@@ -197,13 +254,13 @@ const roccoEmbed = new MessageEmbed()
 	)
 	.addFields(
 		{
-			name: "Age",
-			value: "4 1/2",
+			name: "Born",
+			value: "<t:1469559000:R>",
 			inline: true,
 		},
 		{
 			name: "Birthday",
-			value: "July 26",
+			value: "July 26, 2016",
 			inline: true,
 		},
 		{
@@ -213,3 +270,22 @@ const roccoEmbed = new MessageEmbed()
 		}
 	)
 	.setColor("#F7DC6F");
+
+const gingerKaiEmbed = new MessageEmbed()
+	.setAuthor(
+		"Kai and Ginger",
+		"https://cdn.discordapp.com/attachments/858335619478454302/913508701485289492/unknown.png"
+	)
+	.setDescription(
+		"Kai and Ginger are Goldendoodle siblings. Aiden watched Ginger in early July and Kai in late July. One trick Kai knows is how to shake paw."
+	)
+	.addFields(
+		{
+			name: "Born",
+			value: "<t:1616007600:R>",
+			inline: true,
+		},
+		{ name: "Birthday", value: "March 17, 2021", inline: true },
+		{ name: " Breed", value: "Golden Doodle", inline: true }
+	)
+	.setColor("#B99D7D");
