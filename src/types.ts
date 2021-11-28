@@ -17,7 +17,7 @@ export interface CommandData {
 		serverID?: string
 	): Promise<ProfileInServer>;
 }
-export interface Interaction extends Discord.Interaction {
+export interface Interaction extends Discord.CommandInteraction {
 	readonly command:
 		| Discord.ApplicationCommand
 		| Discord.ApplicationCommand<{ guild: Discord.GuildResolvable }>
