@@ -4,8 +4,8 @@ import { Client } from "discord.js";
 import { readdirSync } from "fs";
 
 export default async (client: Client) => {
-	const categories = readdirSync("./src/slashCommands/").filter((file) =>
-		file.endsWith(".ts")
+	const categories = readdirSync("./src/slashCommands/").filter(
+		(file) => !file.includes(".")
 	);
 	const data = [];
 	const dmusdOnlyData = [];
