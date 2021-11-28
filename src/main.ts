@@ -5,8 +5,6 @@ import scheduler from "./scheduler";
 import eventHandler from "./handlers/event_handler";
 import slashHandler from "./handlers/slash_handler";
 import serverModel from "./models/serverSchema";
-import profileModel from "./models/profileSchema";
-import profileInServerModel from "./models/profileInServerSchema";
 
 const client = new Client({
 	intents: [
