@@ -59,26 +59,11 @@ export async function run({
 				if (profile.spouse) amount = randomInt(10, 26);
 				else if (profile.inventory.includes("07")) amount = randomInt(10, 24);
 				await updateProfile({ $inc: { mincoDollars: amount } });
-				interaction.followUp({
-					embeds: [
-						new MessageEmbed()
-							.setDescription(
-								`<:check_circle:872594799662858270> Correct!
-You won ${amount} Minco Dollars!`
-							)
-							.setColor("#B8FF8B"),
-					],
-				});
+				interaction.followUp(
+					`<:check_circle:872594799662858270> Correct! You won **${amount}** Minco Dollars!`
+				);
 			} else {
-				interaction.followUp({
-					embeds: [
-						new MessageEmbed()
-							.setDescription(
-								`<:x_circle:872594799553839114> Incorrect! The correct answer is ${result}`
-							)
-							.setColor("#E48383"),
-					],
-				});
+				interaction.followUp(`<:x_circle:872594799553839114> Incorrect!`);
 			}
 		})
 		.catch(() => {

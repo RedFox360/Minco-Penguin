@@ -1,4 +1,9 @@
-import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
+import {
+	MessageActionRow,
+	MessageButton,
+	MessageComponentInteraction,
+	MessageEmbed,
+} from "discord.js";
 import { CommandData } from "../../types";
 import { SlashCommandBuilder } from "@discordjs/builders";
 import ms from "ms";
@@ -61,7 +66,8 @@ export async function run({ interaction, profileOf }: CommandData) {
 	if (formatted.length <= 10) return;
 	const collector = msg.createMessageComponentCollector({ time: ms("2h") });
 
-	collector.on("collect", async (i) => {
+	collector.on("collect", async (i: MessageComponentInteraction) => {
+		if (!i.isMessageComponent()) return;
 		if (i.customId == "prev") {
 			currentPage--;
 			next.setDisabled(false);

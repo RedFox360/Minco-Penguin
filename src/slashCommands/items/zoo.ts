@@ -1,4 +1,4 @@
-import { MessageEmbed } from "discord.js";
+import { MessageComponentInteraction, MessageEmbed } from "discord.js";
 import { CommandData } from "../../types";
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { MessageActionRow, MessageButton } from "discord.js";
@@ -94,7 +94,8 @@ async function viewAnimalList({ interaction }: CommandData) {
 		time: ms("2h"),
 	});
 
-	collector.on("collect", async (i) => {
+	collector.on("collect", async (i: MessageComponentInteraction) => {
+		if (!i.isMessageComponent()) return;
 		if (i.customId === "prev") {
 			currentPage--;
 			next.setDisabled(false);

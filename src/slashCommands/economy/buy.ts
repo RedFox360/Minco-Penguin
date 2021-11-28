@@ -1,5 +1,9 @@
 import { CommandData } from "../../types";
-import { MessageActionRow, MessageSelectMenu } from "discord.js";
+import {
+	MessageActionRow,
+	MessageComponentInteraction,
+	MessageSelectMenu,
+} from "discord.js";
 import { SlashCommandBuilder } from "@discordjs/builders";
 import shop from "../../json/shop.json";
 import ms from "ms";
@@ -30,7 +34,8 @@ export async function run({
 		max: 10,
 	});
 
-	collector.on("collect", async (i) => {
+	collector.on("collect", async (i: MessageComponentInteraction) => {
+		if (!i.isMessageComponent()) return;
 		await i.deferUpdate();
 		const profile = await profileOf(i.user.id);
 		const value = (i as any).values[0];

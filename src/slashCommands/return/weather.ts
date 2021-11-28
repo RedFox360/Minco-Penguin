@@ -1,6 +1,11 @@
 import { CommandData } from "../../types";
 import * as weather from "weather-js";
-import { MessageButton, MessageActionRow, MessageEmbed } from "discord.js";
+import {
+	MessageButton,
+	MessageActionRow,
+	MessageEmbed,
+	MessageComponentInteraction,
+} from "discord.js";
 import { SlashCommandBuilder } from "@discordjs/builders";
 import ms from "ms";
 export const data = new SlashCommandBuilder()
@@ -134,7 +139,8 @@ export async function run({ interaction }: CommandData) {
 				filter,
 				time: ms("2h"),
 			});
-			collector.on("collect", async (i) => {
+			collector.on("collect", async (i: MessageComponentInteraction) => {
+				if (!i.isMessageComponent()) return;
 				if (i.customId === "view_weather") {
 					weatherButton.setDisabled(true);
 					forecastButton.setDisabled(false);

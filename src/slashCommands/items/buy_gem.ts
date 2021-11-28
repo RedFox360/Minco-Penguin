@@ -38,7 +38,8 @@ export async function run({
 		max: 10,
 	});
 
-	collector.on("collect", async (i) => {
+	collector.on("collect", async (i: MessageComponentInteraction) => {
+		if (!i.isMessageComponent()) return;
 		await i.deferUpdate();
 		const profile = await profileOf(i.user.id);
 		const value = (i as any).values[0];

@@ -1,5 +1,10 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { MessageEmbed, MessageButton, MessageActionRow } from "discord.js";
+import {
+	MessageEmbed,
+	MessageButton,
+	MessageActionRow,
+	MessageComponentInteraction,
+} from "discord.js";
 import ms from "ms";
 import { CommandData } from "../../types";
 
@@ -78,7 +83,8 @@ export async function run({ interaction, profileInServer }: CommandData) {
 		time: ms("1.5m"),
 	});
 	let deleted = false;
-	collector.on("collect", async (i) => {
+	collector.on("collect", async (i: MessageComponentInteraction) => {
+		if (!i.isMessageComponent()) return;
 		switch (i.customId) {
 			case "delete": {
 				await msg.delete();
