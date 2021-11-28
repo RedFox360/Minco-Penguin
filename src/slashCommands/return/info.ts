@@ -5,7 +5,6 @@ import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import memberInfo from "../../functions/member_info";
 import serverInfo from "../../functions/server_info";
-import channelInfo from "../../functions/channel_info";
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -25,17 +24,6 @@ export const data = new SlashCommandBuilder()
 	)
 	.addSubcommand((subcommand) =>
 		subcommand.setName("server").setDescription("View the info of this server")
-	)
-	.addSubcommand((subcommand) =>
-		subcommand
-			.setName("channel")
-			.setDescription("View the info of a channel")
-			.addChannelOption((option) =>
-				option
-					.setName("channel")
-					.setDescription("The channel to get info from")
-					.setRequired(true)
-			)
 	);
 
 export async function run(data: CommandData) {
@@ -46,10 +34,6 @@ export async function run(data: CommandData) {
 		}
 		case "server": {
 			serverInfo(data);
-			break;
-		}
-		case "channel": {
-			channelInfo(data);
 			break;
 		}
 	}
