@@ -36,22 +36,19 @@ export async function run({
 	} else {
 		result = num1 + num2;
 	}
-	const mathMsg = await interaction.reply({
-		content: `What is ${num1} ${oper} ${num2}?`,
-		fetchReply: true,
-	});
+	await interaction.reply(`What is ${num1} ${oper} ${num2}?`);
 
 	const filter = (msg) => msg.author.id === interaction.user.id;
 
-	mathMsg.channel
+	interaction.channel
 		.awaitMessages({
 			filter,
 			max: 1,
 			time: 20000,
 			errors: ["time"],
 		})
-		.then(async (msg) => {
-			const message = msg.first();
+		.then(async (messages) => {
+			const message = messages.first();
 			message.guild.roles.fetch();
 			let guess = parseInt(message.content.replace(/\D/g, ""));
 			if (guess == result) {
