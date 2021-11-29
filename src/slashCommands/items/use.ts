@@ -12,8 +12,9 @@ export const data = new SlashCommandBuilder()
 			.setDescription("The item to use")
 			.setRequired(true)
 			.addChoice("Lootbox", "lootbox")
-			.addChoice("🍅 Tomato", "tomato")
-			.addChoice("🥚 Egg", "egg")
+			.addChoice("Tomato", "tomato")
+			.addChoice("Egg", "egg")
+			.addChoice("Banana", "banana")
 	);
 
 export const cooldown = 12;
@@ -26,6 +27,8 @@ export async function run(data: CommandData) {
 		tomato(data);
 	} else if (item == "egg") {
 		egg(data);
+	} else if (item == "banana") {
+		banana(data);
 	}
 }
 async function tomato({
@@ -153,5 +156,27 @@ async function egg({
 	})();
 	await interaction.reply(
 		`You ate your ${eggName} and won ${numberEcon} Minco Dollars!`
+	);
+}
+
+async function banana({
+	interaction,
+	profile: { inventory },
+	updateProfile,
+}: CommandData) {
+	if (!inventory.includes("12")) {
+		await interaction.reply({
+			content: "You don't have a banana!",
+			ephemeral: true,
+		});
+		return;
+	}
+	const randnum = randomInt(5, 16); // 5-15 (average: 10 - price of banana)
+	await updateProfile({
+		$inc: { mincoDollars: randnum },
+		$pull: { inventory: "12" },
+	});
+	await interaction.reply(
+		`You ate your banana and won ${randnum} Minco Dollars!`
 	);
 }
