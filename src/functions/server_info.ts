@@ -53,7 +53,7 @@ export default async function run({ interaction, server }: CommandData) {
 	const infoEmbed = new MessageEmbed()
 		.setAuthor(
 			"Minco Penguin",
-			interaction.guild.iconURL(),
+			interaction.guild.iconURL({ dynamic: true }),
 			interaction.guild.iconURL()
 		)
 		.setTitle(":bulb: Server Info")
