@@ -96,6 +96,7 @@ Benefits of marriage:
 	});
 	const collector = msg.createMessageComponentCollector({
 		filter,
+		max: 1,
 		time: ms("3h"),
 	});
 	collector.on("collect", async (i: MessageComponentInteraction) => {
@@ -105,8 +106,5 @@ Benefits of marriage:
 		await i.reply(
 			`:bouquet: <@${userId}> and <@${interactionUserId}> are now married!`
 		);
-		acceptButton.setDisabled(true);
-		row = new MessageActionRow().addComponents(acceptButton);
-		await i.update({ embeds: [proposal], components: [row] });
 	});
 }
