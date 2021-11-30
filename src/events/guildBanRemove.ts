@@ -7,5 +7,9 @@ export default async ({ user, guild }: GuildBan) => {
 		{ $inc: { memberCount: 1 } }
 	);
 	if (serverData.silenceBans) return;
-	user.send(`${user.tag}, you were unbanned from ${guild.name}.`);
+	try {
+		await user.send(`${user.tag}, you were unbanned from ${guild.name}.`);
+	} catch (err) {
+		// dms not open
+	}
 };

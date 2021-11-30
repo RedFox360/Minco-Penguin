@@ -54,13 +54,17 @@ export default async (member: Discord.GuildMember, client: Discord.Client) => {
 	if (!channel) return;
 	(channel as Discord.TextChannel).send({ embeds: [joinEmbed] });
 	if (welcomeDM)
-		member.send(
-			welcomeDM
-				.replace(/\{server\}/g, member.guild.name)
-				.replace(/\{mention\}/g, `<@${member.id}>`)
-				.replace(/\{ord_member_count\}/g, memberCountOrdinal)
-				.replace(/\{member_count\}/g, memberCount.toLocaleString())
-				.replace(/\{user\}/g, member.user.username)
-				.replace(/\{user_tag\}/g, member.user.tag)
-		);
+		try {
+			await member.send(
+				welcomeDM
+					.replace(/\{server\}/g, member.guild.name)
+					.replace(/\{mention\}/g, `<@${member.id}>`)
+					.replace(/\{ord_member_count\}/g, memberCountOrdinal)
+					.replace(/\{member_count\}/g, memberCount.toLocaleString())
+					.replace(/\{user\}/g, member.user.username)
+					.replace(/\{user_tag\}/g, member.user.tag)
+			);
+		} catch (err) {
+			// dm was not sent
+		}
 };

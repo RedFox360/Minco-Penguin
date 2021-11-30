@@ -23,5 +23,9 @@ export default async (
 	(channel as Discord.TextChannel).send({ embeds: [banEmbed] });
 	let userDesc = `${user.tag}, you were banned from ${guild.name}.`;
 	if (reason) userDesc += `\nReason: *${reason}*`;
-	user.send(userDesc);
+	try {
+		await user.send(userDesc);
+	} catch (err) {
+		// dm not open
+	}
 };
