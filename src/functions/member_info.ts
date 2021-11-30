@@ -5,10 +5,6 @@ export default async function run({ interaction, profile }: CommandData) {
 	const user = interaction.options.getUser("user");
 	const member = await interaction.guild.members.fetch(user.id);
 	const roles = Array.from(member.roles.cache.values());
-	console.table({
-		createdTimestamp: user.createdTimestamp,
-		joinedAt: member.joinedTimestamp,
-	});
 	const infoEmbed = new MessageEmbed()
 		.setAuthor(
 			user.tag,
