@@ -3,7 +3,7 @@ import { MessageEmbed } from "discord.js";
 import { randomInt } from "mathjs";
 import { SlashCommandBuilder } from "@discordjs/builders";
 import ms from "ms";
-const dayLength = ms("1 day");
+const dayLength = ms("20h");
 
 export const data = new SlashCommandBuilder()
 	.setName("daily")
