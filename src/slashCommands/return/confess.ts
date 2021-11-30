@@ -71,7 +71,7 @@ export async function run({ interaction, profileInServer }: CommandData) {
 		content: `Confession sent to <#${channel.id}>`,
 		ephemeral: true,
 	});
-	const msg = await interaction.channel.send({
+	const msg = await channel.send({
 		embeds: [embed],
 		components: [row],
 	});
