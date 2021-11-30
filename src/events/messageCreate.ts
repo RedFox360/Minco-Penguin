@@ -19,7 +19,7 @@ filter.add([
 	"retard",
 	"retarded",
 ]);
-filter.remove(["suck", "sucks"]);
+filter.remove(["suck", "sucks", "butt"]);
 
 export default async (message: Message) => {
 	if (!message.guild) return;
