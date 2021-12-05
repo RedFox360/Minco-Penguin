@@ -1,8 +1,32 @@
-# Minco Penguin
+**Sameer's bot...**
 
-Created by: RedFox360
-**sameer p**#3688 on Discord (DM me if you want me to add Minco Penguin to your server)
+# Minco Penguin v0.1.0
 
-created using tutorials by [CodeLyon](https://www.youtube.com/codelyon)
+Minco Penguin is a multi-purpose Discord slash command bot. It is currently in the _Alpha_ stages, with new features being added frequently.
 
-Minco Penguin invite will be released soon once slash commands are supported! Meanwhile, I am working on more admin features.
+It is coded in _Typescript_ and is currently using **Discord.js v13.3.1**.
+
+## Current features
+
+- Economy commands (`beg`, `balance`, `gift`, `buy`, `inventory`, `shop`, etc.)
+- "Returning" commands (`confess`, `combine`, `magic8ball`, `lie_detector`, `weather`, `poll`, `prime`, etc.)
+- Admin/mod commands (`clear`, `eval`, `set`, `shadowban`, `slowmode`, `toggle_ban`)
+- Info commands (`info member`, `info server` )
+
+and a few more!
+
+## Future plans
+
+these plans might change
+
+| version | Additions        |
+| ------- | ---------------- |
+| v0.1.1  | Profile commands |
+| v0.2    | Fishing update   |
+| v0.3    | Context menus    |
+
+## Credits
+
+- [CodeLyon](https://www.youtube.com/CodeLyon) for making tutorials helping me start this bot in Discord.js v12
+- the [Discord.js server](https://discord.gg/djs) for helping with code problems
+- members of a private server (unnamed for privacy) who gave ideas for commands

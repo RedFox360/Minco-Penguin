@@ -1,12 +1,6 @@
 import { CommandData } from "../types";
 import { MessageEmbed } from "discord.js";
-import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
-import timezone from "dayjs/plugin/timezone";
-import prettyMs from "pretty-ms";
 import ordinal from "ordinal";
-dayjs.extend(utc);
-dayjs.extend(timezone);
 
 export default async function run({ interaction, server }: CommandData) {
 	await interaction.deferReply();

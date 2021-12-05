@@ -31,7 +31,6 @@ export default async (
 		.setFooter(`⭐️  | ${nameFormat}`)
 		.setTimestamp(message.createdTimestamp)
 		.setColor("#F7DC6F"); // yellow
-
 	(channel as Discord.TextChannel).send({
 		embeds: [embed],
 		files: Array.from(message.attachments.values()),
