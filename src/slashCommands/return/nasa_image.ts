@@ -1,11 +1,8 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { CommandData } from "../../types";
-import { config as loadenv } from "dotenv";
 import axios, { AxiosResponse } from "axios";
 import dayjs from "dayjs";
 import { MessageEmbed } from "discord.js";
-
-loadenv();
 
 export const data = new SlashCommandBuilder()
 	.setName("nasa")
