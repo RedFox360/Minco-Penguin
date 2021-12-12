@@ -38,16 +38,14 @@ export async function run({ interaction, profileOf }: CommandData) {
 			if (t == "08") return ":cactus: Cactus";
 			if (t == "09") return ":fire: Fire";
 			if (t == "10") return "<:cardboard_box:843173235549667349> Lootbox";
-			if (t == "11") return ":egg: Raw Egg";
-			if (t == "11-0") return ":egg: Boiled Egg";
-			if (t == "11-1") return ":egg: Scrambled Eggs";
-			if (t == "11-2") return ":egg: Omelette";
 			if (t == "12") return ":banana: Banana";
 		})
 		.map((t, i) => `${i + 1}. ${t}`);
-
+	const avatar = user
+		? user.displayAvatarURL({ dynamic: true })
+		: interaction.member.displayAvatarURL({ dynamic: true });
 	const invEmbed = new MessageEmbed()
-		.setAuthor("Inventory", user.avatarURL({ dynamic: true }))
+		.setAuthor("Inventory", avatar)
 		.setDescription(inv.join("\n"))
 		.setColor("#F8C471")
 		.setFooter(interaction.guild?.name ?? interaction.user.username);

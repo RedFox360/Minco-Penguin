@@ -1,7 +1,7 @@
-import { CommandData } from "../types";
+import { CommandData } from "../../types";
 import { MessageButton, MessageActionRow } from "discord.js";
 import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
-import timezoneList from "../json/timezones.json";
+import timezoneList from "../../json/timezones.json";
 
 export function subcommand() {
 	return new SlashCommandSubcommandBuilder()

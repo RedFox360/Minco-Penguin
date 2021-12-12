@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import memberInfo from "../../functions/member_info";
-import serverInfo from "../../functions/server_info";
+import serverInfo from "../../functions/set/server_info";
 dayjs.extend(utc);
 dayjs.extend(timezone);
 

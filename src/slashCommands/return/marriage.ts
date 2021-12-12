@@ -15,15 +15,22 @@ export const data = new SlashCommandBuilder()
 export async function run({ interaction, profileOf }: CommandData) {
 	const userOption = interaction.options.getUser("user");
 	const user = userOption ?? interaction.user;
-	const profile = await profileOf(user.id);
+	const { spouse } = await profileOf(user.id);
 	const are = userOption ? `${user.toString()} is` : "You are";
-	if (!profile.spouse) {
+	if (!spouse) {
 		await interaction.reply(`${are} not married`);
 		return;
 	}
+	let spouseFormat: string;
+	let member = await interaction.guild.members.fetch(spouse);
+	if (member) spouseFormat = `<@${spouse}>`;
+	else {
+		let user = await interaction.client.users.fetch(spouse);
+		spouseFormat = user.username;
+	}
 	const marriageEmbed = new MessageEmbed()
 		.setTitle(":ring: Marriage")
-		.setDescription(`${are} currently married to <@${profile.spouse}>`)
+		.setDescription(`${are} currently married to <@${spouse}>`)
 		.setColor("#BEDFFF");
 	await interaction.reply({ embeds: [marriageEmbed] });
 }

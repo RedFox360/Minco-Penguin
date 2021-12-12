@@ -1,13 +1,24 @@
-import { CommandData } from "../types";
+import { CommandData } from "../../types";
 import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
+
 export function subcommand() {
 	return new SlashCommandSubcommandBuilder()
-		.setName("welcome_channel")
-		.setDescription("Set the welcome channel of your server")
+		.setName("starboard")
+		.setDescription("Set a starboard for your server")
 		.addChannelOption((option) =>
-			option.setName("channel").setDescription("The channel").setRequired(true)
+			option
+				.setName("channel")
+				.setDescription("The starboard channel")
+				.setRequired(true)
+		)
+		.addIntegerOption((option) =>
+			option
+				.setName("amount")
+				.setDescription("The amount of star reactions to get a message posted")
+				.setRequired(true)
 		);
 }
+
 export async function run({ interaction, updateServer }: CommandData) {
 	if (!interaction.guild) {
 		await interaction.reply({
@@ -24,6 +35,7 @@ export async function run({ interaction, updateServer }: CommandData) {
 		});
 		return;
 	}
+
 	const channel = interaction.options.getChannel("channel");
 	if (!channel.isText()) {
 		await interaction.reply({
@@ -32,7 +44,13 @@ export async function run({ interaction, updateServer }: CommandData) {
 		});
 		return;
 	}
-	await updateServer({ welcomeChannel: channel.id });
-
-	await interaction.reply(`Welcome channel set to <#${channel.id}>`);
+	const { id } = channel;
+	const starAmount = interaction.options.getInteger("amount");
+	if (starAmount <= 0 || starAmount > 20) {
+		await interaction.reply({
+			content: "The star amount must be above 0 and less than 21",
+			ephemeral: true,
+		});
+	}
+	await updateServer({ starboard: { channelID: id, starAmount } });
 }

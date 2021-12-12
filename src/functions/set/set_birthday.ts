@@ -1,4 +1,4 @@
-import { CommandData } from "../types";
+import { CommandData } from "../../types";
 import dayjs from "dayjs";
 import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
 

@@ -15,19 +15,19 @@ filter.add([
 	"betch",
 	"cocaine",
 	"heroin",
-	"sacc",
 	"retard",
 	"retarded",
+	":middle_finger:",
 ]);
 filter.remove(["suck", "sucks", "butt"]);
 
 export default async (message: Message) => {
 	if (!message.guild) return;
+	if (!message.guild.me.permissions.has("MANAGE_MESSAGES")) return;
 	const server: ServerData = await serverModel.findOne({
 		serverID: message.guild.id,
 	});
 	if (server.clean) {
-		if (!message.guild.me.permissions.has("MANAGE_MESSAGES")) return;
 		if (filter.check(message.content)) await message.delete();
 	}
 	if (!message.author || !message.guild) return;

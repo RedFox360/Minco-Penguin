@@ -19,11 +19,11 @@ and a few more!
 
 these plans might change
 
-| version | Additions        |
-| ------- | ---------------- |
-| v0.1.1  | Profile commands |
-| v0.2    | Fishing update   |
-| v0.3    | Context menus    |
+| version | Additions              |
+| ------- | ---------------------- |
+| v0.1.1  | Profile commands       |
+| v0.2    | Fishing update         |
+| v0.2.1  | Fishing update + baits |
 
 ## Credits
 

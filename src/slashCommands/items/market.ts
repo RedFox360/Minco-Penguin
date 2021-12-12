@@ -1,10 +1,10 @@
 import { MessageEmbed } from "discord.js";
 import { CommandData } from "../../types";
 import { SlashCommandBuilder } from "@discordjs/builders";
-import marketView from "../../functions/market_view";
-import marketBuy from "../../functions/market_buy";
-import marketRemove from "../../functions/market_remove";
-import marketAdd from "../../functions/market_add";
+import marketView from "../../functions/market/market_view";
+import marketBuy from "../../functions/market/market_buy";
+import marketRemove from "../../functions/market/market_remove";
+import marketAdd from "../../functions/market/market_add";
 
 export const data = new SlashCommandBuilder()
 	.setName("market")

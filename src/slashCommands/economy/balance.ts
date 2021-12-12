@@ -15,8 +15,11 @@ export async function run({ interaction, profileOf }: CommandData) {
 	const user = interaction.options.getUser("user") ?? interaction.user;
 	const profile = await profileOf(user.id);
 	const total = profile.mincoDollars + profile.bank;
+	const avatar = user
+		? user.displayAvatarURL({ dynamic: true })
+		: interaction.member.displayAvatarURL({ dynamic: true });
 	const balanceEmbed = new MessageEmbed()
-		.setAuthor("Balance", user.avatarURL({ dynamic: true }))
+		.setAuthor("Balance", avatar)
 		.setColor("#B8FF8B")
 		.setDescription(
 			`🪙 Wallet: **${profile.mincoDollars.toLocaleString()}** Minco Dollars

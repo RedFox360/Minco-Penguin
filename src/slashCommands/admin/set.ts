@@ -1,12 +1,12 @@
 import { CommandData } from "../../types";
 import { SlashCommandBuilder } from "@discordjs/builders";
-import * as setAnnounceMessage from "../../functions/set_announce_message";
-import * as setBirthday from "../../functions/set_birthday";
-import * as setBoolean from "../../functions/set_bool";
-import * as setTimezone from "../../functions/set_timezone";
-import * as setWelcomeChannel from "../../functions/set_welcome_channel";
-import * as setRole from "../../functions/set_role";
-import * as setStarboard from "../../functions/set_starboard";
+import * as setAnnounceMessage from "../../functions/set/set_announce_message";
+import * as setBirthday from "../../functions/set/set_birthday";
+import * as setBoolean from "../../functions/set/set_bool";
+import * as setTimezone from "../../functions/set/set_timezone";
+import * as setWelcomeChannel from "../../functions/set/set_welcome_channel";
+import * as setRole from "../../functions/set/set_role";
+import * as setStarboard from "../../functions/set/set_starboard";
 
 export const data = new SlashCommandBuilder()
 	.setName("set")

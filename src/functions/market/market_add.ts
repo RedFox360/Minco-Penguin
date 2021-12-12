@@ -1,5 +1,5 @@
 import { MessageEmbed } from "discord.js";
-import { CommandData } from "../types";
+import { CommandData } from "../../types";
 export default async function run({
 	interaction,
 	profileInServer,

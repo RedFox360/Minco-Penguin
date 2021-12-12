@@ -1,79 +1,23 @@
 import { CommandData } from "../../types";
-import {
-	MessageActionRow,
-	MessageComponentInteraction,
-	MessageSelectMenu,
-} from "discord.js";
 import { SlashCommandBuilder } from "@discordjs/builders";
-import shop from "../../json/shop.json";
-import ms from "ms";
+import * as buyItem from "../../functions/buy/buy_item";
+import * as buyGem from "../../functions/buy/buy_gem";
+
 export const data = new SlashCommandBuilder()
 	.setName("buy")
-	.setDescription("Buy items from the shop!");
+	.setDescription("Buy items from the shop!")
+	.addSubcommand(buyItem.subcommand)
+	.addSubcommand(buyGem.subcommand);
 
-export async function run({
-	interaction,
-	profileOf,
-	updateProfile,
-}: CommandData) {
-	const row = new MessageActionRow().addComponents(
-		new MessageSelectMenu()
-			.setCustomId("items-select")
-			.setPlaceholder("Minco Shop")
-			.addOptions(shop)
-	);
-	const prices = [75, 900, 25, 4, 33, 75, 400, 50, 50, 50, 8, 10];
-	const msg = await interaction.reply({
-		content: "Choose an item from the Minco Shop",
-		components: [row],
-		fetchReply: true,
-	});
-
-	const collector = msg.createMessageComponentCollector({
-		time: ms("2h"),
-		max: 10,
-	});
-
-	collector.on("collect", async (i: MessageComponentInteraction) => {
-		if (!i.isMessageComponent()) return;
-		await i.deferUpdate();
-		const profile = await profileOf(i.user.id);
-		const value = (i as any).values[0];
-		if (profile.inventory.includes(value)) {
-			await i.followUp({
-				content: "You already have this item!",
-				ephemeral: true,
-			});
-			return;
+export async function run(data: CommandData) {
+	switch (data.interaction.options.getSubcommand()) {
+		case "item": {
+			await buyItem.run(data);
+			break;
 		}
-		const price = prices[parseInt(value) - 1];
-		if (profile.mincoDollars < price) {
-			await interaction.followUp({
-				content: "You don't have enough Minco Dollars to buy this item!",
-				ephemeral: true,
-			});
-			return;
+		case "gem": {
+			await buyGem.run(data);
+			break;
 		}
-		await updateProfile(
-			{
-				$push: { inventory: value },
-			},
-			i.user.id
-		);
-		if (value == "05") {
-			await updateProfile({ candyAmount: 3 }, i.user.id);
-		}
-		await updateProfile(
-			{
-				$inc: { mincoDollars: -price },
-			},
-			i.user.id
-		);
-		let item = shop.find((i) => i.value == value);
-		await i.followUp(
-			`${i.user.toString()}, you succesfully bought a(n) ${item.emoji} **${
-				item.label
-			}** for ${price} MD`
-		);
-	});
+	}
 }

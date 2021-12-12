@@ -17,6 +17,24 @@ export interface CommandData {
 		serverID?: string
 	): Promise<ProfileInServer>;
 }
+export interface ContextMenuData {
+	interaction: Discord.ContextMenuInteraction;
+	profile: Profile;
+	profileInServer: ProfileInServer;
+	server: ServerData;
+	updateProfile(data: any, uid?: string): Promise<Profile>;
+	updateServer(data: any, sid?: string): Promise<ServerData>;
+	updateProfileInServer(
+		data: any,
+		uid?: string,
+		sid?: string
+	): Promise<ProfileInServer>;
+	profileOf(userID: string): Promise<Profile>;
+	profileInServerOf(
+		userID: string,
+		serverID?: string
+	): Promise<ProfileInServer>;
+}
 export interface Interaction extends Discord.CommandInteraction {
 	readonly command:
 		| Discord.ApplicationCommand
@@ -91,6 +109,10 @@ export interface ServerData {
 	clean: boolean;
 	timezone: any;
 }
+export const ContextMenuTypes = {
+	User: 2,
+	Message: 3,
+};
 export interface Profile {
 	userID: string;
 	mincoDollars?: number;
@@ -125,11 +147,16 @@ interface zooSchema {
 	emoji: string;
 }
 interface Fishes {
+	cookedCods: number;
+	cookedSalmons: number;
 	cods: number;
 	salmons: number;
 	pufferfish: number;
 	clownfish: number;
 	axolotls: number;
+	xp: number;
+	baits: number;
+	baitType: "fish" | "bug" | "leech" | "worm";
 }
 interface marketSchema {
 	price: number;
@@ -137,7 +164,7 @@ interface marketSchema {
 	desc?: string;
 }
 type RodType =
-	| "wood"
+	| "wooden"
 	| "upgraded"
 	| "metal"
 	| "heavy"

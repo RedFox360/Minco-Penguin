@@ -13,7 +13,6 @@ export const data = new SlashCommandBuilder()
 			.setRequired(true)
 			.addChoice("Lootbox", "lootbox")
 			.addChoice("Tomato", "tomato")
-			.addChoice("Egg", "egg")
 			.addChoice("Banana", "banana")
 	);
 
@@ -25,8 +24,6 @@ export async function run(data: CommandData) {
 		lootbox(data);
 	} else if (item == "tomato") {
 		tomato(data);
-	} else if (item == "egg") {
-		egg(data);
 	} else if (item == "banana") {
 		banana(data);
 	}
@@ -113,50 +110,6 @@ async function lootbox({ interaction, profile, updateProfile }: CommandData) {
 	} else {
 		await interaction.followUp(`You won ${mincoAmount} Minco Dollars!`);
 	}
-}
-async function egg({
-	interaction,
-	profile: { inventory },
-	updateProfile,
-}: CommandData) {
-	if (!inventory.some((v) => v.startsWith("11"))) {
-		await interaction.reply({
-			content: "You don't have an egg!",
-			ephemeral: true,
-		});
-		return;
-	}
-	const eggValue = inventory.find((value) => value.startsWith("11"));
-	let numberEcon: number;
-	if (eggValue == "11") {
-		numberEcon = randomInt(5, 9);
-	} else if (eggValue == "11-0") {
-		// boiled egg
-		numberEcon = randomInt(12, 17);
-	} else if (eggValue == "11-1") {
-		// scrambled egg
-		numberEcon = randomInt(13, 18);
-	} else if (eggValue == "11-2") {
-		// omelette
-		numberEcon = randomInt(14, 20);
-	}
-	await updateProfile({
-		$inc: {
-			mincoDollars: numberEcon,
-		},
-		$pull: {
-			inventory: eggValue,
-		},
-	});
-	const eggName = (() => {
-		if (eggValue == "11") return "Raw Egg";
-		if (eggValue == "11-0") return "Boiled Egg";
-		if (eggValue == "11-1") return "Scrambled Egg";
-		if (eggValue == "11-2") return "Omelette";
-	})();
-	await interaction.reply(
-		`You ate your ${eggName} and won ${numberEcon} Minco Dollars!`
-	);
 }
 
 async function banana({

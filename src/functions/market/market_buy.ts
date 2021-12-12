@@ -1,4 +1,4 @@
-import { CommandData } from "../types";
+import { CommandData } from "../../types";
 import {
 	MessageButton,
 	MessageActionRow,
@@ -53,7 +53,7 @@ export default async function run({
 
 	const collector = msg.createMessageComponentCollector({
 		filter,
-		time: 10000,
+		time: 10_000,
 		max: 1,
 	});
 	let sendtimeout = true;

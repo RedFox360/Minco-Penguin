@@ -1,4 +1,4 @@
-import { CommandData } from "../types";
+import { CommandData } from "../../types";
 import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
 import ordinal from "ordinal";
 

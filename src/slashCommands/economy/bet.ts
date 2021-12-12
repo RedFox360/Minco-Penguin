@@ -17,7 +17,7 @@ export async function run({
 	profile,
 	updateProfile,
 }: CommandData) {
-	let random = Math.floor(Math.random() * 2);
+	let random = Math.round(Math.random());
 	let amount = interaction.options.getInteger("amount");
 	if (amount > profile.mincoDollars) {
 		await interaction.reply({
@@ -43,25 +43,13 @@ export async function run({
 
 	if (random) {
 		await updateProfile({ $inc: { mincoDollars: -amount } });
-		await interaction.reply({
-			embeds: [
-				new MessageEmbed()
-					.setDescription(
-						`<:x_circle:872594799553839114> You lost! You lost ${amount} MD`
-					)
-					.setColor("#E48383"),
-			],
-		});
+		await interaction.reply(
+			`<:x_circle:872594799553839114> You lost! You lost ${amount} MD`
+		);
 	} else {
 		await updateProfile({ $inc: { mincoDollars: amount } });
-		await interaction.reply({
-			embeds: [
-				new MessageEmbed()
-					.setDescription(
-						`<:check_circle:872594799662858270> You won! You won ${amount} MD`
-					)
-					.setColor("#B8FF8B"),
-			],
-		});
+		await interaction.reply(
+			`<:check_circle:872594799662858270> You won! You won ${amount} MD`
+		);
 	}
 }

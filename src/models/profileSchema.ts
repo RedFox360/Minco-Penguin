@@ -5,17 +5,10 @@ const zooSchema = new Schema({
 	emoji: String,
 });
 
-const baits = new Schema({
-	worms: Number,
-	leeches: Number,
-	bugs: Number,
-	fishes: Number,
-});
-
 const profileSchema = new Schema({
 	userID: { type: String, require: true, unique: true },
 	mincoDollars: { type: Number, default: 100 },
-	bank: Number,
+	bank: { type: Number, default: 0 },
 	birthday: String,
 	favs: {
 		food: String,
@@ -24,8 +17,19 @@ const profileSchema = new Schema({
 	},
 	spouse: String,
 	inventory: [String],
-	fish: [String], // 01: Cod, 02: Salmon, 03: Pufferfish, 04: Clownfish, 05: Axolotl
-	rod: { type: String, default: "normal" },
+	fish: {
+		cookedCods: { type: Number, default: 0 },
+		cookedSalmons: { type: Number, default: 0 },
+		cods: { type: Number, default: 0 },
+		salmons: { type: Number, default: 0 },
+		pufferfish: { type: Number, default: 0 },
+		clownfish: { type: Number, default: 0 },
+		axolotls: { type: Number, default: 0 },
+		xp: { type: Number, default: 0 },
+		baits: { type: Number, default: 0 },
+		baitType: String,
+	},
+	rod: String,
 	gems: [String],
 	candyAmount: Number,
 	zoo: [zooSchema],
@@ -33,7 +37,6 @@ const profileSchema = new Schema({
 	lastUsedDaily: Number,
 	lastUsedWeekly: Number,
 	timezone: { type: String, default: "America/Los_Angeles" },
-	baits,
 });
 
 const profileModel = model("ProfileModels", profileSchema);

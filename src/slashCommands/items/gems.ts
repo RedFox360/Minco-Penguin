@@ -52,9 +52,11 @@ export async function run({ interaction, profileOf }: CommandData) {
 			if (t == "159") return "<:fluorite:884170534391275540> **Fluorite**";
 		})
 		.map((t, i) => `${i + 1}. ${t}`);
-
+	const avatar = user
+		? user.displayAvatarURL({ dynamic: true })
+		: interaction.member.displayAvatarURL({ dynamic: true });
 	const gemEmbed = new MessageEmbed()
-		.setAuthor("Gems", user.avatarURL({ dynamic: true }))
+		.setAuthor("Gems", avatar)
 		.setDescription(gems.join("\n"))
 		.setColor("#F8C471")
 		.setFooter(interaction.guild?.name ?? interaction.user.username);

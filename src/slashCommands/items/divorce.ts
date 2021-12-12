@@ -30,7 +30,7 @@ export async function run({
 		.awaitMessages({
 			filter,
 			max: 1,
-			time: 120000,
+			time: 120_000,
 			errors: ["time"],
 		})
 		.then(async (messages) => {

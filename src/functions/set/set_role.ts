@@ -1,4 +1,4 @@
-import { CommandData } from "../types";
+import { CommandData } from "../../types";
 import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
 export function subcommand() {
 	return new SlashCommandSubcommandBuilder()

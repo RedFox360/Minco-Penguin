@@ -2,15 +2,17 @@ import { CommandData } from "../../types";
 import {
 	MessageActionRow,
 	MessageSelectMenu,
-	GuildMember,
 	MessageComponentInteraction,
 } from "discord.js";
-import { SlashCommandBuilder } from "@discordjs/builders";
+import { SlashCommandSubcommandBuilder } from "@discordjs/builders";
 import shop from "../../json/gemShop.json";
 import ms from "ms";
-export const data = new SlashCommandBuilder()
-	.setName("buy_gem")
-	.setDescription("Buy gems from the shop!");
+
+export function subcommand() {
+	return new SlashCommandSubcommandBuilder()
+		.setName("gem")
+		.setDescription("Buy gems from the shop!");
+}
 
 export async function run({
 	interaction,

@@ -1,4 +1,4 @@
-import { CommandData } from "../types";
+import { CommandData } from "../../types";
 import { MessageEmbed } from "discord.js";
 
 export default async function run({

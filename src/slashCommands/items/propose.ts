@@ -72,10 +72,13 @@ export async function run({
 		.setStyle("SUCCESS");
 	const filter = (i) =>
 		i.user.id === userId && i.customId === "accept_proposal";
-	let row = new MessageActionRow().addComponents(acceptButton);
+	const row = new MessageActionRow().addComponents(acceptButton);
 	const proposal = new MessageEmbed()
 		.setColor("#85C1E9") // light blue
-		.setAuthor("Proposal", interaction.user.avatarURL({ dynamic: true }))
+		.setAuthor(
+			"Proposal",
+			interaction.member.displayAvatarURL({ dynamic: true })
+		)
 		.setDescription(
 			`**${user.toString()}, ${interaction.user.toString()} has proposed to you**. Click the "Accept Proposal" button to marry ${interaction.user.toString()}. The button will not work after 3 hours.
 		
