@@ -2,7 +2,7 @@
 	{
 		"emoji": "💍",
 		"label": "Marriage Ring",
-		"description": "75 Minco Dollars\nCan be used to propose to someone",
+		"description": "75 Minco Dollars | Can be used to propose to someone",
 		"value": "01"
 	},
 	{
@@ -20,25 +20,25 @@
 	{
 		"emoji": "🍅",
 		"label": "Tomato",
-		"description": "4 Minco Dollars\nUse /use tomato for a random reward",
+		"description": "4 Minco Dollars | Use /use tomato for a random reward",
 		"value": "04"
 	},
 	{
 		"emoji": "🍬",
 		"label": "Candy",
-		"description": "33 Minco Dollars\nDoubles beg reward for the next 3 begs",
+		"description": "33 Minco Dollars | Doubles beg reward for the next 3 begs",
 		"value": "05"
 	},
 	{
 		"emoji": "<:transparent_jellybot:833491227995013130>",
 		"label": "Jellyfish",
-		"description": "75 Minco Dollars\nGives a +12 attack bonus in battle and allows you to use /sting <@user>.",
+		"description": "75 Minco Dollars | Gives a +12 attack bonus in battle and allows you to use /sting <@user>.",
 		"value": "06"
 	},
 	{
 		"emoji": "🐻",
 		"label": "Pet Bear",
-		"description": "400 Minco Dollars\n5% chance of doubling beg reward, 33 Minco Dollar math reward",
+		"description": "400 Minco Dollars | 5% chance of doubling beg reward, 33 Minco Dollar math reward",
 		"value": "07"
 	},
 	{
@@ -62,13 +62,13 @@
 	{
 		"emoji": "🥚",
 		"label": "Egg",
-		"description": "8 Minco Dollars\nCan be eaten (!eat egg) raw or cooked using !cook egg <type> for a reward",
+		"description": "8 Minco Dollars | Can be eaten (!eat egg) raw or cooked using !cook egg <type> for a reward",
 		"value": "11"
 	},
 	{
 		"emoji": "🍌",
 		"label": "Banana",
-		"description": "10 Minco Dollars\nUse /use banana for a random reward",
+		"description": "10 Minco Dollars | Use /use banana for a random reward",
 		"value": "12"
 	}
 ]
