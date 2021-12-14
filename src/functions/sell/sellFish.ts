@@ -13,12 +13,17 @@ export default async function run({
 			ephemeral: true,
 		});
 	}
+	const amountOption = interaction.options.getInteger("amount");
+	if (amountOption < 1) {
+		await interaction.reply({
+			content: "Your fish amount must be a positive number",
+			ephemeral: true,
+		});
+	}
 	switch (interaction.options.getString("fish_name")) {
 		case "salmon_cooked": {
 			try {
-				const amount =
-					interaction.options.getInteger("amount") ??
-					profile.fish.cookedSalmons;
+				const amount = amountOption ?? profile.fish.cookedSalmons;
 				const addPrice = await sellCookedSalmon(profile, amount, updateProfile);
 				await interaction.reply(
 					`${emojis.cookedSalmon} You sold ${amount} cooked salmon for ${addPrice} MD!`
@@ -33,8 +38,7 @@ export default async function run({
 		}
 		case "cod_cooked": {
 			try {
-				const amount =
-					interaction.options.getInteger("amount") ?? profile.fish.cookedCods;
+				const amount = amountOption ?? profile.fish.cookedCods;
 				const addPrice = await sellCookedCod(profile, amount, updateProfile);
 				await interaction.reply(
 					`${emojis.cookedCod} You sold ${amount} cooked cod for ${addPrice} MD!`
@@ -49,8 +53,7 @@ export default async function run({
 		}
 		case "salmon": {
 			try {
-				const amount =
-					interaction.options.getInteger("amount") ?? profile.fish.salmons;
+				const amount = amountOption ?? profile.fish.salmons;
 				const addPrice = await sellSalmon(profile, amount, updateProfile);
 				await interaction.reply(
 					`${emojis.salmon} You sold ${amount} salmon for ${addPrice} MD!`
@@ -65,8 +68,7 @@ export default async function run({
 		}
 		case "cod": {
 			try {
-				const amount =
-					interaction.options.getInteger("amount") ?? profile.fish.cods;
+				const amount = amountOption ?? profile.fish.cods;
 				const addPrice = await sellCod(profile, amount, updateProfile);
 				await interaction.reply(
 					`${emojis.cod} You sold ${amount} cod for ${addPrice} MD!`
@@ -81,8 +83,7 @@ export default async function run({
 		}
 		case "clownfish": {
 			try {
-				const amount =
-					interaction.options.getInteger("amount") ?? profile.fish.clownfish;
+				const amount = amountOption ?? profile.fish.clownfish;
 				const addPrice = await sellClownfish(profile, amount, updateProfile);
 				await interaction.reply(
 					`${emojis.clownfish} You sold ${amount} clownfish for ${addPrice} MD!`
@@ -97,8 +98,7 @@ export default async function run({
 		}
 		case "pufferfish": {
 			try {
-				const amount =
-					interaction.options.getInteger("amount") ?? profile.fish.pufferfish;
+				const amount = amountOption ?? profile.fish.pufferfish;
 				const addPrice = await sellPufferfish(profile, amount, updateProfile);
 				await interaction.reply(
 					`${emojis.pufferfish} You sold ${amount} pufferfish for ${addPrice} MD!`
@@ -113,8 +113,7 @@ export default async function run({
 		}
 		case "axolotl": {
 			try {
-				const amount =
-					interaction.options.getInteger("amount") ?? profile.fish.axolotls;
+				const amount = amountOption ?? profile.fish.axolotls;
 				const addPrice = await sellAxolotl(profile, amount, updateProfile);
 				await interaction.reply(
 					`${emojis.axolotl} You sold ${amount} axolotl(s) for ${addPrice} MD!`
