@@ -14,7 +14,7 @@ export default async function run({
 		});
 	}
 	const amountOption = interaction.options.getInteger("amount");
-	if (amountOption < 1) {
+	if (amountOption && amountOption < 1) {
 		await interaction.reply({
 			content: "Your fish amount must be a positive number",
 			ephemeral: true,
