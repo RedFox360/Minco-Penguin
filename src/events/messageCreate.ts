@@ -17,20 +17,25 @@ filter.add([
 	"heroin",
 	"retard",
 	"retarded",
-	":middle_finger:",
 ]);
 filter.remove(["suck", "sucks", "butt"]);
 
 export default async (message: Message) => {
-	if (!message.guild) return;
+	if (!message.guild || !message.author) return;
 	if (!message.guild.me.permissions.has("MANAGE_MESSAGES")) return;
 	const server: ServerData = await serverModel.findOne({
 		serverID: message.guild.id,
 	});
-	if (server.clean) {
-		if (filter.check(message.content)) await message.delete();
+	if (
+		server.clean &&
+		(filter.check(
+			message.content.replaceAll(/[!@#$%^&*()-+/.,;'~`=_><?{}|]/g, "")
+		) ||
+			message.content.includes("middle_finger"))
+	) {
+		await message.delete();
+		return;
 	}
-	if (!message.author || !message.guild) return;
 	const profile = await profileInServerModel.findOne({
 		userID: message.author.id,
 		serverID: message.guild.id,
