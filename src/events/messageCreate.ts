@@ -30,7 +30,7 @@ export default async (message: Message) => {
 		server.clean &&
 		(filter.check(
 			message.content
-				.replaceAll(/[!@#$%^&*()-+/.,;'~`=_><?{}|]/g, "")
+				.replaceAll(/[!@#$%^&*()-+/.,;'~`=_><?{}]/g, "")
 				.replaceAll("\n", " ")
 		) ||
 			message.content.includes("middle_finger"))
