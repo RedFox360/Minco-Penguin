@@ -144,7 +144,7 @@ export default async function run({ interaction, server }: CommandData) {
 				inline: true,
 			}
 		)
-		.setFooter(`Server ID: ${interaction.guild.id}`);
+		.setTimestamp();
 	await interaction.editReply({ embeds: [infoEmbed] });
 }
 
