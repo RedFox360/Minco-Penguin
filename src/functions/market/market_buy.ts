@@ -56,10 +56,10 @@ export default async function run({
 		time: 10_000,
 		max: 1,
 	});
-	let sendtimeout = true;
+	let sendTimeout = true;
 	collector.on("collect", async (i: MessageComponentInteraction) => {
 		if (!i.isMessageComponent()) return;
-		sendtimeout = false;
+		sendTimeout = false;
 		await i.deferUpdate();
 		if (i.customId == "confirm") {
 			await updateProfile({ $inc: { mincoDollars: -item.price } });
@@ -75,7 +75,7 @@ export default async function run({
 		}
 	});
 	collector.on("end", async () => {
-		if (sendtimeout)
+		if (sendTimeout)
 			await interaction.followUp({ content: "Timed out!", ephemeral: true });
 	});
 }

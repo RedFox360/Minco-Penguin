@@ -13,10 +13,14 @@ export const data = new SlashCommandBuilder()
 	);
 
 export async function run({ interaction }: CommandData) {
+	await interaction.deferReply();
 	const equation = interaction.options.getString("equation");
 	try {
 		const result = evaluate(equation);
-		await interaction.reply(`${equation} = **${result}**`);
+		setTimeout(
+			async () => await interaction.reply(`${equation} = **${result}**`),
+			20_000
+		);
 	} catch (error) {
 		await interaction.reply("That math equation is invalid");
 	}
