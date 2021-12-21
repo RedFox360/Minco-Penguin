@@ -113,7 +113,7 @@ function getRodInfo(rod: string) {
 		case "metal": {
 			return {
 				xpNeeded: 1500,
-				rodToUpgrade: "upgraded",
+				rodToUpgrade: "heavy",
 				price: 500,
 				benefits: "Catch more fish on average",
 			};
