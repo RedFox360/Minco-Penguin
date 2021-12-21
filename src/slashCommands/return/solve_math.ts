@@ -4,7 +4,9 @@ import { SlashCommandBuilder } from "@discordjs/builders";
 
 export const data = new SlashCommandBuilder()
 	.setName("solve_math")
-	.setDescription("Solve a math equation")
+	.setDescription(
+		"This takes 20 seconds to prevent people from using this to cheat on math"
+	)
 	.addStringOption((option) =>
 		option
 			.setName("equation")
@@ -18,10 +20,10 @@ export async function run({ interaction }: CommandData) {
 	try {
 		const result = evaluate(equation);
 		setTimeout(
-			async () => await interaction.reply(`${equation} = **${result}**`),
+			async () => await interaction.editReply(`${equation} = **${result}**`),
 			20_000
 		);
 	} catch (error) {
-		await interaction.reply("That math equation is invalid");
+		await interaction.editReply("That math equation is invalid");
 	}
 }
