@@ -3,6 +3,10 @@ import { MessageEmbed } from "discord.js";
 import ordinal from "ordinal";
 
 export default async function run({ interaction, server }: CommandData) {
+	if (!interaction.guild) {
+		await interaction.reply("This channel can only be used in a server");
+		return;
+	}
 	await interaction.deferReply();
 	const channels = await interaction.guild.channels.fetch();
 	const textChannelAmount = channels.filter((channel) => channel.isText()).size;
@@ -20,7 +24,18 @@ export default async function run({ interaction, server }: CommandData) {
 		interaction,
 		server.memberCount
 	);
-
+	const formattedNSFWLevel =
+		"`" +
+		interaction.guild.nsfwLevel.charAt(0) +
+		interaction.guild.nsfwLevel.toLowerCase().slice(1) +
+		"`";
+	const explicitReplaceUnderscore =
+		interaction.guild.explicitContentFilter.replaceAll("_", " ");
+	const formattedExplicitLevel =
+		"`" +
+		explicitReplaceUnderscore.charAt(0) +
+		explicitReplaceUnderscore.toLowerCase().slice(1) +
+		"`";
 	const leaveMessage = replace(
 		server.leaveMessage,
 		interaction,
@@ -74,6 +89,16 @@ export default async function run({ interaction, server }: CommandData) {
 				inline: true,
 			},
 			{
+				name: "Minco Penguin joined at",
+				value: `<t:${Math.floor(interaction.guild.joinedTimestamp / 1000)}>`,
+				inline: true,
+			},
+			{
+				name: "Server Locale",
+				value: "`" + interaction.guild.preferredLocale + "`",
+				inline: true,
+			},
+			{
 				name: "Channel amounts",
 				value: `Text: \`${textChannelAmount}\`  |  Voice: \`${voiceChannelAmount}\`  |  Categories: \`${categoryAmount}\`  |  Total: \`${totalChannelAmount}\``,
 				inline: true,
@@ -85,7 +110,8 @@ export default async function run({ interaction, server }: CommandData) {
 			},
 			{
 				name: "Member Count",
-				value: `Non Bots: \`${server.memberCount}\``,
+				value: `Non Bots: \`${server.memberCount}\`
+All Members: \`${interaction.guild.memberCount}\``,
 				inline: true,
 			},
 			{
@@ -114,6 +140,11 @@ export default async function run({ interaction, server }: CommandData) {
 				inline: true,
 			},
 			{
+				name: "Mod requires 2FA",
+				value: "`" + (interaction.guild.mfaLevel === "ELEVATED") + "`",
+				inline: true,
+			},
+			{
 				name: "Rules Channel",
 				value: (interaction.guild.rulesChannel ?? "`None`").toString(),
 				inline: true,
@@ -124,8 +155,23 @@ export default async function run({ interaction, server }: CommandData) {
 				inline: true,
 			},
 			{
+				name: "AFK Channel",
+				value: (interaction.guild.afkChannel ?? "`None`").toString(),
+				inline: true,
+			},
+			{
 				name: "Verification Level",
 				value: verificationLevel,
+				inline: true,
+			},
+			{
+				name: "NSFW Level",
+				value: formattedNSFWLevel,
+				inline: true,
+			},
+			{
+				name: "Explicit Content Filter",
+				value: formattedExplicitLevel,
 				inline: true,
 			},
 			{

@@ -52,6 +52,7 @@ export async function run({ interaction }: CommandData) {
 		.setTitle(response.title)
 		.setImage(response.hdurl)
 		.setDescription(response.explanation);
+	if (response.copyright) embed.setFooter("Copyright " + response.copyright);
 	await interaction.reply({ embeds: [embed] });
 }
 
