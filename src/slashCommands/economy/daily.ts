@@ -1,7 +1,7 @@
 import { CommandData } from "../../types";
 import { MessageEmbed } from "discord.js";
 import { randomInt } from "mathjs";
-import { SlashCommandBuilder } from "@discordjs/builders";
+import { SlashCommandBuilder, time } from "@discordjs/builders";
 import ms from "ms";
 const dayLength = ms("20h");
 
@@ -18,9 +18,9 @@ export async function run({
 	const { lastUsedDaily } = profile;
 
 	if (lastUsedDaily && lastUsedDaily + dayLength > now) {
-		const time = Math.floor((lastUsedDaily + dayLength) / 1000);
+		const timeToWait = Math.floor((lastUsedDaily + dayLength) / 1000);
 		await interaction.reply({
-			content: `You can use /daily again <t:${time}:R>`,
+			content: `You can use /daily again ${time(timeToWait, "R")}`,
 			ephemeral: true,
 		});
 		return;
@@ -34,8 +34,10 @@ export async function run({
 	let description = "";
 	if (profile.spouse != null) upperLimit = 65;
 	else if (profile.inventory.includes("07")) upperLimit = 57;
-	const randomAmount = randomInt(25, upperLimit);
-
+	let randomAmount = randomInt(25, upperLimit);
+	if (profile.fish?.axolotls) {
+		randomAmount = Math.floor(randomAmount + profile.fish.axolotls * 0.01);
+	}
 	await updateProfile({
 		$inc: { mincoDollars: randomAmount },
 		lastUsedDaily: now,

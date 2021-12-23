@@ -1,5 +1,6 @@
 import { CommandData } from "../types";
 import { MessageEmbed } from "discord.js";
+import { time } from "@discordjs/builders";
 import dayjs from "dayjs";
 
 export default async function run({ interaction, profileOf }: CommandData) {
@@ -17,12 +18,12 @@ export default async function run({ interaction, profileOf }: CommandData) {
 		.addFields(
 			{
 				name: "Created at",
-				value: `<t:${Math.floor(user.createdTimestamp / 1000)}:f>`,
+				value: time(user.createdAt),
 				inline: true,
 			},
 			{
 				name: "Joined at",
-				value: `<t:${Math.floor(member.joinedTimestamp / 1000)}:f>`,
+				value: time(member.joinedAt),
 				inline: true,
 			}
 		)

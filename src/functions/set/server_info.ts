@@ -1,5 +1,6 @@
 import { CommandData } from "../../types";
 import { MessageEmbed } from "discord.js";
+import { time } from "@discordjs/builders";
 import ordinal from "ordinal";
 
 export default async function run({ interaction, server }: CommandData) {
@@ -85,12 +86,12 @@ export default async function run({ interaction, server }: CommandData) {
 			},
 			{
 				name: "Created at",
-				value: `<t:${Math.floor(interaction.guild.createdTimestamp / 1000)}>`,
+				value: time(interaction.guild.createdAt),
 				inline: true,
 			},
 			{
 				name: "Minco Penguin joined at",
-				value: `<t:${Math.floor(interaction.guild.joinedTimestamp / 1000)}>`,
+				value: time(interaction.guild.joinedAt),
 				inline: true,
 			},
 			{

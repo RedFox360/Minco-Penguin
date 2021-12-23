@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from "@discordjs/builders";
+import { SlashCommandBuilder, time } from "@discordjs/builders";
 import { MessageEmbed } from "discord.js";
 import { CommandData } from "../../types";
 

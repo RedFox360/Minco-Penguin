@@ -1,7 +1,7 @@
 import { CommandData } from "../../types";
 import { MessageEmbed } from "discord.js";
 import { randomInt } from "mathjs";
-import { SlashCommandBuilder } from "@discordjs/builders";
+import { SlashCommandBuilder, time } from "@discordjs/builders";
 import ms from "ms";
 const dayLength = ms("1 week");
 
@@ -18,9 +18,9 @@ export async function run({
 	const { lastUsedWeekly } = profile;
 
 	if (lastUsedWeekly && lastUsedWeekly + dayLength > now) {
-		const time = Math.floor((lastUsedWeekly + dayLength) / 1000);
+		const timeToWait = Math.floor((lastUsedWeekly + dayLength) / 1000);
 		await interaction.reply({
-			content: `You can use /weekly again <t:${time}:R>`,
+			content: `You can use /weekly again ${time(timeToWait, "R")}`,
 			ephemeral: true,
 		});
 		return;
