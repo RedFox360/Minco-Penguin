@@ -82,6 +82,12 @@ export const data = new SlashCommandBuilder()
 					.addChoice("e (Euler's number)", "e")
 					.setRequired(true)
 			)
+	)
+	.addSubcommand((subcommand) =>
+		subcommand
+			.setName("collatz")
+			.setDescription("Checks the collatz conjecture on a number")
+			.addIntegerOption(numberOption)
 	);
 
 export async function run({ interaction }: CommandData) {
@@ -132,6 +138,18 @@ export async function run({ interaction }: CommandData) {
 				await interaction.editReply(isPerfect(num));
 				return;
 			}
+			case "collatz": {
+				const collatzData = collatz(num);
+				await interaction.editReply({
+					embeds: [
+						new MessageEmbed()
+							.setColor(collatzData.color as any)
+							.setTitle(`Hailstone Sequence for ${num}`)
+							.addField("Reached 1", collatzData.content)
+							.addField("Sequence", collatzData.sequence),
+					],
+				});
+			}
 		}
 	}
 }
@@ -164,5 +182,43 @@ function isPerfect(num: number) {
 		return `${formatNum} **is perfect**`;
 	} else {
 		return `${formatNum} **is not** perfect`;
+	}
+}
+
+function collatz(start: number) {
+	if (start == 1) {
+		return {
+			sequence: "1",
+			content: "1 reaches 1 at digit 1...",
+			color: "#48c9b0",
+		};
+	}
+	let current = start;
+	let count = 1;
+	let sequence = [];
+	while (true) {
+		sequence.push(current.toLocaleString());
+		if (current % 2 === 0) {
+			current /= 2;
+		} else {
+			current = current * 3 + 1;
+		}
+		count += 1;
+		if (current === 1) {
+			sequence.push(1);
+			return {
+				sequence: sequence.join(", "),
+				content: `${start} reached 1 at digit **${count}**`,
+				color: "#48c9b0",
+			};
+		}
+		if (count > 1_024) {
+			return {
+				sequence: "Too long...",
+				content:
+					"This sequence was too long for the bot to use. You might have found an exception to the conjecture!",
+				color: "#e74c3c",
+			};
+		}
 	}
 }

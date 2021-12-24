@@ -8,7 +8,9 @@ import prettyMs from "pretty-ms";
 import validPermissions from "../json/permissions.json";
 const cooldowns = new Map();
 export default async (interaction: Interaction) => {
-	if (!interaction.isCommand()) return;
+	const isCommand = interaction.isCommand();
+	const isContextMenu = interaction.isContextMenu();
+	if (!isCommand && !isContextMenu) return;
 	const updateProfile = async (data: any, uid?: string) => {
 		const filter = { userID: uid ?? interaction.user.id };
 		const model =
