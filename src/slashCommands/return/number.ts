@@ -117,7 +117,7 @@ export async function run({ interaction }: CommandData) {
 		}
 	} else {
 		const num = interaction.options.getInteger("number");
-		if (num <= 0) {
+		if (num < 1) {
 			await interaction.reply({
 				content: "Please enter a number **≥1**",
 				ephemeral: true,
@@ -125,7 +125,7 @@ export async function run({ interaction }: CommandData) {
 			return;
 		}
 		await interaction.deferReply();
-		switch (interaction.options.getSubcommand()) {
+		switch (subcommand) {
 			case "prime": {
 				await interaction.editReply(isPrime(num));
 				return;
@@ -139,16 +139,24 @@ export async function run({ interaction }: CommandData) {
 				return;
 			}
 			case "collatz": {
-				const collatzData = collatz(num);
+				const { sequence, content, color } = collatz(num);
+				const hailstoneEmbed = new MessageEmbed()
+					.setColor(color as any)
+					.setTitle(`Hailstone Sequence for ${num.toLocaleString()}`)
+					.addField("Reached 1", content);
+				if (sequence.length < 1000)
+					hailstoneEmbed.addField("Sequence", sequence);
+				else {
+					const sequenceChunks = chunkString(sequence, 1_000);
+					hailstoneEmbed.addField(`Sequence`, sequenceChunks[0]);
+					for (let i = 1; i < sequenceChunks.length; i++) {
+						hailstoneEmbed.addField(`Sequence (cont.)`, sequenceChunks[i]);
+					}
+				}
 				await interaction.editReply({
-					embeds: [
-						new MessageEmbed()
-							.setColor(collatzData.color as any)
-							.setTitle(`Hailstone Sequence for ${num}`)
-							.addField("Reached 1", collatzData.content)
-							.addField("Sequence", collatzData.sequence),
-					],
+					embeds: [hailstoneEmbed],
 				});
+				return;
 			}
 		}
 	}
@@ -208,11 +216,11 @@ function collatz(start: number) {
 			sequence.push(1);
 			return {
 				sequence: sequence.join(", "),
-				content: `${start} reached 1 at digit **${count}**`,
+				content: `${start.toLocaleString()} reached 1 at digit **${count.toLocaleString()}**`,
 				color: "#48c9b0",
 			};
 		}
-		if (count > 1_024) {
+		if (count > 2048) {
 			return {
 				sequence: "Too long...",
 				content:
@@ -221,4 +229,21 @@ function collatz(start: number) {
 			};
 		}
 	}
+}
+function chunkString(str: string, length: number): string[] {
+	const chunks = [""];
+	let charCount = 0;
+	let currentChunkIndex = 0;
+	const words = str.split(" ");
+	for (let i = 0; i < words.length; i++) {
+		const word = words[i] + " ";
+		chunks[currentChunkIndex] += word;
+		charCount += word.length;
+		if (charCount >= length) {
+			charCount = 0;
+			chunks.push("");
+			currentChunkIndex += 1;
+		}
+	}
+	return chunks.filter((chunk) => chunk !== "" && chunk !== " ");
 }
