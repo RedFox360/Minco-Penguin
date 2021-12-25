@@ -5,8 +5,14 @@ import {
 } from "@discordjs/builders";
 import { MessageEmbed } from "discord.js";
 
+const sieveLimit = 65_536;
+const sieveLimitSquared = 65_536 * 65_536;
+const sieve = eratosthenes(sieveLimit);
+
 // perfect nums below 2^53
-const perfectNums = [6, 28, 496, 8128, 33550336, 8589869056, 137438691328];
+const perfectNums = [
+	6, 28, 496, 8128, 33_550_336, 8_589_869_056, 137_438_691_328,
+];
 const pi = new MessageEmbed()
 	.setColor("#f0b27a")
 	.setTitle("Pi π")
@@ -88,6 +94,40 @@ export const data = new SlashCommandBuilder()
 			.setName("collatz")
 			.setDescription("Checks the collatz conjecture on a number")
 			.addIntegerOption(numberOption)
+	)
+	.addSubcommand((subcommand) =>
+		subcommand
+			.setName("gcf")
+			.setDescription("Find the GCF of 2 numbers")
+			.addIntegerOption((option) =>
+				option
+					.setName("number_1")
+					.setDescription("The first number")
+					.setRequired(true)
+			)
+			.addIntegerOption((option) =>
+				option
+					.setName("number_2")
+					.setDescription("The second number")
+					.setRequired(true)
+			)
+	)
+	.addSubcommand((subcommand) =>
+		subcommand
+			.setName("lcm")
+			.setDescription("Find the LCM of 2 numbers")
+			.addIntegerOption((option) =>
+				option
+					.setName("number_1")
+					.setDescription("The first number")
+					.setRequired(true)
+			)
+			.addIntegerOption((option) =>
+				option
+					.setName("number_2")
+					.setDescription("The second number")
+					.setRequired(true)
+			)
 	);
 
 export async function run({ interaction }: CommandData) {
@@ -115,6 +155,35 @@ export async function run({ interaction }: CommandData) {
 				return;
 			}
 		}
+	} else if (subcommand === "gcf") {
+		const num1 = interaction.options.getInteger("number_1");
+		const num2 = interaction.options.getInteger("number_2");
+		if (num1 < 1 || num2 < 1) {
+			await interaction.reply({
+				content: "Your numbers must be **≥1**",
+				ephemeral: true,
+			});
+			return;
+		}
+		const result = gcf(num1, num2);
+		await interaction.reply(
+			`The GCF of ${num1.toLocaleString()} and ${num2.toLocaleString()} is **${result.toLocaleString()}**`
+		);
+	} else if (subcommand === "lcm") {
+		const num1 = interaction.options.getInteger("number_1");
+		const num2 = interaction.options.getInteger("number_2");
+		if (num1 < 1 || num2 < 1) {
+			await interaction.reply({
+				content: "Your numbers must be **≥1**",
+				ephemeral: true,
+			});
+			return;
+		}
+		const gcfResult = gcf(num1, num2);
+		const result = (num1 * num2) / gcfResult;
+		await interaction.reply(
+			`The LCM of ${num1.toLocaleString()} and ${num2.toLocaleString()} is **${result.toLocaleString()}**`
+		);
 	} else {
 		const num = interaction.options.getInteger("number");
 		if (num < 1) {
@@ -139,6 +208,9 @@ export async function run({ interaction }: CommandData) {
 				return;
 			}
 			case "collatz": {
+				if (num >= 1_000_000_000_000) {
+					await interaction.editReply("Please enter a number **< 1 trillion**");
+				}
 				const { sequence, content, color } = collatz(num);
 				const hailstoneEmbed = new MessageEmbed()
 					.setColor(color as any)
@@ -165,10 +237,26 @@ export async function run({ interaction }: CommandData) {
 function isPrime(num: number) {
 	if (num == 1) return "1 is neither prime nor composite";
 	if (num == 2) return `2 **is prime**`;
-	for (let i = 2; i <= Math.ceil(Math.sqrt(num)); i++) {
+	if (num % 2 == 0)
+		return `${num.toLocaleString()} **isn't** prime because it is divisible by 2`;
+	console.time("prime_timer");
+	if (num < sieveLimitSquared) {
+		console.time("sieve_timer");
+		for (const primeNum of sieve) {
+			if (num % primeNum == 0) {
+				console.timeEnd("sieve_timer");
+				return `${num.toLocaleString()} **isn't** prime because it is divisible by ${primeNum}`;
+			}
+		}
+		console.timeEnd("sieve_timer");
+		return `${num.toLocaleString()} **is prime**`;
+	}
+	console.time("prime_timer");
+	for (let i = 3; i <= Math.ceil(Math.sqrt(num)); i += 2) {
 		if (num % i == 0)
 			return `${num.toLocaleString()} **isn't** prime because it is divisible by ${i}`;
 	}
+	console.timeEnd("prime_timer");
 	return `${num.toLocaleString()} **is prime**`;
 }
 
@@ -246,4 +334,45 @@ function chunkString(str: string, length: number): string[] {
 		}
 	}
 	return chunks.filter((chunk) => chunk !== "" && chunk !== " ");
+}
+function gcf(a: number, b: number) {
+	if (a < b) {
+		let temp = a;
+		a = b;
+		b = temp;
+	}
+	let answer: number;
+	while (!answer) {
+		let remainder = a % b;
+		a = Math.floor(a / b);
+		if (remainder === 0) answer = b;
+		let temp = b;
+		b = remainder;
+		a = temp;
+	}
+	return answer;
+}
+function eratosthenes(num: number) {
+	const array = [];
+	const upperLimit = Math.ceil(Math.sqrt(num));
+	const result = [];
+
+	for (let i = 0; i < num; i++) {
+		array.push(true);
+	}
+
+	for (let i = 2; i <= upperLimit; i++) {
+		if (array[i]) {
+			for (let j = i * i; j < num; j += i) {
+				array[j] = false;
+			}
+		}
+	}
+
+	for (var i = 2; i < num; i++) {
+		if (array[i]) {
+			result.push(i);
+		}
+	}
+	return result;
 }
