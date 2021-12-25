@@ -242,6 +242,7 @@ function isPrime(num: number) {
 		return `${num.toLocaleString()} **isn't** prime because it is divisible by 2`;
 	if (num < sieveLimitSquared) {
 		for (const primeNum of sieve) {
+			if (primeNum >= num) break;
 			if (num % primeNum == 0) {
 				console.timeEnd("sieve_timer");
 				return `${num.toLocaleString()} **isn't** prime because it is divisible by ${primeNum}`;
