@@ -210,6 +210,7 @@ export async function run({ interaction }: CommandData) {
 			case "collatz": {
 				if (num >= 1_000_000_000_000) {
 					await interaction.editReply("Please enter a number **< 1 trillion**");
+					return;
 				}
 				const { sequence, content, color } = collatz(num);
 				const hailstoneEmbed = new MessageEmbed()
