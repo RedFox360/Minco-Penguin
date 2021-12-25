@@ -239,24 +239,19 @@ function isPrime(num: number) {
 	if (num == 2) return `2 **is prime**`;
 	if (num % 2 == 0)
 		return `${num.toLocaleString()} **isn't** prime because it is divisible by 2`;
-	console.time("prime_timer");
 	if (num < sieveLimitSquared) {
-		console.time("sieve_timer");
 		for (const primeNum of sieve) {
 			if (num % primeNum == 0) {
 				console.timeEnd("sieve_timer");
 				return `${num.toLocaleString()} **isn't** prime because it is divisible by ${primeNum}`;
 			}
 		}
-		console.timeEnd("sieve_timer");
 		return `${num.toLocaleString()} **is prime**`;
 	}
-	console.time("prime_timer");
 	for (let i = 3; i <= Math.ceil(Math.sqrt(num)); i += 2) {
 		if (num % i == 0)
 			return `${num.toLocaleString()} **isn't** prime because it is divisible by ${i}`;
 	}
-	console.timeEnd("prime_timer");
 	return `${num.toLocaleString()} **is prime**`;
 }
 
