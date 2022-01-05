@@ -32,7 +32,7 @@ client.on("ready", async () => {
 		.catch(console.error);
 
 	await eventHandler(client);
-	await slashHandler(client);
+	await slashHandler(client, false);
 	scheduler(client);
 	console.log(`${client.user.tag} is online!`);
 	client.user.setActivity("slash commands", { type: "LISTENING" });
