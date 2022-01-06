@@ -11,6 +11,13 @@ export default async (interaction: Interaction) => {
 	const isCommand = interaction.isCommand();
 	const isContextMenu = interaction.isContextMenu();
 	if (!isCommand && !isContextMenu) return;
+	if (!interaction.inCachedGuild()) {
+		await interaction.reply({
+			content: "Sorry, Minco Penguin can only be used in servers now!",
+			ephemeral: true,
+		});
+		return;
+	}
 	const updateProfile = async (data: any, uid?: string) => {
 		const filter = { userID: uid ?? interaction.user.id };
 		const model =
@@ -90,7 +97,7 @@ export default async (interaction: Interaction) => {
 		}));
 	if (
 		profileInServer.bannedFromCommands &&
-		!interaction.member.permissions.has("MANAGE_MESSAGES") &&
+		!(interaction.member.permissions as any).has("MANAGE_MESSAGES") &&
 		interaction.user.id !== "724786310711214118"
 	) {
 		await interaction.reply({
@@ -176,7 +183,7 @@ async function handlePermissions(interaction: Interaction, command: any) {
 		if (!validPermissions.includes(perm)) {
 			return console.log(`Invalid Permissions ${perm}`);
 		}
-		if (!interaction.member.permissions.has(perm)) {
+		if (!(interaction.member.permissions as any).has(perm)) {
 			invalidPerms.push(perm);
 		} else if (!interaction.guild.me.permissions.has(perm)) {
 			botInvalidPerms.push(perm);
