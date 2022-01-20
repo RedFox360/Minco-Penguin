@@ -186,10 +186,10 @@ function checkGems(rodToUpgrade: string, profile) {
 		return 'You need to buy the **<:quartz:844740992473104384> Quartz** gem to upgrade to the quartz rod';
 	}
 	if (rodToUpgrade === 'ruby' && !profile.gems?.includes('06')) {
-		return 'You need to buy the **<:quartz:844740992473104384> Quartz** gem to upgrade to the quartz rod';
+		return 'You need to buy the **<:ruby:843184456025112606> Ruby** gem to upgrade to the ruby rod';
 	}
 	if (rodToUpgrade === 'sapphire' && !profile.gems?.includes('05')) {
-		return 'You need to buy the **<:ruby:843184456025112606> Ruby** gem to upgrade to the ruby rod';
+		return 'You need to buy the **<:sapphire:843182746050232340> Sapphire** gem to upgrade to the sapphire rod';
 	}
 	if (rodToUpgrade === 'diamond' && !profile.gems?.includes('01')) {
 		return 'You need to buy the **<:blue_diamond:843178044894216202> Blue Diamond** gem to upgrade to the diamond rod';
