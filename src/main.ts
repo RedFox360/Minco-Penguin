@@ -1,10 +1,9 @@
-import { Client, Intents, Collection } from "discord.js";
-import { REST } from "@discordjs/rest";
-import { connect } from "mongoose";
-import scheduler from "./scheduler";
-import eventHandler from "./handlers/event_handler";
-import slashHandler from "./handlers/slash_handler";
-import serverModel from "./models/serverSchema";
+import { Client, Intents, Collection } from 'discord.js';
+import { REST } from '@discordjs/rest';
+import { connect } from 'mongoose';
+import eventHandler from './handlers/event_handler';
+import slashHandler from './handlers/slash_handler';
+import serverModel from './models/serverSchema';
 
 const client = new Client({
 	intents: [
@@ -16,26 +15,27 @@ const client = new Client({
 		Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS,
 		Intents.FLAGS.DIRECT_MESSAGES,
 	],
-	partials: ["CHANNEL", "MESSAGE", "REACTION"],
+	partials: ['CHANNEL', 'MESSAGE', 'REACTION'],
 });
 (client as any).commands = new Collection();
 
-client.on("ready", async () => {
+client.on('ready', async () => {
 	await connect(process.env.SRV, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
 		useFindAndModify: false,
 	})
 		.then(() => {
-			console.log("Connected to the database!");
+			console.log('Connected to the database!');
 		})
 		.catch(console.error);
 
 	await eventHandler(client);
 	await slashHandler(client, false);
-	scheduler(client);
 	console.log(`${client.user.tag} is online!`);
-	client.user.setActivity("slash commands", { type: "LISTENING" });
+	client.user.setActivity(`${client.guilds.cache.size} servers`, {
+		type: 'WATCHING',
+	});
 	(async () => {
 		client.guilds.cache.forEach(async (guild) => {
 			const members = (await guild.members.fetch()).filter(
@@ -49,7 +49,7 @@ client.on("ready", async () => {
 	})();
 });
 
-const rest = new REST({ version: "9" }).setToken(process.env.TOKEN);
+const rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
 client.login(process.env.TOKEN);
 
 export { rest };
