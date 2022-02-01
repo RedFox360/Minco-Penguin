@@ -1,11 +1,16 @@
-import { Collection, MessageEmbed } from "discord.js";
-import { Interaction, Profile, ProfileInServer, ServerData } from "../types";
-import profileInServerModel from "../models/profileInServerSchema";
-import profileModel from "../models/profileSchema";
-import serverModel from "../models/serverSchema";
-import ms from "ms";
-import prettyMs from "pretty-ms";
-import validPermissions from "../json/permissions.json";
+import { Collection, MessageEmbed } from 'discord.js';
+import {
+	Interaction,
+	Profile,
+	ProfileInServer,
+	ServerData,
+} from '../types';
+import profileInServerModel from '../models/profileInServerSchema';
+import profileModel from '../models/profileSchema';
+import serverModel from '../models/serverSchema';
+import ms from 'ms';
+import prettyMs from 'pretty-ms';
+import validPermissions from '../json/permissions.json';
 const cooldowns = new Map();
 export default async (interaction: Interaction) => {
 	const isCommand = interaction.isCommand();
@@ -13,7 +18,8 @@ export default async (interaction: Interaction) => {
 	if (!isCommand && !isContextMenu) return;
 	if (!interaction.inCachedGuild()) {
 		await interaction.reply({
-			content: "Sorry, Minco Penguin can only be used in servers now!",
+			content:
+				'Sorry, Minco Penguin can only be used in servers now!',
 			ephemeral: true,
 		});
 		return;
@@ -72,11 +78,17 @@ export default async (interaction: Interaction) => {
 			}));
 		return model;
 	};
-	const profileInServerOf = async (userID: string, serverID?: string) => {
+	const profileInServerOf = async (
+		userID: string,
+		serverID?: string
+	) => {
 		if (!interaction.guild) return;
 		const sid = serverID ?? interaction.guild.id;
 		const model =
-			(await profileInServerModel.findOne({ userID, serverID: sid })) ??
+			(await profileInServerModel.findOne({
+				userID,
+				serverID: sid,
+			})) ??
 			(await profileInServerModel.create({
 				userID,
 				serverID: sid,
@@ -97,11 +109,11 @@ export default async (interaction: Interaction) => {
 		}));
 	if (
 		profileInServer.bannedFromCommands &&
-		!(interaction.member.permissions as any).has("MANAGE_MESSAGES") &&
-		interaction.user.id !== "724786310711214118"
+		!(interaction.member.permissions as any).has('MANAGE_MESSAGES') &&
+		interaction.user.id !== '724786310711214118'
 	) {
 		await interaction.reply({
-			content: "You were banned from commands by a server manager",
+			content: 'You were banned from commands by a server manager',
 			ephemeral: true,
 		});
 		return;
@@ -122,7 +134,7 @@ export default async (interaction: Interaction) => {
 	);
 	if (!interaction.guild && command.serverOnly) {
 		await interaction.reply({
-			content: "This command can only be used in a server",
+			content: 'This command can only be used in a server',
 			ephemeral: true,
 		});
 		return;
@@ -134,35 +146,48 @@ export default async (interaction: Interaction) => {
 	const cooldown = await handleCooldowns(interaction, command);
 	if (cooldown) return;
 
-	try {
-		await command.run(data);
-	} catch (err) {
-		console.error(err);
-		if (interaction.user.id === "724786310711214118") {
+	(command as any).run(interaction).catch(async (err) => {
+		if (err.code !== 10062) console.error(err);
+		if (interaction.user.id === '724786310711214118') {
 			const errorEmbed = new MessageEmbed()
-				.setTitle("<:x_circle:872594799553839114>  **ERROR** ")
-				.setDescription("```xl\n" + clean(err) + "\n```")
-				.setColor("#E48383");
-			await interaction.reply({
-				embeds: [errorEmbed],
-				ephemeral: true,
-			});
+				.setTitle('<:x_circle:872594799553839114>  **ERROR** ')
+				.setDescription('```xl\n' + clean(err) + '\n```')
+				.setColor('#E48383');
+			interaction
+				.reply({
+					embeds: [errorEmbed],
+					ephemeral: true,
+				})
+				.catch(() => {
+					console.error('Unknown interaction');
+				});
 		} else {
-			await interaction.reply({ content: "An error occured", ephemeral: true });
+			interaction
+				.reply({
+					content: 'An error occured',
+					ephemeral: true,
+				})
+				.catch(() => {
+					console.error('Unknown interaction');
+				});
 		}
-	}
+	});
 };
 
-async function handleCooldowns(interaction: Interaction, command: any) {
+async function handleCooldowns(
+	interaction: Interaction,
+	command: any
+) {
 	if (!cooldowns.has(command.data.name))
 		cooldowns.set(command.data.name, new Collection());
 	const currentTime = Date.now();
 	const timeStamps = cooldowns.get(command.data.name);
 	const cooldown = command.cooldown ?? 1.5;
 	const cooldownAmount =
-		typeof cooldown === "string" ? ms(cooldown) : cooldown * 1000;
+		typeof cooldown === 'string' ? ms(cooldown) : cooldown * 1000;
 	if (timeStamps.has(interaction.user.id)) {
-		const expTime = timeStamps.get(interaction.user.id) + cooldownAmount;
+		const expTime =
+			timeStamps.get(interaction.user.id) + cooldownAmount;
 		if (currentTime < expTime) {
 			const timeLeft = expTime - currentTime;
 			await interaction.reply({
@@ -176,7 +201,10 @@ async function handleCooldowns(interaction: Interaction, command: any) {
 	}
 	timeStamps.set(interaction.user.id, currentTime);
 }
-async function handlePermissions(interaction: Interaction, command: any) {
+async function handlePermissions(
+	interaction: Interaction,
+	command: any
+) {
 	let invalidPerms = [];
 	let botInvalidPerms = [];
 	for (const perm of command.permissions) {
@@ -206,9 +234,9 @@ async function handlePermissions(interaction: Interaction, command: any) {
 	return false;
 }
 function clean(text: any) {
-	if (typeof text === "string")
+	if (typeof text === 'string')
 		return text
-			.replace(/`/g, "`" + String.fromCharCode(8203))
-			.replace(/@/g, "@" + String.fromCharCode(8203));
+			.replace(/`/g, '`' + String.fromCharCode(8203))
+			.replace(/@/g, '@' + String.fromCharCode(8203));
 	else return text;
 }
