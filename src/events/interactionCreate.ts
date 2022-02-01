@@ -146,7 +146,7 @@ export default async (interaction: Interaction) => {
 	const cooldown = await handleCooldowns(interaction, command);
 	if (cooldown) return;
 
-	(command as any).run(interaction).catch(async (err) => {
+	(command as any).run(data).catch(async (err) => {
 		if (err.code !== 10062) console.error(err);
 		if (interaction.user.id === '724786310711214118') {
 			const errorEmbed = new MessageEmbed()
