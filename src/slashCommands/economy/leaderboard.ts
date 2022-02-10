@@ -19,7 +19,7 @@ export async function run({ interaction, profileOf }: CommandData) {
 	let members: Collection<string, GuildMember>;
 	try {
 		members = await interaction.guild.members.fetch({
-			limit: 100
+			limit: 200
 		});
 	} catch (err) {
 		await interaction.reply({
