@@ -13,9 +13,9 @@ const client = new Client({
 		Intents.FLAGS.GUILD_MEMBERS,
 		Intents.FLAGS.GUILD_BANS,
 		Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS,
-		Intents.FLAGS.DIRECT_MESSAGES,
+		Intents.FLAGS.DIRECT_MESSAGES
 	],
-	partials: ['CHANNEL', 'MESSAGE', 'REACTION'],
+	partials: ['CHANNEL', 'MESSAGE', 'REACTION']
 });
 (client as any).commands = new Collection();
 
@@ -23,7 +23,7 @@ client.on('ready', async () => {
 	await connect(process.env.SRV, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
-		useFindAndModify: false,
+		useFindAndModify: false
 	})
 		.then(() => {
 			console.log('Connected to the database!');
@@ -34,19 +34,8 @@ client.on('ready', async () => {
 	await slashHandler(client, false);
 	console.log(`${client.user.tag} is online!`);
 	client.user.setActivity(`${client.guilds.cache.size} servers`, {
-		type: 'WATCHING',
+		type: 'WATCHING'
 	});
-	(async () => {
-		client.guilds.cache.forEach(async (guild) => {
-			const members = (await guild.members.fetch()).filter(
-				(member) => member.user.bot === false
-			);
-			await serverModel.findOneAndUpdate(
-				{ serverID: guild.id },
-				{ memberCount: members.size }
-			);
-		});
-	})();
 });
 
 const rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
