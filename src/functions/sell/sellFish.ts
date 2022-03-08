@@ -234,7 +234,7 @@ async function sellAxolotl(
 	if (amount > profile.fish.axolotls) {
 		throw new Error("amount too high");
 	}
-	const price = randomInt(25, 35);
+	const price = randomInt(85, 105);
 	const addPrice = price * amount;
 	if (profile.fish.axolotls != 0) {
 		await updateProfile({ $inc: { "fish.axolotls": -amount } });
