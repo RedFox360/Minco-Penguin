@@ -40,13 +40,14 @@ export default async function run(
 	// 	);
 	// }
 	fish.fishInventory.forEach((amount, fishName) => {
-		embed.addField(
-			`${emojis[fishName]} ${capitalizeFirstLetter(
-				fishJSON[fishName].formattedNames[1]
-			)}`,
-			amount.toLocaleString(interaction.locale),
-			true
-		);
+		if (amount > 0)
+			embed.addField(
+				`${emojis[fishName]} ${capitalizeFirstLetter(
+					fishJSON[fishName].formattedNames[1]
+				)}`,
+				amount.toLocaleString(interaction.locale),
+				true
+			);
 	});
 	await interaction.reply({ embeds: [embed] });
 }
