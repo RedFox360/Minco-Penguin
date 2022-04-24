@@ -158,7 +158,7 @@ async function handleNoRod(
 				$inc: {
 					mincoDollars: -100
 				},
-				rod: 'wooden'
+				'fish.rod': 'wooden'
 			},
 			interaction.user.id
 		);
