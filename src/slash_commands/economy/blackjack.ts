@@ -23,7 +23,7 @@ const blackjackCommand = new SlashCommand()
 					.setRequired(true)
 			)
 	)
-	.setCooldown(60)
+	.setCooldown(20)
 	.setRun(async interaction => {
 		const deck = blackjack.createDeck();
 		const originalBet = interaction.options.getInteger('bet');
