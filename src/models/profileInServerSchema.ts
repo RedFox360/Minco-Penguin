@@ -1,9 +1,18 @@
-import { Schema, model } from "mongoose";
+import { Schema, model } from 'mongoose';
 
 const marketSchema = new Schema({
 	price: Number,
 	name: String,
-	desc: String,
+	desc: String
+});
+
+const logSchema = new Schema({
+	type: String,
+	time: Number,
+	case: Number,
+	date: Date,
+	reason: String,
+	moderator: String
 });
 
 const profileInServerSchema = new Schema({
@@ -13,8 +22,12 @@ const profileInServerSchema = new Schema({
 	isShadowBanned: { type: Boolean, default: false },
 	bannedFromCommands: { type: Boolean, default: false },
 	bannedFromConfessions: { type: Boolean, default: false },
+	logs: [logSchema]
 });
 
-const profileInServerModel = model("guildProfileModel", profileInServerSchema);
+const profileInServerModel = model(
+	'guildProfileModel',
+	profileInServerSchema
+);
 
 export default profileInServerModel;

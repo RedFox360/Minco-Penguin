@@ -3,7 +3,6 @@ import { REST } from '@discordjs/rest';
 import { connect } from 'mongoose';
 import eventHandler from './handlers/event_handler';
 import slashHandler from './handlers/slash_handler';
-import serverModel from './models/serverSchema';
 
 const client = new Client({
 	intents: [

@@ -1,28 +1,29 @@
-import Discord from "discord.js";
-import serverModel from "../models/serverSchema";
-import ordinal from "ordinal";
+import Discord from 'discord.js';
+import serverModel from '../models/serverSchema';
+import ordinal from 'ordinal';
 
-export default async (member: Discord.GuildMember, client: Discord.Client) => {
-	if (member.guild.bans.cache.find((ban) => ban.user === member.user)) return;
+export default async (member: Discord.GuildMember) => {
+	if (member.guild.bans.cache.find(ban => ban.user === member.user))
+		return;
 	if (member.user.bot) return;
 	const amount = member.user.bot ? 0 : -1;
-	let serverData = await serverModel.findOneAndUpdate(
+	const serverData = await serverModel.findOneAndUpdate(
 		{ serverID: member.guild.id },
 		{
 			$inc: {
-				memberCount: amount,
-			},
+				memberCount: amount
+			}
 		},
 		{
-			new: true,
+			new: true
 		}
 	);
 	if (serverData.silenceJoins) return;
 	const { leaveMessage, memberCount } = serverData;
 	const memberCountOrdinal = ordinal(memberCount);
-	let leaveEmbed = new Discord.MessageEmbed()
-		.setColor("#EC7063") // red
-		.setTitle("Goodbye")
+	const leaveEmbed = new Discord.MessageEmbed()
+		.setColor('#EC7063') // red
+		.setTitle('Goodbye')
 		.setDescription(
 			leaveMessage
 				.replace(/\{server\}/g, member.guild.name)
@@ -33,7 +34,7 @@ export default async (member: Discord.GuildMember, client: Discord.Client) => {
 				.replace(/\{user_tag\}/g, member.user.tag)
 		);
 	const channel = serverData.welcomeChannel
-		? client.channels.cache.get(serverData.welcomeChannel)
+		? member.client.channels.cache.get(serverData.welcomeChannel)
 		: member.guild.systemChannel;
 	(channel as Discord.TextChannel).send({ embeds: [leaveEmbed] });
 };

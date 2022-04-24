@@ -4,38 +4,33 @@ import { Client } from 'discord.js';
 import { readdirSync } from 'fs';
 
 export default async (client: Client, updateCommands: boolean) => {
-	const categories = readdirSync('./src/slashCommands/').filter(
-		file => !file.includes('.')
+	const categories = readdirSync('./src/slash_commands/').filter(
+		file => !file.includes('.') // folders only
 	);
+	const commandPromises = [];
 	const data = [];
-	const dmusdOnlyData = [];
-	for (const category of categories) {
-		const commands = readdirSync(
-			`./src/slashCommands/${category}`
-		).filter(file => file.endsWith('.ts'));
-		for (const commandName of commands) {
-			const command = await import(
-				`../slashCommands/${category}/${commandName}`
-			);
-			const commandData = command.data.toJSON();
-			if (category === 'dmusd_only') {
-				dmusdOnlyData.push(commandData);
-			} else {
-				data.push(commandData);
-			}
-			(client as any).commands.set(commandData.name, command);
-			console.log('added ' + commandData.name);
-		}
-	}
-	console.log(
-		`commands added || command count: ${data.length + 1}`
+	categories.forEach(category =>
+		readdirSync(`./src/slash_commands/${category}`)
+			.filter(file => file.endsWith('.ts'))
+			.forEach(commandName => {
+				commandPromises.push(
+					import(
+						`../slash_commands/${category}/${commandName}`
+					)
+				);
+			})
 	);
+	(await Promise.all(commandPromises)).forEach(
+		({ default: command }) => {
+			const commandData = command.builder.toJSON();
+			client['commands'].set(commandData.name, command);
+			data.push(commandData);
+		}
+	);
+	console.log(`commands set || command count: ${data.length}`);
 	if (updateCommands) {
 		await rest.put(Routes.applicationCommands(client.user.id), {
 			body: data
 		});
-		await client.guilds.cache
-			.get('785642761814671381')
-			?.commands.set(dmusdOnlyData);
 	}
 };

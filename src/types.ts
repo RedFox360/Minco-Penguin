@@ -1,90 +1,99 @@
-import Discord, { GuildChannel } from "discord.js";
-export interface CommandData {
-	interaction: Interaction;
-	profile: Profile;
-	profileInServer: ProfileInServer;
-	server: ServerData;
-	updateProfile(data: any, uid?: string): Promise<Profile>;
-	updateServer(data: any, sid?: string): Promise<ServerData>;
-	updateProfileInServer(
-		data: any,
-		uid?: string,
-		sid?: string
-	): Promise<ProfileInServer>;
-	profileOf(userID: string): Promise<Profile>;
-	profileInServerOf(
-		userID: string,
-		serverID?: string
-	): Promise<ProfileInServer>;
+import {
+	ContextMenuCommandBuilder,
+	SlashCommandBuilder
+} from '@discordjs/builders';
+import {
+	CommandInteraction,
+	PermissionResolvable,
+	UserContextMenuInteraction
+} from 'discord.js';
+
+const cooldownMax = 24 * 60 * 60;
+const cooldownMin = 3;
+export class SlashCommand {
+	builder: SlashCommandBuilder;
+	permissions: PermissionResolvable[];
+	permissionsRequiredForBot: boolean;
+	cooldown: number;
+	run: (interaction: CommandInteraction<'cached'>) => Promise<any>;
+	constructor() {
+		this.permissions = [];
+		this.permissionsRequiredForBot = false;
+		this.cooldown = 0;
+	}
+	setCommandData(builder: (o: SlashCommandBuilder) => any): this {
+		const slashBuilder = builder(new SlashCommandBuilder());
+		if (!(slashBuilder instanceof SlashCommandBuilder)) {
+			throw new Error(
+				`${this.builder.name} Builder provided is not an instance of SlashCommandBuilder`
+			);
+		}
+		this.builder = slashBuilder;
+		return this;
+	}
+	setRun(
+		runFunction: (
+			interaction: CommandInteraction<'cached'>
+		) => Promise<any>
+	): this {
+		this.run = runFunction;
+		return this;
+	}
+	setPermissions(...permissions: PermissionResolvable[]): this {
+		this.permissions = permissions;
+		return this;
+	}
+	setPermissionsRequiredForBot(botNeedsPermissions: boolean): this {
+		this.permissionsRequiredForBot = botNeedsPermissions;
+		return this;
+	}
+	setCooldown(seconds: number): this {
+		if (seconds >= cooldownMax || seconds <= cooldownMin) {
+			throw new Error(
+				`${this.builder.name} Cooldown must be between 3 seconds and 1 day`
+			);
+		}
+		this.cooldown = seconds * 1000;
+		return this;
+	}
 }
-export interface ContextMenuData {
-	interaction: Discord.ContextMenuInteraction;
-	profile: Profile;
-	profileInServer: ProfileInServer;
-	server: ServerData;
-	updateProfile(data: any, uid?: string): Promise<Profile>;
-	updateServer(data: any, sid?: string): Promise<ServerData>;
-	updateProfileInServer(
-		data: any,
-		uid?: string,
-		sid?: string
-	): Promise<ProfileInServer>;
-	profileOf(userID: string): Promise<Profile>;
-	profileInServerOf(
-		userID: string,
-		serverID?: string
-	): Promise<ProfileInServer>;
-}
-export interface Interaction extends Discord.CommandInteraction {
-	readonly command:
-		| Discord.ApplicationCommand
-		| Discord.ApplicationCommand<{ guild: Discord.GuildResolvable }>
-		| null;
-	readonly channel: Discord.TextBasedChannels;
-	channelId: Discord.Snowflake;
-	commandId: Discord.Snowflake;
-	commandName: string;
-	deferred: boolean;
-	ephemeral: boolean;
-	options: Options;
-	replied: boolean;
-	webhook: Discord.InteractionWebhook;
-	deferReply(
-		options: Discord.InteractionDeferReplyOptions & { fetchReply: true }
-	): Promise<Discord.Message>;
-	deferReply(options?: Discord.InteractionDeferReplyOptions): Promise<void>;
-	deleteReply(): Promise<void>;
-	editReply(
-		options: string | Discord.MessagePayload | Discord.WebhookEditMessageOptions
-	): Promise<Discord.Message>;
-	fetchReply(): Promise<Discord.Message>;
-	followUp(
-		options: string | Discord.MessagePayload | Discord.InteractionReplyOptions
-	): Promise<Discord.Message>;
-	reply(
-		options: Discord.InteractionReplyOptions & { fetchReply: true }
-	): Promise<Discord.Message>;
-	reply(
-		options: string | Discord.MessagePayload | Discord.InteractionReplyOptions
-	): Promise<void>;
-	member: Discord.GuildMember;
-	user: Discord.User;
-}
-interface Options extends Discord.CommandInteractionOptionResolver {
-	getChannel(name: string, required: true): NonNullable<GuildChannel>;
-	getChannel(
-		name: string,
-		required?: boolean
-	): NonNullable<GuildChannel> | null;
+export class UserContextMenu {
+	builder: ContextMenuCommandBuilder;
+	run: (
+		interaction: UserContextMenuInteraction<'cached'>
+	) => Promise<any>;
+	setCommandData(
+		builder: (o: ContextMenuCommandBuilder) => any
+	): this {
+		const menuBuilder = builder(
+			new ContextMenuCommandBuilder().setType(2)
+		);
+		if (!(menuBuilder instanceof ContextMenuCommandBuilder)) {
+			throw new Error(
+				'Builder provided is not an instance of ContextMenuCommandBuilder'
+			);
+		}
+		this.builder = menuBuilder;
+		return this;
+	}
+	setRun(
+		runFunction: (
+			interaction: UserContextMenuInteraction<'cached'>
+		) => Promise<any>
+	): this {
+		this.run = runFunction;
+		return this;
+	}
 }
 
 export interface ProfileInServer {
 	userID: string;
 	serverID: string;
-	market?: marketSchema[];
+	market?: MarketItem[];
 	isShadowBanned: boolean;
 	bannedFromCommands: boolean;
 	bannedFromConfessions: boolean;
+	logs?: Log[];
 }
 export interface ServerData {
 	serverID: string;
@@ -98,6 +107,11 @@ export interface ServerData {
 	memberCount?: number;
 	silenceJoins: boolean;
 	silenceBans: boolean;
+	autowarns?: AutoWarn[];
+	profanityPunishment?: {
+		punishment: 'warn' | 'timeout' | 'ban' | 'kick';
+		time?: number;
+	};
 	muteRole?: string;
 	mainRole?: string;
 	modRole?: string;
@@ -105,18 +119,25 @@ export interface ServerData {
 	joinRole?: string;
 	sendBirthdays: boolean;
 	birthdayChannel?: string;
-	starboard?: { channelID?: string; starAmount?: number };
+	currentCaseNo: number;
 	clean: boolean;
 	timezone: any;
+	starboard?: {
+		channelID?: string;
+		starAmount: number;
+		messages?: Map<string, string>;
+	};
 }
-export const ContextMenuTypes = {
-	User: 2,
-	Message: 3,
+
+export const ApplicationCommandPermissionTypes = <const>{
+	ROLE: 1,
+	USER: 2
 };
+
 export interface Profile {
 	userID: string;
-	mincoDollars?: number;
-	bank?: number;
+	mincoDollars: number;
+	bank: number;
 	birthday?: string;
 	favs?: {
 		food?: string;
@@ -127,18 +148,16 @@ export interface Profile {
 	inventory?: string[];
 	gems?: string[];
 	candyAmount?: number;
-	rod: RodType;
-	fish?: Fishes;
-	zoo?: zooSchema[];
-	penguin?: string;
-	lastUsedDaily?: number;
-	baits: {
-		worms: number;
-		leeches: number;
-		bugs: number;
-		fishes: number;
+	fish?: {
+		// --- NEW VERSION ---
+		rod?: RodType;
+		fishInventory: Map<string, number>;
+		biome: Biome;
+		xp: number;
 	};
-	lastUsedWeekly: number;
+	zoo?: zooSchema[];
+	lastUsedDaily?: number;
+	lastUsedWeekly?: number;
 	timezone: string;
 }
 
@@ -146,31 +165,93 @@ interface zooSchema {
 	name: string;
 	emoji: string;
 }
-interface Fishes {
-	cookedCods: number;
-	cookedSalmons: number;
-	cods: number;
-	salmons: number;
-	pufferfish: number;
-	clownfish: number;
-	axolotls: number;
-	xp: number;
-	baits: number;
-	baitType: "fish" | "bug" | "leech" | "worm";
+
+export interface Log {
+	type: LogType;
+	case: number;
+	time?: number;
+	date: Date;
+	reason?: string;
+	moderator: string;
 }
-interface marketSchema {
+interface MarketItem {
 	price: number;
 	name: string;
 	desc?: string;
 }
-type RodType =
-	| "wooden"
-	| "upgraded"
-	| "metal"
-	| "heavy"
-	| "polished"
-	| "quartz"
-	| "ruby"
-	| "sapphire"
-	| "diamond"
-	| "emerald";
+export interface AutoWarn {
+	warnAmount: number;
+	divisible: boolean;
+	punishment: AutoWarnPunishment;
+	time?: number; // for timeout only
+}
+export interface FishJSON {
+	[fish: string]: {
+		formattedNames: string[];
+		minPrice: number;
+		maxPrice: number;
+		defaultChance: number;
+		maxAmount: number;
+		rarity: number;
+		biomes: string[];
+	};
+}
+interface RodJSONElement {
+	name: RodType;
+	benefits: string;
+	price: number;
+	xp: number;
+	rodToUpgrade: RodType;
+	rarityChanceIncrease: number;
+	maxAmountIncrease: number;
+	gem?: string;
+}
+export type RodJSON = RodJSONElement[];
+
+export type AutoWarnPunishment = 'timeout' | 'kick' | 'ban';
+export type Biome =
+	| 'ocean'
+	| 'river'
+	| 'warm ocean'
+	| 'lush cave'
+	| 'pond'
+	| 'beach';
+
+export type RodType =
+	| 'wooden'
+	| 'bone'
+	| 'candle'
+	| 'copper'
+	| 'steel'
+	| 'heavy'
+	| 'polished'
+	| 'quartz'
+	| 'amethyst'
+	| 'blazing'
+	| 'dark'
+	| 'ruby'
+	| 'marble'
+	| 'sapphire'
+	| 'gold'
+	| 'eternal'
+	| 'opal'
+	| 'moonstone'
+	| 'shining'
+	| 'topaz'
+	| 'silver'
+	| 'jade'
+	| 'floral'
+	| 'diamond'
+	| 'emerald'
+	| 'prismarine'
+	| 'pink diamond'
+	| 'titanium'
+	| 'black diamond'
+	| 'obsidian';
+
+export type LogType =
+	| 'Warn'
+	| 'Timeout'
+	| 'End Timeout'
+	| 'Kick'
+	| 'Ban';

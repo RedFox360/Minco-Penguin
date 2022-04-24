@@ -1,75 +1,93 @@
-import { CommandData } from "../types";
-import { MessageEmbed } from "discord.js";
-import { time } from "@discordjs/builders";
-import dayjs from "dayjs";
+import {
+	CommandInteraction,
+	GuildMember,
+	MessageEmbed,
+	UserContextMenuInteraction
+} from 'discord.js';
+import { time, userMention } from '@discordjs/builders';
+import { format } from 'date-fns';
+import { getProfile } from './models';
 
-export default async function run({ interaction, profileOf }: CommandData) {
-	const user = interaction.options.getUser("user");
-	const { favs, spouse, birthday, inventory } = await profileOf(user.id);
-	const member = await interaction.guild.members.fetch(user.id);
+export default async function run(
+	interaction:
+		| CommandInteraction<'cached'>
+		| UserContextMenuInteraction<'cached'>,
+	member: GuildMember
+) {
+	const { favs, spouse, birthday } = await getProfile(member.id);
 	const roles = Array.from(member.roles.cache.values());
+	const avatar = member.displayAvatarURL({ dynamic: true });
 	const infoEmbed = new MessageEmbed()
-		.setAuthor(
-			user.tag,
-			user.displayAvatarURL({ dynamic: true }),
-			user.displayAvatarURL({ dynamic: true })
-		)
-		.setColor(member.roles.highest.color || "GREYPLE") // darkish green
-		.addFields(
+		.setAuthor({
+			name: member.user.tag,
+			url: avatar,
+			iconURL: avatar
+		})
+		.setColor(member.roles.highest.color || 'GREYPLE') // darkish green
+		.setFields(
 			{
-				name: "Created at",
-				value: time(user.createdAt),
-				inline: true,
+				name: 'Created at',
+				value: time(member.user.createdAt),
+				inline: true
 			},
 			{
-				name: "Joined at",
+				name: 'Joined at',
 				value: time(member.joinedAt),
-				inline: true,
+				inline: true
 			}
 		)
-		.setFooter(`User ID: ${user.id}`)
+		.setFooter({ text: `User ID: ${member.id}` })
 		.setTimestamp();
+
+	if (birthday) {
+		const date = new Date(birthday);
+		const formatted = format(
+			date,
+			getDateFormat(
+				interaction.locale,
+				date.getFullYear() === 2001
+			)
+		);
+		infoEmbed.addField('Birthday', formatted, true);
+	}
 	if (roles.length > 1) {
 		infoEmbed.addField(
-			"Roles",
+			'Roles',
 			roles
-				.filter((role) => !role.name.includes("everyone"))
-				.map((role) => `<@&${role.id}>`)
-				.join(" "),
+				.filter(role => !role.name.includes('everyone'))
+				.map(role => role.toString())
+				.join(' '),
 			true
 		);
 	}
 	let favDesc: string;
 	if (favs.food) {
-		favDesc = "Food: " + favs.food;
+		favDesc = 'Food: ' + favs.food;
 	}
 	if (favs.color) {
-		favDesc += "\nColor: " + favs.color;
+		favDesc += '\nColor: ' + favs.color;
 	}
 	if (favs.animal) {
-		favDesc += "\nAnimal: " + favs.animal;
+		favDesc += '\nAnimal: ' + favs.animal;
 	}
-	if (favDesc) infoEmbed.addField("Favorites", favDesc, true);
-	if (birthday) {
-		const date = dayjs(birthday);
-		let formatted: string;
-		if (date.year() === 2001) {
-			formatted = date.format("MMMM D");
-		} else {
-			formatted = date.format("MMMM D, YYYY");
-		}
-		infoEmbed.addField("Birthday", formatted, true);
-	}
+	if (favDesc) infoEmbed.addField('Favorites', favDesc, true);
 	if (spouse) {
 		let spouseFormat: string;
 		try {
 			await interaction.guild.members.fetch(spouse);
-			spouseFormat = `<@${spouse}>`;
-		} catch (err) {
-			let user = await interaction.client.users.fetch(spouse);
+			spouseFormat = userMention(spouse);
+		} catch {
+			const user = await interaction.client.users.fetch(spouse);
 			spouseFormat = user.username;
 		}
-		infoEmbed.addField("Married to", spouseFormat, true);
+		infoEmbed.addField('Married to', spouseFormat, true);
 	}
 	await interaction.reply({ embeds: [infoEmbed] });
+}
+function getDateFormat(locale: string, hasYear: boolean) {
+	if (locale === 'en-US') {
+		return hasYear ? 'MMM d' : 'MMM d, y';
+	} else {
+		return hasYear ? 'd MMM' : 'd MMM y';
+	}
 }

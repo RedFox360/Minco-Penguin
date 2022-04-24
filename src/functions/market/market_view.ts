@@ -1,28 +1,37 @@
-import { MessageEmbed } from "discord.js";
-import { CommandData } from "../../types";
-
-export default async function run({
-	interaction,
-	profileInServerOf,
-	updateProfile,
-}: CommandData) {
-	const user = interaction.options.getUser("user");
-	const { market } = await profileInServerOf(user.id);
+import {
+	CommandInteraction,
+	MessageEmbed,
+	User,
+	UserContextMenuInteraction
+} from 'discord.js';
+import { getProfileInServer } from '../models';
+export default async function run(
+	interaction:
+		| CommandInteraction<'cached'>
+		| UserContextMenuInteraction<'cached'>,
+	user: User
+) {
+	const { market } = await getProfileInServer(
+		user.id,
+		interaction.guildId
+	);
 	if (!market.length) {
 		await interaction.reply({
-			content: `${user.toString()} doesn't have anything in their market`,
+			content: `${user} doesn't have anything in their market`
 		});
 		return;
 	}
-	market.sort((a, b) => b.price - a.price);
-	await updateProfile({ market }, user.id);
 	const marketEmbed = new MessageEmbed()
-		.setColor("#D1F2EB")
-		.setTitle("Market")
-		.setDescription(`User: ${user.toString()}`)
-		.setFooter(interaction.guild?.name ?? interaction.user.username);
+		.setColor('#D1F2EB')
+		.setTitle('Market')
+		.setDescription(`User: ${user}`)
+		.setFooter({
+			text: interaction.guild?.name ?? interaction.user.username
+		});
 	for (const { name, price, desc } of market) {
-		let value = `Price: ${price} MD`;
+		let value = `Price: ${price.toLocaleString(
+			interaction.locale
+		)} MD`;
 		if (desc) value += `\n${desc}`;
 		marketEmbed.addField(name, value);
 	}

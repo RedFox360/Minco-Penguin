@@ -1,23 +1,27 @@
-import { CommandData } from '../../types';
 import {
 	MessageButton,
 	MessageActionRow,
-	MessageComponentInteraction
+	CommandInteraction
 } from 'discord.js';
-
-export default async function run({
-	interaction,
-	profileInServerOf,
-	profile,
+import {
+	getProfileInServer,
+	getProfile,
 	updateProfile
-}: CommandData) {
+} from '../models';
+export default async function run(
+	interaction: CommandInteraction<'cached'>
+) {
+	const profile = await getProfile(interaction.user.id);
 	const user = interaction.options.getUser('user');
 	const itemName = interaction.options.getString('item_name');
-	const uprofile = await profileInServerOf(user.id);
-	const item = uprofile.market.find((m) => m.name === itemName);
+	const uprofile = await getProfileInServer(
+		interaction.user.id,
+		interaction.guildId
+	);
+	const item = uprofile.market.find(m => m.name === itemName);
 	if (!item) {
 		await interaction.reply({
-			content: `${user.toString()} does not have that item! (remember capitalization)`,
+			content: `${user} does not have that item! (remember capitalization)`,
 			ephemeral: true
 		});
 		return;
@@ -40,53 +44,56 @@ export default async function run({
 			.setStyle('DANGER')
 	);
 	const msg = await interaction.reply({
-		content: `${interaction.user.toString()}, confirm to buy ${
-			item.name
-		} for ${item.price} MD`,
+		content: `${interaction.user}, confirm to buy ${item.name} for ${item.price} MD`,
 		components: [row],
 		fetchReply: true
 	});
 
-	const filter = (i) =>
-		(i.customId === 'confirm' || i.customId === 'reject') &&
-		i.user.id === interaction.user.id;
-
 	const collector = msg.createMessageComponentCollector({
-		filter,
+		filter: i =>
+			i.customId === 'confirm' || i.customId === 'reject',
 		time: 10_000,
-		max: 1
+		max: 1,
+		componentType: 'BUTTON'
 	});
-	let sendTimeout = true;
-	collector.on('collect', async (i: MessageComponentInteraction) => {
-		if (!i.isMessageComponent()) return;
-		sendTimeout = false;
-		await i.deferUpdate();
-		if (i.customId === 'confirm') {
-			await updateProfile({ $inc: { mincoDollars: -item.price } });
+	collector.on('collect', async buttonInteraction => {
+		if (buttonInteraction.user.id !== interaction.user.id) {
+			await interaction.reply({
+				content:
+					'These buttons are only for the author of the message'
+			});
+			return;
+		}
+		if (buttonInteraction.customId === 'confirm') {
+			await updateProfile(
+				{ $inc: { mincoDollars: -item.price } },
+				buttonInteraction.user.id
+			);
 			await updateProfile(
 				{ $inc: { mincoDollars: item.price } },
-				user.id
+				buttonInteraction.user.id
 			);
 			try {
 				await user.send(
-					`${interaction.user.toString()} bought your **${
-						item.name
-					}**`
+					`${interaction.user} bought your **${item.name}**`
 				);
-				await interaction.followUp(
-					`You succesfully bought that item! ${user.toString()} will be DMed notifying your purchase.`
+				await buttonInteraction.reply(
+					`You succesfully bought that item! ${user} will be DMed notifying your purchase.`
 				);
-			} catch (err) {
-				await interaction.followUp(
-					`You succesfully bought that item, but ${user}'s DMS are closed.`
+			} catch {
+				await buttonInteraction.reply(
+					`You succesfully bought that item! However, ${user} has blocked the bot or disabled DM perms so Minco Penguin could not notify them.`
 				);
 			}
 		} else {
-			await interaction.followUp('Request canceled');
+			await buttonInteraction.reply({
+				content: 'Request canceled',
+				ephemeral: true
+			});
 		}
 	});
-	collector.on('end', async () => {
-		if (sendTimeout)
+	collector.on('end', async (_, reason) => {
+		if (reason === 'idle')
 			await interaction.followUp({
 				content: 'Timed out!',
 				ephemeral: true

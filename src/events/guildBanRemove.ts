@@ -1,5 +1,5 @@
-import serverModel from "../models/serverSchema";
-import { GuildBan, User } from "discord.js";
+import serverModel from '../models/serverSchema';
+import { GuildBan } from 'discord.js';
 export default async ({ user, guild }: GuildBan) => {
 	if (user.bot) return;
 	const serverData = await serverModel.findOneAndUpdate(
@@ -8,7 +8,9 @@ export default async ({ user, guild }: GuildBan) => {
 	);
 	if (serverData.silenceBans) return;
 	try {
-		await user.send(`${user.tag}, you were unbanned from ${guild.name}.`);
+		await user.send(
+			`${user.tag}, you were unbanned from ${guild.name}.`
+		);
 	} catch (err) {
 		// dms not open
 	}

@@ -1,11 +1,13 @@
 import Discord from 'discord.js';
 import serverModel from '../models/serverSchema';
-export default async (
-	{ user, guild, reason }: Discord.GuildBan,
-	client: Discord.Client
-) => {
+export default async ({
+	user,
+	guild,
+	reason,
+	client
+}: Discord.GuildBan) => {
 	if (user.bot) return;
-	let serverData = await serverModel.findOneAndUpdate(
+	const serverData = await serverModel.findOneAndUpdate(
 		{ serverID: guild.id },
 		{ $inc: { memberCount: -1 } },
 		{ new: true }
@@ -13,7 +15,7 @@ export default async (
 	if (serverData.silenceBans) return;
 	let desc = `${user.tag} flew too close to the sun and was banned from ${guild.name}.`;
 	if (reason) desc += `\nReason: *${reason}*`;
-	let banEmbed = new Discord.MessageEmbed()
+	const banEmbed = new Discord.MessageEmbed()
 		.setColor('#F75853') // red
 		.setTitle('Banned')
 		.setDescription(desc);

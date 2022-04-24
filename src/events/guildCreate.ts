@@ -1,8 +1,10 @@
-import { Guild, Client, MessageEmbed } from 'discord.js';
+import { Guild, MessageEmbed } from 'discord.js';
 import serverModel from '../models/serverSchema';
-export default async (guild: Guild, client: Client) => {
-	let members = await guild.members.fetch();
-	let memberCount = members.filter((member) => !member.user.bot).size;
+export default async (guild: Guild) => {
+	const members = await guild.members.fetch();
+	const memberCount = members.filter(
+		member => !member.user.bot
+	).size;
 	await serverModel.create({
 		serverID: guild.id,
 		bannedPeople: [],
@@ -25,5 +27,7 @@ export default async (guild: Guild, client: Client) => {
 					)
 			]
 		})
-		.catch(() => {});
+		.catch(() => {
+			// no dm available
+		});
 };

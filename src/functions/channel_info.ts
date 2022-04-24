@@ -1,88 +1,94 @@
-import { CommandData } from "../types";
-import { GuildChannel, MessageEmbed } from "discord.js";
-import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
-import timezone from "dayjs/plugin/timezone";
-import prettyMs from "pretty-ms";
-dayjs.extend(utc);
-dayjs.extend(timezone);
+import { CommandInteraction, MessageEmbed } from 'discord.js';
+import { time } from '@discordjs/builders';
 
-export default async function run({ interaction, profile }: CommandData) {
+export default async function run(
+	interaction: CommandInteraction<'cached'>
+) {
 	await interaction.deferReply();
-	const channel = interaction.options.getChannel("channel") as GuildChannel;
+	const channel = interaction.options.getChannel('channel');
+	if (
+		channel.type === 'GUILD_CATEGORY' ||
+		channel.type === 'GUILD_STORE'
+	) {
+		await interaction.reply({
+			content:
+				"You can't provide a category or store for this command",
+			ephemeral: true
+		});
+		return;
+	}
 	const type = (() => {
 		switch (channel.type) {
-			case "GUILD_CATEGORY":
-				return "category";
-			case "GUILD_NEWS":
-				return "news";
-			case "GUILD_NEWS_THREAD":
-				return "news thread";
-			case "GUILD_PRIVATE_THREAD":
-				return "private thread";
-			case "GUILD_PUBLIC_THREAD":
-				return "thread";
+			case 'GUILD_NEWS':
+				return 'news';
+			case 'GUILD_NEWS_THREAD':
+				return 'news thread';
+			case 'GUILD_PRIVATE_THREAD':
+				return 'private thread';
+			case 'GUILD_PUBLIC_THREAD':
+				return 'thread';
+			case 'GUILD_VOICE':
+				return 'voice';
+			case 'GUILD_STAGE_VOICE':
+				return 'stage';
 			default:
-				return "other";
+				return 'other';
 		}
 	})();
+
+	const isPublic = channel
+		.permissionsFor(interaction.guild.roles.everyone)
+		.has('VIEW_CHANNEL');
 	const embed = new MessageEmbed()
-		.setTitle("Channel Info")
-		.setColor("#DFBE33")
-		.addFields(
+		.setTitle('Channel Info')
+		.setColor('#DFBE33')
+		.setFields(
 			{
-				name: ":name_badge: Name",
-				value: "*" + channel.name + "*",
-				inline: true,
+				name: ':name_badge: Name',
+				value: '*' + channel.name + '*',
+				inline: true
 			},
 			{
-				name: ":id: ID",
-				value: "`" + channel.id + "`",
-				inline: true,
+				name: ':id: ID',
+				value: '`' + channel.id + '`',
+				inline: true
 			},
 			{
-				name: ":speech_balloon: Type",
-				value: "`" + type + "`",
-				inline: true,
+				name: ':speech_balloon: Type',
+				value: '`' + type + '`',
+				inline: true
 			},
 			{
-				name: "Created at",
-				value: formatTime(channel.createdAt, profile.timezone),
-				inline: true,
+				name: 'Private',
+				value: '`' + !isPublic + '`',
+				inline: true
+			},
+			{
+				name: 'Created at',
+				value: time(channel.createdAt),
+				inline: true
 			}
 		);
-	if (channel.isText()) {
+	if (channel.isText() && !channel.isThread()) {
 		const { threads } = await channel.threads.fetchActive();
 		if (threads.size) {
 			embed.addField(
-				"Active Threads",
+				'Active Threads',
 				Array.from(threads.values())
-					.map((thread) => thread.name)
-					.join("\n"),
+					.slice(15)
+					.map(thread => thread.name)
+					.join(', '),
 				true
 			);
 		}
 	}
-	if (channel.isText() && channel.topic) {
-		embed.addField("Description", "`" + channel.topic + "`", true);
+	if (channel['topic']) {
+		embed.addField(
+			'Description',
+			'`' + channel['topic'] + '`',
+			true
+		);
 	}
-	const isPrivate = channel
-		.permissionsFor(interaction.guild.roles.everyone)
-		.has("VIEW_CHANNEL");
-	embed.addField("Private", "`" + isPrivate + "`", true);
 
 	await interaction.editReply({ embeds: [embed] });
 }
-const formatTime = (time: Date, timezone: string) => {
-	const currentTime = Date.now();
-	const creationTime = dayjs.tz(time, timezone);
-	const timeBetween = prettyMs(currentTime - creationTime.valueOf(), {
-		unitCount: 2,
-		verbose: true,
-	});
-
-	return `${formatDate(creationTime)}
-(*${timeBetween}* ago)`;
-};
-
-const formatDate = (date: dayjs.Dayjs) => date.format("MMM DD, YYYY h:mm A");

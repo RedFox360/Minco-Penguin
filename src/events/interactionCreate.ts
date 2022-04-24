@@ -1,18 +1,43 @@
-import { Collection, MessageEmbed } from 'discord.js';
 import {
+	Collection,
 	Interaction,
-	Profile,
-	ProfileInServer,
-	ServerData
-} from '../types';
-import profileInServerModel from '../models/profileInServerSchema';
-import profileModel from '../models/profileSchema';
-import serverModel from '../models/serverSchema';
-import ms from 'ms';
+	CommandInteraction,
+	MessageEmbed,
+	Permissions,
+	ApplicationCommandOptionChoice
+} from 'discord.js';
 import prettyMs from 'pretty-ms';
-import validPermissions from '../json/permissions.json';
+import { getProfileInServer } from '../functions/models';
+import { SlashCommand, UserContextMenu } from '../types';
+import fishJSON from '../json/fish.json';
+const autocompleteData = new Array<ApplicationCommandOptionChoice>();
+for (const [fishName, fishData] of Object.entries(fishJSON)) {
+	autocompleteData.push({
+		name:
+			fishData.formattedNames[0].charAt(0).toUpperCase() +
+			fishData.formattedNames[0].slice(1),
+		value: fishName
+	});
+}
+
 const cooldowns = new Map();
 export default async (interaction: Interaction) => {
+	if (interaction.isAutocomplete()) {
+		// SELL FISH
+		const value = interaction.options.getFocused().toString();
+		const matchingFishes = autocompleteData.filter(
+			a =>
+				a.name
+					.toLowerCase()
+					.includes(value.trim().toLowerCase()) ||
+				value
+					.trim()
+					.toLowerCase()
+					.includes(a.name.toLowerCase())
+		);
+		await interaction.respond(matchingFishes.slice(0, 25));
+		return;
+	}
 	const isCommand = interaction.isCommand();
 	const isContextMenu = interaction.isContextMenu();
 	if (!isCommand && !isContextMenu) return;
@@ -24,101 +49,30 @@ export default async (interaction: Interaction) => {
 		});
 		return;
 	}
-	const updateProfile = async (data: any, uid?: string) => {
-		const filter = { userID: uid ?? interaction.user.id };
-		const model =
-			(await profileModel.findOneAndUpdate(filter, data, {
-				new: true
-			})) ??
-			(await profileModel.create({
-				...filter,
-				serverID: interaction.guild.id,
-				mincoDollars: 100,
-				bank: 0
-			}));
-		return model;
-	};
-	const updateServer = async (data: any, sid?: string) => {
-		if (!interaction.guild) return;
-		const filter = { serverID: sid ?? interaction.guild.id };
-		const model = await serverModel.findOneAndUpdate(
-			filter,
-			data,
-			{
-				new: true
-			}
-		);
-		return model;
-	};
-	const updateProfileInServer = async (
-		data: any,
-		uid?: string,
-		sid?: string
-	) => {
-		if (!interaction.guild) return;
-		const filter = {
-			userID: uid ?? interaction.user.id,
-			serverID: sid ?? interaction.guild.id
-		};
-		const model =
-			(await profileInServerModel.findOneAndUpdate(
-				filter,
-				data,
-				{
-					new: true
-				}
-			)) ??
-			(await profileModel.create({
-				...filter,
-				mincoDollars: 100,
-				bank: 0
-			}));
-		return model;
-	};
-	const profileOf = async (userID: string) => {
-		const model =
-			(await profileModel.findOne({ userID })) ??
-			(await profileModel.create({
-				userID,
-				serverID: interaction.guild.id,
-				mincoDollars: 100,
-				bank: 0
-			}));
-		return model;
-	};
-	const profileInServerOf = async (
-		userID: string,
-		serverID?: string
-	) => {
-		if (!interaction.guild) return;
-		const sid = serverID ?? interaction.guild.id;
-		const model =
-			(await profileInServerModel.findOne({
-				userID,
-				serverID: sid
-			})) ??
-			(await profileInServerModel.create({
-				userID,
-				serverID: sid,
-				mincoDollars: 100,
-				market: [],
-				bank: 0
-			}));
-		return model;
-	};
-	let profile: Profile = await profileOf(interaction.user.id);
-	let profileInServer: ProfileInServer = await profileInServerOf(
-		interaction.user.id
+	if (!interaction.guild.available) {
+		try {
+			await interaction.user.send(
+				'Minco Penguin cannot talk in the server you just sent a command in due to an outage.'
+			);
+		} catch {
+			console.log(
+				`Server Outage in ${interaction.guildId}\nBot failed to DM the user`
+			);
+		}
+		return;
+	}
+	const { commandName } = interaction;
+
+	const command: SlashCommand | UserContextMenu =
+		interaction.client['commands'].get(commandName);
+	const profileInServer = await getProfileInServer(
+		interaction.user.id,
+		interaction.guildId
 	);
-	const server: ServerData =
-		interaction.guild &&
-		(await serverModel.findOne({
-			serverID: interaction.guild.id
-		}));
 	if (
-		profileInServer?.bannedFromCommands &&
-		!(interaction.member.permissions as any).has(
-			'MANAGE_MESSAGES'
+		profileInServer.bannedFromCommands &&
+		!interaction.member.permissions.has(
+			Permissions.FLAGS.MANAGE_MESSAGES
 		) &&
 		interaction.user.id !== '724786310711214118'
 	) {
@@ -129,38 +83,33 @@ export default async (interaction: Interaction) => {
 		});
 		return;
 	}
-	const data = {
-		interaction,
-		profile,
-		profileInServer,
-		server,
-		updateServer,
-		updateProfile,
-		updateProfileInServer,
-		profileOf,
-		profileInServerOf
-	};
-	const command = (interaction.client as any).commands.get(
-		interaction.commandName
-	);
-	if (!interaction.guild && command.serverOnly) {
-		await interaction.reply({
-			content: 'This command can only be used in a server',
-			ephemeral: true
-		});
-		return;
+	if (isCommand && command instanceof SlashCommand) {
+		if (command.permissions?.length) {
+			const permission = handlePermissions(
+				interaction,
+				command
+			);
+			if (permission?.permsNeeded) {
+				await interaction.reply({
+					content: permission.content,
+					ephemeral: true
+				});
+				return;
+			}
+		}
+		if (command.cooldown) {
+			const cooldown = handleCooldowns(interaction, command);
+			if (cooldown?.cooldown) {
+				await interaction.reply({
+					content: cooldown.content,
+					ephemeral: true
+				});
+				return;
+			}
+		}
 	}
-	if (command.permissions) {
-		const permission = await handlePermissions(
-			interaction,
-			command
-		);
-		if (permission) return;
-	}
-	const cooldown = await handleCooldowns(interaction, command);
-	if (cooldown) return;
 
-	(command as any).run(data).catch(async err => {
+	(command as any).run(interaction).catch(async err => {
 		if (err.code !== 10062) console.error(err);
 		if (interaction.user.id === '724786310711214118') {
 			const errorEmbed = new MessageEmbed()
@@ -190,69 +139,98 @@ export default async (interaction: Interaction) => {
 	});
 };
 
-async function handleCooldowns(
-	interaction: Interaction,
-	command: any
+function handleCooldowns(
+	interaction: CommandInteraction,
+	command: SlashCommand
 ) {
-	if (!cooldowns.has(command.data.name))
-		cooldowns.set(command.data.name, new Collection());
+	const {
+		builder: { name },
+		cooldown
+	} = command;
+	if (!cooldowns.has(name)) cooldowns.set(name, new Collection());
 	const currentTime = Date.now();
-	const timeStamps = cooldowns.get(command.data.name);
-	const cooldown = command.cooldown ?? 1.5;
-	const cooldownAmount =
-		typeof cooldown === 'string' ? ms(cooldown) : cooldown * 1000;
+	const timeStamps = cooldowns.get(name);
 	if (timeStamps.has(interaction.user.id)) {
 		const expTime =
-			timeStamps.get(interaction.user.id) + cooldownAmount;
+			timeStamps.get(interaction.user.id) + cooldown;
 		if (currentTime < expTime) {
 			const timeLeft = expTime - currentTime;
-			await interaction.reply({
+			return {
 				content: `:clock: Please wait ${prettyMs(
 					timeLeft
-				)} before using command /${command.data.name}`,
-				ephemeral: true
-			});
-			return true;
+				)} before using command /${name}`,
+				cooldown: true
+			};
 		}
 	}
 	timeStamps.set(interaction.user.id, currentTime);
+	return { cooldown: false };
 }
-async function handlePermissions(
-	interaction: Interaction,
-	command: any
+function handlePermissions(
+	interaction: CommandInteraction<'cached'>,
+	command: SlashCommand
 ) {
-	let invalidPerms = [];
-	let botInvalidPerms = [];
-	for (const perm of command.permissions) {
-		if (!validPermissions.includes(perm)) {
-			return console.log(`Invalid Permissions ${perm}`);
-		}
-		if (!(interaction.member.permissions as any).has(perm)) {
-			invalidPerms.push(perm);
-		} else if (!interaction.guild.me.permissions.has(perm)) {
-			botInvalidPerms.push(perm);
-		}
+	const invalidPerms = [];
+	const botInvalidPerms = [];
+	const permissions = command.permissions;
+	if (command.permissionsRequiredForBot === false) {
+		permissions.forEach(
+			(perm: any) =>
+				!interaction.member.permissions.has(perm) &&
+				invalidPerms.push(
+					formatPermission(
+						new Permissions(perm).toArray()[0]
+					)
+				)
+		);
+	} else {
+		permissions.forEach(perm => {
+			const permString = formatPermission(
+				new Permissions(perm).toArray()[0]
+			);
+			if (!interaction.member.permissions.has(perm)) {
+				invalidPerms.push(permString);
+			} else if (!interaction.guild.me.permissions.has(perm)) {
+				botInvalidPerms.push(permString);
+			}
+		});
 	}
 	if (invalidPerms.length) {
-		await interaction.reply({
-			content: `You need these permissions to run this command: \`${invalidPerms}\``,
-			ephemeral: true
-		});
-		return true;
+		return {
+			content: `You need these permissions to run this command: \`${invalidPerms.join(
+				', '
+			)}\``,
+			permsNeeded: true
+		};
 	}
 	if (botInvalidPerms.length) {
-		await interaction.reply({
-			content: `The bot needs these permissions to run this command: \`${botInvalidPerms}\``,
-			ephemeral: true
-		});
-		return true;
+		return {
+			content: `The bot needs these permissions to run this command: \`${botInvalidPerms.join(
+				', '
+			)}\``,
+			permsNeeded: true
+		};
 	}
-	return false;
+	return { permsNeeded: false };
 }
+
 function clean(text: any) {
 	if (typeof text === 'string')
 		return text
 			.replace(/`/g, '`' + String.fromCharCode(8203))
 			.replace(/@/g, '@' + String.fromCharCode(8203));
 	else return text;
+}
+
+function formatPermission(perm: string) {
+	const spaced = perm.replaceAll(/_/g, ' ');
+	return capitalizeEachWordInString(spaced.toLowerCase());
+}
+
+function capitalizeEachWordInString(str: string) {
+	return str.replace(
+		/\w\S*/g,
+		txt =>
+			txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+	);
 }

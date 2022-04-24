@@ -1,0 +1,563 @@
+{
+	"cods": {
+		"formattedNames": [
+			"cod",
+			"cods"
+		],
+		"minPrice": 2,
+		"maxPrice": 6,
+		"defaultChance": 0.9,
+		"maxAmount": 6,
+		"rarity": 1,
+		"biomes": [
+			"ocean"
+		]
+	},
+	"salmons": {
+		"formattedNames": [
+			"salmon",
+			"salmons"
+		],
+		"minPrice": 3,
+		"maxPrice": 6,
+		"defaultChance": 0.85,
+		"maxAmount": 6,
+		"rarity": 1,
+		"biomes": [
+			"ocean",
+			"river"
+		]
+	},
+	"pufferfish": {
+		"formattedNames": [
+			"pufferfish",
+			"pufferfish"
+		],
+		"minPrice": 10,
+		"maxPrice": 20,
+		"defaultChance": 0.3,
+		"maxAmount": 5,
+		"rarity": 3,
+		"biomes": [
+			"ocean"
+		]
+	},
+	"clownfish": {
+		"formattedNames": [
+			"clownfish",
+			"clownfish"
+		],
+		"minPrice": 5,
+		"maxPrice": 10,
+		"defaultChance": 0.5,
+		"maxAmount": 5,
+		"rarity": 2,
+		"biomes": [
+			"warm ocean"
+		]
+	},
+	"axolotls": {
+		"formattedNames": [
+			"axolotl",
+			"axolotls"
+		],
+		"minPrice": 10,
+		"maxPrice": 25,
+		"defaultChance": 0.7,
+		"maxAmount": 5,
+		"rarity": 5,
+		"biomes": [
+			"lush cave"
+		]
+	},
+	"lionfish": {
+		"formattedNames": [
+			"lionfish",
+			"lionfish"
+		],
+		"minPrice": 100,
+		"maxPrice": 140,
+		"defaultChance": 0.03,
+		"maxAmount": 1,
+		"rarity": 5,
+		"biomes": [
+			"warm ocean"
+		]
+	},
+	"starfish": {
+		"formattedNames": [
+			"starfish",
+			"starfish"
+		],
+		"minPrice": 30,
+		"maxPrice": 50,
+		"defaultChance": 0.1,
+		"maxAmount": 3,
+		"rarity": 4,
+		"biomes": [
+			"warm ocean"
+		]
+	},
+	"sharks": {
+		"formattedNames": [
+			"shark",
+			"sharks"
+		],
+		"minPrice": 50,
+		"maxPrice": 80,
+		"defaultChance": 0.05,
+		"maxAmount": 1,
+		"rarity": 4,
+		"biomes": [
+			"ocean"
+		]
+	},
+	"tuna": {
+		"formattedNames": [
+			"tuna",
+			"tuna"
+		],
+		"minPrice": 100,
+		"maxPrice": 140,
+		"defaultChance": 0.03,
+		"maxAmount": 1,
+		"rarity": 5,
+		"biomes": [
+			"ocean"
+		]
+	},
+	"turtles": {
+		"formattedNames": [
+			"turtle",
+			"turtles"
+		],
+		"minPrice": 50,
+		"maxPrice": 80,
+		"defaultChance": 0.05,
+		"maxAmount": 1,
+		"rarity": 5,
+		"biomes": [
+			"ocean",
+			"beach"
+		]
+	},
+	"crabs": {
+		"formattedNames": [
+			"crab",
+			"crabs"
+		],
+		"minPrice": 10,
+		"maxPrice": 20,
+		"defaultChance": 0.3,
+		"maxAmount": 5,
+		"rarity": 3,
+		"biomes": [
+			"ocean",
+			"warm ocean",
+			"beach"
+		]
+	},
+	"shrimp": {
+		"formattedNames": [
+			"shrimp",
+			"shrimp"
+		],
+		"minPrice": 1,
+		"maxPrice": 4,
+		"defaultChance": 0.4,
+		"maxAmount": 10,
+		"rarity": 1,
+		"biomes": [
+			"ocean",
+			"warm ocean"
+		]
+	},
+	"clams": {
+		"formattedNames": [
+			"clam",
+			"clams"
+		],
+		"minPrice": 1,
+		"maxPrice": 3,
+		"defaultChance": 0.5,
+		"maxAmount": 10,
+		"rarity": 1,
+		"biomes": [
+			"ocean",
+			"beach"
+		]
+	},
+	"coral": {
+		"formattedNames": [
+			"coral",
+			"coral"
+		],
+		"minPrice": 30,
+		"maxPrice": 50,
+		"defaultChance": 0.1,
+		"maxAmount": 3,
+		"rarity": 4,
+		"biomes": [
+			"warm ocean"
+		]
+	},
+	"crayfish": {
+		"formattedNames": [
+			"crayfish",
+			"crayfish"
+		],
+		"minPrice": 4,
+		"maxPrice": 6,
+		"defaultChance": 0.9,
+		"maxAmount": 5,
+		"rarity": 1,
+		"biomes": [
+			"river",
+			"pond"
+		]
+	},
+	"eels": {
+		"formattedNames": [
+			"eel",
+			"eels"
+		],
+		"minPrice": 30,
+		"maxPrice": 50,
+		"defaultChance": 0.1,
+		"maxAmount": 1,
+		"rarity": 4,
+		"biomes": [
+			"ocean",
+			"river"
+		]
+	},
+	"frogs": {
+		"formattedNames": [
+			"frog",
+			"frogs"
+		],
+		"minPrice": 4,
+		"maxPrice": 6,
+		"defaultChance": 0.9,
+		"maxAmount": 5,
+		"rarity": 1,
+		"biomes": [
+			"pond",
+			"river"
+		]
+	},
+	"lobsters": {
+		"formattedNames": [
+			"lobster",
+			"lobsters"
+		],
+		"minPrice": 30,
+		"maxPrice": 50,
+		"defaultChance": 0.1,
+		"maxAmount": 1,
+		"rarity": 4,
+		"biomes": [
+			"ocean",
+			"beach"
+		]
+	},
+	"mussels": {
+		"formattedNames": [
+			"mussel",
+			"mussels"
+		],
+		"minPrice": 1,
+		"maxPrice": 3,
+		"defaultChance": 0.1,
+		"maxAmount": 10,
+		"rarity": 4,
+		"biomes": [
+			"ocean",
+			"beach"
+		]
+	},
+	"octopi": {
+		"formattedNames": [
+			"octopus",
+			"octopi"
+		],
+		"minPrice": 30,
+		"maxPrice": 50,
+		"defaultChance": 0.1,
+		"maxAmount": 1,
+		"rarity": 4,
+		"biomes": [
+			"ocean"
+		]
+	},
+	"oysters": {
+		"formattedNames": [
+			"oyster",
+			"oysters"
+		],
+		"minPrice": 5,
+		"maxPrice": 10,
+		"defaultChance": 0.1,
+		"maxAmount": 10,
+		"rarity": 2,
+		"biomes": [
+			"ocean"
+		]
+	},
+	"snails": {
+		"formattedNames": [
+			"snail",
+			"snails"
+		],
+		"minPrice": 30,
+		"maxPrice": 50,
+		"defaultChance": 0.1,
+		"maxAmount": 1,
+		"rarity": 4,
+		"biomes": [
+			"ocean",
+			"warm ocean"
+		]
+	},
+	"squid": {
+		"formattedNames": [
+			"squid",
+			"squid"
+		],
+		"minPrice": 10,
+		"maxPrice": 20,
+		"defaultChance": 0.1,
+		"maxAmount": 5,
+		"rarity": 3,
+		"biomes": [
+			"ocean",
+			"warm ocean"
+		]
+	},
+	"tadpoles": {
+		"formattedNames": [
+			"tadpole",
+			"tadpoles"
+		],
+		"minPrice": 1,
+		"maxPrice": 2,
+		"defaultChance": 0.9,
+		"maxAmount": 15,
+		"rarity": 1,
+		"biomes": [
+			"pond"
+		]
+	},
+	"trout": {
+		"formattedNames": [
+			"trout",
+			"trout"
+		],
+		"minPrice": 5,
+		"maxPrice": 10,
+		"defaultChance": 0.8,
+		"maxAmount": 10,
+		"rarity": 2,
+		"biomes": [
+			"pond",
+			"river"
+		]
+	},
+	"urchins": {
+		"formattedNames": [
+			"urchin",
+			"urchins"
+		],
+		"minPrice": 20,
+		"maxPrice": 30,
+		"defaultChance": 0.1,
+		"maxAmount": 4,
+		"rarity": 3,
+		"biomes": [
+			"ocean",
+			"warm ocean"
+		]
+	},
+	"cavefish": {
+		"formattedNames": [
+			"cavefish",
+			"cavefish"
+		],
+		"minPrice": 8,
+		"maxPrice": 20,
+		"defaultChance": 0.8,
+		"maxAmount": 4,
+		"rarity": 4,
+		"biomes": [
+			"lush cave"
+		]
+	},
+	"groupers": {
+		"formattedNames": [
+			"grouper",
+			"groupers"
+		],
+		"minPrice": 30,
+		"maxPrice": 50,
+		"defaultChance": 0.1,
+		"maxAmount": 1,
+		"rarity": 4,
+		"biomes": [
+			"warm ocean"
+		]
+	},
+	"anglerfish": {
+		"formattedNames": [
+			"anglerfish",
+			"anglerfish"
+		],
+		"minPrice": 100,
+		"maxPrice": 140,
+		"defaultChance": 0.02,
+		"maxAmount": 1,
+		"rarity": 5,
+		"biomes": [
+			"ocean"
+		]
+	},
+	"seasnakes": {
+		"formattedNames": [
+			"seasnake",
+			"seasnakes"
+		],
+		"minPrice": 30,
+		"maxPrice": 50,
+		"defaultChance": 0.1,
+		"maxAmount": 1,
+		"rarity": 4,
+		"biomes": [
+			"ocean"
+		]
+	},
+	"seaweed": {
+		"formattedNames": [
+			"seaweed",
+			"seaweed"
+		],
+		"minPrice": 5,
+		"maxPrice": 10,
+		"defaultChance": 0.5,
+		"maxAmount": 3,
+		"rarity": 2,
+		"biomes": [
+			"ocean",
+			"warm ocean"
+		]
+	},
+	"plasticBag": {
+		"formattedNames": [
+			"plastic bag",
+			"plastic bags"
+		],
+		"minPrice": 0,
+		"maxPrice": 0,
+		"defaultChance": 0.1,
+		"maxAmount": 1,
+		"rarity": 1,
+		"biomes": [
+			"ocean",
+			"river",
+			"warm ocean",
+			"lush cave",
+			"pond",
+			"beach"
+		]
+	},
+	"boot": {
+		"formattedNames": [
+			"boot",
+			"boots"
+		],
+		"minPrice": 0,
+		"maxPrice": 0,
+		"defaultChance": 0.1,
+		"maxAmount": 1,
+		"rarity": 1,
+		"biomes": [
+			"ocean",
+			"river",
+			"warm ocean",
+			"pond",
+			"beach"
+		]
+	},
+	"bottle": {
+		"formattedNames": [
+			"bottle",
+			"bottles"
+		],
+		"minPrice": 0,
+		"maxPrice": 0,
+		"defaultChance": 0.1,
+		"maxAmount": 1,
+		"rarity": 1,
+		"biomes": [
+			"ocean",
+			"river",
+			"warm ocean",
+			"lush cave",
+			"pond",
+			"beach"
+		]
+	},
+	"can": {
+		"formattedNames": [
+			"can",
+			"cans"
+		],
+		"minPrice": 0,
+		"maxPrice": 0,
+		"defaultChance": 0.1,
+		"maxAmount": 1,
+		"rarity": 1,
+		"biomes": [
+			"ocean",
+			"river",
+			"warm ocean",
+			"lush cave",
+			"pond",
+			"beach"
+		]
+	},
+	"cardboardBox": {
+		"formattedNames": [
+			"cardboard box",
+			"cardboard boxes"
+		],
+		"minPrice": 0,
+		"maxPrice": 0,
+		"defaultChance": 0.1,
+		"maxAmount": 1,
+		"rarity": 1,
+		"biomes": [
+			"ocean",
+			"river",
+			"warm ocean",
+			"pond",
+			"beach"
+		]
+	},
+	"tire": {
+		"formattedNames": [
+			"tire",
+			"tires"
+		],
+		"minPrice": 0,
+		"maxPrice": 0,
+		"defaultChance": 0.1,
+		"maxAmount": 1,
+		"rarity": 1,
+		"biomes": [
+			"ocean",
+			"river",
+			"warm ocean",
+			"pond",
+			"beach"
+		]
+	}
+}
