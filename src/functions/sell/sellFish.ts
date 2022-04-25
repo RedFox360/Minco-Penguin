@@ -27,6 +27,16 @@ export default async function run(
 		});
 		return;
 	}
+	if (
+		!fish.fishInventory.has(fishName) ||
+		fish.fishInventory.get(fishName) < 1
+	) {
+		await interaction.reply({
+			content: "You don't have any of that fish!",
+			ephemeral: true
+		});
+		return;
+	}
 	const originalAmount = fish.fishInventory.get(fishName);
 	const amount =
 		interaction.options.getInteger('amount') ?? originalAmount;
