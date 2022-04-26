@@ -1,7 +1,8 @@
 import {
 	CommandInteraction,
 	GuildMember,
-	MessageEmbed
+	MessageEmbed,
+	Permissions
 } from 'discord.js';
 import prettyMs from 'pretty-ms';
 import {
@@ -44,6 +45,7 @@ const warn = new SlashCommand()
 					.setRequired(false)
 			)
 	)
+	.setPermissions(Permissions.FLAGS.MODERATE_MEMBERS)
 	.setRun(async interaction => {
 		const member = interaction.options.getMember('user');
 		if (member.user.bot) {
