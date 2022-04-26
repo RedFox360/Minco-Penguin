@@ -16,13 +16,21 @@ const gift = new SlashCommand()
 				option
 					.setName('md_amount')
 					.setDescription('The amount of money to gift')
-					.setMinValue(3)
+					.setMinValue(1)
 					.setRequired(true)
 			)
 	)
 	.setRun(async interaction => {
 		const user = interaction.options.getUser('user');
 		const amount = interaction.options.getInteger('md_amount');
+		if (amount < 1) {
+			await interaction.reply({
+				content:
+					'Please enter a positive amount of Minco Dollars',
+				ephemeral: true
+			});
+			return;
+		}
 		const profile = await getProfile(interaction.user.id);
 		if (user.id === interaction.user.id) {
 			await interaction.reply({

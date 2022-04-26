@@ -45,6 +45,13 @@ export const subcommand = new SlashCommandSubcommandBuilder()
 
 export async function run(interaction: CommandInteraction<'cached'>) {
 	const amount = interaction.options.getInteger('amount');
+	if (amount < 1 || amount > 500) {
+		await interaction.reply({
+			content: 'Please enter an amount between 1 and 500',
+			ephemeral: true
+		});
+		return;
+	}
 	const [punishmentType, verb] = interaction.options
 		.getString('punishment_type')
 		.split(':');

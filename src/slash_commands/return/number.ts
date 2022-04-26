@@ -147,6 +147,13 @@ const number = new SlashCommand()
 		} else if (subcommand === 'gcf') {
 			const num1 = interaction.options.getInteger('number_1');
 			const num2 = interaction.options.getInteger('number_2');
+			if (num1 < 1 || num2 < 1) {
+				await interaction.reply({
+					content: 'Please enter positive integers',
+					ephemeral: true
+				});
+				return;
+			}
 			const gcfResult = gcd(num1, num2);
 			await interaction.reply(
 				`The GCF of ${num1.toLocaleString(

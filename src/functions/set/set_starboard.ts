@@ -54,7 +54,8 @@ export async function run(interaction: CommandInteraction<'cached'>) {
 		return;
 	}
 	const { id } = channel;
-	const starAmount = interaction.options.getInteger('amount');
+	let starAmount = interaction.options.getInteger('amount');
+	if (starAmount < 1 || starAmount > 20) starAmount = 1;
 	await updateServer(
 		{ starboard: { channelID: id, starAmount } },
 		interaction.guildId

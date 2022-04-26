@@ -40,6 +40,13 @@ export default async function run(
 	const originalAmount = fish.fishInventory.get(fishName);
 	const amount =
 		interaction.options.getInteger('amount') ?? originalAmount;
+	if (amount < 1) {
+		await interaction.reply({
+			content: 'Please enter a positive amount of fish',
+			ephemeral: true
+		});
+		return;
+	}
 	if (fish.fishInventory.get(fishName) < amount) {
 		await interaction.reply({
 			content: "You don't have that many fish",

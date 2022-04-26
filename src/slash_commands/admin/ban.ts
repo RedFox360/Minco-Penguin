@@ -95,15 +95,17 @@ const ban = new SlashCommand()
 					const reason =
 						interaction.options.getString('reason') ??
 						undefined;
+					let days =
+						interaction.options.getString('days') ?? 0;
+					if (days < 0 || days > 7) {
+						days = 0;
+					}
 					const formattedReason = reason
 						? `*${reason}*`
 						: 'No reason provided';
 					const banned =
 						(await interaction.guild.bans.create(uid, {
-							days:
-								interaction.options.getInteger(
-									'days'
-								) ?? 0,
+							days,
 							reason
 						})) as any;
 					const { currentCaseNo } = await logBan(
@@ -199,8 +201,12 @@ async function banMember(
 	const formattedReason = reason
 		? `*${reason}*`
 		: 'No reason provided';
+	let days = interaction.options.getString('days') ?? 0;
+	if (days < 0 || days > 7) {
+		days = 0;
+	}
 	await member.ban({
-		days: interaction.options.getInteger('days') ?? 0,
+		days,
 		reason
 	});
 	const { currentCaseNo } = await logBan(

@@ -20,6 +20,14 @@ const clear = new SlashCommand()
 	.setPermissions(Permissions.FLAGS.MANAGE_MESSAGES)
 	.setRun(async interaction => {
 		const amount = interaction.options.getInteger('amount');
+		if (amount < 1 || amount > 100) {
+			await interaction.reply({
+				content:
+					'Please enter an amount of messages between 1 and 100',
+				ephemeral: true
+			});
+			return;
+		}
 		if (!interaction.channel.isText()) {
 			await interaction.reply({
 				content:

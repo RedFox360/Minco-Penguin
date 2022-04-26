@@ -27,6 +27,13 @@ const blackjackCommand = new SlashCommand()
 	.setRun(async interaction => {
 		const deck = blackjack.createDeck();
 		const originalBet = interaction.options.getInteger('bet');
+		if (originalBet < 25 || originalBet > 250) {
+			await interaction.reply({
+				content: 'Please enter a bet between 25 and 250',
+				ephemeral: true
+			});
+			return;
+		}
 		const bets = [originalBet];
 		const profile = await getProfile(interaction.user.id);
 		if (originalBet > profile.mincoDollars) {

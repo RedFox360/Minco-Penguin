@@ -8,6 +8,13 @@ export default async function run(
 		interaction.guildId
 	);
 	const price = interaction.options.getInteger('price');
+	if (price < 1) {
+		await interaction.reply({
+			content: 'Please enter a positive price',
+			ephemeral: true
+		});
+		return;
+	}
 	const itemName = interaction.options.getString('item_name');
 	const desc = interaction.options.getString('description');
 

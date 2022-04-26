@@ -17,6 +17,14 @@ export const subcommand = new SlashCommandSubcommandBuilder()
 
 export async function run(interaction: CommandInteraction<'cached'>) {
 	const uindex = interaction.options.getInteger('index');
+	if (uindex < 0 || uindex > maxAutoWarns) {
+		await interaction.reply({
+			content:
+				'Please enter an index greater than or equal to 0',
+			ephemeral: true
+		});
+		return;
+	}
 	const index = uindex - 1;
 	const { autowarns } = await getServer(interaction.guildId);
 	if (autowarns.length - 1 < index) {
