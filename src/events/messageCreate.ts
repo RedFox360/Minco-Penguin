@@ -14,7 +14,7 @@ import {
 import { autowarn } from '../slash_commands/admin/warn';
 export default async (message: Message) => {
 	if (
-		message.inGuild() &&
+		message.guild &&
 		checkProfanity(message.content) &&
 		message.guild.me.permissions.has(
 			Permissions.FLAGS.MANAGE_MESSAGES
