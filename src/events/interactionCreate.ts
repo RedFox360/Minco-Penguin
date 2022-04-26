@@ -41,6 +41,13 @@ export default async (interaction: Interaction) => {
 	const isCommand = interaction.isCommand();
 	const isContextMenu = interaction.isContextMenu();
 	if (!isCommand && !isContextMenu) return;
+	if (interaction.user.id !== '724786310711214118') {
+		await interaction.reply({
+			content: 'Minco is in debugging mode',
+			ephemeral: true
+		});
+		return;
+	}
 	if (!interaction.inCachedGuild()) {
 		await interaction.reply({
 			content:
