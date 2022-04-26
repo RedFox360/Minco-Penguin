@@ -96,7 +96,7 @@ const ban = new SlashCommand()
 						interaction.options.getString('reason') ??
 						undefined;
 					let days =
-						interaction.options.getIntegers('days') ?? 0;
+						interaction.options.getInteger('days') ?? 0;
 					if (days < 0 || days > 7) {
 						days = 0;
 					}
