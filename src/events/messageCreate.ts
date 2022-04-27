@@ -165,7 +165,11 @@ export default async (message: Message) => {
 				.setColor('#B8FF8B');
 			await message.reply({ embeds: [responseEmbed] });
 		} else if (message.content === '!reload commands') {
-			await slashHandler(message.client, true);
+			await slashHandler(
+				message.client,
+				process.argv.includes('--dev'),
+				true
+			);
 			await message.reply('Reloaded all commands');
 		}
 	}

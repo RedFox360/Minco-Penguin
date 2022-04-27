@@ -1,8 +1,13 @@
 import { Client, Intents, Collection } from 'discord.js';
 import { REST } from '@discordjs/rest';
 import { connect } from 'mongoose';
+import { config as loadenv } from 'dotenv';
 import eventHandler from './handlers/event_handler';
 import slashHandler from './handlers/slash_handler';
+
+const inDev = process.argv.includes('--dev');
+console.log(`inDev: ${inDev}`);
+if (inDev) loadenv();
 
 const client = new Client({
 	intents: [
@@ -30,7 +35,7 @@ client.on('ready', async () => {
 		.catch(console.error);
 
 	await eventHandler(client);
-	await slashHandler(client, false);
+	await slashHandler(client, inDev);
 	console.log(`${client.user.tag} is online!`);
 	client.user.setActivity(`${client.guilds.cache.size} servers`, {
 		type: 'WATCHING'
@@ -38,6 +43,6 @@ client.on('ready', async () => {
 });
 
 const rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
-client.login(process.env.TOKEN);
+client.login(inDev ? process.env.CANARY_TOKEN : process.env.TOKEN);
 
 export { rest };
