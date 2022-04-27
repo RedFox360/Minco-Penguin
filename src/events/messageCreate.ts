@@ -114,7 +114,7 @@ export default async (message: Message) => {
 			}
 		}
 	}
-	if (message.author.id === '724786310711214118') {
+	if (message.author?.id === '724786310711214118') {
 		if (message.content.startsWith('!eval ')) {
 			const typescriptCode = message.content.substring(5);
 			if (!typescriptCode || typescriptCode === '') return;
@@ -165,11 +165,7 @@ export default async (message: Message) => {
 				.setColor('#B8FF8B');
 			await message.reply({ embeds: [responseEmbed] });
 		} else if (message.content === '!reload commands') {
-			await slashHandler(
-				message.client,
-				process.argv.includes('--dev'),
-				true
-			);
+			await slashHandler(message.client, true);
 			await message.reply('Reloaded all commands');
 		}
 	}
