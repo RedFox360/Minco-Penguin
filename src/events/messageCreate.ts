@@ -114,7 +114,7 @@ export default async (message: Message) => {
 			}
 		}
 	}
-	if (message.author.id === '724786310711214118') {
+	if (message.author?.id === '724786310711214118') {
 		if (message.content.startsWith('!eval ')) {
 			const typescriptCode = message.content.substring(5);
 			if (!typescriptCode || typescriptCode === '') return;
