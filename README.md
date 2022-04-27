@@ -1,32 +1,31 @@
+# Minco Penguin Readme
+
 **Sameer's bot...**
 
-# Minco Penguin v0.1.0
+# Minco Penguin v0.3.1
 
-Minco Penguin is a multi-purpose Discord slash command bot. It is currently in the _Alpha_ stages, with new features being added frequently.
+Minco Penguin is a multi-purpose Discord slash command bot. It is currently in the beta stages with major updates being added every few months.
 
-It is coded in _Typescript_ and is currently using **Discord.js v13.3.1**.
+Minco Penguin is coded in _Typescript_ using **Discord.js v13.6.0**.
 
-## Current features
+## Current Features
 
-- Economy commands (`beg`, `balance`, `gift`, `buy`, `inventory`, `shop`, etc.)
-- "Returning" commands (`confess`, `combine`, `magic8ball`, `lie_detector`, `weather`, `poll`, `prime`, etc.)
-- Admin/mod commands (`clear`, `eval`, `set`, `shadowban`, `slowmode`, `toggle_ban`)
-- Info commands (`info member`, `info server` )
+-   Economy commands `balance`, `beg`, `blackjack`, `buy`, `daily`, `weekly`, etc.
+-   Fun/miscellaneous commands (`confess`, `magic8ball`, `nasa_image`, `poll`, `weather`, etc.)
+-   Admin/mod commands (`warn`, `mute`, `ban`, `kick`, `clear`, `slowmode`, etc.)
+-   Info commands (`info member`, `info server`, `info channel`)
+-   Fishing commands (`fish`, `sell fish`, `upgrade` (rod))
 
-and a few more!
+## Version Map
 
-## Future plans
-
-these plans might change
-
-| version | Additions              |
-| ------- | ---------------------- |
-| v0.1.1  | Profile commands       |
-| v0.2    | Fishing update         |
-| v0.2.1  | Fishing update + baits |
+| **version** | **additions**                                         |
+| ----------- | ----------------------------------------------------- |
+| v0.1.1      | Profile commands and context menus                    |
+| v0.2        | Fishing update                                        |
+| v0.3        | Fishing update improved, blackjack, moderation system |
+| v0.3.1      | Bug fixes for the normal bot                          |
 
 ## Credits
 
-- [CodeLyon](https://www.youtube.com/CodeLyon) for making tutorials helping me start this bot in Discord.js v12
-- the [Discord.js server](https://discord.gg/djs) for helping with code problems
-- members of a private server (unnamed for privacy) who gave ideas for commands
+-   [CodeLyon](https://www.youtube.com/CodeLyon) for making tutorials helping me start this bot with basic message commands in Discord.js v12
+-   the [Discord.js server](https://discord.gg/djs) for helping with code problems
