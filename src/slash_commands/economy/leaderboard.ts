@@ -51,9 +51,8 @@ async function run(
 		const profilePromises = nonBots.map(member =>
 			getProfile(member.id)
 		);
-		profiles = (await Promise.all(profilePromises))
-			.filter(a => a != null)
-			.map((profile, index) => {
+		profiles = (await Promise.all(profilePromises)).map(
+			(profile, index) => {
 				const total = profile.mincoDollars + profile.bank;
 				return [
 					`${
@@ -64,7 +63,8 @@ async function run(
 					total,
 					nonBots.at(index).id
 				];
-			});
+			}
+		);
 	}
 	const formatted = profiles
 		.sort((a, b) => b[1] - a[1])

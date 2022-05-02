@@ -3,16 +3,17 @@ import profileInServerModel from '../models/profileInServerSchema';
 import serverModel from '../models/serverSchema';
 import { Profile, ProfileInServer, ServerData } from '../types';
 
-export function updateProfile(
+export async function updateProfile(
 	data: any,
 	userID: string
 ): Promise<Profile> {
 	const filter = { userID };
-	return (
-		profileModel.findOneAndUpdate(filter, data, {
-			new: true
-		}) ?? profileModel.create(userID)
-	);
+	const exists = await profileModel.exists(filter);
+	return exists
+		? profileModel.findOneAndUpdate(filter, data, {
+				new: true
+		  })
+		: profileModel.create(userID);
 }
 export function updateServer(
 	data: any,
@@ -23,7 +24,7 @@ export function updateServer(
 	});
 }
 
-export function updateProfileInServer(
+export async function updateProfileInServer(
 	data: any,
 	userID: string,
 	serverID: string
@@ -32,41 +33,39 @@ export function updateProfileInServer(
 		userID,
 		serverID
 	};
-	return (
-		profileInServerModel.findOneAndUpdate(filter, data, {
-			new: true
-		}) ??
-		profileModel.create({
-			...filter,
-			mincoDollars: 100,
-			bank: 0
-		})
-	);
+	const exists = await profileInServerModel.exists(filter);
+	return exists
+		? profileInServerModel.findOneAndUpdate(filter, data, {
+				new: true
+		  })
+		: profileModel.create({
+				...filter,
+				mincoDollars: 100,
+				bank: 0
+		  });
 }
 
-export function getProfile(userID: string): Promise<Profile> {
-	return (
-		profileModel.findOne({ userID }) ??
-		profileModel.create({
-			userID
-		})
-	);
+export async function getProfile(userID: string): Promise<Profile> {
+	const exists = await profileModel.exists({ userID });
+	return exists
+		? profileModel.findOne({ userID })
+		: profileModel.create({
+				userID
+		  });
 }
 
-export function getProfileInServer(
+export async function getProfileInServer(
 	userID: string,
 	serverID: string
 ): Promise<ProfileInServer> {
-	return (
-		profileInServerModel.findOne({
-			userID,
-			serverID
-		}) ??
-		profileInServerModel.create({
-			userID,
-			serverID
-		})
-	);
+	const filter = {
+		userID,
+		serverID
+	};
+	const exists = await profileInServerModel.exists(filter);
+	return exists
+		? profileInServerModel.findOne(filter)
+		: profileInServerModel.create(filter);
 }
 
 export function getServer(serverID: string): Promise<ServerData> {
