@@ -7,6 +7,7 @@ import {
 import emojis from './fish_emojis';
 import fishJSON from '../json/fish.json';
 import { getProfile } from './models';
+import chunkArray from './chunkArray';
 
 export default async function run(
 	interaction:
@@ -17,16 +18,18 @@ export default async function run(
 	const { user } = member;
 	const { fish } = await getProfile(user.id);
 	const avatar = member.displayAvatarURL({ dynamic: true });
-	const embed = new MessageEmbed()
-		.setColor('#D5f5E3')
-		.setAuthor({ name: 'Fishing Profile', iconURL: avatar })
-		.addField(
-			`${emojis.sparkle} EXP`,
-			fish.xp.toLocaleString(interaction.locale),
-			true
-		);
+	const embeds = [
+		new MessageEmbed()
+			.setColor('#D5f5E3')
+			.setAuthor({ name: 'Fishing Profile', iconURL: avatar })
+			.addField(
+				`${emojis.sparkle} EXP`,
+				fish.xp.toLocaleString(interaction.locale),
+				true
+			)
+	];
 	if (fish.rod)
-		embed.addField(
+		embeds[0].addField(
 			`${emojis.rod} Rod`,
 			`${
 				fish.rod.charAt(0).toUpperCase() + fish.rod.slice(1)
@@ -39,17 +42,32 @@ export default async function run(
 	// 		`Bait Type: ${fish.baitType} | Amount: ${fish.baits}`
 	// 	);
 	// }
+	const fishFields: {
+		name: string;
+		value: string;
+		inline: boolean;
+	}[] = [];
 	fish.fishInventory.forEach((amount, fishName) => {
 		if (amount > 0)
-			embed.addField(
-				`${emojis[fishName]} ${capitalizeFirstLetter(
+			fishFields.push({
+				name: `${emojis[fishName]} ${capitalizeFirstLetter(
 					fishJSON[fishName].formattedNames[1]
 				)}`,
-				amount.toLocaleString(interaction.locale),
-				true
-			);
+				value: amount.toLocaleString(interaction.locale),
+				inline: true
+			});
 	});
-	await interaction.reply({ embeds: [embed] });
+	const chunkedFish = chunkArray(fishFields, 20);
+	embeds[0].addFields(chunkedFish[0]);
+	if (chunkedFish.length > 1) {
+		chunkedFish.shift();
+		chunkedFish.forEach((fields, index) => {
+			embeds[index + 1] = new MessageEmbed()
+				.setColor('#D5f5E3')
+				.setFields(fields);
+		});
+	}
+	await interaction.reply({ embeds });
 }
 
 function capitalizeFirstLetter(str: string) {

@@ -3,7 +3,11 @@ import { Routes } from 'discord-api-types/v9';
 import { Client } from 'discord.js';
 import { readdirSync } from 'fs';
 
-export default async (client: Client, updateCommands: boolean) => {
+export default async (
+	client: Client,
+	inDev = false,
+	updateCommands = false
+) => {
 	const categories = readdirSync('./src/slash_commands/').filter(
 		file => !file.includes('.') // folders only
 	);
@@ -28,7 +32,18 @@ export default async (client: Client, updateCommands: boolean) => {
 		}
 	);
 	console.log(`commands set || command count: ${data.length}`);
-	if (updateCommands) {
+
+	if (inDev) {
+		const mincoPenguinServer = client.guilds.cache.get(
+			'848987165601693737'
+		);
+		const commands = await (updateCommands
+			? mincoPenguinServer?.commands.set(data)
+			: mincoPenguinServer.commands.fetch());
+		commands.forEach(command =>
+			console.log(`${command.name} | ${command.id}`)
+		);
+	} else if (updateCommands) {
 		await rest.put(Routes.applicationCommands(client.user.id), {
 			body: data
 		});
