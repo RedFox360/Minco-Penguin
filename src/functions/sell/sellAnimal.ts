@@ -6,7 +6,7 @@ export default async function sellAnimal(
 	interaction: CommandInteraction<'cached'>
 ) {
 	const profile = await getProfile(interaction.user.id);
-	const animalName = interaction.options.getString('item_name');
+	const animalName = interaction.options.getString('animal_name');
 	const animal = animals.find(
 		a => a.name.toLowerCase() === animalName.toLowerCase()
 	);

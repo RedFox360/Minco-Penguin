@@ -13,7 +13,7 @@ export async function updateProfile(
 		? profileModel.findOneAndUpdate(filter, data, {
 				new: true
 		  })
-		: profileModel.create(userID);
+		: profileModel.create(filter);
 }
 export function updateServer(
 	data: any,

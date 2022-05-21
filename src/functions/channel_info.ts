@@ -4,7 +4,6 @@ import { time } from '@discordjs/builders';
 export default async function run(
 	interaction: CommandInteraction<'cached'>
 ) {
-	await interaction.deferReply();
 	const channel = interaction.options.getChannel('channel');
 	if (
 		channel.type === 'GUILD_CATEGORY' ||
@@ -17,6 +16,7 @@ export default async function run(
 		});
 		return;
 	}
+	await interaction.deferReply();
 	const type = (() => {
 		switch (channel.type) {
 			case 'GUILD_NEWS':
