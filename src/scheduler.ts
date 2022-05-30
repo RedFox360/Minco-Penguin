@@ -1,7 +1,7 @@
 import cron from 'node-cron';
 import serverModel from './models/serverSchema';
 import { Client, MessageEmbed, TextChannel } from 'discord.js';
-import { ServerData } from './types';
+import type { ServerData } from './types';
 import dayjs from 'dayjs';
 import profileModel from './models/profileSchema';
 

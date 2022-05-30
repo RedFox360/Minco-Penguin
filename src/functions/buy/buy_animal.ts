@@ -1,45 +1,30 @@
-import { Profile, SlashCommand } from '../../types';
-import animals from '../../json/animals.json';
 import { CommandInteraction } from 'discord.js';
-import { getProfile, updateProfile } from '../../functions/models';
-import { minutesToSeconds } from 'date-fns';
+import type { Profile } from '../../types';
+import { getProfile, updateProfile } from '../models';
+import animals from '../../json/animals.json';
 
-const animal = new SlashCommand()
-	.setCommandData(builder =>
-		builder
-			.setName('animal')
-			.setDescription('Buy an animal')
-			.addStringOption(option =>
-				option
-					.setName('name')
-					.setDescription(
-						'Type random for a random animal (20 MD) or choose a specific animal (50 MD)'
-					)
-					.setRequired(true)
-			)
-	)
-	.setCooldown(minutesToSeconds(3))
-	.setRun(async interaction => {
-		const profile = await getProfile(interaction.user.id);
-		if (profile.zoo.length >= 20) {
-			await interaction.reply({
-				content:
-					'You have reached the maximum amount of animals (20)',
-				ephemeral: true
-			});
-			return;
-		}
-		if (
-			interaction.options.getString('name').toLowerCase() ===
-			'random'
-		) {
-			buyRandomAnimal(interaction, profile);
-		} else {
-			buySpecificAnimal(interaction, profile);
-		}
-	});
+export default async function run(
+	interaction: CommandInteraction<'cached'>
+) {
+	const profile = await getProfile(interaction.user.id);
+	if (profile.zoo.length >= 20) {
+		await interaction.reply({
+			content:
+				'You have reached the maximum amount of animals (20)',
+			ephemeral: true
+		});
+		return;
+	}
+	const animalName = interaction.options.getString('name');
+	if (animalName) {
+		buySpecificAnimal(interaction, animalName, profile);
+	} else {
+		buyRandomAnimal(interaction, profile);
+	}
+}
 async function buySpecificAnimal(
 	interaction: CommandInteraction<'cached'>,
+	animalName: string,
 	profile: Profile
 ) {
 	if (profile.mincoDollars < 50) {
@@ -49,7 +34,6 @@ async function buySpecificAnimal(
 		});
 		return;
 	}
-	const animalName = interaction.options.getString('name');
 	const animalData = animals.find(
 		animal =>
 			animal.name.toLowerCase() === animalName.toLowerCase()
@@ -115,5 +99,3 @@ async function buyRandomAnimal(
 function hasAnimal(animal: string, profile: Profile) {
 	return profile.zoo.find(e => e.name === animal);
 }
-
-export default animal;

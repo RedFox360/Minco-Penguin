@@ -4,7 +4,8 @@ import {
 	MessageButton,
 	CommandInteraction
 } from 'discord.js';
-import { Profile, SlashCommand } from '../../types';
+import type { Profile } from '../../types';
+import { SlashCommand } from '../../types';
 import emojis from '../../functions/fish_emojis';
 import { getProfile, updateProfile } from '../../functions/models';
 import { minutesToSeconds } from 'date-fns';

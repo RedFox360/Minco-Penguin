@@ -25,19 +25,7 @@ export default async function sellItem(
 	interaction: CommandInteraction<'cached'>
 ) {
 	const itemName = interaction.options.getString('item_name');
-
 	const index = sellableItems.indexOf(itemName);
-	if (index === -1) {
-		await interaction.reply({
-			content: `You can't sell that item!
-Sellable items are:
-\`\`\`
-${sellableItems.join(', ')}
-\`\`\``,
-			ephemeral: true
-		});
-		return;
-	}
 	const itemNumber = sellableItemNumbers[index];
 	const profile = await getProfile(interaction.user.id);
 	if (!profile.inventory.includes(itemNumber)) {
@@ -57,5 +45,7 @@ ${sellableItems.join(', ')}
 		interaction.user.id
 	);
 
-	await interaction.reply('You succesfully sold your item');
+	await interaction.reply(
+		`You succesfully sold your ${itemName} for ${returnAmount} MD`
+	);
 }

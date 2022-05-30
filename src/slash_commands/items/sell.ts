@@ -1,6 +1,6 @@
-import sellAnimal from '../../functions/sell/sellAnimal';
-import sellItem from '../../functions/sell/sellItem';
-import sellFish from '../../functions/sell/sellFish';
+import sellAnimal from '../../functions/sell/sell_animal';
+import sellItem from '../../functions/sell/sell_item';
+import sellFish from '../../functions/sell/sell_fish';
 import { SlashCommand } from '../../types';
 
 const sell = new SlashCommand()
@@ -18,6 +18,13 @@ const sell = new SlashCommand()
 							.setDescription(
 								'The name or number of the item'
 							)
+							.addChoice('Ring', 'Ring')
+							.addChoice('Crown', 'Crown')
+							.addChoice('Cowboy Hat', 'Cowboy Hat')
+							.addChoice('Jellyfish', 'Jellyfish')
+							.addChoice('Bear', 'Bear')
+							.addChoice('Cactus', 'Cactus')
+							.addChoice('Fire', 'Fire')
 							.setRequired(true)
 					)
 			)
@@ -31,6 +38,7 @@ const sell = new SlashCommand()
 							.setDescription(
 								'The name or number of the item'
 							)
+							.setAutocomplete(true)
 							.setRequired(true)
 					)
 			)

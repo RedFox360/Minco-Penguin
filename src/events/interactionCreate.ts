@@ -10,33 +10,58 @@ import prettyMs from 'pretty-ms';
 import { getProfileInServer } from '../functions/models';
 import { SlashCommand, UserContextMenu } from '../types';
 import fishJSON from '../json/fish.json';
-const autocompleteData = new Array<ApplicationCommandOptionChoice>();
+import animals from '../json/animals.json';
+const fishAutocompleteData =
+	new Array<ApplicationCommandOptionChoice>();
+const animalAutocompleteData =
+	new Array<ApplicationCommandOptionChoice>();
 for (const [fishName, fishData] of Object.entries(fishJSON)) {
-	autocompleteData.push({
+	fishAutocompleteData.push({
 		name:
 			fishData.formattedNames[0].charAt(0).toUpperCase() +
 			fishData.formattedNames[0].slice(1),
 		value: fishName
 	});
 }
+for (const animal of animals) {
+	animalAutocompleteData.push({
+		name: animal.name,
+		value: animal.name
+	});
+}
+
+const autocompleteFilter = (
+	givenAName: string,
+	givenValue: string
+) => {
+	const aName = givenAName.toLowerCase();
+	const value = givenValue.trim().toLowerCase();
+	return (
+		aName.startsWith(value) ||
+		aName.includes(value) ||
+		value.includes(aName)
+	);
+};
 
 const cooldowns = new Map();
 export default async (interaction: Interaction) => {
 	if (interaction.isAutocomplete()) {
 		// SELL FISH
-		const value = interaction.options.getFocused().toString();
-		const matchingFishes = autocompleteData.filter(
-			a =>
-				a.name
-					.toLowerCase()
-					.includes(value.trim().toLowerCase()) ||
-				value
-					.trim()
-					.toLowerCase()
-					.includes(a.name.toLowerCase())
-		);
-		await interaction.respond(matchingFishes.slice(0, 25));
-		return;
+		if (interaction.options.getSubcommand() === 'fish') {
+			const value = interaction.options.getFocused().toString();
+			const matchingFishes = fishAutocompleteData.filter(a =>
+				autocompleteFilter(a.name, value)
+			);
+			await interaction.respond(matchingFishes.slice(0, 25));
+			return;
+		} else if (interaction.options.getSubcommand() === 'animal') {
+			const value = interaction.options.getFocused().toString();
+			const matchingAnimals = animalAutocompleteData.filter(a =>
+				autocompleteFilter(a.name, value)
+			);
+			await interaction.respond(matchingAnimals.slice(0, 25));
+			return;
+		}
 	}
 	const isCommand = interaction.isCommand();
 	const isContextMenu = interaction.isContextMenu();

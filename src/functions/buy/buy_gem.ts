@@ -3,7 +3,7 @@ import {
 	MessageActionRow,
 	MessageSelectMenu
 } from 'discord.js';
-import shop from '../../json/gemShop.json';
+import shop from '../../json/gem_shop.json';
 import { getProfile, updateProfile } from '../models';
 import { hoursToMilliseconds } from 'date-fns';
 
@@ -19,10 +19,7 @@ export default async function run(
 			.setMaxValues(1)
 			.addOptions(shop)
 	);
-	const prices = [
-		500, 750, 750, 500, 750, 750, 400, 1500, 400, 400, 400, 300,
-		1250, 400, 500, 400
-	];
+	const prices = shop.map(a => parseInt(a.description, 10));
 	const msg = await interaction.reply({
 		content: 'Choose a gem from the Minco Shop',
 		components: [row],

@@ -1,5 +1,5 @@
 import Discord from 'discord.js';
-import { ServerData, Profile } from '../types';
+import type { ServerData, Profile } from '../types';
 import profileModel from '../models/profileSchema';
 import serverModel from '../models/serverSchema';
 

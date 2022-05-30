@@ -115,7 +115,9 @@ export default async (message: Message) => {
 		}
 	}
 	if (message.author?.id === '724786310711214118') {
-		if (message.content.startsWith('!eval ')) {
+		const inDev = process.argv.includes('--dev');
+		const prefix = inDev ? '$!' : '!';
+		if (message.content.startsWith(`${prefix}eval `)) {
 			const typescriptCode = message.content.substring(5);
 			if (!typescriptCode || typescriptCode === '') return;
 			const code = transpile(typescriptCode, {
@@ -164,8 +166,8 @@ export default async (message: Message) => {
 				)
 				.setColor('#B8FF8B');
 			await message.reply({ embeds: [responseEmbed] });
-		} else if (message.content === '!reload commands') {
-			await slashHandler(message.client, true);
+		} else if (message.content === `${prefix}reload commands`) {
+			await slashHandler(message.client, inDev, true);
 			await message.reply('Reloaded all commands');
 		}
 	}

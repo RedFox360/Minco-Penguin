@@ -1,7 +1,7 @@
 import profileModel from '../models/profileSchema';
 import profileInServerModel from '../models/profileInServerSchema';
 import serverModel from '../models/serverSchema';
-import { Profile, ProfileInServer, ServerData } from '../types';
+import type { Profile, ProfileInServer, ServerData } from '../types';
 
 export async function updateProfile(
 	data: any,

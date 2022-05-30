@@ -11,10 +11,10 @@ import {
 const cooldownMax = 24 * 60 * 60;
 const cooldownMin = 3;
 export class SlashCommand {
-	builder: SlashCommandBuilder;
-	permissions: PermissionResolvable[];
-	permissionsRequiredForBot: boolean;
-	cooldown: number;
+	public builder: SlashCommandBuilder;
+	public permissions: PermissionResolvable[];
+	public permissionsRequiredForBot: boolean;
+	public cooldown: number;
 	run: (interaction: CommandInteraction<'cached'>) => Promise<any>;
 	constructor() {
 		this.permissions = [];
@@ -58,7 +58,7 @@ export class SlashCommand {
 	}
 }
 export class UserContextMenu {
-	builder: ContextMenuCommandBuilder;
+	public builder: ContextMenuCommandBuilder;
 	run: (
 		interaction: UserContextMenuInteraction<'cached'>
 	) => Promise<any>;
@@ -85,8 +85,10 @@ export class UserContextMenu {
 		return this;
 	}
 }
-
-export interface ProfileInServer {
+type AllReadOnly<T> = {
+	readonly [key in keyof T]: T[key];
+};
+export type ProfileInServer = AllReadOnly<{
 	userID: string;
 	serverID: string;
 	market?: MarketItem[];
@@ -94,8 +96,8 @@ export interface ProfileInServer {
 	bannedFromCommands: boolean;
 	bannedFromConfessions: boolean;
 	logs?: Log[];
-}
-export interface ServerData {
+}>;
+export type ServerData = AllReadOnly<{
 	serverID: string;
 	prefixes?: string[];
 	bannedPeople?: string[];
@@ -127,27 +129,31 @@ export interface ServerData {
 		starAmount: number;
 		messages?: Map<string, string>;
 	};
-}
+}>;
 
 export const ApplicationCommandPermissionTypes = <const>{
 	ROLE: 1,
 	USER: 2
 };
 
-export interface Profile {
+export type Profile = AllReadOnly<{
 	userID: string;
 	mincoDollars: number;
 	bank: number;
 	birthday?: string;
+	spouse?: string;
+	inventory?: string[];
+	gems?: string[];
+	candyAmount?: number;
+	zoo?: zooSchema[];
+	lastUsedDaily?: number;
+	lastUsedWeekly?: number;
+	timezone: string;
 	favs?: {
 		food?: string;
 		color?: string;
 		animal?: string;
 	};
-	spouse?: string;
-	inventory?: string[];
-	gems?: string[];
-	candyAmount?: number;
 	fish?: {
 		// --- NEW VERSION ---
 		rod?: RodType;
@@ -155,11 +161,7 @@ export interface Profile {
 		biome: Biome;
 		xp: number;
 	};
-	zoo?: zooSchema[];
-	lastUsedDaily?: number;
-	lastUsedWeekly?: number;
-	timezone: string;
-}
+}>;
 
 interface zooSchema {
 	name: string;

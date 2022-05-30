@@ -13,7 +13,7 @@ import {
 	tau,
 	phi,
 	root2
-} from '../../functions/numberFunctions';
+} from '../../functions/number_functions';
 
 // perfect nums below 2^53
 

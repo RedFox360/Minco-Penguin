@@ -1,5 +1,6 @@
 import buyItem from '../../functions/buy/buy_item';
 import buyGem from '../../functions/buy/buy_gem';
+import buyAnimal from '../../functions/buy/buy_animal';
 import { SlashCommand } from '../../types';
 
 const buy = new SlashCommand()
@@ -19,12 +20,37 @@ const buy = new SlashCommand()
 					.setName('gem')
 					.setDescription('Buy gems from the shop!')
 			)
+			.addSubcommand(subcommand =>
+				subcommand
+					.setName('animal')
+					.setDescription(
+						'Buy an animal to add to your zoo!'
+					)
+					.addStringOption(option =>
+						option
+							.setName('animal_name')
+							.setDescription(
+								'If you do not type here you will get a random animal'
+							)
+							.setAutocomplete(true)
+							.setRequired(false)
+					)
+			)
 	)
 	.setRun(async interaction => {
-		if (interaction.options.getSubcommand() === 'item') {
-			await buyItem(interaction);
-		} else {
-			await buyGem(interaction);
+		switch (interaction.options.getSubcommand()) {
+			case 'item': {
+				await buyItem(interaction);
+				return;
+			}
+			case 'gem': {
+				await buyGem(interaction);
+				return;
+			}
+			case 'animal': {
+				await buyAnimal(interaction);
+				return;
+			}
 		}
 	});
 

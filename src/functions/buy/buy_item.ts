@@ -3,7 +3,7 @@ import {
 	MessageActionRow,
 	MessageSelectMenu
 } from 'discord.js';
-import shop from '../../json/itemShop.json';
+import shop from '../../json/item_shop.json';
 import { getProfile, updateProfile } from '../models';
 import { hoursToMilliseconds } from 'date-fns';
 

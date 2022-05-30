@@ -1,7 +1,7 @@
 import { MessageEmbed } from 'discord.js';
 import { getProfile } from '../../functions/models';
 import { SlashCommand } from '../../types';
-import gemNumberToName from '../../functions/gemNumberToName';
+import gemNumberToName from '../../functions/gem_number_to_name';
 const gems = new SlashCommand()
 	.setCommandData(builder =>
 		builder

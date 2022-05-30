@@ -4,10 +4,10 @@ import {
 	MessageButton
 } from 'discord.js';
 import { getProfile, updateProfile } from '../../functions/models';
-import _rodInfo from '../../json/rodInfo.json';
+import _rodInfo from '../../json/rod_info.json';
 import { SlashCommand } from '../../types';
 import { RodJSON } from '../../types';
-import gemNumberToName from '../../functions/gemNumberToName';
+import gemNumberToName from '../../functions/gem_number_to_name';
 const rodInfo = _rodInfo as RodJSON;
 const upgrade = new SlashCommand()
 	.setCommandData(builder =>
