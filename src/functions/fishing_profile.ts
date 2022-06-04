@@ -42,30 +42,36 @@ export default async function run(
 	// 		`Bait Type: ${fish.baitType} | Amount: ${fish.baits}`
 	// 	);
 	// }
-	const fishFields: {
-		name: string;
-		value: string;
-		inline: boolean;
-	}[] = [];
-	fish.fishInventory.forEach((amount, fishName) => {
-		if (amount > 0)
-			fishFields.push({
-				name: `${emojis[fishName]} ${capitalizeFirstLetter(
-					fishJSON[fishName].formattedNames[1]
-				)}`,
-				value: amount.toLocaleString(interaction.locale),
-				inline: true
-			});
-	});
-	const chunkedFish = chunkArray(fishFields, 20);
-	embeds[0].addFields(chunkedFish[0]);
-	if (chunkedFish.length > 1) {
-		chunkedFish.shift();
-		chunkedFish.forEach((fields, index) => {
-			embeds[index + 1] = new MessageEmbed()
-				.setColor('#D5f5E3')
-				.setFields(fields);
+	if (fish.fishInventory) {
+		const fishFields: {
+			name: string;
+			value: string;
+			inline: boolean;
+		}[] = [];
+		fish.fishInventory.forEach((amount, fishName) => {
+			if (amount > 0)
+				fishFields.push({
+					name: `${
+						emojis[fishName]
+					} ${capitalizeFirstLetter(
+						fishJSON[fishName].formattedNames[1]
+					)}`,
+					value: amount.toLocaleString(interaction.locale),
+					inline: true
+				});
 		});
+		const chunkedFish = chunkArray(fishFields, 20);
+		embeds[0].addFields(chunkedFish[0]);
+		if (chunkedFish.length > 1) {
+			chunkedFish.shift();
+			chunkedFish.forEach((fields, index) => {
+				embeds[index + 1] = new MessageEmbed()
+					.setColor('#D5f5E3')
+					.setFields(fields);
+			});
+		}
+	} else {
+		embeds[0].setDescription("You don't have any fish");
 	}
 	await interaction.reply({ embeds });
 }
