@@ -8,7 +8,6 @@ export default async (guild: Guild) => {
 	await serverModel.create({
 		serverID: guild.id,
 		bannedPeople: [],
-		prefixes: ['!', '###', 'minco '],
 		memberCount
 	});
 	const fetchedLogs = await guild.fetchAuditLogs({

@@ -1,24 +1,13 @@
 import Discord from 'discord.js';
-import type { ServerData, Profile } from '../types';
 import profileModel from '../models/profileSchema';
-import serverModel from '../models/serverSchema';
-
 import ordinal from 'ordinal';
+import { getProfile, updateServer } from '../functions/models';
 
 export default async (member: Discord.GuildMember) => {
-	const profileData: Profile = await profileModel.findOne({
-		userID: member.id
-	});
-	const serverData: ServerData = await serverModel.findOneAndUpdate(
-		{ serverID: member.guild.id },
-		{
-			$inc: {
-				memberCount: member.user.bot ? 0 : 1
-			}
-		},
-		{
-			new: true
-		}
+	const profileData = await getProfile(member.id);
+	const serverData = await updateServer(
+		{ $inc: { memberCount: member.user.bot ? 0 : 1 } },
+		member.guild.id
 	);
 	if (member.user.bot) {
 		if (serverData.botRole) member.roles.add(serverData.botRole);

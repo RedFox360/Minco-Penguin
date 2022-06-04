@@ -4,7 +4,7 @@ import {
 	CommandInteraction,
 	MessageEmbed,
 	Permissions,
-	ApplicationCommandOptionChoice
+	ApplicationCommandOptionChoiceData
 } from 'discord.js';
 import prettyMs from 'pretty-ms';
 import { getProfileInServer } from '../functions/models';
@@ -12,9 +12,9 @@ import { SlashCommand, UserContextMenu } from '../types';
 import fishJSON from '../json/fish.json';
 import animals from '../json/animals.json';
 const fishAutocompleteData =
-	new Array<ApplicationCommandOptionChoice>();
+	new Array<ApplicationCommandOptionChoiceData>();
 const animalAutocompleteData =
-	new Array<ApplicationCommandOptionChoice>();
+	new Array<ApplicationCommandOptionChoiceData>();
 for (const [fishName, fishData] of Object.entries(fishJSON)) {
 	fishAutocompleteData.push({
 		name:

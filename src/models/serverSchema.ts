@@ -7,7 +7,6 @@ const AutoWarn = new Schema({
 });
 const serverSchema = new Schema({
 	serverID: { type: String, require: true, unique: true },
-	prefixes: [String],
 	bannedPeople: [String],
 	blacklist: [String],
 	welcomeChannel: String,

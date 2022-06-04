@@ -5,7 +5,7 @@ import { config as loadenv } from 'dotenv';
 import eventHandler from './handlers/event_handler';
 import slashHandler from './handlers/slash_handler';
 
-const inDev = process.argv.includes('--dev');
+const inDev = !process.argv.includes('--prod');
 console.log(`inDev: ${inDev}`);
 if (inDev) loadenv();
 

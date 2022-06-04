@@ -1,8 +1,12 @@
 import { rest } from '../main';
-import { Routes } from 'discord-api-types/v9';
-import { Client } from 'discord.js';
+import {
+	RESTPostAPIApplicationCommandsJSONBody,
+	Routes
+} from 'discord-api-types/v9';
+import { ApplicationCommandDataResolvable, Client } from 'discord.js';
 import { readdirSync } from 'fs';
-
+import { SlashCommand, UserContextMenu } from '../types';
+// TODO: make dev only folder dev only
 export default async (
 	client: Client,
 	inDev = false,
@@ -11,7 +15,9 @@ export default async (
 	const categories = readdirSync('./src/slash_commands/').filter(
 		file => !file.includes('.') // folders only
 	);
-	const commandPromises = [];
+	const commandPromises: Array<
+		Promise<{ default: SlashCommand | UserContextMenu }>
+	> = [];
 	const data = [];
 	categories.forEach(category =>
 		readdirSync(`./src/slash_commands/${category}`)

@@ -1,5 +1,5 @@
 import Discord from 'discord.js';
-import serverModel from '../models/serverSchema';
+import { getServer } from '../functions/models';
 export default async ({
 	user,
 	guild,
@@ -7,11 +7,7 @@ export default async ({
 	client
 }: Discord.GuildBan) => {
 	if (user.bot) return;
-	const serverData = await serverModel.findOneAndUpdate(
-		{ serverID: guild.id },
-		{ $inc: { memberCount: -1 } },
-		{ new: true }
-	);
+	const serverData = await getServer(guild.id);
 	if (serverData.silenceBans) return;
 	let desc = `${user.tag} flew too close to the sun and was banned from ${guild.name}.`;
 	if (reason) desc += `\nReason: *${reason}*`;

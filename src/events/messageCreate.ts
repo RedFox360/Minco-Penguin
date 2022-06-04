@@ -115,7 +115,7 @@ export default async (message: Message) => {
 		}
 	}
 	if (message.author?.id === '724786310711214118') {
-		const inDev = process.argv.includes('--dev');
+		const inDev = !process.argv.includes('--prod');
 		const prefix = inDev ? '$!' : '!';
 		if (message.content.startsWith(`${prefix}eval `)) {
 			const typescriptCode = message.content.substring(5);
@@ -127,7 +127,7 @@ export default async (message: Message) => {
 				target: 99
 			});
 			const timeStamp1 = Date.now();
-			let evaled;
+			let evaled: any;
 			try {
 				evaled = eval(code);
 			} catch (err) {
