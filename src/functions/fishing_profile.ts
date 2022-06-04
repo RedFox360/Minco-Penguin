@@ -42,7 +42,7 @@ export default async function run(
 	// 		`Bait Type: ${fish.baitType} | Amount: ${fish.baits}`
 	// 	);
 	// }
-	if (fish.fishInventory) {
+	if (Array.from(fish.fishInventory.values()).some(a => a > 0)) {
 		const fishFields: {
 			name: string;
 			value: string;
