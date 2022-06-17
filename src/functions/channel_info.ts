@@ -1,4 +1,8 @@
-import { CommandInteraction, MessageEmbed } from 'discord.js';
+import {
+	CommandInteraction,
+	MessageEmbed,
+	TextChannel
+} from 'discord.js';
 import { time } from '@discordjs/builders';
 
 export default async function run(
@@ -69,7 +73,7 @@ export default async function run(
 				inline: true
 			}
 		);
-	if (channel.isText() && !channel.isThread()) {
+	if (channel instanceof TextChannel) {
 		const { threads } = await channel.threads.fetchActive();
 		if (threads.size) {
 			embed.addField(

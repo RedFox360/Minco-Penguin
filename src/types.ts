@@ -18,7 +18,7 @@ export class SlashCommand {
 	run: (interaction: CommandInteraction<'cached'>) => Promise<any>;
 	constructor() {
 		this.permissions = [];
-		this.permissionsRequiredForBot = false;
+		this.permissionsRequiredForBot = true;
 		this.cooldown = 0;
 	}
 	setCommandData(builder: (o: SlashCommandBuilder) => any): this {
@@ -119,6 +119,8 @@ export type ServerData = AllReadOnly<{
 	modRole?: string;
 	botRole?: string;
 	joinRole?: string;
+	messageLogChannelId?: string;
+	mainLogChannelId?: string;
 	sendBirthdays: boolean;
 	birthdayChannel?: string;
 	currentCaseNo: number;

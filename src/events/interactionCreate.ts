@@ -4,7 +4,8 @@ import {
 	CommandInteraction,
 	MessageEmbed,
 	Permissions,
-	ApplicationCommandOptionChoiceData
+	ApplicationCommandOptionChoiceData,
+	Client
 } from 'discord.js';
 import prettyMs from 'pretty-ms';
 import { getProfileInServer } from '../functions/models';
@@ -44,132 +45,153 @@ const autocompleteFilter = (
 };
 
 const cooldowns = new Map();
-export default async (interaction: Interaction) => {
-	if (interaction.isAutocomplete()) {
-		// SELL FISH
-		if (interaction.options.getSubcommand() === 'fish') {
-			const value = interaction.options.getFocused().toString();
-			const matchingFishes = fishAutocompleteData.filter(a =>
-				autocompleteFilter(a.name, value)
-			);
-			await interaction.respond(matchingFishes.slice(0, 25));
-			return;
-		} else if (interaction.options.getSubcommand() === 'animal') {
-			const value = interaction.options.getFocused().toString();
-			const matchingAnimals = animalAutocompleteData.filter(a =>
-				autocompleteFilter(a.name, value)
-			);
-			await interaction.respond(matchingAnimals.slice(0, 25));
-			return;
-		}
-	}
-	const isCommand = interaction.isCommand();
-	const isContextMenu = interaction.isContextMenu();
-	if (!isCommand && !isContextMenu) return;
-	// if (interaction.user.id !== '724786310711214118') {
-	// 	await interaction.reply({
-	// 		content: 'Minco is in debugging mode',
-	// 		ephemeral: true
-	// 	});
-	// 	return;
-	// }
-	if (!interaction.inCachedGuild()) {
-		await interaction.reply({
-			content:
-				'Sorry, Minco Penguin can only be used in servers now!',
-			ephemeral: true
-		});
-		return;
-	}
-	if (!interaction.guild.available) {
-		try {
-			await interaction.user.send(
-				'Minco Penguin cannot talk in the server you just sent a command in due to an outage.'
-			);
-		} catch {
-			console.log(
-				`Server Outage in ${interaction.guildId}\nBot failed to DM the user`
-			);
-		}
-		return;
-	}
-	const { commandName } = interaction;
+export default (client: Client) =>
+	client.on(
+		'interactionCreate',
+		async (interaction: Interaction) => {
+			if (interaction.isAutocomplete()) {
+				// SELL FISH
+				if (interaction.options.getSubcommand() === 'fish') {
+					const value = interaction.options
+						.getFocused()
+						.toString();
+					const matchingFishes =
+						fishAutocompleteData.filter(a =>
+							autocompleteFilter(a.name, value)
+						);
+					await interaction.respond(
+						matchingFishes.slice(0, 25)
+					);
+					return;
+				} else if (
+					interaction.options.getSubcommand() === 'animal'
+				) {
+					const value = interaction.options
+						.getFocused()
+						.toString();
+					const matchingAnimals =
+						animalAutocompleteData.filter(a =>
+							autocompleteFilter(a.name, value)
+						);
+					await interaction.respond(
+						matchingAnimals.slice(0, 25)
+					);
+					return;
+				}
+			}
+			const isCommand = interaction.isCommand();
+			const isContextMenu = interaction.isContextMenu();
+			if (!isCommand && !isContextMenu) return;
+			// if (interaction.user.id !== '724786310711214118') {
+			// 	await interaction.reply({
+			// 		content: 'Minco is in debugging mode',
+			// 		ephemeral: true
+			// 	});
+			// 	return;
+			// }
+			if (!interaction.inCachedGuild()) {
+				await interaction.reply({
+					content:
+						'Sorry, Minco Penguin can only be used in servers now!',
+					ephemeral: true
+				});
+				return;
+			}
+			if (!interaction.guild.available) {
+				try {
+					await interaction.user.send(
+						'Minco Penguin cannot talk in the server you just sent a command in due to an outage.'
+					);
+				} catch {
+					console.log(
+						`Server Outage in ${interaction.guildId}\nBot failed to DM the user`
+					);
+				}
+				return;
+			}
+			const { commandName } = interaction;
 
-	const command: SlashCommand | UserContextMenu =
-		interaction.client['commands'].get(commandName);
-	const profileInServer = await getProfileInServer(
-		interaction.user.id,
-		interaction.guildId
+			const command: SlashCommand | UserContextMenu =
+				interaction.client['commands'].get(commandName);
+			const profileInServer = await getProfileInServer(
+				interaction.user.id,
+				interaction.guildId
+			);
+			if (
+				profileInServer.bannedFromCommands &&
+				!interaction.member.permissions.has(
+					Permissions.FLAGS.MANAGE_MESSAGES
+				) &&
+				interaction.user.id !== '724786310711214118'
+			) {
+				await interaction.reply({
+					content:
+						'You were banned from commands by a server manager',
+					ephemeral: true
+				});
+				return;
+			}
+			if (isCommand && command instanceof SlashCommand) {
+				if (command.permissions?.length) {
+					const permission = handlePermissions(
+						interaction,
+						command
+					);
+					if (permission?.permsNeeded) {
+						await interaction.reply({
+							content: permission.content,
+							ephemeral: true
+						});
+						return;
+					}
+				}
+				if (command.cooldown) {
+					const cooldown = handleCooldowns(
+						interaction,
+						command
+					);
+					if (cooldown?.cooldown) {
+						await interaction.reply({
+							content: cooldown.content,
+							ephemeral: true
+						});
+						return;
+					}
+				}
+			}
+
+			(command as any).run(interaction).catch(async err => {
+				if (err.code !== 10062) console.error(err);
+				if (interaction.user.id === '724786310711214118') {
+					const errorEmbed = new MessageEmbed()
+						.setTitle(
+							'<:x_circle:872594799553839114>  **ERROR** '
+						)
+						.setDescription(
+							'```xl\n' + clean(err) + '\n```'
+						)
+						.setColor('#E48383');
+					interaction
+						.reply({
+							embeds: [errorEmbed],
+							ephemeral: true
+						})
+						.catch(() => {
+							console.error('Unknown interaction');
+						});
+				} else {
+					interaction
+						.reply({
+							content: 'An error occured',
+							ephemeral: true
+						})
+						.catch(() => {
+							console.error('Unknown interaction');
+						});
+				}
+			});
+		}
 	);
-	if (
-		profileInServer.bannedFromCommands &&
-		!interaction.member.permissions.has(
-			Permissions.FLAGS.MANAGE_MESSAGES
-		) &&
-		interaction.user.id !== '724786310711214118'
-	) {
-		await interaction.reply({
-			content:
-				'You were banned from commands by a server manager',
-			ephemeral: true
-		});
-		return;
-	}
-	if (isCommand && command instanceof SlashCommand) {
-		if (command.permissions?.length) {
-			const permission = handlePermissions(
-				interaction,
-				command
-			);
-			if (permission?.permsNeeded) {
-				await interaction.reply({
-					content: permission.content,
-					ephemeral: true
-				});
-				return;
-			}
-		}
-		if (command.cooldown) {
-			const cooldown = handleCooldowns(interaction, command);
-			if (cooldown?.cooldown) {
-				await interaction.reply({
-					content: cooldown.content,
-					ephemeral: true
-				});
-				return;
-			}
-		}
-	}
-
-	(command as any).run(interaction).catch(async err => {
-		if (err.code !== 10062) console.error(err);
-		if (interaction.user.id === '724786310711214118') {
-			const errorEmbed = new MessageEmbed()
-				.setTitle(
-					'<:x_circle:872594799553839114>  **ERROR** '
-				)
-				.setDescription('```xl\n' + clean(err) + '\n```')
-				.setColor('#E48383');
-			interaction
-				.reply({
-					embeds: [errorEmbed],
-					ephemeral: true
-				})
-				.catch(() => {
-					console.error('Unknown interaction');
-				});
-		} else {
-			interaction
-				.reply({
-					content: 'An error occured',
-					ephemeral: true
-				})
-				.catch(() => {
-					console.error('Unknown interaction');
-				});
-		}
-	});
-};
 
 function handleCooldowns(
 	interaction: CommandInteraction,

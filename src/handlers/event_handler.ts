@@ -10,11 +10,6 @@ export default async (client: Client) => {
 		eventPromises.push(import(`../events/${file}`));
 		eventNames.push(file.split('.')[0]);
 	}
-	(await Promise.all(eventPromises)).forEach(
-		({ default: event }, index) => {
-			const eventName = eventNames[index];
-			client.on(eventName, (...args) => event(...args, client));
-			console.log(`Loaded event ${eventName}`);
-		}
-	);
+	const events = await Promise.all(eventPromises);
+	events.forEach(exports => exports.default(client));
 };

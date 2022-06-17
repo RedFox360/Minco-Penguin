@@ -36,6 +36,8 @@ const serverSchema = new Schema({
 	modRole: String,
 	botRole: String,
 	joinRole: String,
+	messageLogChannelId: String,
+	mainLogChannelId: String,
 	starboard: {
 		channelID: String,
 		starAmount: { type: Number, default: 1 },
