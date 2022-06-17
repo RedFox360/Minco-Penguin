@@ -24,60 +24,59 @@ const rodInfo = _rodInfo as RodJSON;
 	For each rod where more fish is caught, increment the max amount by +20%. For each rod where more rare fish is caught, increment the CHANCE for fish with a rarity more than 2 by +33%.
 */
 export default function getFishAmount(rod: RodType, biome: Biome) {
-	const { rarityChanceIncrease, maxAmountIncrease } = rodInfo.find(
-		a => a.name === rod
-	);
-	const toReturn: {
-		[fish: string]: {
-			fishAmount: number;
-			emoji: string;
-			singular: string;
-			plural: string;
-		};
-	} = {};
-	const fishes = new Collection(
-		Object.entries(Object.assign({}, fishJSON as FishJSON))
-	);
-	fishes
-		.filter(fish => fish.biomes.includes(biome))
-		.map((fish, fishName) => {
-			let newMaxAmount: number, newDefaultChance: number;
-			if (fish.rarity > 2) {
-				newDefaultChance =
-					fish.defaultChance * (1 + rarityChanceIncrease);
-			} else {
-				newMaxAmount =
-					fish.maxAmount * (1 + maxAmountIncrease);
-			}
+  const { rarityChanceIncrease, maxAmountIncrease } = rodInfo.find(
+    a => a.name === rod
+  );
+  const toReturn: {
+    [fish: string]: {
+      fishAmount: number;
+      emoji: string;
+      singular: string;
+      plural: string;
+    };
+  } = {};
+  const fishes = new Collection(
+    Object.entries(Object.assign({}, fishJSON as FishJSON))
+  );
+  fishes
+    .filter(fish => fish.biomes.includes(biome))
+    .map((fish, fishName) => {
+      let newMaxAmount: number, newDefaultChance: number;
+      if (fish.rarity > 2) {
+        newDefaultChance =
+          fish.defaultChance * (1 + rarityChanceIncrease);
+      } else {
+        newMaxAmount = fish.maxAmount * (1 + maxAmountIncrease);
+      }
 
-			return {
-				biomes: fish.biomes,
-				rarity: fish.rarity,
-				maxAmount: newMaxAmount ?? fish.maxAmount,
-				defaultChance: newDefaultChance ?? fish.defaultChance,
-				formattedNames: fish.formattedNames,
-				name: fishName
-			};
-		})
-		.filter(fish => {
-			return dPercentage(fish.defaultChance);
-		})
-		.forEach(fish => {
-			toReturn[fish.name] = {
-				fishAmount: randomInt(
-					Math.ceil(fish.maxAmount * 0.3),
-					fish.maxAmount
-				),
-				emoji: fishEmojis[fish.name],
-				singular: fish.formattedNames[0],
-				plural: fish.formattedNames[1]
-			};
-		});
-	return toReturn;
+      return {
+        biomes: fish.biomes,
+        rarity: fish.rarity,
+        maxAmount: newMaxAmount ?? fish.maxAmount,
+        defaultChance: newDefaultChance ?? fish.defaultChance,
+        formattedNames: fish.formattedNames,
+        name: fishName
+      };
+    })
+    .filter(fish => {
+      return dPercentage(fish.defaultChance);
+    })
+    .forEach(fish => {
+      toReturn[fish.name] = {
+        fishAmount: randomInt(
+          Math.ceil(fish.maxAmount * 0.3),
+          fish.maxAmount
+        ),
+        emoji: fishEmojis[fish.name],
+        singular: fish.formattedNames[0],
+        plural: fish.formattedNames[1]
+      };
+    });
+  return toReturn;
 }
 
 // return a boolean based on a percentage as a number between 0 and 1
 // for example, if the number 0.9 is passed in the function will return "true" 90% of the time and "false" 10% of the time
 function dPercentage(percentage: number): boolean {
-	return Math.random() < percentage;
+  return Math.random() < percentage;
 }

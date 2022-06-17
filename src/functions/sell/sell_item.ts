@@ -2,50 +2,50 @@ import { CommandInteraction } from 'discord.js';
 import { getProfile, updateProfile } from '../models';
 
 const sellableItems = [
-	'Ring',
-	'Crown',
-	'Cowboy Hat',
-	'Jellyfish',
-	'Bear',
-	'Cactus',
-	'Fire'
+  'Ring',
+  'Crown',
+  'Cowboy Hat',
+  'Jellyfish',
+  'Bear',
+  'Cactus',
+  'Fire'
 ];
 const sellableItemNumbers = [
-	'01',
-	'02',
-	'03',
-	'06',
-	'07',
-	'08',
-	'09'
+  '01',
+  '02',
+  '03',
+  '06',
+  '07',
+  '08',
+  '09'
 ] as const;
 const returnAmounts = [40, 500, 15, 40, 250, 30, 30, 30] as const;
 
 export default async function sellItem(
-	interaction: CommandInteraction<'cached'>
+  interaction: CommandInteraction<'cached'>
 ) {
-	const itemName = interaction.options.getString('item_name');
-	const index = sellableItems.indexOf(itemName);
-	const itemNumber = sellableItemNumbers[index];
-	const profile = await getProfile(interaction.user.id);
-	if (!profile.inventory.includes(itemNumber)) {
-		await interaction.reply({
-			content: "You don't have that item!",
-			ephemeral: true
-		});
-		return;
-	}
-	const returnAmount = returnAmounts[index];
+  const itemName = interaction.options.getString('item_name');
+  const index = sellableItems.indexOf(itemName);
+  const itemNumber = sellableItemNumbers[index];
+  const profile = await getProfile(interaction.user.id);
+  if (!profile.inventory.includes(itemNumber)) {
+    await interaction.reply({
+      content: "You don't have that item!",
+      ephemeral: true
+    });
+    return;
+  }
+  const returnAmount = returnAmounts[index];
 
-	await updateProfile(
-		{
-			$pull: { inventory: itemNumber },
-			$inc: { mincoDollars: returnAmount }
-		},
-		interaction.user.id
-	);
+  await updateProfile(
+    {
+      $pull: { inventory: itemNumber },
+      $inc: { mincoDollars: returnAmount }
+    },
+    interaction.user.id
+  );
 
-	await interaction.reply(
-		`You succesfully sold your ${itemName} for ${returnAmount} MD`
-	);
+  await interaction.reply(
+    `You succesfully sold your ${itemName} for ${returnAmount} MD`
+  );
 }

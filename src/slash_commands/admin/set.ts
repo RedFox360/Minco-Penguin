@@ -10,31 +10,31 @@ import * as setFavorite from '../../functions/set/set_favorites';
 import { SlashCommand } from '../../types';
 
 const commands = {
-	announce_message: setAnnounceMessage.run,
-	birthday: setBirthday.run,
-	boolean: setBoolean.run,
-	timezone: setTimezone.run,
-	welcome_channel: setWelcomeChannel.run,
-	starboard: setStarboard.run,
-	role: setRole.run,
-	favorite: setFavorite.run
+  announce_message: setAnnounceMessage.run,
+  birthday: setBirthday.run,
+  boolean: setBoolean.run,
+  timezone: setTimezone.run,
+  welcome_channel: setWelcomeChannel.run,
+  starboard: setStarboard.run,
+  role: setRole.run,
+  favorite: setFavorite.run
 };
 const setData = new SlashCommand()
-	.setCommandData(builder =>
-		builder
-			.setName('set')
-			.setDescription('Set values for your user/server')
-			.addSubcommand(setAnnounceMessage.subcommand)
-			.addSubcommand(setBirthday.subcommand)
-			.addSubcommand(setBoolean.subcommand)
-			.addSubcommand(setTimezone.subcommand)
-			.addSubcommand(setWelcomeChannel.subcommand)
-			.addSubcommand(setStarboard.subcommand)
-			.addSubcommand(setRole.subcommand)
-			.addSubcommand(setFavorite.subcommand)
-	)
-	.setRun(interaction =>
-		commands[interaction.options.getSubcommand()](interaction)
-	);
+  .setCommandData(builder =>
+    builder
+      .setName('set')
+      .setDescription('Set values for your user/server')
+      .addSubcommand(setAnnounceMessage.subcommand)
+      .addSubcommand(setBirthday.subcommand)
+      .addSubcommand(setBoolean.subcommand)
+      .addSubcommand(setTimezone.subcommand)
+      .addSubcommand(setWelcomeChannel.subcommand)
+      .addSubcommand(setStarboard.subcommand)
+      .addSubcommand(setRole.subcommand)
+      .addSubcommand(setFavorite.subcommand)
+  )
+  .setRun(interaction =>
+    commands[interaction.options.getSubcommand()](interaction)
+  );
 
 export default setData;
