@@ -32,7 +32,7 @@
 		"ordinal": "^1.0.3",
 		"pretty-ms": "^7.0.1",
 		"ts-node": "^10.2.0",
-		"typescript": "^4.5.5",
+		"typescript": "^4.7.4",
 		"weather-js": "^2.0.0"
 	},
 	"devDependencies": {
