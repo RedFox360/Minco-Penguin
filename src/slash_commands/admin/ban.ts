@@ -1,13 +1,13 @@
-import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
 import {
-	CommandInteraction,
-	GuildMember,
-	MessageEmbed,
-	Permissions
+	ChatInputCommandInteraction,
+	EmbedBuilder,
+	SlashCommandSubcommandBuilder
 } from 'discord.js';
+import { GuildMember } from 'discord.js';
 import { SlashCommand } from '../../types';
-import isNumeric from '../../functions/isNumeric';
-import { logBan } from '../../functions/log_functions';
+import isNumeric from '../../functions/basics/is_numeric';
+import { logBan } from '../../functions/logging/log_functions';
+import { PermissionFlagsBits } from 'discord.js';
 
 const nextBanOptions = (s: SlashCommandSubcommandBuilder) =>
 	s
@@ -40,6 +40,7 @@ const ban = new SlashCommand()
 		builder
 			.setName('ban')
 			.setDescription('Ban a user from the server')
+			.setDefaultMemberPermissions(PermissionFlagsBits.BanMembers)
 			.addSubcommand(option =>
 				nextBanOptions(
 					option
@@ -71,7 +72,7 @@ const ban = new SlashCommand()
 				)
 			)
 	)
-	.setPermissions(Permissions.FLAGS.BAN_MEMBERS)
+	.setBotPermissions(PermissionFlagsBits.BanMembers)
 	.setRun(async interaction => {
 		if (interaction.options.getSubcommand() === 'member') {
 			const member = interaction.options.getMember('user');
@@ -100,7 +101,7 @@ const ban = new SlashCommand()
 						? `*${reason}*`
 						: 'No reason provided';
 					const banned = (await interaction.guild.bans.create(uid, {
-						days,
+						deleteMessageDays: days,
 						reason
 					})) as any;
 					const { currentCaseNo } = await logBan(
@@ -109,12 +110,10 @@ const ban = new SlashCommand()
 						reason,
 						interaction.user.id
 					);
-					const iconURL = banned.displayAvatarURL({
-						dynamic: true
-					});
+					const iconURL = banned.displayAvatarURL();
 
-					const banEmbed = new MessageEmbed()
-						.setColor('#CB4335')
+					const banEmbed = new EmbedBuilder()
+						.setColor(0xcb4335)
 						.setAuthor({
 							name: banned.user?.tag ?? banned.tag ?? banned,
 							iconURL
@@ -126,9 +125,7 @@ Reason: ${formattedReason}`
 						)
 						.setFooter({
 							text: interaction.guild.name,
-							iconURL: interaction.guild.iconURL({
-								dynamic: true
-							})
+							iconURL: interaction.guild.iconURL()
 						});
 					await interaction.reply({
 						embeds: [banEmbed],
@@ -149,7 +146,7 @@ Reason: ${formattedReason}`
 
 async function banMember(
 	member: GuildMember,
-	interaction: CommandInteraction<'cached'>
+	interaction: ChatInputCommandInteraction<'cached'>
 ) {
 	if (member.id === interaction.user.id) {
 		await interaction.reply({
@@ -196,7 +193,7 @@ async function banMember(
 		days = 0;
 	}
 	await member.ban({
-		days,
+		deleteMessageDays: days,
 		reason
 	});
 	const { currentCaseNo } = await logBan(
@@ -205,13 +202,11 @@ async function banMember(
 		reason,
 		interaction.user.id
 	);
-	const banEmbed = new MessageEmbed()
-		.setColor('#CB4335')
+	const banEmbed = new EmbedBuilder()
+		.setColor(0xcb4335)
 		.setAuthor({
 			name: member.user.tag,
-			iconURL: member.user.displayAvatarURL({
-				dynamic: true
-			})
+			iconURL: member.user.displayAvatarURL()
 		})
 		.setTitle('Banned')
 		.setDescription(
@@ -221,7 +216,7 @@ Reason: ${formattedReason}`
 		)
 		.setFooter({
 			text: interaction.guild.name,
-			iconURL: interaction.guild.iconURL({ dynamic: true })
+			iconURL: interaction.guild.iconURL()
 		});
 	member
 		.send(

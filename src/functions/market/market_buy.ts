@@ -1,7 +1,9 @@
 import {
-	MessageButton,
-	MessageActionRow,
-	CommandInteraction
+	ButtonBuilder,
+	ActionRowBuilder,
+	ChatInputCommandInteraction,
+	ButtonStyle,
+	ComponentType
 } from 'discord.js';
 import {
 	getProfileInServer,
@@ -9,11 +11,11 @@ import {
 	updateProfile
 } from '../models';
 export default async function run(
-	interaction: CommandInteraction<'cached'>
+	interaction: ChatInputCommandInteraction<'cached'>
 ) {
 	const profile = await getProfile(interaction.user.id);
 	const user = interaction.options.getUser('user');
-	const itemName = interaction.options.getString('item_name');
+	const itemName = interaction.options.getString('item-name');
 	const uprofile = await getProfileInServer(
 		interaction.user.id,
 		interaction.guildId
@@ -33,15 +35,15 @@ export default async function run(
 		});
 		return;
 	}
-	const row = new MessageActionRow().addComponents(
-		new MessageButton()
+	const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
+		new ButtonBuilder()
 			.setCustomId('confirm')
 			.setLabel('Confirm')
-			.setStyle('SUCCESS'),
-		new MessageButton()
+			.setStyle(ButtonStyle.Success),
+		new ButtonBuilder()
 			.setCustomId('reject')
 			.setLabel('Nevermind')
-			.setStyle('DANGER')
+			.setStyle(ButtonStyle.Danger)
 	);
 	const msg = await interaction.reply({
 		content: `${interaction.user}, confirm to buy ${item.name} for ${item.price} MD`,
@@ -53,7 +55,7 @@ export default async function run(
 		filter: i => i.customId === 'confirm' || i.customId === 'reject',
 		time: 10_000,
 		max: 1,
-		componentType: 'BUTTON'
+		componentType: ComponentType.Button
 	});
 	collector.on('collect', async buttonInteraction => {
 		if (buttonInteraction.user.id !== interaction.user.id) {

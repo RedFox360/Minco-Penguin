@@ -1,4 +1,4 @@
-import { Permissions } from 'discord.js';
+import { PermissionFlagsBits } from 'discord.js';
 import {
 	getProfileInServer,
 	updateProfileInServer
@@ -8,8 +8,12 @@ import { SlashCommand } from '../../types';
 const toggleBan = new SlashCommand()
 	.setCommandData(builder =>
 		builder
-			.setName('toggle_ban')
+			.setName('toggle-ban')
 			.setDescription('[Admin only] Ban a user from doing something')
+			.setDefaultMemberPermissions(
+				PermissionFlagsBits.ManageGuild |
+					PermissionFlagsBits.ModerateMembers
+			)
 			.addSubcommand(subcommand =>
 				subcommand
 					.setName('commands')
@@ -36,25 +40,7 @@ const toggleBan = new SlashCommand()
 							.setRequired(true)
 					)
 			)
-			.addSubcommand(subcommand =>
-				subcommand
-					.setName('sending_messages')
-					.setDescription(
-						"Makes it so a user's message gets deleted when they send it"
-					)
-					.addUserOption(option =>
-						option
-							.setName('user')
-							.setDescription('The user to ban')
-							.setRequired(true)
-					)
-			)
 	)
-	.setPermissions(
-		Permissions.FLAGS.MANAGE_GUILD,
-		Permissions.FLAGS.MODERATE_MEMBERS
-	)
-	.setPermissionsRequiredForBot(false)
 	.setRun(async interaction => {
 		const user = interaction.options.getUser('user');
 		const userProfile = await getProfileInServer(
@@ -104,26 +90,6 @@ const toggleBan = new SlashCommand()
 				} else {
 					await interaction.reply({
 						content: `You unbanned ${user} from sending confessions`,
-						ephemeral: true
-					});
-				}
-				return;
-			}
-			case 'sending_messages': {
-				const nowIsBanned = !userProfile.isShadowBanned;
-				await updateProfileInServer(
-					{ isShadowBanned: nowIsBanned },
-					user.id,
-					interaction.guildId
-				);
-				if (nowIsBanned) {
-					await interaction.reply({
-						content: `You banned ${user} from sending messages`,
-						ephemeral: true
-					});
-				} else {
-					await interaction.reply({
-						content: `You unbanned ${user} from sending messages`,
 						ephemeral: true
 					});
 				}

@@ -1,7 +1,7 @@
-import { MessageEmbed } from 'discord.js';
 import { getProfile } from '../../functions/models';
 import { SlashCommand } from '../../types';
-import gemNumberToName from '../../functions/gem_number_to_name';
+import gemNumberToName from '../../functions/basics/gem_number_to_name';
+import { EmbedBuilder } from 'discord.js';
 const gems = new SlashCommand()
 	.setCommandData(builder =>
 		builder
@@ -15,14 +15,14 @@ const gems = new SlashCommand()
 			)
 	)
 	.setRun(async interaction => {
-		const userExists = interaction.options.getUser('user');
-		const user = userExists ?? interaction.user;
+		const memberExists = interaction.options.getMember('user');
+		const member = memberExists ?? interaction.member;
 
-		const profile = await getProfile(user.id);
+		const profile = await getProfile(member.id);
 		if (!profile.gems.length) {
 			await interaction.reply({
 				content: `${
-					userExists ? `${user} doesn't` : "You don't"
+					memberExists ? `${member} doesn't` : "You don't"
 				} have any gems`,
 				allowedMentions: {
 					users: []
@@ -34,15 +34,14 @@ const gems = new SlashCommand()
 		const gems = profile.gems
 			.map(gemNumberToName)
 			.map((t, i) => `${i + 1}. ${t}`);
-		const avatar = user
-			? user.displayAvatarURL({ dynamic: true })
-			: interaction.member.displayAvatarURL({
-					dynamic: true
-			  });
-		const gemEmbed = new MessageEmbed()
-			.setAuthor({ name: 'Gems', iconURL: avatar })
+		const avatar = member.displayAvatarURL();
+		const gemEmbed = new EmbedBuilder()
+			.setAuthor({
+				name: `${member.displayName}'s Gems`,
+				iconURL: avatar
+			})
 			.setDescription(gems.join('\n'))
-			.setColor('#F8C471')
+			.setColor(0xf8c471)
 			.setFooter({
 				text: interaction.guild?.name ?? interaction.user.username
 			});

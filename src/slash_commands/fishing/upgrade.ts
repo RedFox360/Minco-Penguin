@@ -1,13 +1,14 @@
 import {
-	MessageEmbed,
-	MessageActionRow,
-	MessageButton
+	ActionRowBuilder,
+	ButtonBuilder,
+	ButtonStyle,
+	ComponentType
 } from 'discord.js';
 import { getProfile, updateProfile } from '../../functions/models';
 import _rodInfo from '../../json/rod_info.json';
-import { SlashCommand } from '../../types';
-import { RodJSON } from '../../types';
-import gemNumberToName from '../../functions/gem_number_to_name';
+import { RodJSON, SlashCommand } from '../../types';
+import gemNumberToName from '../../functions/basics/gem_number_to_name';
+import { EmbedBuilder } from 'discord.js';
 const rodInfo = _rodInfo as RodJSON;
 const upgrade = new SlashCommand()
 	.setCommandData(builder =>
@@ -52,12 +53,14 @@ const upgrade = new SlashCommand()
 			});
 			return;
 		}
-		const upgradeButton = new MessageButton()
+		const upgradeButton = new ButtonBuilder()
 			.setCustomId('upgrade')
 			.setLabel('Upgrade')
-			.setStyle('SUCCESS');
-		const row = new MessageActionRow().addComponents(upgradeButton);
-		const upgradeEmbed = new MessageEmbed()
+			.setStyle(ButtonStyle.Success);
+		const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
+			upgradeButton
+		);
+		const upgradeEmbed = new EmbedBuilder()
 			.setAuthor({
 				name: interaction.member.displayName,
 				iconURL: interaction.member.displayAvatarURL()
@@ -69,7 +72,7 @@ Click the "Upgrade" button to upgrade your ${rod} rod to a(n) **${rodData.name}*
 This button will not work after 10 minutes
 Benefits: \`${rodData.benefits}\``
 			)
-			.setColor('#D5f5E3')
+			.setColor(0xd5f5e3)
 			.setFooter({
 				text: `${interaction.guild.name} | Current xp: ${fish.xp}`
 			})
@@ -83,7 +86,7 @@ Benefits: \`${rodData.benefits}\``
 		const collector = msg.createMessageComponentCollector({
 			filter: i => i.customId === 'upgrade',
 			max: 1,
-			componentType: 'BUTTON',
+			componentType: ComponentType.Button,
 			time: 600_000 // 10 minutes
 		});
 		collector.on('collect', async buttonInteraction => {

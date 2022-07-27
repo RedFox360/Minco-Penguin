@@ -1,9 +1,9 @@
-import { Profile } from '../../types';
+import { Profile } from 'mincomodels/profileSchema/types';
 import animals from '../../json/animals.json';
 import { getProfile, updateProfile } from '../models';
-import { CommandInteraction } from 'discord.js';
+import { ChatInputCommandInteraction } from 'discord.js';
 export default async function sellAnimal(
-	interaction: CommandInteraction<'cached'>
+	interaction: ChatInputCommandInteraction<'cached'>
 ) {
 	const profile = await getProfile(interaction.user.id);
 	const animalName = interaction.options.getString('animal_name');

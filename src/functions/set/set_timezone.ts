@@ -1,9 +1,11 @@
 import {
-	MessageButton,
-	MessageActionRow,
-	CommandInteraction
+	ButtonBuilder,
+	ActionRowBuilder,
+	CommandInteraction,
+	ChatInputCommandInteraction,
+	ButtonStyle
 } from 'discord.js';
-import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
+import { SlashCommandSubcommandBuilder } from 'discord.js';
 import timezoneList from '../../json/timezones.json';
 import { updateProfile, updateServer } from '../models';
 
@@ -15,8 +17,10 @@ export const subcommand = new SlashCommandSubcommandBuilder()
 			.setName('type')
 			.setDescription('Personal or server timezone')
 			.setRequired(true)
-			.addChoice('Personal', 'personal')
-			.addChoice('Server', 'server')
+			.addChoices(
+				{ name: 'Personal', value: 'personal' },
+				{ name: 'Server', value: 'server' }
+			)
 	)
 	.addStringOption(option =>
 		option
@@ -25,15 +29,17 @@ export const subcommand = new SlashCommandSubcommandBuilder()
 			.setRequired(true)
 	);
 
-export async function run(interaction: CommandInteraction<'cached'>) {
+export async function run(
+	interaction: ChatInputCommandInteraction<'cached'>
+) {
 	const choice = interaction.options.getString('type');
 	const timezone = interaction.options.getString('timezone');
 	if (!timezoneList.includes(timezone)) {
-		const row = new MessageActionRow().addComponents(
-			new MessageButton()
+		const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
+			new ButtonBuilder()
 				.setLabel('Valid Timezones')
 				.setEmoji('⏰')
-				.setStyle('LINK')
+				.setStyle(ButtonStyle.Link)
 				.setURL('https://pastebin.com/r7UfkZeQ')
 		);
 		await interaction.reply({

@@ -1,6 +1,6 @@
 import { Snowflake } from 'discord.js';
-import type { LogType } from '../types';
-import { updateProfileInServer, updateServer } from './models';
+import type { LogType } from 'mincomodels/profileInServerSchema/types';
+import { updateProfileInServer, updateServer } from '../models';
 
 export async function logTimeout(
 	userId: Snowflake,

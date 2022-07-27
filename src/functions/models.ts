@@ -1,75 +1,70 @@
-import profileModel from '../models/profileSchema';
-import profileInServerModel from '../models/profileInServerSchema';
-import serverModel from '../models/serverSchema';
-import type { Profile, ProfileInServer, ServerData } from '../types';
+import { modelClient } from '../main';
+import { Profile } from 'mincomodels/profileSchema/types';
+import { ProfileInServer } from 'mincomodels/profileInServerSchema/types';
+import { ServerData } from 'mincomodels/serverSchema/types';
+import { FilterQuery } from 'mongoose';
 
-export async function updateProfile(
-	data: any,
-	userID: string
-): Promise<Profile> {
-	const filter = { userID };
-	const exists = await profileModel.exists(filter);
-	return exists
-		? profileModel.findOneAndUpdate(filter, data, {
-				new: true
-		  })
-		: profileModel.create(filter);
+const { profileModel, serverModel, profileInServerModel } =
+	modelClient;
+
+export function updateProfile(
+	data: FilterQuery<Profile>,
+	userId: string
+) {
+	return profileModel.findOneAndUpdate({ userID: userId }, data, {
+		new: true,
+		upsert: true
+	});
 }
+
 export function updateServer(
-	data: any,
-	serverID: string
-): Promise<ServerData> {
-	return serverModel.findOneAndUpdate({ serverID }, data, {
+	data: FilterQuery<ServerData>,
+	serverId: string
+) {
+	return serverModel.findOneAndUpdate({ serverID: serverId }, data, {
 		new: true
 	});
 }
 
-export async function updateProfileInServer(
-	data: any,
-	userID: string,
-	serverID: string
-): Promise<ProfileInServer> {
+export function updateProfileInServer(
+	data: FilterQuery<ProfileInServer>,
+	userId: string,
+	serverId: string
+) {
 	const filter = {
-		userID,
-		serverID
+		userID: userId,
+		serverID: serverId
 	};
-	const exists = await profileInServerModel.exists(filter);
-	return exists
-		? profileInServerModel.findOneAndUpdate(filter, data, {
-				new: true
-		  })
-		: profileModel.create({
-				...filter,
-				mincoDollars: 100,
-				bank: 0
-		  });
-}
-
-export async function getProfile(userID: string): Promise<Profile> {
-	const exists = await profileModel.exists({ userID });
-	return exists
-		? profileModel.findOne({ userID })
-		: profileModel.create({
-				userID
-		  });
-}
-
-export async function getProfileInServer(
-	userID: string,
-	serverID: string
-): Promise<ProfileInServer> {
-	const filter = {
-		userID,
-		serverID
-	};
-	const exists = await profileInServerModel.exists(filter);
-	return exists
-		? profileInServerModel.findOne(filter)
-		: profileInServerModel.create(filter);
-}
-
-export function getServer(serverID: string): Promise<ServerData> {
-	return serverModel.findOne({
-		serverID
+	return profileInServerModel.findOneAndUpdate(filter, data, {
+		new: true,
+		upsert: true
 	});
+}
+
+export function getProfile(userId: string) {
+	return profileModel.findOne({ userID: userId }, undefined, {
+		upsert: true
+	});
+}
+
+export function getProfileInServer(userId: string, serverId: string) {
+	const filter = {
+		userID: userId,
+		serverID: serverId
+	};
+	return profileInServerModel.findOne(filter, undefined, {
+		upsert: true
+	});
+}
+
+export function getServer(serverId: string) {
+	return serverModel.findOne(
+		{
+			serverID: serverId
+		},
+		undefined,
+		{
+			upsert: true
+		}
+	);
 }

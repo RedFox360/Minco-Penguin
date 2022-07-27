@@ -1,14 +1,16 @@
 import { find as findWeatherCallback } from 'weather-js';
 import {
-	MessageButton,
-	MessageActionRow,
-	MessageEmbed,
+	ButtonBuilder,
+	ActionRowBuilder,
 	MessageComponentInteraction,
-	CommandInteraction
+	CommandInteraction,
+	ButtonStyle,
+	ComponentType
 } from 'discord.js';
 import { SlashCommand } from '../../types';
 import { hoursToMilliseconds } from 'date-fns';
 import { promisify } from 'util';
+import { EmbedBuilder } from 'discord.js';
 const findWeather = promisify(findWeatherCallback);
 
 const collectorTime = hoursToMilliseconds(2);
@@ -30,8 +32,10 @@ const weather = new SlashCommand()
 					.setName('degree_type')
 					.setDescription('The degree type for the weather forecast')
 					.setRequired(false)
-					.addChoice('Celsius', 'C')
-					.addChoice('Fahrenheit', 'F')
+					.addChoices(
+						{ name: 'Celsius', value: 'C' },
+						{ name: 'Fahrenheit', value: 'F' }
+					)
 			)
 	)
 	.setRun(run);
@@ -45,18 +49,18 @@ async function run(
 	degreeType?: string
 ) {
 	const ephemeral = isEphemeral ?? false;
-	const weatherButton = new MessageButton()
+	const weatherButton = new ButtonBuilder()
 		.setCustomId('view_weather')
 		.setLabel('Weather')
-		.setStyle('PRIMARY')
+		.setStyle(ButtonStyle.Primary)
 		.setEmoji('☀️')
 		.setDisabled();
-	const forecastButton = new MessageButton()
+	const forecastButton = new ButtonBuilder()
 		.setCustomId('view_forecast')
 		.setLabel('Forecast')
 		.setEmoji('🗓')
-		.setStyle('PRIMARY');
-	if (interaction.isCommand()) {
+		.setStyle(ButtonStyle.Primary);
+	if (interaction.isChatInputCommand()) {
 		search = interaction.options.getString('location');
 		const degreeOption = interaction.options.getString('degree_type');
 		degreeType = degreeOption
@@ -86,13 +90,13 @@ async function run(
 		text: `Time Zone: UTC${location.timezone} | Observation time: ${current.date} ${current.observationtime}`
 	};
 	const color = '#A6D4FF';
-	const firstEmbed = new MessageEmbed()
+	const firstEmbed = new EmbedBuilder()
 		.setTitle(`Weather: ${location.name}`)
 		.setDescription(`${current.day}`)
 		.setThumbnail(current.imageUrl)
 		.setColor(color as any)
 		.setTimestamp()
-		.setFields(
+		.addFields(
 			{
 				name: 'Unit Type',
 				value: degreeType === 'C' ? 'Metric' : 'Imperial/Customary',
@@ -141,7 +145,7 @@ async function run(
 		)
 		.setFooter(footer);
 
-	const forecastEmbed = new MessageEmbed()
+	const forecastEmbed = new EmbedBuilder()
 		.setTitle(`Forecast: ${location.name}`)
 		.setColor(color as any)
 		.setFooter(footer)
@@ -155,17 +159,17 @@ async function run(
 		if (dailyForecast.precip !== '' && dailyForecast.precip !== '0') {
 			description += `\n*Precipitation*: ${dailyForecast.precip}%`;
 		}
-		forecastEmbed.addField(
-			`${dailyForecast.shortday} : ${dailyForecast.skytextday}`,
-			description,
-			true
-		);
+		forecastEmbed.addFields({
+			name: `${dailyForecast.shortday} : ${dailyForecast.skytextday}`,
+			value: description,
+			inline: true
+		});
 	}
 
 	const msg = await interaction.reply({
 		embeds: [firstEmbed],
 		components: [
-			new MessageActionRow().addComponents(
+			new ActionRowBuilder<ButtonBuilder>().addComponents(
 				weatherButton,
 				forecastButton
 			)
@@ -178,7 +182,7 @@ async function run(
 		filter: i =>
 			i.customId === 'view_weather' || i.customId === 'view_forecast',
 		time: collectorTime,
-		componentType: 'BUTTON'
+		componentType: ComponentType.Button
 	});
 	collector.on('collect', async buttonInteraction => {
 		if (buttonInteraction.user.id !== interaction.user.id) {
@@ -192,7 +196,7 @@ async function run(
 			buttonInteraction.update({
 				embeds: [firstEmbed],
 				components: [
-					new MessageActionRow().addComponents(
+					new ActionRowBuilder<ButtonBuilder>().addComponents(
 						weatherButton,
 						forecastButton
 					)
@@ -205,7 +209,7 @@ async function run(
 			buttonInteraction.update({
 				embeds: [forecastEmbed],
 				components: [
-					new MessageActionRow().addComponents(
+					new ActionRowBuilder<ButtonBuilder>().addComponents(
 						weatherButton,
 						forecastButton
 					)

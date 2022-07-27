@@ -1,5 +1,6 @@
-import { MessageEmbed, Permissions } from 'discord.js';
-import { logKick } from '../../functions/log_functions';
+import { EmbedBuilder } from 'discord.js';
+import { PermissionFlagsBits } from 'discord.js';
+import { logKick } from '../../functions/logging/log_functions';
 import { SlashCommand } from '../../types';
 
 const kick = new SlashCommand()
@@ -7,6 +8,7 @@ const kick = new SlashCommand()
 		builder
 			.setName('kick')
 			.setDescription('Kick a member from the server')
+			.setDefaultMemberPermissions(PermissionFlagsBits.KickMembers)
 			.addUserOption(option =>
 				option
 					.setName('user')
@@ -28,7 +30,7 @@ const kick = new SlashCommand()
 					.setRequired(false)
 			)
 	)
-	.setPermissions(Permissions.FLAGS.KICK_MEMBERS)
+	.setBotPermissions(PermissionFlagsBits.KickMembers)
 	.setRun(async interaction => {
 		const member = interaction.options.getMember('user');
 		if (member.id === interaction.user.id) {
@@ -78,13 +80,11 @@ const kick = new SlashCommand()
 			reason,
 			interaction.user.id
 		);
-		const kickEmbed = new MessageEmbed()
-			.setColor('#CB4335')
+		const kickEmbed = new EmbedBuilder()
+			.setColor(0xcb4335)
 			.setAuthor({
 				name: member.user.tag,
-				iconURL: member.user.displayAvatarURL({
-					dynamic: true
-				})
+				iconURL: member.user.displayAvatarURL()
 			})
 			.setTitle('Kicked')
 			.setDescription(
@@ -94,7 +94,7 @@ Reason: ${formattedReason}`
 			)
 			.setFooter({
 				text: interaction.guild.name,
-				iconURL: interaction.guild.iconURL({ dynamic: true })
+				iconURL: interaction.guild.iconURL()
 			});
 		member
 			.send(

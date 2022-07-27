@@ -1,4 +1,4 @@
-import fishingProfile from '../../functions/fishing_profile';
+import fishingProfile from '../../functions/fish/fishing_profile';
 import { SlashCommand } from '../../types';
 
 const profile = new SlashCommand()

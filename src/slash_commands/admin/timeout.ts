@@ -1,12 +1,16 @@
-import { MessageEmbed, Permissions } from 'discord.js';
 import ms from 'ms';
 import prettyMs from 'pretty-ms';
 import { SlashCommand } from '../../types';
-import { maxTime, minTime } from '../../functions/timeout_times';
+import {
+	maxTime,
+	minTime
+} from '../../functions/logging/timeout_times';
 import {
 	logEndTimeout,
 	logTimeout
-} from '../../functions/log_functions';
+} from '../../functions/logging/log_functions';
+import { EmbedBuilder } from 'discord.js';
+import { PermissionFlagsBits } from 'discord.js';
 
 const timeout = new SlashCommand()
 	.setRun(async interaction => {
@@ -85,18 +89,14 @@ const timeout = new SlashCommand()
 					reason,
 					interaction.user.id
 				);
-				const iconURL = interaction.guild.iconURL({
-					dynamic: true
-				});
+				const iconURL = interaction.guild.iconURL();
 
-				const timeoutEmbed = new MessageEmbed()
+				const timeoutEmbed = new EmbedBuilder()
 					.setAuthor({
 						name: member.displayName,
-						iconURL: member.displayAvatarURL({
-							dynamic: true
-						})
+						iconURL: member.displayAvatarURL()
 					})
-					.setColor('#F5B041') // orange
+					.setColor(0xf5b041) // orange
 					.setTitle('Timeout')
 					.setDescription(
 						`${member} has been timed out for ${formattedTime}
@@ -158,6 +158,9 @@ Reason: ${formattedReason}`,
 		builder
 			.setName('timeout')
 			.setDescription('Timeout a user')
+			.setDefaultMemberPermissions(
+				PermissionFlagsBits.ModerateMembers
+			)
 			.addSubcommand(subcommand =>
 				subcommand
 					.setName('start')
@@ -219,6 +222,6 @@ Reason: ${formattedReason}`,
 					)
 			)
 	)
-	.setPermissions(Permissions.FLAGS.MODERATE_MEMBERS);
+	.setBotPermissions(PermissionFlagsBits.ModerateMembers);
 
 export default timeout;

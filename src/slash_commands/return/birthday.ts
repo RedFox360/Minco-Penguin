@@ -1,4 +1,4 @@
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder } from 'discord.js';
 import { format } from 'date-fns';
 import { getProfile } from '../../functions/models';
 import { SlashCommand } from '../../types';
@@ -21,11 +21,11 @@ const birthday = new SlashCommand()
 		if (!birthday) {
 			await interaction.reply({
 				embeds: [
-					new MessageEmbed()
+					new EmbedBuilder()
 						.setDescription(
 							"<:x_circle:872594799553839114> This user's birthday hasn't been added to the database yet."
 						)
-						.setColor('#E48383')
+						.setColor(0xe48383)
 				]
 			});
 			return;
@@ -35,16 +35,14 @@ const birthday = new SlashCommand()
 			date,
 			getDateFormat(interaction.locale, date.getFullYear() === 2001)
 		);
-		const avatar = member.user.displayAvatarURL({
-			dynamic: true
-		});
-		const embed = new MessageEmbed()
+		const avatar = member.user.displayAvatarURL();
+		const embed = new EmbedBuilder()
 			.setAuthor({
 				name: member.displayName,
 				iconURL: avatar
 			})
 			.setDescription('🎂 ' + formatted)
-			.setColor('#ffc0cb');
+			.setColor(0xffc0cb);
 		await interaction.reply({ embeds: [embed] });
 	});
 

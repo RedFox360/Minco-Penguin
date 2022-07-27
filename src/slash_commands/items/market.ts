@@ -32,7 +32,7 @@ const market = new SlashCommand()
 					)
 					.addStringOption(option =>
 						option
-							.setName('item_name')
+							.setName('item-name')
 							.setDescription('The name of the item you want to buy')
 							.setRequired(true)
 					)
@@ -43,7 +43,7 @@ const market = new SlashCommand()
 					.setDescription('Remove an item from your market')
 					.addStringOption(option =>
 						option
-							.setName('item_name')
+							.setName('item-name')
 							.setDescription(
 								'The name of the item you want to remove'
 							)
@@ -56,7 +56,7 @@ const market = new SlashCommand()
 					.setDescription('Add an item to your market')
 					.addStringOption(option =>
 						option
-							.setName('item_name')
+							.setName('item-name')
 							.setDescription('The name of your item')
 							.setRequired(true)
 					)

@@ -1,9 +1,6 @@
-import { hoursToMilliseconds, hoursToSeconds } from 'date-fns';
-import {
-	MessageEmbed,
-	MessageButton,
-	MessageActionRow
-} from 'discord.js';
+import { ButtonStyle, ComponentType, EmbedBuilder } from 'discord.js';
+import { hoursToMilliseconds } from 'date-fns';
+import { ButtonBuilder, ActionRowBuilder } from 'discord.js';
 import { getProfile, updateProfile } from '../../functions/models';
 import { SlashCommand } from '../../types';
 
@@ -20,7 +17,7 @@ const propose = new SlashCommand()
 					.setRequired(true)
 			)
 	)
-	.setCooldown(hoursToSeconds(1))
+	.setCooldown(25 * 60)
 	.setRun(async interaction => {
 		const { spouse, inventory } = await getProfile(
 			interaction.user.id
@@ -64,19 +61,19 @@ const propose = new SlashCommand()
 			});
 			return;
 		}
-		const acceptButton = new MessageButton()
+		const acceptButton = new ButtonBuilder()
 			.setCustomId('accept_proposal')
 			.setLabel('Accept Proposal')
 			.setEmoji('💍')
-			.setStyle('SUCCESS');
-		const row = new MessageActionRow().addComponents(acceptButton);
-		const proposal = new MessageEmbed()
-			.setColor('#85C1E9') // light blue
+			.setStyle(ButtonStyle.Success);
+		const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
+			acceptButton
+		);
+		const proposal = new EmbedBuilder()
+			.setColor(0x85c1e9) // light blue
 			.setAuthor({
 				name: 'Proposal',
-				iconURL: interaction.member.displayAvatarURL({
-					dynamic: true
-				})
+				iconURL: interaction.member.displayAvatarURL()
 			})
 			.setDescription(
 				`**${user}, ${interaction.user} has proposed to you**. Click the "Accept Proposal" button to marry ${interaction.user}. The button will not work after 3 hours.
@@ -100,7 +97,7 @@ Benefits of marriage:
 			filter: i => i.customId === 'accept_proposal',
 			max: 1,
 			time: collectorTime,
-			componentType: 'BUTTON'
+			componentType: ComponentType.Button
 		});
 		collector.on('collect', async buttonInteraction => {
 			if (buttonInteraction.user.id !== user.id) {
@@ -110,7 +107,6 @@ Benefits of marriage:
 				});
 				return;
 			}
-			if (!buttonInteraction.isMessageComponent()) return;
 			await updateProfile(
 				{ spouse: buttonInteraction.user.id },
 				interaction.user.id

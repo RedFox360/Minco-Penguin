@@ -1,4 +1,4 @@
-import viewLogs from '../../functions/view_logs';
+import viewLogs from '../../functions/logging/view_logs';
 import { UserContextMenu } from '../../types';
 
 const logs = new UserContextMenu()

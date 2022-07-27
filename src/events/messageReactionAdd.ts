@@ -1,4 +1,5 @@
-import { Client, MessageEmbed, MessageReaction } from 'discord.js';
+import { ChannelType, EmbedBuilder } from 'discord.js';
+import { Client, MessageReaction } from 'discord.js';
 import { getServer } from '../functions/models';
 
 export default (client: Client) =>
@@ -22,15 +23,13 @@ export default (client: Client) =>
 			if (message.author.bot) return;
 
 			const channel = await reaction.client.channels.fetch(channelID);
-			if (!channel.isText()) return;
+			if (channel.type !== ChannelType.GuildText) return;
 			const name = message.channel.name;
 			const nameFormat = name ? `#${name}` : message.id;
-			const embed = new MessageEmbed()
+			const embed = new EmbedBuilder()
 				.setAuthor({
 					name: message.member.displayName,
-					iconURL: message.author.avatarURL({
-						dynamic: true
-					}),
+					iconURL: message.author.displayAvatarURL(),
 					url: message.url
 				})
 				.setDescription(
@@ -40,7 +39,7 @@ export default (client: Client) =>
 				)
 				.setFooter({ text: `⭐️  | ${nameFormat}` })
 				.setTimestamp(message.createdTimestamp)
-				.setColor('#F7DC6F'); // yellow
+				.setColor(0xf7dc6f); // yellow
 			channel.send({
 				embeds: [embed],
 				files: Array.from(message.attachments.values())

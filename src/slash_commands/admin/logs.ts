@@ -1,6 +1,6 @@
-import viewLogs from '../../functions/view_logs';
+import viewLogs from '../../functions/logging/view_logs';
 import { SlashCommand } from '../../types';
-import isNumeric from '../../functions/isNumeric';
+import isNumeric from '../../functions/basics/is_numeric';
 import { GuildMember, User } from 'discord.js';
 const logs = new SlashCommand()
 	.setCommandData(builder =>
@@ -20,7 +20,7 @@ const logs = new SlashCommand()
 			)
 			.addSubcommand(subcommand =>
 				subcommand
-					.setName('user_id')
+					.setName('user-id')
 					.setDescription("View a user's logs from their id")
 					.addStringOption(option =>
 						option

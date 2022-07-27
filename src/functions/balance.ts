@@ -1,23 +1,28 @@
 import {
-	CommandInteraction,
+	ChatInputCommandInteraction,
+	EmbedBuilder
+} from 'discord.js';
+import {
 	GuildMember,
-	MessageEmbed,
-	UserContextMenuInteraction
+	UserContextMenuCommandInteraction
 } from 'discord.js';
 import { getProfile } from './models';
 
 export default async function run(
 	interaction:
-		| CommandInteraction<'cached'>
-		| UserContextMenuInteraction<'cached'>,
+		| ChatInputCommandInteraction<'cached'>
+		| UserContextMenuCommandInteraction<'cached'>,
 	member: GuildMember
 ) {
 	const profile = await getProfile(member.id);
 	const total = profile.mincoDollars + profile.bank;
-	const avatar = member.displayAvatarURL({ dynamic: true });
-	const balanceEmbed = new MessageEmbed()
-		.setAuthor({ name: 'Balance', iconURL: avatar })
-		.setColor('#B8FF8B')
+	const avatar = member.displayAvatarURL();
+	const balanceEmbed = new EmbedBuilder()
+		.setAuthor({
+			name: `${member.displayName}'s Balance`,
+			iconURL: avatar
+		})
+		.setColor(0xb8ff8b)
 		.setDescription(
 			`🪙 Wallet: **${profile.mincoDollars.toLocaleString(
 				interaction.locale

@@ -1,4 +1,4 @@
-import memberInfo from '../../functions/member_info';
+import memberInfo from '../../functions/info/member_info';
 import { UserContextMenu } from '../../types';
 
 const userInfo = new UserContextMenu()

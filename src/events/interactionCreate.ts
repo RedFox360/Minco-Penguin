@@ -1,74 +1,32 @@
 import {
-	Collection,
-	Interaction,
-	CommandInteraction,
-	MessageEmbed,
-	Permissions,
-	ApplicationCommandOptionChoiceData,
-	Client
+	ChatInputCommandInteraction,
+	EmbedBuilder,
+	InteractionType,
+	PermissionResolvable,
+	PermissionsBitField
 } from 'discord.js';
+import { PermissionFlagsBits } from 'discord.js';
+import { Collection, Interaction, Client } from 'discord.js';
 import prettyMs from 'pretty-ms';
 import { getProfileInServer } from '../functions/models';
 import { SlashCommand, UserContextMenu } from '../types';
-import fishJSON from '../json/fish.json';
-import animals from '../json/animals.json';
-const fishAutocompleteData =
-	new Array<ApplicationCommandOptionChoiceData>();
-const animalAutocompleteData =
-	new Array<ApplicationCommandOptionChoiceData>();
-for (const [fishName, fishData] of Object.entries(fishJSON)) {
-	fishAutocompleteData.push({
-		name:
-			fishData.formattedNames[0].charAt(0).toUpperCase() +
-			fishData.formattedNames[0].slice(1),
-		value: fishName
-	});
-}
-for (const animal of animals) {
-	animalAutocompleteData.push({
-		name: animal.name,
-		value: animal.name
-	});
-}
-
-const autocompleteFilter = (
-	givenAName: string,
-	givenValue: string
-) => {
-	const aName = givenAName.toLowerCase();
-	const value = givenValue.trim().toLowerCase();
-	return (
-		aName.startsWith(value) ||
-		aName.includes(value) ||
-		value.includes(aName)
-	);
-};
-
 const cooldowns = new Map();
+
 export default (client: Client) =>
 	client.on('interactionCreate', async (interaction: Interaction) => {
-		if (interaction.isAutocomplete()) {
-			// SELL FISH
-			if (interaction.options.getSubcommand() === 'fish') {
-				const value = interaction.options.getFocused().toString();
-				const matchingFishes = fishAutocompleteData.filter(a =>
-					autocompleteFilter(a.name, value)
-				);
-				await interaction.respond(matchingFishes.slice(0, 25));
-				return;
-			} else if (interaction.options.getSubcommand() === 'animal') {
-				const value = interaction.options.getFocused().toString();
-				const matchingAnimals = animalAutocompleteData.filter(a =>
-					autocompleteFilter(a.name, value)
-				);
-				await interaction.respond(matchingAnimals.slice(0, 25));
-				return;
-			}
+		if (
+			interaction.type ===
+			InteractionType.ApplicationCommandAutocomplete
+		) {
+			const command: SlashCommand = interaction.client[
+				'commands'
+			].get(interaction.commandName);
+			await command.autocomplete(interaction);
 		}
-		const isCommand = interaction.isCommand();
-		const isContextMenu = interaction.isContextMenu();
+		const isCommand = interaction.isChatInputCommand();
+		const isContextMenu = interaction.isUserContextMenuCommand();
 		if (!isCommand && !isContextMenu) return;
-		// if (interaction.user.id !== '724786310711214118') {
+		// if (interaction.user.id !== process.env.OWNER_ID) {
 		// 	await interaction.reply({
 		// 		content: 'Minco is in debugging mode',
 		// 		ephemeral: true
@@ -95,10 +53,8 @@ export default (client: Client) =>
 			}
 			return;
 		}
-		const { commandName } = interaction;
-
 		const command: SlashCommand | UserContextMenu =
-			interaction.client['commands'].get(commandName);
+			interaction.client['commands'].get(interaction.commandName);
 		const profileInServer = await getProfileInServer(
 			interaction.user.id,
 			interaction.guildId
@@ -106,9 +62,9 @@ export default (client: Client) =>
 		if (
 			profileInServer.bannedFromCommands &&
 			!interaction.member.permissions.has(
-				Permissions.FLAGS.MANAGE_MESSAGES
+				PermissionFlagsBits.ManageMessages
 			) &&
-			interaction.user.id !== '724786310711214118'
+			interaction.user.id !== process.env.OWNER_ID
 		) {
 			await interaction.reply({
 				content: 'You were banned from commands by a server manager',
@@ -117,16 +73,6 @@ export default (client: Client) =>
 			return;
 		}
 		if (isCommand && command instanceof SlashCommand) {
-			if (command.permissions?.length) {
-				const permission = handlePermissions(interaction, command);
-				if (permission?.permsNeeded) {
-					await interaction.reply({
-						content: permission.content,
-						ephemeral: true
-					});
-					return;
-				}
-			}
 			if (command.cooldown) {
 				const cooldown = handleCooldowns(interaction, command);
 				if (cooldown?.cooldown) {
@@ -137,15 +83,28 @@ export default (client: Client) =>
 					return;
 				}
 			}
+			if (command.botPermissions?.length > 0) {
+				const botPermissions = handleBotPermissions(
+					interaction,
+					command.botPermissions
+				);
+				if (!botPermissions.success) {
+					await interaction.reply({
+						content: botPermissions.content,
+						ephemeral: true
+					});
+					return;
+				}
+			}
 		}
 
 		(command as any).run(interaction).catch(async err => {
 			if (err.code !== 10062) console.error(err);
-			if (interaction.user.id === '724786310711214118') {
-				const errorEmbed = new MessageEmbed()
+			if (interaction.user.id === process.env.OWNER_ID) {
+				const errorEmbed = new EmbedBuilder()
 					.setTitle('<:x_circle:872594799553839114>  **ERROR** ')
 					.setDescription('```xl\n' + clean(err) + '\n```')
-					.setColor('#E48383');
+					.setColor(0xe48383);
 				interaction
 					.reply({
 						embeds: [errorEmbed],
@@ -168,12 +127,12 @@ export default (client: Client) =>
 	});
 
 function handleCooldowns(
-	interaction: CommandInteraction,
+	interaction: ChatInputCommandInteraction<'cached'>,
 	command: SlashCommand
 ) {
 	const {
 		builder: { name },
-		cooldown
+		cooldown: cooldown
 	} = command;
 	if (!cooldowns.has(name)) cooldowns.set(name, new Collection());
 	const currentTime = Date.now();
@@ -193,50 +152,28 @@ function handleCooldowns(
 	timeStamps.set(interaction.user.id, currentTime);
 	return { cooldown: false };
 }
-function handlePermissions(
-	interaction: CommandInteraction<'cached'>,
-	command: SlashCommand
+
+function handleBotPermissions(
+	interaction: ChatInputCommandInteraction<'cached'>,
+	botPermissions: PermissionResolvable[]
 ) {
-	const invalidPerms = [];
-	const botInvalidPerms = [];
-	const permissions = command.permissions;
-	if (command.permissionsRequiredForBot === false) {
-		permissions.forEach(
-			(perm: any) =>
-				!interaction.member.permissions.has(perm) &&
-				invalidPerms.push(
-					formatPermission(new Permissions(perm).toArray()[0])
-				)
-		);
-	} else {
-		permissions.forEach(perm => {
-			const permString = formatPermission(
-				new Permissions(perm).toArray()[0]
-			);
-			if (!interaction.member.permissions.has(perm)) {
-				invalidPerms.push(permString);
-			} else if (!interaction.guild.me.permissions.has(perm)) {
-				botInvalidPerms.push(permString);
-			}
-		});
-	}
-	if (invalidPerms.length) {
+	const { me } = interaction.guild.members;
+	const missingPermissions = botPermissions.filter(
+		permission => !me.permissions.has(permission)
+	);
+	if (missingPermissions.length > 0) {
+		const formattedPermissions = new PermissionsBitField(
+			missingPermissions
+		)
+			.toArray()
+			.map(a => '`' + pascalCaseToWords(a) + '`')
+			.join(', ');
 		return {
-			content: `You need these permissions to run this command: \`${invalidPerms.join(
-				', '
-			)}\``,
-			permsNeeded: true
+			success: false,
+			content: `Minco Penguin needs the following permissions to run this command: ${formattedPermissions}`
 		};
 	}
-	if (botInvalidPerms.length) {
-		return {
-			content: `The bot needs these permissions to run this command: \`${botInvalidPerms.join(
-				', '
-			)}\``,
-			permsNeeded: true
-		};
-	}
-	return { permsNeeded: false };
+	return { success: true };
 }
 
 function clean(text: any) {
@@ -247,14 +184,9 @@ function clean(text: any) {
 	else return text;
 }
 
-function formatPermission(perm: string) {
-	const spaced = perm.replaceAll(/_/g, ' ');
-	return capitalizeEachWordInString(spaced.toLowerCase());
-}
-
-function capitalizeEachWordInString(str: string) {
-	return str.replace(
-		/\w\S*/g,
-		txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
-	);
+// add spaces between words in pascal case
+// e.g. "ThisIsAPascalCase" -> "This Is A Pascal Case"
+// retain capitals
+function pascalCaseToWords(str: string) {
+	return str.replace(/([A-Z])/g, ' $1').trim();
 }

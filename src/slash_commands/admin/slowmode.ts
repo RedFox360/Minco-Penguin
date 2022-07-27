@@ -1,4 +1,6 @@
-import { MessageEmbed, Permissions, TextChannel } from 'discord.js';
+import { EmbedBuilder } from 'discord.js';
+import { PermissionFlagsBits } from 'discord.js';
+import { TextChannel } from 'discord.js';
 import ms from 'ms';
 import prettyMs from 'pretty-ms';
 import { SlashCommand } from '../../types';
@@ -8,6 +10,10 @@ const slowmode = new SlashCommand()
 		builder
 			.setName('slowmode')
 			.setDescription('Set the slowmode of a channel')
+			.setDefaultMemberPermissions(
+				PermissionFlagsBits.ManageChannels |
+					PermissionFlagsBits.ManageMessages
+			)
 			.addStringOption(option =>
 				option
 					.setName('time')
@@ -15,10 +21,7 @@ const slowmode = new SlashCommand()
 					.setRequired(true)
 			)
 	)
-	.setPermissions(
-		Permissions.FLAGS.MANAGE_CHANNELS,
-		Permissions.FLAGS.MANAGE_MESSAGES
-	)
+	.setBotPermissions(PermissionFlagsBits.ManageChannels)
 	.setRun(async interaction => {
 		const timeString = interaction.options.getString('time');
 		const unary = +timeString;
@@ -40,8 +43,8 @@ const slowmode = new SlashCommand()
 		}
 		if (interaction.guild) {
 			(interaction.channel as TextChannel).setRateLimitPerUser(time);
-			const confirmEmbed = new MessageEmbed()
-				.setColor('#7E78D2')
+			const confirmEmbed = new EmbedBuilder()
+				.setColor(0x7e78d2)
 				.setTitle('Slowmode')
 				.setDescription(
 					`Slowmode set to ${time} seconds (${prettyMs(time * 1000)})`

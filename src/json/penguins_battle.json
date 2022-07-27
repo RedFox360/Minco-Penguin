@@ -1,0 +1,19 @@
+{
+	"all": "https://i.imgur.com/K3yn29p.png",
+	"archer": "https://i.imgur.com/uhKe6OQ.png",
+	"medic": "https://i.imgur.com/kC5wi0z.png",
+	"magician": "https://i.imgur.com/asFcAzD.png",
+	"ninja": "https://i.imgur.com/cL1Rfdq.png",
+	"warrior": "https://i.imgur.com/2OByEaF.png",
+	"normal": "https://i.imgur.com/YFHRpo4.png",
+	"warriorEmoji": "<:warrior:989933197078974575>",
+	"magicianEmoji": "<:magician:989933195090862150>",
+	"medicEmoji": "<:healer:989933193845170186>",
+	"ninjaEmoji": "<:ninjap:989933191878029342>",
+	"archerEmoji": "<:archer:989933192788209745>",
+	"warriorColor": 15495267,
+	"magicianColor": 16101441,
+	"medicColor": 16044095,
+	"ninjaColor": 5822093,
+	"archerColor": 4567965
+}

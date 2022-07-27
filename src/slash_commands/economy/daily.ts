@@ -1,6 +1,5 @@
-import { MessageEmbed } from 'discord.js';
 import { randomInt } from 'mathjs';
-import { time } from '@discordjs/builders';
+import { EmbedBuilder, time } from 'discord.js';
 import { getProfile, updateProfile } from '../../functions/models';
 import { SlashCommand } from '../../types';
 import { hoursToMilliseconds } from 'date-fns';
@@ -28,8 +27,8 @@ const daily = new SlashCommand()
 			return;
 		}
 
-		const dailyEmbed = new MessageEmbed()
-			.setColor('#ffa845')
+		const dailyEmbed = new EmbedBuilder()
+			.setColor(0xffa845)
 			.setTitle('Daily Reward')
 			.setFooter({
 				text: interaction.guild?.name ?? interaction.user.username

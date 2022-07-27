@@ -1,7 +1,8 @@
 import {
-	CommandInteraction,
-	MessageActionRow,
-	MessageSelectMenu
+	ActionRowBuilder,
+	SelectMenuBuilder,
+	ChatInputCommandInteraction,
+	ComponentType
 } from 'discord.js';
 import shop from '../../json/item_shop.json';
 import { getProfile, updateProfile } from '../models';
@@ -13,13 +14,14 @@ const prices = [
 ] as const;
 
 export default async function run(
-	interaction: CommandInteraction<'cached'>
+	interaction: ChatInputCommandInteraction<'cached'>
 ) {
-	const row = new MessageActionRow().addComponents(
-		new MessageSelectMenu()
+	const row = new ActionRowBuilder<SelectMenuBuilder>().addComponents(
+		new SelectMenuBuilder()
 			.setCustomId('items-select')
 			.setPlaceholder('Minco Shop')
 			.addOptions(shop)
+			.setMaxValues(1)
 	);
 	const msg = await interaction.reply({
 		content: 'Choose an item from the Minco Shop',
@@ -28,7 +30,7 @@ export default async function run(
 	});
 
 	const collector = msg.createMessageComponentCollector({
-		componentType: 'SELECT_MENU',
+		componentType: ComponentType.SelectMenu,
 		time: collectorTime,
 		max: 10
 	});

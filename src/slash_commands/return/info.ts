@@ -1,6 +1,6 @@
-import memberInfo from '../../functions/member_info';
-import serverInfo from '../../functions/server_info';
-import channelInfo from '../../functions/channel_info';
+import memberInfo from '../../functions/info/member_info';
+import serverInfo from '../../functions/info/server_info';
+import channelInfo from '../../functions/info/channel_info';
 import { SlashCommand } from '../../types';
 
 const info = new SlashCommand()

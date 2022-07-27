@@ -1,9 +1,11 @@
-import { minutesToMilliseconds } from 'date-fns';
 import {
-	MessageEmbed,
-	MessageButton,
-	MessageActionRow
+	ButtonStyle,
+	ChannelType,
+	ComponentType,
+	EmbedBuilder
 } from 'discord.js';
+import { minutesToMilliseconds } from 'date-fns';
+import { ButtonBuilder, ActionRowBuilder } from 'discord.js';
 import checkProfanity from '../../functions/filter';
 import {
 	getProfileInServer,
@@ -41,7 +43,7 @@ const confess = new SlashCommand()
 			!(interaction.member.permissions as any).has(
 				'MANAGE_MESSAGES'
 			) &&
-			interaction.user.id !== '724786310711214118'
+			interaction.user.id !== process.env.OWNER_ID
 		) {
 			await interaction.reply({
 				content:
@@ -66,7 +68,7 @@ const confess = new SlashCommand()
 			interaction.options.getChannel('channel') ??
 			interaction.channel;
 
-		if (!channel.isText()) {
+		if (channel.type !== ChannelType.GuildText) {
 			await interaction.reply({
 				content: 'That channel is invalid',
 				ephemeral: true
@@ -74,22 +76,22 @@ const confess = new SlashCommand()
 			return;
 		}
 
-		const embed = new MessageEmbed()
+		const embed = new EmbedBuilder()
 			.setTitle('Anonymous Confession')
 			.setDescription(`"${confession}"`)
 			.setTimestamp()
-			.setColor('RANDOM');
+			.setColor(Math.floor(Math.random() * 0xffffff));
 
-		const row = new MessageActionRow().addComponents(
-			new MessageButton()
+		const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
+			new ButtonBuilder()
 				.setCustomId('delete')
 				.setLabel('Delete')
-				.setStyle('DANGER')
+				.setStyle(ButtonStyle.Danger)
 				.setEmoji('💥'),
-			new MessageButton()
+			new ButtonBuilder()
 				.setCustomId('reveal')
 				.setLabel('Reveal')
-				.setStyle('PRIMARY')
+				.setStyle(ButtonStyle.Danger)
 				.setEmoji('🙂')
 		);
 		await interaction.reply({
@@ -103,7 +105,7 @@ const confess = new SlashCommand()
 		const collector = msg.createMessageComponentCollector({
 			filter: i => i.customId === 'delete' || i.customId === 'reveal',
 			time: twominutes,
-			componentType: 'BUTTON'
+			componentType: ComponentType.Button
 		});
 		let deleted = false;
 		collector.on('collect', async buttonInteraction => {

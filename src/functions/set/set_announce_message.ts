@@ -1,7 +1,9 @@
 import { getServer, updateServer } from '../models';
-import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
+import {
+	ChatInputCommandInteraction,
+	SlashCommandSubcommandBuilder
+} from 'discord.js';
 import ordinal from 'ordinal';
-import { CommandInteraction } from 'discord.js';
 
 export const subcommand = new SlashCommandSubcommandBuilder()
 	.setName('announce_message')
@@ -13,9 +15,11 @@ export const subcommand = new SlashCommandSubcommandBuilder()
 			.setName('message_type')
 			.setDescription('The type of message')
 			.setRequired(true)
-			.addChoice('User joined', 'join')
-			.addChoice('User left', 'leave')
-			.addChoice('DM on join', 'dm')
+			.addChoices(
+				{ name: 'User joined', value: 'join' },
+				{ name: 'User left', value: 'leave' },
+				{ name: 'DM on join', value: 'dm' }
+			)
 	)
 	.addStringOption(option =>
 		option
@@ -24,7 +28,9 @@ export const subcommand = new SlashCommandSubcommandBuilder()
 			.setRequired(false)
 	);
 
-export async function run(interaction: CommandInteraction<'cached'>) {
+export async function run(
+	interaction: ChatInputCommandInteraction<'cached'>
+) {
 	const server = await getServer(interaction.guildId);
 	if (!(interaction.member.permissions as any).has('MANAGE_GUILD')) {
 		await interaction.reply({

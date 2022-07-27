@@ -1,4 +1,4 @@
-import fishingProfile from '../../functions/fishing_profile';
+import fishingProfile from '../../functions/fish/fishing_profile';
 import { UserContextMenu } from '../../types';
 
 const fishingProfileContextMenu = new UserContextMenu()

@@ -1,194 +1,172 @@
 import {
+	ApplicationCommandType,
+	ChatInputCommandInteraction,
 	ContextMenuCommandBuilder,
-	SlashCommandBuilder
-} from '@discordjs/builders';
-import {
-	CommandInteraction,
 	PermissionResolvable,
-	UserContextMenuInteraction
+	SlashCommandBuilder,
+	SlashCommandSubcommandBuilder
 } from 'discord.js';
+import {
+	AutocompleteInteraction,
+	UserContextMenuCommandInteraction
+} from 'discord.js';
+import { RodType } from 'mincomodels/profileSchema/types';
 
 const cooldownMax = 24 * 60 * 60;
 const cooldownMin = 3;
+
+type RunFunc = (
+	interaction: ChatInputCommandInteraction<'cached'>
+) => unknown | Promise<unknown>;
+type AutocompleteFunc = (
+	interaction: AutocompleteInteraction
+) => unknown | Promise<unknown>;
 export class SlashCommand {
-	public builder: SlashCommandBuilder;
-	public permissions: PermissionResolvable[];
-	public permissionsRequiredForBot: boolean;
-	public cooldown: number;
-	run: (interaction: CommandInteraction<'cached'>) => Promise<any>;
 	constructor() {
-		this.permissions = [];
-		this.permissionsRequiredForBot = true;
-		this.cooldown = 0;
+		this._cooldown = 0;
+		this._botPermissions = [];
+	}
+
+	private _builder: SlashCommandBuilder;
+	public get builder(): SlashCommandBuilder {
+		return this._builder;
 	}
 	setCommandData(builder: (o: SlashCommandBuilder) => any): this {
 		const slashBuilder = builder(new SlashCommandBuilder());
 		if (!(slashBuilder instanceof SlashCommandBuilder)) {
 			throw new Error(
-				`${this.builder.name} Builder provided is not an instance of SlashCommandBuilder`
+				`${this._builder.name} Builder provided is not an instance of SlashCommandBuilder`
 			);
 		}
-		this.builder = slashBuilder;
+		this._builder = slashBuilder;
 		return this;
 	}
-	setRun(
-		runFunction: (
-			interaction: CommandInteraction<'cached'>
-		) => Promise<any>
-	): this {
-		this.run = runFunction;
-		return this;
-	}
-	setPermissions(...permissions: PermissionResolvable[]): this {
-		this.permissions = permissions;
-		return this;
-	}
-	setPermissionsRequiredForBot(botNeedsPermissions: boolean): this {
-		this.permissionsRequiredForBot = botNeedsPermissions;
-		return this;
+
+	private _cooldown: number;
+	public get cooldown(): number {
+		return this._cooldown;
 	}
 	setCooldown(seconds: number): this {
 		if (seconds >= cooldownMax || seconds <= cooldownMin) {
 			throw new Error(
-				`${this.builder.name} Cooldown must be between 3 seconds and 1 day`
+				`${this._builder.name} Cooldown must be between 3 seconds and 1 day`
 			);
 		}
-		this.cooldown = seconds * 1000;
+		this._cooldown = seconds * 1000;
+		return this;
+	}
+
+	private _run: RunFunc;
+	public get run() {
+		return this._run;
+	}
+	setRun(runFunction: RunFunc): this {
+		this._run = runFunction;
+		return this;
+	}
+
+	private _autocomplete: AutocompleteFunc;
+	public get autocomplete() {
+		return this._autocomplete;
+	}
+	setAutocomplete(autocompleteFunction: AutocompleteFunc): this {
+		this._autocomplete = autocompleteFunction;
+		return this;
+	}
+
+	private _botPermissions: PermissionResolvable[];
+	public get botPermissions() {
+		return this._botPermissions;
+	}
+	setBotPermissions(...permissions: PermissionResolvable[]): this {
+		this._botPermissions = permissions;
 		return this;
 	}
 }
 export class UserContextMenu {
-	public builder: ContextMenuCommandBuilder;
-	run: (
-		interaction: UserContextMenuInteraction<'cached'>
-	) => Promise<any>;
+	private _builder: ContextMenuCommandBuilder;
+	public get builder(): ContextMenuCommandBuilder {
+		return this._builder;
+	}
 	setCommandData(
 		builder: (o: ContextMenuCommandBuilder) => any
 	): this {
 		const menuBuilder = builder(
-			new ContextMenuCommandBuilder().setType(2)
+			new ContextMenuCommandBuilder().setType(
+				ApplicationCommandType.User
+			)
 		);
 		if (!(menuBuilder instanceof ContextMenuCommandBuilder)) {
 			throw new Error(
 				'Builder provided is not an instance of ContextMenuCommandBuilder'
 			);
 		}
-		this.builder = menuBuilder;
+		this._builder = menuBuilder;
 		return this;
+	}
+
+	private _run: (
+		interaction: UserContextMenuCommandInteraction<'cached'>
+	) => Promise<unknown>;
+	public get run() {
+		return this._run;
 	}
 	setRun(
 		runFunction: (
-			interaction: UserContextMenuInteraction<'cached'>
-		) => Promise<any>
+			interaction: UserContextMenuCommandInteraction<'cached'>
+		) => Promise<unknown>
 	): this {
-		this.run = runFunction;
+		this._run = runFunction;
 		return this;
 	}
 }
-type AllReadOnly<T> = {
-	readonly [key in keyof T]: T[key];
-};
-export type ProfileInServer = AllReadOnly<{
-	userID: string;
-	serverID: string;
-	market?: MarketItem[];
-	isShadowBanned: boolean;
-	bannedFromCommands: boolean;
-	bannedFromConfessions: boolean;
-	logs?: Log[];
-}>;
-export type ServerData = AllReadOnly<{
-	serverID: string;
-	prefixes?: string[];
-	bannedPeople?: string[];
-	blacklist?: string[];
-	welcomeChannel?: string;
-	welcomeMessage: string;
-	leaveMessage: string;
-	welcomeDM?: string;
-	memberCount?: number;
-	silenceJoins: boolean;
-	silenceBans: boolean;
-	autowarns?: AutoWarn[];
-	profanityPunishment?: {
-		punishment: 'warn' | 'timeout' | 'ban' | 'kick';
-		time?: number;
-	};
-	muteRole?: string;
-	mainRole?: string;
-	modRole?: string;
-	botRole?: string;
-	joinRole?: string;
-	messageLogChannelId?: string;
-	mainLogChannelId?: string;
-	sendBirthdays: boolean;
-	birthdayChannel?: string;
-	currentCaseNo: number;
-	clean: boolean;
-	timezone: any;
-	starboard?: {
-		channelID?: string;
-		starAmount: number;
-		messages?: Map<string, string>;
-	};
-}>;
 
-export const ApplicationCommandPermissionTypes = <const>{
-	ROLE: 1,
-	USER: 2
-};
+export class Subcommand {
+	constructor() {
+		this._cooldown = 0;
+	}
 
-export type Profile = AllReadOnly<{
-	userID: string;
-	mincoDollars: number;
-	bank: number;
-	birthday?: string;
-	spouse?: string;
-	inventory?: string[];
-	gems?: string[];
-	candyAmount?: number;
-	zoo?: zooSchema[];
-	lastUsedDaily?: number;
-	lastUsedWeekly?: number;
-	timezone: string;
-	favs?: {
-		food?: string;
-		color?: string;
-		animal?: string;
-	};
-	fish?: {
-		// --- NEW VERSION ---
-		rod?: RodType;
-		fishInventory: Map<string, number>;
-		biome: Biome;
-		xp: number;
-	};
-}>;
+	private _builder: SlashCommandSubcommandBuilder;
+	public get builder(): SlashCommandSubcommandBuilder {
+		return this._builder;
+	}
+	setCommandData(
+		builder: (o: SlashCommandSubcommandBuilder) => any
+	): this {
+		const slashBuilder = builder(new SlashCommandSubcommandBuilder());
+		if (!(slashBuilder instanceof SlashCommandSubcommandBuilder)) {
+			throw new Error(
+				`${this._builder.name} Builder provided is not an instance of SlashCommandBuilder`
+			);
+		}
+		this._builder = slashBuilder;
+		return this;
+	}
 
-interface zooSchema {
-	name: string;
-	emoji: string;
+	private _cooldown: number;
+	public get cooldown(): number {
+		return this._cooldown;
+	}
+	setCooldown(seconds: number): this {
+		if (seconds >= cooldownMax || seconds <= cooldownMin) {
+			throw new Error(
+				`${this._builder.name} Cooldown must be between 3 seconds and 1 day`
+			);
+		}
+		this._cooldown = seconds * 1000;
+		return this;
+	}
+
+	private _run: RunFunc;
+	public get run() {
+		return this._run;
+	}
+	setRun(runFunction: RunFunc): this {
+		this._run = runFunction;
+		return this;
+	}
 }
 
-export interface Log {
-	type: LogType;
-	case: number;
-	time?: number;
-	date: Date;
-	reason?: string;
-	moderator: string;
-}
-interface MarketItem {
-	price: number;
-	name: string;
-	desc?: string;
-}
-export interface AutoWarn {
-	warnAmount: number;
-	divisible: boolean;
-	punishment: AutoWarnPunishment;
-	time?: number; // for timeout only
-}
 export interface FishJSON {
 	[fish: string]: {
 		formattedNames: string[];
@@ -211,51 +189,3 @@ interface RodJSONElement {
 	gem?: string;
 }
 export type RodJSON = RodJSONElement[];
-
-export type AutoWarnPunishment = 'timeout' | 'kick' | 'ban';
-export type Biome =
-	| 'ocean'
-	| 'river'
-	| 'warm ocean'
-	| 'lush cave'
-	| 'pond'
-	| 'beach';
-
-export type RodType =
-	| 'wooden'
-	| 'bone'
-	| 'candle'
-	| 'copper'
-	| 'steel'
-	| 'heavy'
-	| 'polished'
-	| 'quartz'
-	| 'amethyst'
-	| 'blazing'
-	| 'dark'
-	| 'ruby'
-	| 'marble'
-	| 'sapphire'
-	| 'gold'
-	| 'eternal'
-	| 'opal'
-	| 'moonstone'
-	| 'shining'
-	| 'topaz'
-	| 'silver'
-	| 'jade'
-	| 'floral'
-	| 'diamond'
-	| 'emerald'
-	| 'prismarine'
-	| 'pink diamond'
-	| 'titanium'
-	| 'black diamond'
-	| 'obsidian';
-
-export type LogType =
-	| 'Warn'
-	| 'Timeout'
-	| 'End Timeout'
-	| 'Kick'
-	| 'Ban';

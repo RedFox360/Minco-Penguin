@@ -1,6 +1,7 @@
-import Discord from 'discord.js';
+import { EmbedBuilder } from 'discord.js';
+import { Client, TextChannel } from 'discord.js';
 import { getServer } from '../functions/models';
-export default (client: Discord.Client) =>
+export default (client: Client) =>
 	client.on(
 		'guildBanAdd',
 		async ({ user, guild, reason, client }) => {
@@ -9,15 +10,15 @@ export default (client: Discord.Client) =>
 			if (serverData.silenceBans) return;
 			let desc = `${user.tag} flew too close to the sun and was banned from ${guild.name}.`;
 			if (reason) desc += `\nReason: *${reason}*`;
-			const banEmbed = new Discord.MessageEmbed()
-				.setColor('#F75853') // red
+			const banEmbed = new EmbedBuilder()
+				.setColor(0xf75853) // red
 				.setTitle('Banned')
 				.setDescription(desc);
 			const channel = serverData.welcomeChannel
 				? client.channels.cache.get(serverData.welcomeChannel)
 				: guild.systemChannel;
 			if (!channel) return;
-			(channel as Discord.TextChannel).send({
+			(channel as TextChannel).send({
 				embeds: [banEmbed]
 			});
 			let userDesc = `${user.tag}, you were banned from ${guild.name}.`;

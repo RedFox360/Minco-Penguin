@@ -1,41 +1,43 @@
 import {
-	CommandInteraction,
+	ChatInputCommandInteraction,
 	GuildMember,
-	MessageEmbed,
-	UserContextMenuInteraction
+	UserContextMenuCommandInteraction
 } from 'discord.js';
 import emojis from './fish_emojis';
-import fishJSON from '../json/fish.json';
-import { getProfile } from './models';
-import chunkArray from './chunkArray';
+import fishJSON from '../../json/fish.json';
+import { getProfile } from '../models';
+import chunkArray from '../basics/chunk_array';
+import { EmbedBuilder } from 'discord.js';
 
 export default async function run(
 	interaction:
-		| CommandInteraction<'cached'>
-		| UserContextMenuInteraction<'cached'>,
+		| ChatInputCommandInteraction<'cached'>
+		| UserContextMenuCommandInteraction<'cached'>,
 	member: GuildMember
 ) {
 	const { user } = member;
 	const { fish } = await getProfile(user.id);
-	const avatar = member.displayAvatarURL({ dynamic: true });
+	const avatar = member.displayAvatarURL();
 	const embeds = [
-		new MessageEmbed()
-			.setColor('#D5f5E3')
+		new EmbedBuilder()
+			.setColor(0xd5f5e3)
 			.setAuthor({ name: 'Fishing Profile', iconURL: avatar })
-			.addField(
-				`${emojis.sparkle} EXP`,
-				fish.xp.toLocaleString(interaction.locale),
-				true
-			)
+			.addFields({
+				name: `${emojis.sparkle} EXP`,
+				value: fish.xp.toLocaleString(interaction.locale),
+				inline: true
+			})
 	];
 	if (fish.rod)
-		embeds[0].addField(
-			`${emojis.rod} Rod`,
-			`${fish.rod.charAt(0).toUpperCase() + fish.rod.slice(1)} rod`,
-			true
-		);
+		embeds[0].addFields({
+			name: `${emojis.rod} Rod`,
+			value: `${
+				fish.rod.charAt(0).toUpperCase() + fish.rod.slice(1)
+			} rod`,
+			inline: true
+		});
 	// if (fish.baitType) {
-	// 	embed.addField(
+	// 	embed.addFields(
 	// 		'Bait',
 	// 		`Bait Type: ${fish.baitType} | Amount: ${fish.baits}`
 	// 	);
@@ -57,19 +59,21 @@ export default async function run(
 				});
 		});
 		const chunkedFish = chunkArray(fishFields, 20);
-		embeds[0].addFields(chunkedFish[0]);
+		embeds[0].addFields(...chunkedFish[0]);
 		if (chunkedFish.length > 1) {
 			chunkedFish.shift();
 			chunkedFish.forEach((fields, index) => {
-				embeds[index + 1] = new MessageEmbed()
-					.setColor('#D5f5E3')
-					.setFields(fields);
+				embeds[index + 1] = new EmbedBuilder()
+					.setColor(0xd5f5e3)
+					.addFields(...fields);
 			});
 		}
 	} else {
 		embeds[0].setDescription("You don't have any fish");
 	}
-	await interaction.reply({ embeds });
+	await interaction.reply({
+		embeds: embeds.map(embed => embed)
+	});
 }
 
 function capitalizeFirstLetter(str: string) {

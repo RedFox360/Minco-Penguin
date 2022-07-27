@@ -1,24 +1,28 @@
-import * as setAutoWarn from '../../functions/autowarn/set_auto_warn';
-import * as viewAutoWarn from '../../functions/autowarn/view_auto_warn';
-import * as removeAutoWarn from '../../functions/autowarn/remove_auto_warn';
-import * as autoModProfanity from '../../functions/auto_mod_profanity';
+import setAutoWarn from '../../functions/autowarn/set_auto_warn';
+import viewAutoWarn from '../../functions/autowarn/view_auto_warn';
+import removeAutoWarn from '../../functions/autowarn/remove_auto_warn';
+import autoModProfanity from '../../functions/for_commands/auto_mod_profanity';
 import { SlashCommand } from '../../types';
-import { Permissions } from 'discord.js';
+import { PermissionFlagsBits } from 'discord.js';
 
 const autoWarn = new SlashCommand()
 	.setCommandData(builder =>
 		builder
-			.setName('auto_mod')
+			.setName('auto-mod')
 			.setDescription('Set up automod for your server')
+			.setDefaultMemberPermissions(
+				PermissionFlagsBits.ModerateMembers |
+					PermissionFlagsBits.ManageGuild
+			)
 			.addSubcommandGroup(group =>
 				group
 					.setName('warn')
 					.setDescription(
 						'Actions when a user reaches a certain amount of warns'
 					)
-					.addSubcommand(setAutoWarn.subcommand)
-					.addSubcommand(viewAutoWarn.subcommand)
-					.addSubcommand(removeAutoWarn.subcommand)
+					.addSubcommand(setAutoWarn.builder)
+					.addSubcommand(viewAutoWarn.builder)
+					.addSubcommand(removeAutoWarn.builder)
 			)
 			.addSubcommandGroup(group =>
 				group
@@ -26,14 +30,9 @@ const autoWarn = new SlashCommand()
 					.setDescription(
 						'Actions when a user does something not allowed'
 					)
-					.addSubcommand(autoModProfanity.subcommand)
+					.addSubcommand(autoModProfanity.builder)
 			)
 	)
-	.setPermissions(
-		Permissions.FLAGS.MODERATE_MEMBERS,
-		Permissions.FLAGS.MANAGE_GUILD
-	)
-	.setPermissionsRequiredForBot(false)
 	.setRun(async interaction => {
 		switch (interaction.options.getSubcommand()) {
 			case 'set': {

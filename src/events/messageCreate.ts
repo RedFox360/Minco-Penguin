@@ -1,179 +1,99 @@
-import {
-	Client,
-	Message,
-	MessageEmbed,
-	Permissions
-} from 'discord.js';
-import prettyMs from 'pretty-ms';
-import { transpile } from 'typescript';
-import slashHandler from '../handlers/slash_handler';
-import { inspect } from 'util';
+import { Client, Collection, EmbedBuilder } from 'discord.js';
 import checkProfanity from '../functions/filter';
-import { getServer } from '../functions/models';
 import {
-	logBan,
-	logKick,
-	logTimeout,
-	logWarn
-} from '../functions/log_functions';
-import { autowarn } from '../slash_commands/admin/warn';
+	getProfileInServer,
+	getServer,
+	updateProfileInServer
+} from '../functions/models';
+import { PermissionFlagsBits } from 'discord.js';
+import handleProfanityPunishment from '../functions/profanity_punishment';
+import commandHandler from '../functions/command_handler';
+import { xpAmountToLevel } from '../functions/xp_to_level';
+
+type CooldownId = `${string}$${string}`;
+const cooldowns = new Collection<CooldownId, number>();
+const cooldown = 8000;
+
+// TODO: remove message delete for shadow ban
+
 export default (client: Client) =>
 	client.on('messageCreate', async message => {
+		if (!message.inGuild()) return;
+		if (message.author.bot) return;
 		if (
-			message.guild &&
 			checkProfanity(message.content) &&
-			message.guild.me.permissions.has(
-				Permissions.FLAGS.MANAGE_MESSAGES
+			message.guild.members.me.permissions.has(
+				PermissionFlagsBits.ManageMessages
 			)
 		) {
-			const { clean, profanityPunishment } = await getServer(
-				message.guildId
-			);
+			const { clean, profanityPunishment, autowarns } =
+				await getServer(message.guildId);
 			if (clean) await message.delete();
-			if (profanityPunishment) {
-				switch (profanityPunishment.punishment) {
-					case 'timeout': {
-						if (
-							!message.guild.me.permissions.has(
-								Permissions.FLAGS.MODERATE_MEMBERS
-							)
-						)
-							break;
-						if (!message.member.moderatable) break;
-						if (!profanityPunishment.time) break;
-						if (!profanityPunishment.time) break;
-						const reason = 'Automatic timeout for sending profanity';
-						const { currentCaseNo } = await logTimeout(
-							message.author.id,
-							message.guildId,
-							profanityPunishment.time,
-							reason
-						);
-						await message.member.timeout(
-							profanityPunishment.time,
-							reason
-						);
-						message.author
-							.send(
-								`#${currentCaseNo} | You were timeouted in ${
-									message.guildId
-								} for ${prettyMs(profanityPunishment.time, {
-									verbose: true
-								})} for sending a profane message`
-							)
-							.catch(() => null);
-						return;
-					}
-					case 'warn': {
-						const { currentCaseNo, logs } = await logWarn(
-							message.author.id,
-							message.guildId,
-							'Automatic warn for sending profanity'
-						);
-						message.author
-							.send(
-								`#${currentCaseNo} | You were warned in ${message.guild.name} for sending a profane message`
-							)
-							.catch(() => null);
-						const { autowarns } = await getServer(message.guildId);
-						await autowarn(logs, autowarns, message.member);
-						return;
-					}
-					case 'kick': {
-						if (!message.member.kickable) break;
-						const kickReason = 'Automatic kick for sending profanity';
-						await message.member.kick(kickReason);
-						const { currentCaseNo } = await logKick(
-							message.author.id,
-							message.guildId,
-							kickReason
-						);
-						message.author
-							.send(
-								`#${currentCaseNo} | You were kicked in **${message.guild.name}** for sending a profane message`
-							)
-							.catch(() => null);
-						return;
-					}
-					case 'ban': {
-						if (!message.member.bannable) break;
-						const banReason = 'Automatic ban for sending profanity';
-						await message.member.ban({
-							reason: banReason
-						});
-						const { currentCaseNo } = await logBan(
-							message.author.id,
-							message.guildId,
-							banReason
-						);
-						message.member
-							.send(
-								`#${currentCaseNo} | You were banned in **${message.guild.name}** for sending a profane message`
-							)
-							.catch(() => null);
-						return;
-					}
-				}
+			if (profanityPunishment?.punishment) {
+				await handleProfanityPunishment(
+					message,
+					profanityPunishment,
+					autowarns
+				);
 			}
 		}
-		if (message.author?.id === '724786310711214118') {
-			const inDev = !process.argv.includes('--prod');
-			const prefix = inDev ? '$!' : '!';
-			if (message.content.startsWith(`${prefix}eval `)) {
-				const typescriptCode = message.content.substring(5);
-				if (!typescriptCode || typescriptCode === '') return;
-				const code = transpile(typescriptCode, {
-					esModuleInterop: true,
-					moduleResolution: 2,
-					resolveJsonModule: true,
-					target: 99
+		const authorId = message.author?.id;
+		if (!authorId) return;
+		if (message.author?.id === process.env.OWNER_ID) {
+			await commandHandler(message);
+		}
+		const { xp: oldXp } = await getProfileInServer(
+			authorId,
+			message.guildId
+		);
+		const previousLevel = xpAmountToLevel(oldXp);
+		const onCooldown = handleCooldowns(authorId, message.guildId);
+
+		if (onCooldown) {
+			return;
+		}
+		const server = await getServer(message.guildId);
+		const multiplier = server.globalXpMultipler;
+		const addedXp = Math.floor(25 * multiplier);
+		const newLevel = xpAmountToLevel(oldXp + addedXp);
+		await updateProfileInServer(
+			{
+				$inc: { xp: addedXp },
+				level: newLevel
+			},
+			authorId,
+			message.guildId
+		);
+
+		if (newLevel > previousLevel) {
+			if (message.guild.systemChannel) {
+				await message.guild.systemChannel.send({
+					embeds: [
+						new EmbedBuilder()
+							.setAuthor({
+								name: message.member.displayName
+							})
+							.setThumbnail(message.member.displayAvatarURL())
+							.setTitle('Congrats')
+							.setDescription(`You are now level **${newLevel}**!`)
+					]
 				});
-				const timeStamp1 = Date.now();
-				let evaled: any;
-				try {
-					evaled = eval(code);
-				} catch (err) {
-					const errorEmbed = new MessageEmbed()
-						.setTitle('<:x_circle:872594799553839114>  **ERROR** ')
-						.setDescription('```xl\n' + cleanText(err) + '\n```')
-						.setColor('#E48383');
-					await message.reply({
-						embeds: [errorEmbed]
-					});
-					return;
-				}
-				if (typeof evaled !== 'string') evaled = inspect(evaled);
-				const codeEvaled = '```js\n' + cleanText(evaled) + '\n```';
-				const codeFormat = '```js\n' + code + '\n```';
-				const responseEmbed = new MessageEmbed()
-					.setTitle('Eval...')
-					.setFields(
-						{
-							name: 'Input',
-							value: codeFormat
-						},
-						{
-							name: 'Output',
-							value: codeEvaled
-						},
-						{
-							name: 'Time taken',
-							value: prettyMs(Date.now() - timeStamp1)
-						}
-					)
-					.setColor('#B8FF8B');
-				await message.reply({ embeds: [responseEmbed] });
-			} else if (message.content === `${prefix}reload commands`) {
-				await slashHandler(message.client, inDev, true);
-				await message.reply('Reloaded all commands');
 			}
 		}
 	});
 
-function cleanText(text: any) {
-	if (typeof text === 'string')
-		return text
-			.replace(/`/g, '`' + String.fromCharCode(8203))
-			.replace(/@/g, '@' + String.fromCharCode(8203));
-	else return text;
+function handleCooldowns(userId: string, serverId: string) {
+	const key = `${userId}$${serverId}` as const;
+	const timestamp = cooldowns.get(key);
+	if (!timestamp) {
+		cooldowns.set(key, Date.now());
+		return;
+	}
+	const currentTime = Date.now();
+	const expTime = timestamp + cooldown;
+	if (currentTime < expTime) {
+		return true;
+	}
+	cooldowns.set(key, currentTime);
+	return false;
 }

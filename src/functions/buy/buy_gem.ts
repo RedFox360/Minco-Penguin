@@ -1,7 +1,8 @@
 import {
-	CommandInteraction,
-	MessageActionRow,
-	MessageSelectMenu
+	ChatInputCommandInteraction,
+	ComponentType,
+	ActionRowBuilder,
+	SelectMenuBuilder
 } from 'discord.js';
 import shop from '../../json/gem_shop.json';
 import { getProfile, updateProfile } from '../models';
@@ -10,10 +11,10 @@ import { hoursToMilliseconds } from 'date-fns';
 const collectorTime = hoursToMilliseconds(2);
 
 export default async function run(
-	interaction: CommandInteraction<'cached'>
+	interaction: ChatInputCommandInteraction<'cached'>
 ) {
-	const row = new MessageActionRow().addComponents(
-		new MessageSelectMenu()
+	const row = new ActionRowBuilder<SelectMenuBuilder>().addComponents(
+		new SelectMenuBuilder()
 			.setCustomId('gems-select')
 			.setPlaceholder('Minco Gems')
 			.setMaxValues(1)
@@ -26,7 +27,7 @@ export default async function run(
 		fetchReply: true
 	});
 	const collector = msg.createMessageComponentCollector({
-		componentType: 'SELECT_MENU',
+		componentType: ComponentType.SelectMenu,
 		time: collectorTime,
 		max: 10
 	});

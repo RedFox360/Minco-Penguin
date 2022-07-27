@@ -1,29 +1,32 @@
 import {
-	CommandInteraction,
-	GuildMember,
-	MessageEmbed,
-	Permissions
+	ChatInputCommandInteraction,
+	EmbedBuilder
 } from 'discord.js';
+import { PermissionFlagsBits } from 'discord.js';
+import { GuildMember } from 'discord.js';
 import prettyMs from 'pretty-ms';
 import {
 	logBan,
 	logKick,
 	logTimeout,
 	logWarn
-} from '../../functions/log_functions';
+} from '../../functions/logging/log_functions';
 import { getServer } from '../../functions/models';
+import { SlashCommand } from '../../types';
 import {
 	AutoWarn,
-	AutoWarnPunishment,
-	Log,
-	SlashCommand
-} from '../../types';
+	AutoWarnPunishment
+} from 'mincomodels/serverSchema/types';
+import { Log } from 'mincomodels/profileInServerSchema/types';
 
 const warn = new SlashCommand()
 	.setCommandData(builder =>
 		builder
 			.setName('warn')
 			.setDescription('Warn a user')
+			.setDefaultMemberPermissions(
+				PermissionFlagsBits.ModerateMembers
+			)
 			.addUserOption(option =>
 				option
 					.setName('user')
@@ -45,12 +48,18 @@ const warn = new SlashCommand()
 					.setRequired(false)
 			)
 	)
-	.setPermissions(Permissions.FLAGS.MODERATE_MEMBERS)
 	.setRun(async interaction => {
 		const member = interaction.options.getMember('user');
 		if (member.user.bot) {
 			await interaction.reply({
 				content: "You can't warn a bot",
+				ephemeral: true
+			});
+			return;
+		}
+		if (member.id === interaction.user.id) {
+			await interaction.reply({
+				content: "You can't warn yourself",
 				ephemeral: true
 			});
 			return;
@@ -79,13 +88,13 @@ const warn = new SlashCommand()
 			reason,
 			interaction.user.id
 		);
-		const iconURL = interaction.guild.iconURL({ dynamic: true });
-		const warnEmbed = new MessageEmbed()
+		const iconURL = interaction.guild.iconURL();
+		const warnEmbed = new EmbedBuilder()
 			.setAuthor({
 				name: member.displayName,
-				iconURL: member.displayAvatarURL({ dynamic: true })
+				iconURL: member.displayAvatarURL()
 			})
-			.setColor('#5DADE2') // blue
+			.setColor(0x5dade2) // blue
 			.setTitle('Warning')
 			.setDescription(
 				`${member} has been warned
@@ -113,7 +122,7 @@ export async function autowarn(
 	logs: Log[],
 	autowarns: AutoWarn[],
 	member: GuildMember,
-	interaction?: CommandInteraction<'cached'>,
+	interaction?: ChatInputCommandInteraction<'cached'>,
 	silent?: boolean
 ): Promise<AutoWarnPunishment | undefined> {
 	const warnAmount = logs.filter(log => log.type === 'Warn').length;
@@ -128,6 +137,18 @@ export async function autowarn(
 	const iconURL = interaction && interaction.guild.iconURL();
 	switch (autowarn.punishment) {
 		case 'timeout': {
+			if (
+				!interaction.guild.members.me.permissions.has(
+					PermissionFlagsBits.ModerateMembers
+				)
+			) {
+				await interaction.followUp({
+					content:
+						"Minco Penguin tried to timeout the user you warned due to automod, but didn't have the permissions to do so.",
+					ephemeral: true
+				});
+				return;
+			}
 			if (!autowarn.time) return;
 			if (!member.moderatable) {
 				await interaction.followUp({
@@ -147,14 +168,12 @@ export async function autowarn(
 				interaction.user.id
 			);
 			if (interaction) {
-				const timeoutEmbed = new MessageEmbed()
+				const timeoutEmbed = new EmbedBuilder()
 					.setAuthor({
 						name: member.displayName,
-						iconURL: member.displayAvatarURL({
-							dynamic: true
-						})
+						iconURL: member.displayAvatarURL()
 					})
-					.setColor('#F5B041') // orange
+					.setColor(0xf5b041) // orange
 					.setTitle('Autowarn: Timeout')
 					.setDescription(
 						`${member} has been timed out for ${prettyMs(
@@ -192,6 +211,18 @@ You were timeouted in **${member.guild.name}** because you reached ${warnAmount}
 			break;
 		}
 		case 'ban': {
+			if (
+				!interaction.guild.members.me.permissions.has(
+					PermissionFlagsBits.BanMembers
+				)
+			) {
+				await interaction.followUp({
+					content:
+						"Minco Penguin tried to ban the user you warned due to automod, but didn't have the permissions to do so.",
+					ephemeral: true
+				});
+				return;
+			}
 			if (!member.bannable) {
 				await interaction.followUp({
 					content:
@@ -211,13 +242,11 @@ You were timeouted in **${member.guild.name}** because you reached ${warnAmount}
 				interaction.user.id
 			);
 			if (interaction) {
-				const banEmbed = new MessageEmbed()
-					.setColor('#CB4335')
+				const banEmbed = new EmbedBuilder()
+					.setColor(0xcb4335)
 					.setAuthor({
 						name: member.user.tag,
-						iconURL: member.user.displayAvatarURL({
-							dynamic: true
-						})
+						iconURL: member.user.displayAvatarURL()
 					})
 					.setTitle('Banned')
 					.setDescription(
@@ -227,9 +256,7 @@ Reason: ${banReason}`
 					)
 					.setFooter({
 						text: interaction.guild.name,
-						iconURL: interaction.guild.iconURL({
-							dynamic: true
-						})
+						iconURL: interaction.guild.iconURL()
 					});
 				member
 					.send(
@@ -254,6 +281,18 @@ You were banned from **${interaction.guild.name}** because you reached ${warnAmo
 			break;
 		}
 		case 'kick': {
+			if (
+				!interaction.guild.members.me.permissions.has(
+					PermissionFlagsBits.KickMembers
+				)
+			) {
+				await interaction.followUp({
+					content:
+						"Minco Penguin tried to kick the user you warned due to automod, but didn't have the permissions to do so.",
+					ephemeral: true
+				});
+				return;
+			}
 			if (!member.kickable) {
 				await interaction.followUp({
 					content:
@@ -271,13 +310,11 @@ You were banned from **${interaction.guild.name}** because you reached ${warnAmo
 				interaction.user.id
 			);
 			if (interaction) {
-				const kickEmbed = new MessageEmbed()
-					.setColor('#CB4335')
+				const kickEmbed = new EmbedBuilder()
+					.setColor(0xcb4335)
 					.setAuthor({
 						name: member.user.tag,
-						iconURL: member.user.displayAvatarURL({
-							dynamic: true
-						})
+						iconURL: member.user.displayAvatarURL()
 					})
 					.setTitle('Kicked')
 					.setDescription(
@@ -287,9 +324,7 @@ Reason: ${kickReason}`
 					)
 					.setFooter({
 						text: interaction.guild.name,
-						iconURL: interaction.guild.iconURL({
-							dynamic: true
-						})
+						iconURL: interaction.guild.iconURL()
 					});
 				member
 					.send(

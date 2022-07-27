@@ -1,4 +1,10 @@
-import { Client, Message, TextChannel } from 'discord.js';
+import {
+	BaseGuildTextChannel,
+	ChannelType,
+	Client,
+	Message,
+	TextChannel
+} from 'discord.js';
 export default (client: Client) =>
 	client.on('raw', async packet => {
 		// We don't want this to run on unrelated packets
@@ -9,7 +15,7 @@ export default (client: Client) =>
 		) {
 			// Grab the channel to check the message from
 			const channel = client.channels.cache.get(packet.d.channel_id);
-			if (!channel.isText()) return;
+			if (channel.type !== ChannelType.GuildText) return;
 			// There's no need to emit if the message is cached, because the event will fire anyway for that
 			if (channel.messages.cache.has(packet.d.message_id)) return;
 			// Since we have confirmed the message is not cached, let's fetch it

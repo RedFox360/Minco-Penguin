@@ -1,6 +1,5 @@
-import { MessageEmbed } from 'discord.js';
 import { randomInt } from 'mathjs';
-import { time } from '@discordjs/builders';
+import { EmbedBuilder, time } from 'discord.js';
 import ms from 'ms';
 import { getProfile, updateProfile } from '../../functions/models';
 import { SlashCommand } from '../../types';
@@ -30,8 +29,8 @@ const weekly = new SlashCommand()
 			return;
 		}
 
-		const weeklyEmbed = new MessageEmbed()
-			.setColor('#ffa845')
+		const weeklyEmbed = new EmbedBuilder()
+			.setColor(0xffa845)
 			.setTitle('Weekly Reward')
 			.setFooter({
 				text: interaction.guild?.name ?? interaction.user.username

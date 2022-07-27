@@ -1,12 +1,13 @@
 import { getProfile, updateProfile } from '../../functions/models';
 import { SlashCommand } from '../../types';
 import {
-	MessageEmbed,
-	MessageActionRow,
-	MessageSelectMenu,
-	EmojiResolvable
+	ActionRowBuilder,
+	SelectMenuBuilder,
+	EmojiResolvable,
+	ComponentType
 } from 'discord.js';
 import { hoursToMilliseconds } from 'date-fns';
+import { EmbedBuilder } from 'discord.js';
 
 const biome = new SlashCommand()
 	.setCommandData(builder =>
@@ -34,10 +35,10 @@ const biome = new SlashCommand()
 		if (profile.fish.xp >= 5000)
 			unlockedOptionsValues.push('lush cave');
 
-		let row: MessageActionRow;
+		let row: ActionRowBuilder<SelectMenuBuilder>;
 		if (unlockedOptionsValues.length > 1)
-			row = new MessageActionRow().addComponents(
-				new MessageSelectMenu()
+			row = new ActionRowBuilder<SelectMenuBuilder>().addComponents(
+				new SelectMenuBuilder()
 					.setCustomId('biomes-select')
 					.setPlaceholder('Switch biomes')
 					.setMaxValues(1)
@@ -48,13 +49,11 @@ const biome = new SlashCommand()
 					)
 			);
 
-		const biomesEmbed = new MessageEmbed()
-			.setColor('#5DADE2')
+		const biomesEmbed = new EmbedBuilder()
+			.setColor(0x5dade2)
 			.setAuthor({
 				name: interaction.member.displayName,
-				iconURL: interaction.member.displayAvatarURL({
-					dynamic: true
-				})
+				iconURL: interaction.member.displayAvatarURL()
 			})
 			.setTitle('Biome Choices')
 			.setDescription(
@@ -81,7 +80,7 @@ const biome = new SlashCommand()
 			fetchReply: true
 		});
 		const collector = msg.createMessageComponentCollector({
-			componentType: 'SELECT_MENU',
+			componentType: ComponentType.SelectMenu,
 			filter: i => i.customId === 'biomes-select',
 			time: hoursToMilliseconds(2)
 		});

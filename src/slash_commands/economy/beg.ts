@@ -1,6 +1,6 @@
 import { randomInt } from 'mathjs';
 import { utcToZonedTime } from 'date-fns-tz';
-import { getDayOfYear, minutesToSeconds } from 'date-fns';
+import { getDayOfYear } from 'date-fns';
 import {
 	getProfile,
 	getServer,
@@ -12,7 +12,7 @@ const beg = new SlashCommand()
 	.setCommandData(builder =>
 		builder.setName('beg').setDescription('Beg for Minco Dollars!')
 	)
-	.setCooldown(minutesToSeconds(6.5))
+	.setCooldown(6.5 * 60)
 	.setRun(async interaction => {
 		const profile = await getProfile(interaction.user.id);
 		const { timezone } = await getServer(interaction.guildId);

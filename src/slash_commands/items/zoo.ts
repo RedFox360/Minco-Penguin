@@ -1,9 +1,14 @@
-import { CommandInteraction, MessageEmbed } from 'discord.js';
-import { MessageActionRow, MessageButton } from 'discord.js';
+import {
+	ButtonStyle,
+	CommandInteraction,
+	ComponentType
+} from 'discord.js';
+import { ActionRowBuilder, ButtonBuilder } from 'discord.js';
 import animalList from '../../json/animals.json';
 import { getProfile } from '../../functions/models';
 import { SlashCommand } from '../../types';
 import { hoursToMilliseconds } from 'date-fns';
+import { EmbedBuilder } from 'discord.js';
 
 const twoHours = hoursToMilliseconds(2);
 const perGroup = Math.ceil(animalList.length / 3);
@@ -21,9 +26,14 @@ const zoo = new SlashCommand()
 					.setName('view_type')
 					.setDescription('How to view the zoo')
 					.setRequired(true)
-					.addChoice('Compact', 'compact')
-					.addChoice('List', 'list')
-					.addChoice('Animal List', 'animal_list')
+					.addChoices(
+						{ name: 'Compact', value: 'compact' },
+						{ name: 'List', value: 'list' },
+						{
+							name: 'Animal List',
+							value: 'animal_list'
+						}
+					)
 			)
 			.addUserOption(option =>
 				option
@@ -68,13 +78,11 @@ const zoo = new SlashCommand()
 			}
 		}
 		const avatar = user
-			? user.displayAvatarURL({ dynamic: true })
-			: interaction.member.displayAvatarURL({
-					dynamic: true
-			  });
-		const zooEmbed = new MessageEmbed()
+			? user.displayAvatarURL()
+			: interaction.member.displayAvatarURL();
+		const zooEmbed = new EmbedBuilder()
 			.setAuthor({ name: 'Minco Zoo', iconURL: avatar })
-			.setColor('#F4D03F')
+			.setColor(0xf4d03f)
 			.setDescription(animals.join(''))
 			.setFooter({
 				text: interaction.guild?.name ?? interaction.user.username
@@ -86,22 +94,25 @@ const zoo = new SlashCommand()
 async function viewAnimalList(
 	interaction: CommandInteraction<'cached'>
 ) {
-	const previous = new MessageButton()
+	const previous = new ButtonBuilder()
 		.setCustomId('prev')
 		.setLabel('Previous')
-		.setStyle('PRIMARY')
+		.setStyle(ButtonStyle.Primary)
 		.setEmoji('⬅️')
 		.setDisabled();
-	const next = new MessageButton()
+	const next = new ButtonBuilder()
 		.setCustomId('next')
 		.setLabel('Next')
 		.setEmoji('➡️')
-		.setStyle('PRIMARY');
+		.setStyle(ButtonStyle.Primary);
 	let currentPage = 0;
 	const msg = await interaction.reply({
 		content: format(animalSlices[currentPage]),
 		components: [
-			new MessageActionRow().addComponents(previous, next)
+			new ActionRowBuilder<ButtonBuilder>().addComponents(
+				previous,
+				next
+			)
 		],
 		fetchReply: true,
 		ephemeral: true
@@ -109,7 +120,7 @@ async function viewAnimalList(
 
 	const collector = msg.createMessageComponentCollector({
 		time: twoHours,
-		componentType: 'BUTTON'
+		componentType: ComponentType.Button
 	});
 
 	collector.on('collect', async buttonInteraction => {
@@ -122,7 +133,10 @@ async function viewAnimalList(
 			await buttonInteraction.update({
 				content: format(animalSlices[currentPage]),
 				components: [
-					new MessageActionRow().addComponents(previous, next)
+					new ActionRowBuilder<ButtonBuilder>().addComponents(
+						previous,
+						next
+					)
 				]
 			});
 		} else {
@@ -134,7 +148,10 @@ async function viewAnimalList(
 			await buttonInteraction.update({
 				content: format(animalSlices[currentPage]),
 				components: [
-					new MessageActionRow().addComponents(previous, next)
+					new ActionRowBuilder<ButtonBuilder>().addComponents(
+						previous,
+						next
+					)
 				]
 			});
 		}

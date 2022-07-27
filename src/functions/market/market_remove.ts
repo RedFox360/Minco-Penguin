@@ -1,13 +1,16 @@
-import { CommandInteraction, MessageEmbed } from 'discord.js';
+import {
+	ChatInputCommandInteraction,
+	EmbedBuilder
+} from 'discord.js';
 import { getProfileInServer, updateProfileInServer } from '../models';
 export default async function run(
-	interaction: CommandInteraction<'cached'>
+	interaction: ChatInputCommandInteraction<'cached'>
 ) {
 	const profileInServer = await getProfileInServer(
 		interaction.user.id,
 		interaction.guildId
 	);
-	const itemName = interaction.options.getString('item_name');
+	const itemName = interaction.options.getString('item-name');
 	if (!profileInServer.market.find(i => i.name === itemName)) {
 		await interaction.reply({
 			content: "You don't have this item! (remember capitalization)",
@@ -29,7 +32,7 @@ export default async function run(
 	});
 }
 function accepted(text: string) {
-	return new MessageEmbed()
+	return new EmbedBuilder()
 		.setDescription(`<:check_circle:872594799662858270> ${text}`)
-		.setColor('#B8FF8B');
+		.setColor(0xb8ff8b);
 }

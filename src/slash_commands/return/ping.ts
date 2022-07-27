@@ -1,5 +1,5 @@
+import { EmbedBuilder } from 'discord.js';
 import prettyMs from 'pretty-ms';
-import { MessageEmbed } from 'discord.js';
 import { SlashCommand } from '../../types';
 
 const ping = new SlashCommand()
@@ -21,18 +21,16 @@ const ping = new SlashCommand()
 			else return ['severely lagging', '#E74C3C'];
 		})();
 
-		const pingEmbed = new MessageEmbed()
+		const pingEmbed = new EmbedBuilder()
 			.setColor(color as any)
 			.setTitle(':robot: Pong!')
 			.setAuthor({
 				name:
 					interaction.member?.displayName ??
 					interaction.user.username,
-				iconURL: interaction.member.displayAvatarURL({
-					dynamic: true
-				})
+				iconURL: interaction.member.displayAvatarURL()
 			})
-			.setFields(
+			.addFields(
 				{ name: 'Status', value: status },
 				{
 					name: 'Execution Time',

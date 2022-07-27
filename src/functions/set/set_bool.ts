@@ -1,5 +1,7 @@
-import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
-import { CommandInteraction } from 'discord.js';
+import {
+	ChatInputCommandInteraction,
+	SlashCommandSubcommandBuilder
+} from 'discord.js';
 import { updateServer } from '../models';
 
 export const subcommand = new SlashCommandSubcommandBuilder()
@@ -9,10 +11,12 @@ export const subcommand = new SlashCommandSubcommandBuilder()
 		option
 			.setName('option')
 			.setDescription('The name of the option to set')
-			.addChoice('Send Birthdays', 'sb')
-			.addChoice('Profanity', 'p')
-			.addChoice('Silence Ban Messages', 'sbm')
-			.addChoice('Silence Join Messages', 'sjm')
+			.addChoices(
+				{ name: 'Send Birthdays', value: 'sb' },
+				{ name: 'Profanity', value: 'p' },
+				{ name: 'Silence Ban Messages', value: 'sbm' },
+				{ name: 'Silence Join Messages', value: 'sjm' }
+			)
 			.setRequired(true)
 	)
 	.addBooleanOption(option =>
@@ -22,7 +26,9 @@ export const subcommand = new SlashCommandSubcommandBuilder()
 			.setRequired(true)
 	);
 
-export async function run(interaction: CommandInteraction<'cached'>) {
+export async function run(
+	interaction: ChatInputCommandInteraction<'cached'>
+) {
 	if (!(interaction.member.permissions as any).has('MANAGE_GUILD')) {
 		await interaction.reply({
 			content:

@@ -1,11 +1,13 @@
 import {
 	ButtonInteraction,
-	MessageActionRow,
-	MessageButton
+	ActionRowBuilder,
+	ButtonBuilder,
+	ButtonStyle,
+	ComponentType
 } from 'discord.js';
 import { getProfile, updateProfile } from '../../functions/models';
 import { SlashCommand } from '../../types';
-import * as blackjack from '../../functions/blackjack_functions';
+import * as blackjack from '../../functions/for_commands/blackjack_functions';
 
 const blackjackCommand = new SlashCommand()
 	.setCommandData(builder =>
@@ -21,7 +23,7 @@ const blackjackCommand = new SlashCommand()
 					.setRequired(true)
 			)
 	)
-	.setCooldown(20)
+	.setCooldown(10)
 	.setRun(async interaction => {
 		const deck = blackjack.createDeck();
 		const originalBet = interaction.options.getInteger('bet');
@@ -94,37 +96,37 @@ const blackjackCommand = new SlashCommand()
 			});
 			return;
 		}
-		const hitButton = new MessageButton()
+		const hitButton = new ButtonBuilder()
 			.setLabel('Hit')
 			.setCustomId('hit')
-			.setStyle('PRIMARY');
-		const standButton = new MessageButton()
+			.setStyle(ButtonStyle.Primary);
+		const standButton = new ButtonBuilder()
 			.setLabel('Stand')
 			.setCustomId('stand')
-			.setStyle('SUCCESS');
-		const doubleDown = new MessageButton()
+			.setStyle(ButtonStyle.Success);
+		const doubleDown = new ButtonBuilder()
 			.setLabel('Double Down')
 			.setCustomId('double_down')
-			.setStyle('SECONDARY');
-		const split = new MessageButton()
+			.setStyle(ButtonStyle.Secondary);
+		const split = new ButtonBuilder()
 			.setLabel('Split')
 			.setCustomId('split')
-			.setStyle('SECONDARY')
+			.setStyle(ButtonStyle.Secondary)
 			.setDisabled(
 				playerHands[0][0].display !== playerHands[0][1].display
 			);
-		const howToPlay = new MessageButton()
+		const howToPlay = new ButtonBuilder()
 			.setLabel('How to play')
-			.setStyle('LINK')
+			.setStyle(ButtonStyle.Link)
 			.setURL('https://bicyclecards.com/how-to-play/blackjack/');
 		const getComponents = () => [
-			new MessageActionRow().addComponents(
+			new ActionRowBuilder<ButtonBuilder>().addComponents(
 				hitButton,
 				standButton,
 				doubleDown,
 				split
 			),
-			new MessageActionRow().addComponents(howToPlay)
+			new ActionRowBuilder<ButtonBuilder>().addComponents(howToPlay)
 		];
 		const msg = await interaction.reply({
 			embeds: [
@@ -142,7 +144,7 @@ const blackjackCommand = new SlashCommand()
 		let currentHand = 0;
 		const outcomes = new Array<blackjack.Outcome>();
 		const collector = msg.createMessageComponentCollector({
-			componentType: 'BUTTON',
+			componentType: ComponentType.Button,
 			time: 600_000 // 10 mins
 		});
 

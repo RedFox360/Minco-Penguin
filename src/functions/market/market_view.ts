@@ -1,14 +1,14 @@
 import {
-	CommandInteraction,
-	MessageEmbed,
-	User,
-	UserContextMenuInteraction
+	ChatInputCommandInteraction,
+	EmbedBuilder,
+	UserContextMenuCommandInteraction,
+	User
 } from 'discord.js';
 import { getProfileInServer } from '../models';
 export default async function run(
 	interaction:
-		| CommandInteraction<'cached'>
-		| UserContextMenuInteraction<'cached'>,
+		| ChatInputCommandInteraction<'cached'>
+		| UserContextMenuCommandInteraction<'cached'>,
 	user: User
 ) {
 	const { market } = await getProfileInServer(
@@ -21,8 +21,8 @@ export default async function run(
 		});
 		return;
 	}
-	const marketEmbed = new MessageEmbed()
-		.setColor('#D1F2EB')
+	const marketEmbed = new EmbedBuilder()
+		.setColor(0xd1f2eb)
 		.setTitle('Market')
 		.setDescription(`User: ${user}`)
 		.setFooter({
@@ -33,7 +33,7 @@ export default async function run(
 			interaction.locale
 		)} MD`;
 		if (desc) value += `\n${desc}`;
-		marketEmbed.addField(name, value);
+		marketEmbed.addFields({ name, value });
 	}
 	await interaction.reply({ embeds: [marketEmbed] });
 }

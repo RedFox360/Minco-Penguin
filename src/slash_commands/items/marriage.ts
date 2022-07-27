@@ -1,4 +1,4 @@
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder } from 'discord.js';
 import { getProfile } from '../../functions/models';
 import { SlashCommand } from '../../types';
 
@@ -36,10 +36,10 @@ const marriage = new SlashCommand()
 				(await interaction.client.users.fetch(spouse)).username
 			}**`;
 		}
-		const marriageEmbed = new MessageEmbed()
+		const marriageEmbed = new EmbedBuilder()
 			.setTitle(':ring: Marriage')
 			.setDescription(`${are} currently married to ${spouseFormat}`)
-			.setColor('#BEDFFF');
+			.setColor(0xbedfff);
 		await interaction.reply({ embeds: [marriageEmbed] });
 	});
 

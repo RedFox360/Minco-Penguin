@@ -1,7 +1,10 @@
-import { CommandInteraction, MessageEmbed } from 'discord.js';
+import {
+	ChatInputCommandInteraction,
+	EmbedBuilder
+} from 'discord.js';
 import { getProfileInServer, updateProfileInServer } from '../models';
 export default async function run(
-	interaction: CommandInteraction<'cached'>
+	interaction: ChatInputCommandInteraction<'cached'>
 ) {
 	const { market } = await getProfileInServer(
 		interaction.user.id,
@@ -15,7 +18,7 @@ export default async function run(
 		});
 		return;
 	}
-	const itemName = interaction.options.getString('item_name');
+	const itemName = interaction.options.getString('item-name');
 	const desc = interaction.options.getString('description');
 
 	for (const m of market) {
@@ -48,7 +51,7 @@ export default async function run(
 }
 
 function accepted(text: string) {
-	return new MessageEmbed()
+	return new EmbedBuilder()
 		.setDescription(`<:check_circle:872594799662858270> ${text}`)
-		.setColor('#B8FF8B');
+		.setColor(0xb8ff8b);
 }

@@ -1,5 +1,7 @@
-import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
-import { CommandInteraction } from 'discord.js';
+import {
+	ChatInputCommandInteraction,
+	SlashCommandSubcommandBuilder
+} from 'discord.js';
 import { updateServer } from '../models';
 export const subcommand = new SlashCommandSubcommandBuilder()
 	.setName('role')
@@ -9,11 +11,13 @@ export const subcommand = new SlashCommandSubcommandBuilder()
 			.setName('role_type')
 			.setDescription('The type of role to set')
 			.setRequired(true)
-			.addChoice('Bot', 'bot')
-			.addChoice('Join', 'join')
-			.addChoice('Mute', 'mute')
-			.addChoice('Main', 'main')
-			.addChoice('Moderator', 'mod')
+			.addChoices(
+				{ name: 'Bot', value: 'bot' },
+				{ name: 'Join', value: 'join' },
+				{ name: 'Mute', value: 'mute' },
+				{ name: 'Main', value: 'main' },
+				{ name: 'Moderator', value: 'mod' }
+			)
 	)
 	.addRoleOption(option =>
 		option
@@ -22,7 +26,9 @@ export const subcommand = new SlashCommandSubcommandBuilder()
 			.setRequired(true)
 	);
 
-export async function run(interaction: CommandInteraction<'cached'>) {
+export async function run(
+	interaction: ChatInputCommandInteraction<'cached'>
+) {
 	if (
 		!(interaction.member.permissions as any).has('MANAGE_ROLES') &&
 		!(interaction.member.permissions as any).has('MANAGE_GUILD')

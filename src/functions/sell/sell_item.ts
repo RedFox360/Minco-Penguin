@@ -1,4 +1,4 @@
-import { CommandInteraction } from 'discord.js';
+import { ChatInputCommandInteraction } from 'discord.js';
 import { getProfile, updateProfile } from '../models';
 
 const sellableItems = [
@@ -22,9 +22,9 @@ const sellableItemNumbers = [
 const returnAmounts = [40, 500, 15, 40, 250, 30, 30, 30] as const;
 
 export default async function sellItem(
-	interaction: CommandInteraction<'cached'>
+	interaction: ChatInputCommandInteraction<'cached'>
 ) {
-	const itemName = interaction.options.getString('item_name');
+	const itemName = interaction.options.getString('item-name');
 	const index = sellableItems.indexOf(itemName);
 	const itemNumber = sellableItemNumbers[index];
 	const profile = await getProfile(interaction.user.id);

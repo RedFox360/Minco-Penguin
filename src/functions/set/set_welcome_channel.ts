@@ -1,5 +1,8 @@
-import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
-import { CommandInteraction } from 'discord.js';
+import {
+	ChannelType,
+	ChatInputCommandInteraction,
+	SlashCommandSubcommandBuilder
+} from 'discord.js';
 import { updateServer } from '../models';
 export const subcommand = new SlashCommandSubcommandBuilder()
 	.setName('welcome_channel')
@@ -11,7 +14,9 @@ export const subcommand = new SlashCommandSubcommandBuilder()
 			.setRequired(false)
 	);
 
-export async function run(interaction: CommandInteraction<'cached'>) {
+export async function run(
+	interaction: ChatInputCommandInteraction<'cached'>
+) {
 	if (!(interaction.member.permissions as any).has('MANAGE_GUILD')) {
 		await interaction.reply({
 			content:
@@ -32,7 +37,7 @@ export async function run(interaction: CommandInteraction<'cached'>) {
 		});
 		return;
 	}
-	if (!channel.isText()) {
+	if (channel.type !== ChannelType.GuildText) {
 		await interaction.reply({
 			content: 'That channel is invalid',
 			ephemeral: true

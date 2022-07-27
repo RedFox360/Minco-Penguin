@@ -1,14 +1,18 @@
+import {
+	ButtonInteraction,
+	ButtonStyle,
+	ChatInputCommandInteraction,
+	ComponentType,
+	EmbedBuilder
+} from 'discord.js';
 import { hoursToMilliseconds } from 'date-fns';
 import {
 	Collection,
-	CommandInteraction,
 	GuildMember,
-	MessageActionRow,
-	MessageButton,
-	MessageComponentInteraction,
-	MessageEmbed
+	ActionRowBuilder,
+	ButtonBuilder
 } from 'discord.js';
-import chunkArray from '../../functions/chunkArray';
+import chunkArray from '../../functions/basics/chunk_array';
 import { getProfile } from '../../functions/models';
 import { SlashCommand } from '../../types';
 const chunkSize = 15;
@@ -26,8 +30,8 @@ const leaderboard = new SlashCommand()
 
 async function run(
 	interaction:
-		| CommandInteraction<'cached'>
-		| MessageComponentInteraction<'cached'>,
+		| ChatInputCommandInteraction<'cached'>
+		| ButtonInteraction<'cached'>,
 	ephemeral = false,
 	profiles?: any[],
 	currentPage = 0
@@ -76,25 +80,25 @@ async function run(
 		e => e[2] === interaction.user.id
 	);
 
-	const first = new MessageButton()
+	const first = new ButtonBuilder()
 		.setCustomId('first')
-		.setStyle('PRIMARY')
+		.setStyle(ButtonStyle.Primary)
 		.setEmoji('⏪')
 		.setDisabled(currentPage === 0);
-	const previous = new MessageButton()
+	const previous = new ButtonBuilder()
 		.setCustomId('prev')
-		.setStyle('PRIMARY')
+		.setStyle(ButtonStyle.Primary)
 		.setEmoji('⬅️')
 		.setDisabled(currentPage === 0);
-	const next = new MessageButton()
+	const next = new ButtonBuilder()
 		.setCustomId('next')
 		.setEmoji('➡️')
-		.setStyle('PRIMARY')
+		.setStyle(ButtonStyle.Primary)
 		.setDisabled(currentPage === slices.length - 1);
-	const last = new MessageButton()
+	const last = new ButtonBuilder()
 		.setCustomId('last')
 		.setEmoji('⏩')
-		.setStyle('PRIMARY')
+		.setStyle(ButtonStyle.Primary)
 		.setDisabled(currentPage === slices.length - 1);
 
 	const length = slices.length;
@@ -113,9 +117,9 @@ ${format(slices[currentPage])}`;
 		`Page ${currentPage + 1}/${length} • Your leaderboard rank: ${
 			authorIndex + 1
 		}`;
-	const lbEmbed = new MessageEmbed()
+	const lbEmbed = new EmbedBuilder()
 		.setTitle('Leaderboard')
-		.setColor('#E67E22') // orange
+		.setColor(0xe67e22) // orange
 		.setDescription(getDescription())
 		.setFooter({
 			text: getFooter()
@@ -123,7 +127,7 @@ ${format(slices[currentPage])}`;
 	await interaction.editReply({
 		embeds: [lbEmbed],
 		components: [
-			new MessageActionRow().addComponents(
+			new ActionRowBuilder<ButtonBuilder>().addComponents(
 				first,
 				previous,
 				next,
@@ -135,10 +139,11 @@ ${format(slices[currentPage])}`;
 	if (length === 1) return;
 	const collector = msg.createMessageComponentCollector({
 		time: collectorTime,
-		componentType: 'BUTTON'
+		componentType: ComponentType.Button
 	});
 
 	collector.on('collect', async buttonInteraction => {
+		if (!buttonInteraction.inCachedGuild()) return;
 		if (buttonInteraction.user.id !== interaction.user.id) {
 			await run(buttonInteraction, true, profiles, currentPage);
 			return;
@@ -156,7 +161,7 @@ ${format(slices[currentPage])}`;
 				await buttonInteraction.update({
 					embeds: [lbEmbed],
 					components: [
-						new MessageActionRow().addComponents(
+						new ActionRowBuilder<ButtonBuilder>().addComponents(
 							first,
 							previous,
 							next,
@@ -180,7 +185,7 @@ ${format(slices[currentPage])}`;
 				await buttonInteraction.update({
 					embeds: [lbEmbed],
 					components: [
-						new MessageActionRow().addComponents(
+						new ActionRowBuilder<ButtonBuilder>().addComponents(
 							first,
 							previous,
 							next,
@@ -204,7 +209,7 @@ ${format(slices[currentPage])}`;
 				await buttonInteraction.update({
 					embeds: [lbEmbed],
 					components: [
-						new MessageActionRow().addComponents(
+						new ActionRowBuilder<ButtonBuilder>().addComponents(
 							first,
 							previous,
 							next,
@@ -226,7 +231,7 @@ ${format(slices[currentPage])}`;
 				await buttonInteraction.update({
 					embeds: [lbEmbed],
 					components: [
-						new MessageActionRow().addComponents(
+						new ActionRowBuilder<ButtonBuilder>().addComponents(
 							first,
 							previous,
 							next,

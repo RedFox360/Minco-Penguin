@@ -5,7 +5,7 @@ const balanceCommand = new SlashCommand()
 	.setCommandData(builder =>
 		builder
 			.setName('balance')
-			.setDescription('View your balance of Minco Dollars!')
+			.setDescription('View your balance of Minco Dollars')
 			.addUserOption(option =>
 				option
 					.setName('user')
@@ -14,9 +14,8 @@ const balanceCommand = new SlashCommand()
 			)
 	)
 	.setRun(async interaction => {
-		const member =
-			interaction.options.getMember('user') ?? interaction.member;
-		await balance(interaction, member);
+		const member = interaction.options.getMember('user');
+		await balance(interaction, member ?? interaction.member);
 	});
 
 export default balanceCommand;

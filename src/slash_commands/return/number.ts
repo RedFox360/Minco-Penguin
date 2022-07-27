@@ -1,5 +1,4 @@
-import { SlashCommandIntegerOption } from '@discordjs/builders';
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder, SlashCommandIntegerOption } from 'discord.js';
 import { gcd, lcm } from 'mathjs';
 import { SlashCommand } from '../../types';
 import {
@@ -13,7 +12,7 @@ import {
 	tau,
 	phi,
 	root2
-} from '../../functions/number_functions';
+} from '../../functions/for_commands/number_functions';
 
 // perfect nums below 2^53
 
@@ -58,11 +57,13 @@ const number = new SlashCommand()
 						option
 							.setName('name')
 							.setDescription('The name of the constant')
-							.addChoice('Pi π', 'pi')
-							.addChoice('Tau τ', 'tau')
-							.addChoice('Phi Φ', 'phi')
-							.addChoice('Square Root of 2', 'root_2')
-							.addChoice("e (Euler's number)", 'e')
+							.addChoices(
+								{ name: 'Pi π', value: 'pi' },
+								{ name: 'Tau τ', value: 'tau' },
+								{ name: 'Phi Φ', value: 'phi' },
+								{ name: 'Square Root of 2', value: 'root_2' },
+								{ name: "e (Euler's number)", value: 'e' }
+							)
 							.setRequired(true)
 					)
 			)
@@ -194,24 +195,30 @@ const number = new SlashCommand()
 						num,
 						interaction.locale
 					);
-					const hailstoneEmbed = new MessageEmbed()
+					const hailstoneEmbed = new EmbedBuilder()
 						.setColor(color as any)
 						.setTitle(
 							`Hailstone Sequence for ${num.toLocaleString(
 								interaction.locale
 							)}`
 						)
-						.addField('Reached 1', content);
+						.addFields({ name: 'Reached 1', value: content });
 					if (sequence.length < 1000)
-						hailstoneEmbed.addField('Sequence', sequence);
+						hailstoneEmbed.addFields({
+							name: 'Sequence',
+							value: sequence
+						});
 					else {
 						const sequenceChunks = chunkString(sequence, 1_000);
-						hailstoneEmbed.addField(`Sequence`, sequenceChunks[0]);
+						hailstoneEmbed.addFields({
+							name: `Sequence`,
+							value: sequenceChunks[0]
+						});
 						for (let i = 1; i < sequenceChunks.length; i++) {
-							hailstoneEmbed.addField(
-								`Sequence (cont.)`,
-								sequenceChunks[i]
-							);
+							hailstoneEmbed.addFields({
+								name: `Sequence (cont.)`,
+								value: sequenceChunks[i]
+							});
 						}
 					}
 					await interaction.editReply({

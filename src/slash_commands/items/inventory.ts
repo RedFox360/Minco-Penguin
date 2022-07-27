@@ -1,4 +1,4 @@
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder } from 'discord.js';
 import { getProfile } from '../../functions/models';
 import { SlashCommand } from '../../types';
 
@@ -15,15 +15,15 @@ const inventory = new SlashCommand()
 			)
 	)
 	.setRun(async interaction => {
-		const userExists = interaction.options.getUser('user');
-		const user = userExists ?? interaction.user;
-		const { inventory } = await getProfile(user.id);
+		const memberExists = interaction.options.getMember('user');
+		const member = memberExists ?? interaction.member;
+		const { inventory } = await getProfile(member.id);
 		if (!inventory.length) {
 			await interaction.reply(
 				`${
-					userExists ? `${user} doesn't` : "You don't"
+					memberExists ? `${member} doesn't` : "You don't"
 				} have any items in ${
-					userExists ? 'their' : 'your'
+					memberExists ? 'their' : 'your'
 				} inventory.`
 			);
 			return;
@@ -47,15 +47,15 @@ const inventory = new SlashCommand()
 				if (t === '12') return ':banana: Banana';
 			})
 			.map((t, i) => `${i + 1}. ${t}`);
-		const avatar = user
-			? user.displayAvatarURL({ dynamic: true })
-			: interaction.member.displayAvatarURL({
-					dynamic: true
-			  });
-		const invEmbed = new MessageEmbed()
-			.setAuthor({ name: 'Inventory', iconURL: avatar })
+		const avatar = member.displayAvatarURL();
+
+		const invEmbed = new EmbedBuilder()
+			.setAuthor({
+				name: `${member.displayName}'s Inventory`,
+				iconURL: avatar
+			})
 			.setDescription(inv.join('\n'))
-			.setColor('#F8C471')
+			.setColor(0xf8c471)
 			.setFooter({
 				text: interaction.guild?.name ?? interaction.user.username
 			});

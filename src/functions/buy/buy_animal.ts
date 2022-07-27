@@ -1,10 +1,10 @@
-import { CommandInteraction } from 'discord.js';
-import type { Profile } from '../../types';
+import { ChatInputCommandInteraction } from 'discord.js';
+import { Profile } from 'mincomodels/profileSchema/types';
 import { getProfile, updateProfile } from '../models';
 import animals from '../../json/animals.json';
 
 export default async function run(
-	interaction: CommandInteraction<'cached'>
+	interaction: ChatInputCommandInteraction<'cached'>
 ) {
 	const profile = await getProfile(interaction.user.id);
 	if (profile.zoo.length >= 20) {
@@ -22,7 +22,7 @@ export default async function run(
 	}
 }
 async function buySpecificAnimal(
-	interaction: CommandInteraction<'cached'>,
+	interaction: ChatInputCommandInteraction<'cached'>,
 	animalName: string,
 	profile: Profile
 ) {
@@ -66,7 +66,7 @@ async function buySpecificAnimal(
 }
 
 async function buyRandomAnimal(
-	interaction: CommandInteraction<'cached'>,
+	interaction: ChatInputCommandInteraction<'cached'>,
 	profile: Profile
 ) {
 	if (profile.mincoDollars < 20) {

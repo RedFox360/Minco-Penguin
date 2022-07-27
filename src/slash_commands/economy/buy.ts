@@ -2,6 +2,10 @@ import buyItem from '../../functions/buy/buy_item';
 import buyGem from '../../functions/buy/buy_gem';
 import buyAnimal from '../../functions/buy/buy_animal';
 import { SlashCommand } from '../../types';
+import {
+	animalAutocompleteData,
+	autocomplete
+} from '../../functions/autocomplete';
 
 const buy = new SlashCommand()
 	.setCommandData(builder =>
@@ -47,6 +51,16 @@ const buy = new SlashCommand()
 				await buyAnimal(interaction);
 				return;
 			}
+		}
+	})
+	.setAutocomplete(async interaction => {
+		if (interaction.options.getSubcommand() === 'animal') {
+			await interaction.respond(
+				autocomplete(
+					animalAutocompleteData,
+					interaction.options.getFocused().toString()
+				)
+			);
 		}
 	});
 

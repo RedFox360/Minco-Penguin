@@ -38,7 +38,7 @@ const withdraw = new SlashCommand()
 			interaction.user.id
 		);
 		await interaction.reply(
-			`You withdrawed ${amount} Minco Dollars from bank`
+			`You withdrew ${amount} Minco Dollars from bank`
 		);
 	});
 

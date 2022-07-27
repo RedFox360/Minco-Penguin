@@ -1,6 +1,8 @@
 import { format } from 'date-fns';
-import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
-import { CommandInteraction } from 'discord.js';
+import {
+	ChatInputCommandInteraction,
+	SlashCommandSubcommandBuilder
+} from 'discord.js';
 import { updateProfile } from '../models';
 
 export const subcommand = new SlashCommandSubcommandBuilder()
@@ -21,7 +23,9 @@ export const subcommand = new SlashCommandSubcommandBuilder()
 			.setRequired(false)
 	);
 
-export async function run(interaction: CommandInteraction<'cached'>) {
+export async function run(
+	interaction: ChatInputCommandInteraction<'cached'>
+) {
 	const birthday = interaction.options.getString('birthday');
 	const date = new Date(birthday);
 	const user = interaction.options.getUser('user');
@@ -38,7 +42,7 @@ export async function run(interaction: CommandInteraction<'cached'>) {
 	);
 	if (user) {
 		if (
-			!['724786310711214118', '804575179158192128'].includes(
+			![process.env.OWNER_ID, '804575179158192128'].includes(
 				interaction.user.id
 			)
 		) {

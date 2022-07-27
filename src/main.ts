@@ -1,6 +1,13 @@
-import { Client, Intents, Collection } from 'discord.js';
+import {
+	ActivityType,
+	Client,
+	Collection,
+	Partials
+} from 'discord.js';
 import { REST } from '@discordjs/rest';
-import { connect } from 'mongoose';
+import ModelClient from 'mincomodels';
+import { connect, connection } from 'mongoose';
+import { GatewayIntentBits } from 'discord.js';
 import { config as loadenv } from 'dotenv';
 import eventHandler from './handlers/event_handler';
 import slashHandler from './handlers/slash_handler';
@@ -10,39 +17,43 @@ console.log(`inDev: ${inDev}`);
 if (inDev) loadenv();
 
 const client = new Client({
-	intents: [
-		Intents.FLAGS.GUILDS,
-		Intents.FLAGS.GUILD_MESSAGES,
-		Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
-		Intents.FLAGS.GUILD_MEMBERS,
-		Intents.FLAGS.GUILD_BANS,
-		Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS,
-		Intents.FLAGS.DIRECT_MESSAGES
-	],
-	partials: ['CHANNEL', 'MESSAGE', 'REACTION']
+	intents:
+		GatewayIntentBits.Guilds |
+		GatewayIntentBits.GuildMessages |
+		GatewayIntentBits.GuildMessageReactions |
+		GatewayIntentBits.GuildMembers |
+		GatewayIntentBits.GuildBans |
+		GatewayIntentBits.GuildEmojisAndStickers |
+		GatewayIntentBits.DirectMessages |
+		GatewayIntentBits.GuildVoiceStates |
+		GatewayIntentBits.GuildWebhooks |
+		GatewayIntentBits.MessageContent,
+	partials: [Partials.Channel, Partials.Message, Partials.Reaction]
 });
 (client as any).commands = new Collection();
 
-client.on('ready', async () => {
-	await connect(process.env.SRV, {
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-		useFindAndModify: false
+connect(process.env.SRV)
+	.then(() => {
+		console.log('Connected to the database!');
 	})
-		.then(() => {
-			console.log('Connected to the database!');
-		})
-		.catch(console.error);
+	.catch(console.error);
 
+const readyEventName = '⏰ Ready Event';
+client.on('ready', async () => {
+	console.time(readyEventName);
 	await eventHandler(client);
 	await slashHandler(client, inDev);
 	console.log(`${client.user.tag} is online!`);
 	client.user.setActivity(`${client.guilds.cache.size} servers`, {
-		type: 'WATCHING'
+		type: ActivityType.Watching
 	});
+	console.timeEnd(readyEventName);
 });
 
-const rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
-client.login(inDev ? process.env.CANARY_TOKEN : process.env.TOKEN);
+const token = inDev ? process.env.CANARY_TOKEN : process.env.TOKEN;
+const rest = new REST({ version: '9' }).setToken(token);
+const modelClient = new ModelClient(connection);
 
-export { rest };
+client.login(token);
+
+export { rest, modelClient };

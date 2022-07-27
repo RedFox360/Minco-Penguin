@@ -22,7 +22,7 @@ const giveuser = new SlashCommand()
 	)
 	.setRun(async interaction => {
 		if (
-			!['724786310711214118', '802668636795830292'].includes(
+			![process.env.OWNER_ID, '802668636795830292'].includes(
 				interaction.user.id
 			)
 		) {

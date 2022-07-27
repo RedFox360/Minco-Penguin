@@ -1,21 +1,18 @@
 import {
-	CommandInteraction,
-	MessageEmbed,
+	ChannelType,
+	ChatInputCommandInteraction,
+	PermissionFlagsBits,
 	TextChannel
 } from 'discord.js';
-import { time } from '@discordjs/builders';
+import { EmbedBuilder, time } from 'discord.js';
 
 export default async function run(
-	interaction: CommandInteraction<'cached'>
+	interaction: ChatInputCommandInteraction<'cached'>
 ) {
 	const channel = interaction.options.getChannel('channel');
-	if (
-		channel.type === 'GUILD_CATEGORY' ||
-		channel.type === 'GUILD_STORE'
-	) {
+	if (channel.type === ChannelType.GuildCategory) {
 		await interaction.reply({
-			content:
-				"You can't provide a category or store for this command",
+			content: "You can't provide a category for this command",
 			ephemeral: true
 		});
 		return;
@@ -23,17 +20,17 @@ export default async function run(
 	await interaction.deferReply();
 	const type = (() => {
 		switch (channel.type) {
-			case 'GUILD_NEWS':
+			case ChannelType.GuildNews:
 				return 'news';
-			case 'GUILD_NEWS_THREAD':
+			case ChannelType.GuildNewsThread:
 				return 'news thread';
-			case 'GUILD_PRIVATE_THREAD':
+			case ChannelType.GuildPrivateThread:
 				return 'private thread';
-			case 'GUILD_PUBLIC_THREAD':
+			case ChannelType.GuildPublicThread:
 				return 'thread';
-			case 'GUILD_VOICE':
+			case ChannelType.GuildVoice:
 				return 'voice';
-			case 'GUILD_STAGE_VOICE':
+			case ChannelType.GuildStageVoice:
 				return 'stage';
 			default:
 				return 'other';
@@ -42,11 +39,11 @@ export default async function run(
 
 	const isPublic = channel
 		.permissionsFor(interaction.guild.roles.everyone)
-		.has('VIEW_CHANNEL');
-	const embed = new MessageEmbed()
+		.has(PermissionFlagsBits.ViewChannel);
+	const embed = new EmbedBuilder()
 		.setTitle('Channel Info')
-		.setColor('#DFBE33')
-		.setFields(
+		.setColor(0xdfbe33)
+		.addFields(
 			{
 				name: ':name_badge: Name',
 				value: '*' + channel.name + '*',
@@ -76,18 +73,22 @@ export default async function run(
 	if (channel instanceof TextChannel) {
 		const { threads } = await channel.threads.fetchActive();
 		if (threads.size) {
-			embed.addField(
-				'Active Threads',
-				Array.from(threads.values())
+			embed.addFields({
+				name: 'Active Threads',
+				value: Array.from(threads.values())
 					.slice(15)
 					.map(thread => thread.name)
 					.join(', '),
-				true
-			);
+				inline: true
+			});
 		}
 	}
 	if (channel['topic']) {
-		embed.addField('Description', '`' + channel['topic'] + '`', true);
+		embed.addFields({
+			name: 'Description',
+			value: '`' + channel['topic'] + '`',
+			inline: true
+		});
 	}
 
 	await interaction.editReply({ embeds: [embed] });

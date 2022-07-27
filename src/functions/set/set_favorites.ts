@@ -1,5 +1,7 @@
-import { SlashCommandSubcommandBuilder } from '@discordjs/builders';
-import { CommandInteraction } from 'discord.js';
+import {
+	ChatInputCommandInteraction,
+	SlashCommandSubcommandBuilder
+} from 'discord.js';
 import checkProfanity from '../../functions/filter';
 import { updateProfile } from '../models';
 export const subcommand = new SlashCommandSubcommandBuilder()
@@ -9,9 +11,11 @@ export const subcommand = new SlashCommandSubcommandBuilder()
 		option
 			.setName('favorite_type')
 			.setDescription('The type of favorite you want to set')
-			.addChoice('Food', 'food')
-			.addChoice('Color', 'color')
-			.addChoice('Animal', 'animal')
+			.addChoices(
+				{ name: 'Food', value: 'food' },
+				{ name: 'Color', value: 'color' },
+				{ name: 'Animal', value: 'animal' }
+			)
 			.setRequired(true)
 	)
 	.addStringOption(option =>
@@ -21,7 +25,9 @@ export const subcommand = new SlashCommandSubcommandBuilder()
 			.setRequired(true)
 	);
 
-export async function run(interaction: CommandInteraction<'cached'>) {
+export async function run(
+	interaction: ChatInputCommandInteraction<'cached'>
+) {
 	const type = interaction.options.getString('favorite_type');
 	const value = interaction.options.getString('value');
 	if (checkProfanity(value)) {

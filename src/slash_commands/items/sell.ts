@@ -2,6 +2,23 @@ import sellAnimal from '../../functions/sell/sell_animal';
 import sellItem from '../../functions/sell/sell_item';
 import sellFish from '../../functions/sell/sell_fish';
 import { SlashCommand } from '../../types';
+import { ApplicationCommandOptionChoiceData } from 'discord.js';
+import fishJSON from '../../json/fish.json';
+import {
+	autocomplete,
+	animalAutocompleteData
+} from '../../functions/autocomplete';
+
+const fishAutocompleteData =
+	new Array<ApplicationCommandOptionChoiceData>();
+for (const [fishName, fishData] of Object.entries(fishJSON)) {
+	fishAutocompleteData.push({
+		name:
+			fishData.formattedNames[0].charAt(0).toUpperCase() +
+			fishData.formattedNames[0].slice(1),
+		value: fishName
+	});
+}
 
 const sell = new SlashCommand()
 	.setCommandData(builder =>
@@ -14,15 +31,17 @@ const sell = new SlashCommand()
 					.setDescription('Sell an item')
 					.addStringOption(option =>
 						option
-							.setName('item_name')
+							.setName('item-name')
 							.setDescription('The name or number of the item')
-							.addChoice('Ring', 'Ring')
-							.addChoice('Crown', 'Crown')
-							.addChoice('Cowboy Hat', 'Cowboy Hat')
-							.addChoice('Jellyfish', 'Jellyfish')
-							.addChoice('Bear', 'Bear')
-							.addChoice('Cactus', 'Cactus')
-							.addChoice('Fire', 'Fire')
+							.addChoices(
+								{ name: 'Ring', value: 'Ring' },
+								{ name: 'Crown', value: 'Crown' },
+								{ name: 'Cowboy Hat', value: 'Cowboy Hat' },
+								{ name: 'Jellyfish', value: 'Jellyfish' },
+								{ name: 'Bear', value: 'Bear' },
+								{ name: 'Cactus', value: 'Cactus' },
+								{ name: 'Fire', value: 'Fire' }
+							)
 							.setRequired(true)
 					)
 			)
@@ -49,16 +68,6 @@ const sell = new SlashCommand()
 								'The type of fish you want to sell / all'
 							)
 							.setAutocomplete(true)
-							// .addChoice(
-							// 	'Cooked Salmon',
-							// 	'cookedSalmons'
-							// )
-							// .addChoice('Cooked Cod', 'cookedCods')
-							// .addChoice('Salmon', 'salmons')
-							// .addChoice('Cod', 'cods')
-							// .addChoice('Clownfish', 'clownfish')
-							// .addChoice('Pufferfish', 'pufferfish')
-							// .addChoice('Axolotl', 'axolotls')
 							.setRequired(true)
 					)
 					.addIntegerOption(option =>
@@ -87,6 +96,18 @@ const sell = new SlashCommand()
 				await sellFish(interaction);
 				return;
 			}
+		}
+	})
+	.setAutocomplete(async interaction => {
+		const value = interaction.options.getFocused().toString();
+		if (interaction.options.getSubcommand() === 'fish') {
+			await interaction.respond(
+				autocomplete(fishAutocompleteData, value)
+			);
+		} else if (interaction.options.getSubcommand() === 'animal') {
+			await interaction.respond(
+				autocomplete(animalAutocompleteData, value)
+			);
 		}
 	});
 

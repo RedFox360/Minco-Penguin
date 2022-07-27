@@ -1,21 +1,22 @@
 import {
-	MessageEmbed,
-	MessageActionRow,
-	MessageButton,
-	CommandInteraction
+	ActionRowBuilder,
+	ButtonBuilder,
+	ButtonStyle,
+	CommandInteraction,
+	ComponentType
 } from 'discord.js';
-import type { Profile } from '../../types';
+import { Profile } from 'mincomodels/profileSchema/types';
 import { SlashCommand } from '../../types';
-import emojis from '../../functions/fish_emojis';
+import emojis from '../../functions/fish/fish_emojis';
 import { getProfile, updateProfile } from '../../functions/models';
-import { minutesToSeconds } from 'date-fns';
-import getFish from '../../functions/fish_amounts';
+import getFish from '../../functions/fish/fish_amounts';
+import { EmbedBuilder } from 'discord.js';
 
 const fish = new SlashCommand()
 	.setCommandData(builder =>
 		builder.setName('fish').setDescription('Fish for some fish')
 	)
-	.setCooldown(minutesToSeconds(17.5))
+	.setCooldown(17.5 * 60)
 	.setRun(async interaction => {
 		const profile = await getProfile(interaction.user.id);
 		if (!profile.fish.rod) {
@@ -27,12 +28,10 @@ const fish = new SlashCommand()
 		const totalAmount = Object.values(fishCaught)
 			.map(a => a.fishAmount)
 			.reduce((a, c) => a + c);
-		const resultEmbed = new MessageEmbed()
+		const resultEmbed = new EmbedBuilder()
 			.setAuthor({
 				name: 'You went fishing and caught...',
-				iconURL: interaction.member.displayAvatarURL({
-					dynamic: true
-				})
+				iconURL: interaction.member.displayAvatarURL()
 			})
 			.setFooter({
 				text: `Current biome: ${profile.fish.biome}`
@@ -41,11 +40,11 @@ const fish = new SlashCommand()
 		if (Object.keys(fishCaught).length === 0) {
 			resultEmbed
 				.setDescription('Nothing! You were just really unlucky 🙁')
-				.setColor('#EC7063');
+				.setColor(0xec7063);
 			await interaction.reply({ embeds: [resultEmbed] });
 			return;
 		}
-		resultEmbed.setColor('#D5f5E3');
+		resultEmbed.setColor(0xd5f5e3);
 		// xp increases by 60% of the total fish amount
 		const increaseXp = Math.round(0.6 * totalAmount);
 		const { fishInventory } = profile.fish;
@@ -54,15 +53,17 @@ const fish = new SlashCommand()
 				fishName,
 				(fishInventory.get(fishName) ?? 0) + fishData.fishAmount
 			);
-			resultEmbed.addField(
-				`${fishData.emoji} ${capitalizeFirstLetter(
+			resultEmbed.addFields({
+				name: `${fishData.emoji} ${capitalizeFirstLetter(
 					fishData.fishAmount === 1
 						? fishData.singular
 						: fishData.plural
 				)}`,
-				`${fishData.fishAmount.toLocaleString(interaction.locale)}`,
-				true
-			);
+				value: `${fishData.fishAmount.toLocaleString(
+					interaction.locale
+				)}`,
+				inline: true
+			});
 		}
 		await updateProfile(
 			{
@@ -108,23 +109,23 @@ async function handleNoRod(
 ) {
 	const msg = await interaction.reply({
 		embeds: [
-			new MessageEmbed()
-				.setColor('#EC7063')
+			new EmbedBuilder()
+				.setColor(0xec7063)
 				.setDescription("You don't have a fishing rod!")
 		],
 		components: [
-			new MessageActionRow().addComponents(
-				new MessageButton()
+			new ActionRowBuilder<ButtonBuilder>().addComponents(
+				new ButtonBuilder()
 					.setCustomId('buy-rod')
 					.setLabel('Buy a rod (100 MD)')
-					.setStyle('SUCCESS')
+					.setStyle(ButtonStyle.Success)
 					.setEmoji(emojis.rod)
 			)
 		],
 		fetchReply: true
 	});
 	const collector = msg.createMessageComponentCollector({
-		componentType: 'BUTTON',
+		componentType: ComponentType.Button,
 		time: 60_000,
 		filter: i => i.customId === 'buy-rod'
 	});

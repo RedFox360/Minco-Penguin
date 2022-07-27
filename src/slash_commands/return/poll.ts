@@ -1,4 +1,4 @@
-import { MessageEmbed } from 'discord.js';
+import { Colors, EmbedBuilder } from 'discord.js';
 import { SlashCommand } from '../../types';
 
 const poll = new SlashCommand()
@@ -47,10 +47,10 @@ const poll = new SlashCommand()
 		const emoji4 = interaction.options.getString('emoji_4');
 		if (emoji1 < 'ÿ') emoji1 = '👍';
 		if (emoji2 < 'ÿ') emoji2 = '👎';
-		const pollEmbed = new MessageEmbed()
+		const pollEmbed = new EmbedBuilder()
 			.setTitle('Poll')
 			.setDescription(question)
-			.setColor('BLUE')
+			.setColor(Colors.Blue)
 			.setFooter({
 				text: interaction.guild?.name ?? interaction.user.username
 			});

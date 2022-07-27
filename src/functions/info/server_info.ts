@@ -1,23 +1,30 @@
-import { CommandInteraction, MessageEmbed } from 'discord.js';
-import { time, userMention } from '@discordjs/builders';
-import { getServer } from './models';
+import {
+	ChannelType,
+	ChatInputCommandInteraction,
+	GuildExplicitContentFilter,
+	GuildMFALevel,
+	GuildNSFWLevel,
+	GuildVerificationLevel
+} from 'discord.js';
+import { EmbedBuilder, time, userMention } from 'discord.js';
+import { getServer } from '../models';
 import ordinal from 'ordinal';
 
 export default async function run(
-	interaction: CommandInteraction<'cached'>
+	interaction: ChatInputCommandInteraction<'cached'>
 ) {
 	await interaction.deferReply();
 	const server = await getServer(interaction.guildId);
 
 	const channels = await interaction.guild.channels.fetch();
-	const textChannelAmount = channels.filter(channel =>
-		channel.isText()
+	const textChannelAmount = channels.filter(
+		channel => channel.type === ChannelType.GuildText
 	).size;
-	const voiceChannelAmount = channels.filter(channel =>
-		channel.isVoice()
+	const voiceChannelAmount = channels.filter(
+		channel => channel.type === ChannelType.GuildVoice
 	).size;
 	const categoryAmount = channels.filter(
-		channel => channel.type === 'GUILD_CATEGORY'
+		channel => channel.type === ChannelType.GuildCategory
 	).size;
 	const roleAmount = (await interaction.guild.roles.fetch()).size;
 	const totalChannelAmount = textChannelAmount + voiceChannelAmount;
@@ -27,18 +34,44 @@ export default async function run(
 		interaction,
 		server.memberCount
 	);
-	const formattedNSFWLevel =
-		'`' +
-		interaction.guild.nsfwLevel.charAt(0) +
-		interaction.guild.nsfwLevel.toLowerCase().slice(1) +
-		'`';
-	const explicitReplaceUnderscore =
-		interaction.guild.explicitContentFilter.replaceAll('_', ' ');
-	const formattedExplicitLevel =
-		'`' +
-		explicitReplaceUnderscore.charAt(0) +
-		explicitReplaceUnderscore.toLowerCase().slice(1) +
-		'`';
+	let formattedNSFWLevel;
+	switch (interaction.guild.nsfwLevel) {
+		case GuildNSFWLevel.Safe: {
+			formattedNSFWLevel = '`Safe`';
+			break;
+		}
+		case GuildNSFWLevel.Default: {
+			formattedNSFWLevel = '`Default`';
+			break;
+		}
+		case GuildNSFWLevel.Explicit: {
+			formattedNSFWLevel = '`Explicit`';
+			break;
+		}
+		case GuildNSFWLevel.AgeRestricted: {
+			formattedNSFWLevel = '`Age Restricted`';
+			break;
+		}
+	}
+	let formattedExplicitLevel;
+	switch (interaction.guild.explicitContentFilter) {
+		case GuildExplicitContentFilter.Disabled: {
+			formattedExplicitLevel = '`Disabled`';
+			break;
+		}
+		case GuildExplicitContentFilter.MembersWithoutRoles: {
+			formattedExplicitLevel = '`Members without roles`';
+			break;
+		}
+		case GuildExplicitContentFilter.AllMembers: {
+			formattedExplicitLevel = '`All members`';
+			break;
+		}
+		default: {
+			formattedExplicitLevel = '`Unknown`';
+			break;
+		}
+	}
 	const leaveMessage = replace(
 		server.leaveMessage,
 		interaction,
@@ -50,27 +83,27 @@ export default async function run(
 		: '`None`';
 	const verificationLevel = (() => {
 		switch (interaction.guild.verificationLevel) {
-			case 'NONE':
+			case GuildVerificationLevel.None:
 				return '`None`';
-			case 'LOW':
+			case GuildVerificationLevel.Low:
 				return '`Low`';
-			case 'MEDIUM':
+			case GuildVerificationLevel.Medium:
 				return '`Medium`';
-			case 'HIGH':
+			case GuildVerificationLevel.High:
 				return '`High`';
-			case 'VERY_HIGH':
+			case GuildVerificationLevel.VeryHigh:
 				return '`Very High`';
 		}
 	})();
-	const infoEmbed = new MessageEmbed()
+	const infoEmbed = new EmbedBuilder()
 		.setAuthor({
 			name: interaction.guild.name,
-			url: interaction.guild.iconURL({ dynamic: true }),
+			url: interaction.guild.iconURL(),
 			iconURL: interaction.guild.iconURL()
 		})
 		.setTitle(':bulb: Server Info')
-		.setColor('#DFBE33')
-		.setFields(
+		.setColor(0xdfbe33)
+		.addFields(
 			{
 				name: 'Name',
 				value: '`' + interaction.guild.name + '`',
@@ -146,7 +179,9 @@ All Members: \`${interaction.guild.memberCount}\``,
 			{
 				name: 'Mod requires 2FA',
 				value:
-					'`' + (interaction.guild.mfaLevel === 'ELEVATED') + '`',
+					'`' +
+					(interaction.guild.mfaLevel === GuildMFALevel.Elevated) +
+					'`',
 				inline: true
 			},
 			{
@@ -205,7 +240,7 @@ All Members: \`${interaction.guild.memberCount}\``,
 
 const replace = (
 	msg: string,
-	interaction: CommandInteraction<'cached'>,
+	interaction: ChatInputCommandInteraction<'cached'>,
 	memberCount: number
 ) =>
 	msg

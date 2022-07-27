@@ -1,13 +1,13 @@
 import { FishJSON } from '../../types';
 import { randomInt } from 'mathjs';
 import { getProfile, updateProfile } from '../models';
-import fishEmojis from '../fish_emojis';
+import fishEmojis from '../fish/fish_emojis';
 import _fishJSON from '../../json/fish.json';
-import { CommandInteraction } from 'discord.js';
+import { ChatInputCommandInteraction } from 'discord.js';
 const fishJSON = _fishJSON as FishJSON;
 
 export default async function run(
-	interaction: CommandInteraction<'cached'>
+	interaction: ChatInputCommandInteraction<'cached'>
 ) {
 	const { fish } = await getProfile(interaction.user.id);
 	if (!fish.fishInventory.size) {

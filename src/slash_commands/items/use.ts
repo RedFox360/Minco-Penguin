@@ -13,9 +13,11 @@ const use = new SlashCommand()
 					.setName('item')
 					.setDescription('The item to use')
 					.setRequired(true)
-					.addChoice('Lootbox', 'lootbox')
-					.addChoice('Tomato', 'tomato')
-					.addChoice('Banana', 'banana')
+					.addChoices(
+						{ name: 'Lootbox', value: 'lootbox' },
+						{ name: 'Tomato', value: 'tomato' },
+						{ name: 'Banana', value: 'banana' }
+					)
 			)
 	)
 	.setCooldown(12)

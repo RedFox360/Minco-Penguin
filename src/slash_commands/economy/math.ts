@@ -1,4 +1,3 @@
-import { minutesToSeconds } from 'date-fns';
 import { randomInt } from 'mathjs';
 import { getProfile, updateProfile } from '../../functions/models';
 import { SlashCommand } from '../../types';
@@ -23,7 +22,7 @@ const math = new SlashCommand()
 					)
 			)
 	)
-	.setCooldown(minutesToSeconds(7.5))
+	.setCooldown(7.5 * 60)
 	.setRun(async interaction => {
 		const oper = interaction.options.getSubcommand();
 		let num1 = randomInt(1600, 2501);

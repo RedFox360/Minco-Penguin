@@ -1,9 +1,10 @@
 import { randomInt } from 'mathjs';
-import { Biome, FishJSON, RodType, RodJSON } from '../types';
-import fishJSON from '../json/fish.json';
-import _rodInfo from '../json/rod_info.json';
+import { FishJSON, RodJSON } from '../../types';
+import { RodType, Biome } from 'mincomodels/profileSchema/types';
+import fishJSON from '../../json/fish.json';
+import _rodInfo from '../../json/rod_info.json';
 import { Collection } from 'discord.js';
-import fishEmojis from '../functions/fish_emojis';
+import fishEmojis from './fish_emojis';
 const rodInfo = _rodInfo as RodJSON;
 /*
 	STRUCTURING:

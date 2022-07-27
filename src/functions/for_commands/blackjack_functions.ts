@@ -1,4 +1,5 @@
-import { ColorResolvable, MessageEmbed } from 'discord.js';
+import { EmbedBuilder } from 'discord.js';
+import { APIEmbedField } from 'discord.js';
 
 export function isBlackjack(cards: any[]) {
 	if (cards.length !== 2) return;
@@ -95,21 +96,21 @@ export function getEmbed(
 			'Dealer value was not provided when showing dealer.'
 		);
 	}
-	let color: ColorResolvable = '#5DADE2';
+	let color = 0x5dade2;
 	let betOutcome: string;
 	if (winningData) {
 		const { outcomeInts, amount } = winningData;
 		if (amount > 0) {
-			color = '#76d7c4';
+			color = 0x76d7c4;
 			betOutcome = `You won ${amount} MD!`;
 		} else if (amount < 0) {
-			color = '#f1948a';
+			color = 0xf1948a;
 			betOutcome = `You lost ${Math.abs(amount)} MD!`;
 		} else if (amount === 0) {
-			color = '#f7dc6f';
+			color = 0xf7dc6f;
 			betOutcome = `You didn't win anything!`;
 		} else if (outcomeInts.includes(3)) {
-			color = '#f7dc6f';
+			color = 0xf7dc6f;
 			betOutcome = `You won ${amount} MD!`;
 		}
 	}
@@ -131,36 +132,38 @@ export function getEmbed(
 		description += '\n' + formattedOutcome + '\n' + betOutcome;
 	else if (hasMultipleHands)
 		description += `\nCurrently playing on hand ${currentHand + 1}`;
-
-	const embed = new MessageEmbed()
+	// ! TODO: Fix this
+	let fields: APIEmbedField[];
+	if (hasMultipleHands) {
+		fields = playerHands.map((hand, index) => ({
+			name: `Your Hand #${index + 1}`,
+			value: `${displayCards(hand)}
+		
+Value: ${playerValues[index].display}`
+		}));
+	} else {
+		fields = [
+			{
+				name: 'You',
+				value: `${displayCards(playerHands[0])}
+							
+Value: ${playerValues[0].display}`
+			}
+		];
+	}
+	const embed = new EmbedBuilder()
 		.setColor(color)
 		.setTitle(outcome ? 'Blackjack: Game Over' : 'Blackjack')
 		.setDescription(description)
-		.addFields(
-			hasMultipleHands
-				? playerHands.map((hand, index) => ({
-						name: `Your Hand #${index + 1}`,
-						value: `${displayCards(hand)}
-		
-Value: ${playerValues[index].display}`
-				  }))
-				: [
-						{
-							name: 'You',
-							value: `${displayCards(playerHands[0])}
-							
-Value: ${playerValues[0].display}`
-						}
-				  ]
-		)
-		.addField(
-			'Minco Penguin',
-			hideDealer
+		.addFields(...fields)
+		.addFields({
+			name: 'Minco Penguin',
+			value: hideDealer
 				? `${dealer[0].type}${dealer[0].display} |`
 				: `${displayCards(dealer)}
 
 Value: ${dealerValue.display}`
-		);
+		});
 
 	return embed;
 }
